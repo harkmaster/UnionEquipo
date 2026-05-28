@@ -194,11 +194,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="intro-title">🏔 <span>Everest</span></div>
     <p class="intro-sub">Tu equipo tiene 6 días para llegar a la cima. Cada decisión afecta la salud, el clima y las metas individuales. El éxito requiere comunicación, liderazgo real y saber cuándo retirarse.</p>
     <div class="roles-grid">
-      <div class="role-chip r0"><span class="emoji">🧗</span><span class="rname">Líder</span><span class="rperson"></span><div class="rgoal">Llegar a la cima sin importar el costo</div></div>
-      <div class="role-chip r1"><span class="emoji">🏥</span><span class="rname">Médico</span><span class="rperson"></span><div class="rgoal">Que todos regresen con vida</div></div>
-      <div class="role-chip r2"><span class="emoji">📸</span><span class="rname">Fotógrafo</span><span class="rperson"></span><div class="rgoal">Foto en la cima o el proyecto fracasa</div></div>
-      <div class="role-chip r3"><span class="emoji">🔬</span><span class="rname">Científico</span><span class="rperson"></span><div class="rgoal">Recolectar datos en campo 5 y 6</div></div>
-      <div class="role-chip r4"><span class="emoji">💰</span><span class="rname">Sponsor</span><span class="rperson"></span><div class="rgoal">ROI y visibilidad mediática, o retira fondos</div></div>
+      <div class="role-chip r0"><span class="emoji">🧗</span><span class="rname">Líder</span><div class="rgoal">Llegar a la cima sin importar el costo</div></div>
+      <div class="role-chip r1"><span class="emoji">🏥</span><span class="rname">Médico</span><div class="rgoal">Que todos regresen con vida</div></div>
+      <div class="role-chip r2"><span class="emoji">📸</span><span class="rname">Fotógrafo</span><div class="rgoal">Foto en la cima o el proyecto fracasa</div></div>
+      <div class="role-chip r3"><span class="emoji">🔬</span><span class="rname">Científico</span><div class="rgoal">Recolectar datos en campo 5 y 6</div></div>
+      <div class="role-chip r4"><span class="emoji">💰</span><span class="rname">Sponsor</span><div class="rgoal">ROI y visibilidad mediática, o retira fondos</div></div>
     </div>
     <button class="btn-start" onclick="startGame()">Iniciar simulación →</button>
   </div>
@@ -279,11 +279,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 <script>
 const TEAM = [
-  {id:'leader',   emoji:'🧗', name:'John',    role:'Líder — Jefe de expedición',  color:'#1A6B3C', health:100, morale:100},
-  {id:'doctor',   emoji:'🏥', name:'Mariana', role:'Médico — Salud del equipo',   color:'#1A4A8A', health:100, morale:100},
-  {id:'photo',    emoji:'📸', name:'Pedro',   role:'Fotógrafo — Captura de cumbre',color:'#8A5800', health:100, morale:100},
-  {id:'scientist',emoji:'🔬', name:'Cindi',   role:'Científico — Datos en altitud',color:'#6B2A8A', health:100, morale:100},
-  {id:'sponsor',  emoji:'💰', name:'Agustín', role:'Sponsor — Rep. financiero',   color:'#8B2020', health:100, morale:100},
+  {id:'leader',   emoji:'🧗', name:'Líder',      role:'Jefe de expedición',  color:'#1A6B3C', health:100, morale:100},
+  {id:'doctor',   emoji:'🏥', name:'Médico',     role:'Salud del equipo',   color:'#1A4A8A', health:100, morale:100},
+  {id:'photo',    emoji:'📸', name:'Fotógrafo',  role:'Captura de cumbre',color:'#8A5800', health:100, morale:100},
+  {id:'scientist',emoji:'🔬', name:'Científico', role:'Datos en altitud',color:'#6B2A8A', health:100, morale:100},
+  {id:'sponsor',  emoji:'💰', name:'Sponsor',    role:'Rep. financiero',   color:'#8B2020', health:100, morale:100},
 ];
 
 const DAYS = [
@@ -291,11 +291,11 @@ const DAYS = [
     title:'Día 1 — Campo Base',altitude:'5,364 m',
     weather:'good',weatherLabel:'☀ Despejado y cálido',
     scenario:'El equipo llega al campo base tras semanas de aclimatación. El ambiente es de <strong>euforia y nerviosismo</strong>. El pronóstico es favorable, pero los sherpas advierten que la ventana climática podría cerrarse en el día 4.',
-    dilemma:'Agustín presiona para salir mañana al amanecer y ganar tiempo. Mariana recomienda 24 horas más de aclimatación. Pedro quiere hacer un reconocimiento fotográfico hoy.',
+    dilemma:'El Sponsor presiona para salir mañana al amanecer y ganar tiempo. el Médico recomienda 24 horas más de aclimatación. el Fotógrafo quiere hacer un reconocimiento fotográfico hoy.',
     tensions:[
-      {role:'JOHN',text:'¿Salimos mañana y arriesgamos la aclimatación, o esperamos y perdemos la ventana?'},
-      {role:'MARIANA',text:'El equipo no está listo. Una salida apresurada puede causar edema cerebral.'},
-      {role:'AGUSTÍN',text:'Cada día de retraso cuesta $15,000. Necesito resultados visibles.'},
+      {role:'LÍDER',text:'¿Salimos mañana y arriesgamos la aclimatación, o esperamos y perdemos la ventana?'},
+      {role:'MÉDICO',text:'El equipo no está listo. Una salida apresurada puede causar edema cerebral.'},
+      {role:'SPONSOR',text:'Cada día de retraso cuesta $15,000. Necesito resultados visibles.'},
     ],
     outcomes:[
       {label:'Salida temprana',type:'bad',text:'Ahorra 1 día, pero salud −10 en todos.',effect:()=>{applyToAll('health',-10);logEvent('Salida apresurada — AMS leve en equipo','bad')}},
@@ -307,27 +307,27 @@ const DAYS = [
     title:'Día 2 — Campo 1',altitude:'6,065 m',
     weather:'good',weatherLabel:'☀ Viento leve',
     scenario:'El equipo avanza hacia Campo 1. A 6,000m el oxígeno es el <strong>60% del nivel del mar</strong>. Un miembro muestra síntomas de mal de altura: dolor de cabeza severo y vómitos.',
-    dilemma:'Mariana diagnostica AMS moderada en Cindi. Puede seguir con medicación y riesgo, o descender y perder los datos de altitud media.',
+    dilemma:'El Médico diagnostica AMS moderada en el Científico. Puede seguir con medicación y riesgo, o descender y perder los datos de altitud media.',
     tensions:[
-      {role:'CINDI',text:'Mis datos en este campo son críticos. Seguiré con diamox aunque duela.'},
-      {role:'MARIANA',text:'Ignorar esto es irresponsable. Puede empeorar a HACE en 6 horas.'},
-      {role:'JOHN',text:'Decidir ahora. Si bajamos, perdemos 1 día de ventana.'},
+      {role:'CIENTÍFICO',text:'Mis datos en este campo son críticos. Seguiré con diamox aunque duela.'},
+      {role:'MÉDICO',text:'Ignorar esto es irresponsable. Puede empeorar a HACE en 6 horas.'},
+      {role:'LÍDER',text:'Decidir ahora. Si bajamos, perdemos 1 día de ventana.'},
     ],
     outcomes:[
-      {label:'Cindi descansa en C1',type:'good',text:'Se recupera. Pierde datos parciales.',effect:()=>{applyOne('scientist','health',15);applyToAll('morale',5);logEvent('Cindi descansa. Moral +5 equipo','good')}},
-      {label:'Continúa con medicación',type:'bad',text:'Avanza pero salud −20.',effect:()=>{applyOne('scientist','health',-20);logEvent('Cindi fuerza ascenso. Riesgo HACE','bad')}},
+      {label:'Científico descansa en C1',type:'good',text:'Se recupera. Pierde datos parciales.',effect:()=>{applyOne('scientist','health',15);applyToAll('morale',5);logEvent('Científico descansa. Moral +5 equipo','good')}},
+      {label:'Continúa con medicación',type:'bad',text:'Avanza pero salud −20.',effect:()=>{applyOne('scientist','health',-20);logEvent('Científico fuerza ascenso. Riesgo HACE','bad')}},
     ],
     markerX:180,markerY:50,markerLabel:'C1 6,065m'
   },
   {
     title:'Día 3 — Campo 2',altitude:'6,500 m',
     weather:'warn',weatherLabel:'⛅ Nubes altas — posible tormenta en 48h',
-    scenario:'El equipo llega a Campo 2 con desgaste visible. Pedro recibe un mensaje de su agencia: sin fotos de campo 4 y cumbre, el contrato se cancela. John detecta tensión entre Mariana y Agustín.',
+    scenario:'El equipo llega a Campo 2 con desgaste visible. El Fotógrafo recibe un mensaje de su agencia: sin fotos de campo 4 y cumbre, el contrato se cancela. el Líder detecta tensión entre el Médico y el Sponsor.',
     dilemma:'El pronóstico muestra tormenta en 48 horas. Si no llegan al Campo 3 mañana, la ventana se cierra. El estado físico del equipo está al límite.',
     tensions:[
-      {role:'PEDRO',text:'Necesito imágenes del campo 4. Sin ellas mi carrera termina.'},
-      {role:'AGUSTÍN',text:'Si la tormenta cancela la cumbre, retiro los fondos. Decídanse.'},
-      {role:'MARIANA',text:'Estamos al límite fisiológico. Forzar esto puede matar a alguien.'},
+      {role:'FOTÓGRAFO',text:'Necesito imágenes del campo 4. Sin ellas mi carrera termina.'},
+      {role:'SPONSOR',text:'Si la tormenta cancela la cumbre, retiro los fondos. Decídanse.'},
+      {role:'MÉDICO',text:'Estamos al límite fisiológico. Forzar esto puede matar a alguien.'},
     ],
     outcomes:[
       {label:'Push hacia C3',type:'bad',text:'Avanzan. Salud −15 todos. Moral +5.',effect:()=>{applyToAll('health',-15);applyToAll('morale',5);logEvent('Push a C3. Desgaste alto','bad')}},
@@ -339,14 +339,14 @@ const DAYS = [
     title:'Día 4 — Campo 3',altitude:'7,162 m',
     weather:'warn',weatherLabel:'🌬 Viento fuerte — ventana estrecha',
     scenario:'A 7,162m el equipo entra en la <strong>zona de muerte funcional</strong>. El cuerpo no se recupera a esta altitud. El oxígeno suplementario es limitado. Hay que decidir quiénes van a cumbre.',
-    dilemma:'Solo hay oxígeno para 3 personas en cumbre. Deben elegir. Agustín exige estar en la foto. Mariana dice que debe gestionar el descenso. Cindi necesita llegar para sus datos.',
+    dilemma:'Solo hay oxígeno para 3 personas en cumbre. Deben elegir. El Sponsor exige estar en la foto. el Médico dice que debe gestionar el descenso. el Científico necesita llegar para sus datos.',
     tensions:[
-      {role:'AGUSTÍN',text:'El contrato dice que el sponsor sube. Punto.'},
-      {role:'MARIANA',text:'Desde aquí mi rol es el descenso seguro. No debería subir.'},
-      {role:'JOHN',text:'Debo elegir: misión o personas. ¿Quién sube?'},
+      {role:'SPONSOR',text:'El contrato dice que el sponsor sube. Punto.'},
+      {role:'MÉDICO',text:'Desde aquí mi rol es el descenso seguro. No debería subir.'},
+      {role:'LÍDER',text:'Debo elegir: misión o personas. ¿Quién sube?'},
     ],
     outcomes:[
-      {label:'Subgrupo técnico sube',type:'good',text:'John + Pedro + Cindi a cumbre.',effect:()=>{logEvent('Subgrupo técnico a cumbre. Agustín frustrado','good');applyOne('sponsor','morale',-20)}},
+      {label:'Subgrupo técnico sube',type:'good',text:'Líder + Fotógrafo + Científico a cumbre.',effect:()=>{logEvent('Subgrupo técnico a cumbre. Sponsor frustrado','good');applyOne('sponsor','morale',-20)}},
       {label:'Todos intentan cumbre',type:'bad',text:'Oxígeno insuficiente. Riesgo crítico.',effect:()=>{applyToAll('health',-25);logEvent('Sobrecarga de O₂ — todos en riesgo','bad')}},
     ],
     markerX:420,markerY:16,markerLabel:'C3 7,162m'
@@ -354,12 +354,12 @@ const DAYS = [
   {
     title:'Día 5 — Intento de cumbre',altitude:'8,849 m',
     weather:'bad',weatherLabel:'❄ Tormenta inminente en 4 horas',
-    scenario:'El equipo de cumbre sale a las 2am. A las 10am están a 200m de la cima. <strong>La tormenta llega antes de lo previsto.</strong> Pedro quiere 20 minutos más para la toma perfecta. John sabe que retrasarse puede ser fatal.',
-    dilemma:'Con tormenta a 4 horas, esperar 20 minutos podría costar vidas en el descenso. Pedro argumenta que para eso están aquí. ¿Liderazgo o consenso?',
+    scenario:'El equipo de cumbre sale a las 2am. A las 10am están a 200m de la cima. <strong>La tormenta llega antes de lo previsto.</strong> El Fotógrafo quiere 20 minutos más para la toma perfecta. el Líder sabe que retrasarse puede ser fatal.',
+    dilemma:'Con tormenta a 4 horas, esperar 20 minutos podría costar vidas en el descenso. el Fotógrafo argumenta que para eso están aquí. ¿Liderazgo o consenso?',
     tensions:[
-      {role:'PEDRO',text:'Estamos a 200 metros. No me pidan que me rinda ahora.'},
-      {role:'JOHN',text:'Si esperamos 20 minutos, el descenso con tormenta nos mata.'},
-      {role:'CINDI',text:'Mis instrumentos ya recopilaron datos. Puedo bajar. ¿Y los demás?'},
+      {role:'FOTÓGRAFO',text:'Estamos a 200 metros. No me pidan que me rinda ahora.'},
+      {role:'LÍDER',text:'Si esperamos 20 minutos, el descenso con tormenta nos mata.'},
+      {role:'CIENTÍFICO',text:'Mis instrumentos ya recopilaron datos. Puedo bajar. ¿Y los demás?'},
     ],
     outcomes:[
       {label:'Descenso inmediato',type:'good',text:'Equipo salvo. Sin foto de cumbre.',effect:()=>{applyToAll('health',5);logEvent('Descenso seguro antes de tormenta','good');applyOne('photo','morale',-30)}},
@@ -373,9 +373,9 @@ const DAYS = [
     scenario:'El equipo desciende. Algunos están al límite físico. Un miembro no puede caminar sin asistencia. Los sherpas piden una decisión: ¿esperan rescate (6h) o bajan todos juntos más lento?',
     dilemma:'Esperar el rescate en altura con un miembro herido es riesgo alto. Bajar juntos son 8h de exposición. Separarse es abandonar a alguien.',
     tensions:[
-      {role:'MARIANA',text:'El paciente no puede más. Necesita evacuación. No lo muevan sin apoyo.'},
-      {role:'JOHN',text:'Separarnos en descenso va contra todos los protocolos de montaña.'},
-      {role:'AGUSTÍN',text:'Esto se tiene que resolver hoy. Tengo rueda de prensa mañana.'},
+      {role:'MÉDICO',text:'El paciente no puede más. Necesita evacuación. No lo muevan sin apoyo.'},
+      {role:'LÍDER',text:'Separarnos en descenso va contra todos los protocolos de montaña.'},
+      {role:'SPONSOR',text:'Esto se tiene que resolver hoy. Tengo rueda de prensa mañana.'},
     ],
     outcomes:[
       {label:'Esperar rescate juntos',type:'good',text:'Seguro. Llegan al día siguiente.',effect:()=>{applyToAll('health',10);applyToAll('morale',10);logEvent('Rescate exitoso. Equipo completo a salvo','good')}},
@@ -387,8 +387,8 @@ const DAYS = [
 
 const EVENTS = {
   storm:{title:'⛈ Tormenta repentina',body:'Una tormenta imprevista reduce la visibilidad a 5 metros. El equipo tiene 10 minutos para decidir si acampa o fuerza el descenso. Moral −10, salud −5 en todos.',effect:()=>{applyToAll('health',-5);applyToAll('morale',-10);logEvent('EVENTO: Tormenta repentina','bad')}},
-  injury:{title:'🩹 Lesión grave',body:'John sufre una caída con posible fractura de tobillo. No puede caminar sin asistencia. El equipo debe redistribuir el peso y decidir si continúa o evacúa.',effect:()=>{applyOne('leader','health',-30);logEvent('EVENTO: John lesionado en campo','bad')}},
-  oxygen:{title:'💨 Falla de oxígeno',body:'El regulador de Pedro falla. Queda sin O₂ suplementario en zona de muerte. Deben compartir o enviarlo de regreso.',effect:()=>{applyOne('photo','health',-20);logEvent('EVENTO: Falla O₂ en Pedro','bad')}},
+  injury:{title:'🩹 Lesión grave',body:'El Líder sufre una caída con posible fractura de tobillo. No puede caminar sin asistencia. El equipo debe redistribuir el peso y decidir si continúa o evacúa.',effect:()=>{applyOne('leader','health',-30);logEvent('EVENTO: Líder lesionado en campo','bad')}},
+  oxygen:{title:'💨 Falla de oxígeno',body:'El regulador del Fotógrafo falla. Queda sin O₂ suplementario en zona de muerte. Deben compartir o enviarlo de regreso.',effect:()=>{applyOne('photo','health',-20);logEvent('EVENTO: Falla O₂ — Fotógrafo','bad')}},
   rescue:{title:'🚁 Oferta de rescate',body:'Un helicóptero de rescate está disponible por 2 horas. Pueden evacuar hasta 2 personas, pero los demás deben completar el descenso solos.',effect:()=>{logEvent('EVENTO: Rescate disponible — decisión del equipo','good')}},
   death_zone:{title:'☠ Alerta zona de muerte',body:'El equipo lleva 18 horas en zona de muerte. Cada hora adicional reduce la capacidad cognitiva un 15%. Deben bajar AHORA o asumir decisiones irracionales.',effect:()=>{applyToAll('health',-15);applyToAll('morale',-15);logEvent('EVENTO: Tiempo crítico en zona de muerte','bad')}},
 };
@@ -489,7 +489,6 @@ function endGame(){
   const ok=avgH>=50&&avgM>=40;
   document.getElementById('final-title').textContent=ok?'🏔 Misión completada':'⛰ Expedición terminada';
   document.getElementById('final-sub').textContent=ok
-    ?`El equipo llegó a la cima y regresó con vida. Salud media: ${avgH}% · Moral: ${avgM}%. Eso es liderazgo real.`
     ?`El equipo llegó a la cima y regresó con vida. Salud media: ${avgH}% · Moral: ${avgM}%. Eso es liderazgo real.`
     :`La expedición concluyó pero el equipo pagó un precio alto. Salud: ${avgH}% · Moral: ${avgM}%. ¿Qué falló?`;
   document.getElementById('final-scores').innerHTML=TEAM.map(m=>`
