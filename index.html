@@ -5,237 +5,225 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Everest — Simulación de Liderazgo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0A0E0D;
-  --surface:#111614;
-  --surface2:#181E1C;
-  --surface3:#1F2825;
-  --border:rgba(255,255,255,0.08);
-  --border2:rgba(255,255,255,0.14);
-  --text:#E8EDE8;
-  --text-muted:#8A9A8A;
-  --text-faint:#506050;
-  --accent:#3DFF8F;
-  --accent-dim:rgba(61,255,143,0.12);
-  --accent-dim2:rgba(61,255,143,0.06);
-  --warn:#FFB830;
-  --warn-dim:rgba(255,184,48,0.12);
-  --danger:#FF4D4D;
-  --danger-dim:rgba(255,77,77,0.12);
-  --info:#4DB8FF;
-  --info-dim:rgba(77,184,255,0.12);
-  --radius:8px;
-  --radius-lg:14px;
+  --bg:#F4F1EC;
+  --surface:#FFFFFF;
+  --surface2:#EDE9E2;
+  --surface3:#E4DFD6;
+  --border:rgba(60,50,30,0.10);
+  --border2:rgba(60,50,30,0.18);
+  --text:#1E1A14;
+  --text-muted:#6B6050;
+  --text-faint:#A09880;
+  --accent:#1A6B3C;
+  --accent-light:#E2F0E8;
+  --accent-mid:#2E9E5A;
+  --warn:#8A5800;
+  --warn-bg:#FFF3DC;
+  --warn-mid:#C47F00;
+  --danger:#8B2020;
+  --danger-bg:#FDEAEA;
+  --danger-mid:#C03030;
+  --info:#1A4A8A;
+  --info-bg:#E6EEFA;
+  --radius:10px;
+  --radius-lg:16px;
 }
-body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;font-size:15px;}
 
-/* ── SCREENS ── */
 .screen{display:none;min-height:100vh;}
 .screen.active{display:flex;flex-direction:column;}
 
-/* ── INTRO SCREEN ── */
-#screen-intro{align-items:center;justify-content:center;padding:2rem;background:radial-gradient(ellipse at 50% 0%,rgba(61,255,143,0.06) 0%,transparent 60%);}
-.intro-inner{max-width:600px;width:100%;text-align:center;}
-.brand{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--accent);margin-bottom:2rem;opacity:0.7;}
-.intro-title{font-size:clamp(2.5rem,7vw,5rem);font-weight:600;line-height:1.0;margin-bottom:1rem;background:linear-gradient(135deg,#E8EDE8 0%,#3DFF8F 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.intro-sub{font-size:16px;color:var(--text-muted);line-height:1.6;margin-bottom:2.5rem;max-width:480px;margin-left:auto;margin-right:auto;}
-.roles-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:2.5rem;}
-.role-chip{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 6px;text-align:center;}
-.role-chip .emoji{font-size:20px;display:block;margin-bottom:4px;}
-.role-chip .rname{font-size:10px;color:var(--text-muted);letter-spacing:0.04em;}
-.role-chip .rgoal{font-size:9px;color:var(--text-faint);margin-top:3px;line-height:1.3;}
-.btn-start{background:var(--accent);color:#020A04;font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;border:none;padding:14px 36px;border-radius:var(--radius);cursor:pointer;letter-spacing:0.02em;transition:all 0.2s;}
-.btn-start:hover{background:#5DFFAA;transform:translateY(-1px);}
+/* ── INTRO ── */
+#screen-intro{align-items:center;justify-content:center;padding:2.5rem 1.5rem;}
+.intro-inner{max-width:680px;width:100%;text-align:center;}
+.brand{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.14em;color:var(--accent);margin-bottom:1.5rem;opacity:0.8;text-transform:uppercase;}
+.intro-title{font-size:clamp(3rem,8vw,5.5rem);font-weight:600;line-height:1.0;margin-bottom:1rem;color:var(--text);}
+.intro-title span{color:var(--accent);}
+.intro-sub{font-size:17px;color:var(--text-muted);line-height:1.7;margin-bottom:2.5rem;max-width:520px;margin-left:auto;margin-right:auto;}
 
-/* ── GAME SCREEN ── */
+.roles-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:2.5rem;}
+.role-chip{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:18px 10px;text-align:center;border-top:4px solid var(--border2);}
+.role-chip.r0{border-top-color:#1A6B3C;}
+.role-chip.r1{border-top-color:#1A4A8A;}
+.role-chip.r2{border-top-color:#8A5800;}
+.role-chip.r3{border-top-color:#6B2A8A;}
+.role-chip.r4{border-top-color:#8B2020;}
+.role-chip .emoji{font-size:28px;display:block;margin-bottom:8px;}
+.role-chip .rname{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px;}
+.role-chip .rperson{font-size:12px;color:var(--accent);font-weight:500;margin-bottom:4px;display:block;}
+.role-chip .rgoal{font-size:11px;color:var(--text-muted);line-height:1.4;}
+
+.btn-start{background:var(--accent);color:#fff;font-family:'DM Sans',sans-serif;font-size:17px;font-weight:600;border:none;padding:16px 40px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;}
+.btn-start:hover{background:#13512E;transform:translateY(-1px);}
+
+/* ── GAME ── */
 #screen-game{flex-direction:column;}
 
-/* Top bar */
-.topbar{display:flex;align-items:center;gap:16px;padding:12px 20px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;}
-.topbar-title{font-size:13px;font-weight:600;letter-spacing:0.06em;color:var(--accent);text-transform:uppercase;margin-right:auto;}
-.day-indicator{display:flex;gap:6px;align-items:center;}
-.day-dot{width:10px;height:10px;border-radius:50%;background:var(--surface3);border:1px solid var(--border2);transition:all 0.4s;}
-.day-dot.done{background:var(--accent);border-color:var(--accent);box-shadow:0 0 8px rgba(61,255,143,0.5);}
-.day-dot.current{background:var(--warn);border-color:var(--warn);box-shadow:0 0 8px rgba(255,184,48,0.5);}
-.clock{font-family:'Space Mono',monospace;font-size:13px;color:var(--warn);min-width:48px;text-align:right;}
+.topbar{display:flex;align-items:center;gap:16px;padding:14px 24px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;}
+.topbar-title{font-size:16px;font-weight:600;color:var(--accent);margin-right:auto;}
+.day-indicator{display:flex;gap:8px;align-items:center;}
+.day-dot{width:12px;height:12px;border-radius:50%;background:var(--surface2);border:1.5px solid var(--border2);transition:all 0.4s;}
+.day-dot.done{background:var(--accent);border-color:var(--accent);}
+.day-dot.current{background:var(--warn-mid);border-color:var(--warn-mid);}
+.clock{font-family:'DM Mono',monospace;font-size:15px;color:var(--warn);min-width:52px;text-align:right;font-weight:500;}
 
-/* Main layout */
-.game-body{flex:1;display:grid;grid-template-columns:260px 1fr 240px;gap:0;overflow:hidden;}
+.game-body{flex:1;display:grid;grid-template-columns:280px 1fr 260px;gap:0;overflow:hidden;}
 
-/* ── LEFT PANEL: Team ── */
-.panel-left{background:var(--surface);border-right:1px solid var(--border);padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;}
-.panel-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:8px;}
+/* LEFT */
+.panel-left{background:var(--surface);border-right:1px solid var(--border);padding:18px;overflow-y:auto;}
+.panel-label{font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-faint);margin-bottom:10px;font-weight:500;}
 
-.member-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:12px;}
-.member-header{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
-.member-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
-.member-name{font-size:13px;font-weight:500;}
-.member-role{font-size:10px;color:var(--text-faint);}
-.stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
-.stat-label{font-size:10px;color:var(--text-muted);}
-.stat-bar{flex:1;height:4px;background:var(--surface3);border-radius:2px;margin:0 8px;overflow:hidden;}
-.stat-fill{height:100%;border-radius:2px;transition:width 0.5s;}
-.stat-val{font-family:'Space Mono',monospace;font-size:10px;min-width:24px;text-align:right;}
-.fill-health{background:var(--accent);}
+.member-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;}
+.member-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.member-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.member-name{font-size:14px;font-weight:600;color:var(--text);}
+.member-role{font-size:11px;color:var(--text-faint);}
+.stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}
+.stat-label{font-size:11px;color:var(--text-muted);min-width:40px;}
+.stat-bar{flex:1;height:5px;background:var(--surface3);border-radius:3px;margin:0 10px;overflow:hidden;}
+.stat-fill{height:100%;border-radius:3px;transition:width 0.5s;}
+.stat-val{font-family:'DM Mono',monospace;font-size:11px;min-width:28px;text-align:right;font-weight:500;}
+.fill-health{background:var(--accent-mid);}
 .fill-morale{background:var(--info);}
-.fill-health.low{background:var(--danger);}
-.fill-health.mid{background:var(--warn);}
+.fill-health.low{background:var(--danger-mid);}
+.fill-health.mid{background:var(--warn-mid);}
 
-/* ── CENTER PANEL: Day ── */
+/* CENTER */
 .panel-center{display:flex;flex-direction:column;overflow:hidden;}
-.mountain-viz{flex-shrink:0;padding:16px 20px 0;display:flex;align-items:flex-end;gap:0;height:100px;position:relative;}
-.mountain-svg{width:100%;height:100px;}
+.mountain-svg{width:100%;height:90px;flex-shrink:0;}
 
-.day-content{flex:1;overflow-y:auto;padding:20px;}
-.day-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;}
-.day-title{font-size:22px;font-weight:600;}
-.day-meta{font-size:12px;color:var(--text-muted);line-height:1.5;text-align:right;}
-.weather-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:500;margin-bottom:16px;}
-.weather-good{background:var(--accent-dim);color:var(--accent);border:1px solid rgba(61,255,143,0.2);}
-.weather-warn{background:var(--warn-dim);color:var(--warn);border:1px solid rgba(255,184,48,0.2);}
-.weather-bad{background:var(--danger-dim);color:var(--danger);border:1px solid rgba(255,77,77,0.2);}
+.day-content{flex:1;overflow-y:auto;padding:22px 24px;}
+.day-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}
+.day-title{font-size:24px;font-weight:600;color:var(--text);}
+.day-meta{font-size:13px;color:var(--text-muted);line-height:1.5;text-align:right;}
+.weather-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:999px;font-size:13px;font-weight:500;margin-bottom:16px;}
+.weather-good{background:var(--accent-light);color:var(--accent);border:1px solid rgba(26,107,60,0.2);}
+.weather-warn{background:var(--warn-bg);color:var(--warn);border:1px solid rgba(138,88,0,0.2);}
+.weather-bad{background:var(--danger-bg);color:var(--danger);border:1px solid rgba(139,32,32,0.2);}
 
-.scenario-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;margin-bottom:16px;line-height:1.7;font-size:14px;color:var(--text-muted);}
+.scenario-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;margin-bottom:16px;line-height:1.75;font-size:15px;color:var(--text-muted);}
 .scenario-box strong{color:var(--text);}
 
-.dilemma-box{background:var(--surface3);border:1px solid var(--border2);border-left:3px solid var(--warn);border-radius:0 var(--radius) var(--radius) 0;padding:14px 16px;margin-bottom:16px;}
-.dilemma-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--warn);margin-bottom:6px;}
-.dilemma-text{font-size:14px;line-height:1.6;color:var(--text);}
+.dilemma-box{background:var(--warn-bg);border:1px solid rgba(138,88,0,0.18);border-left:4px solid var(--warn-mid);border-radius:0 var(--radius) var(--radius) 0;padding:16px 18px;margin-bottom:16px;}
+.dilemma-label{font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:var(--warn);margin-bottom:6px;font-weight:600;}
+.dilemma-text{font-size:15px;line-height:1.65;color:var(--text);}
 
-.tensions-section{margin-bottom:16px;}
-.tension-item{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--text-muted);line-height:1.5;}
+.tensions-section{margin-bottom:18px;}
+.tension-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--text-muted);line-height:1.55;}
 .tension-item:last-child{border-bottom:none;}
-.tension-role{font-size:10px;font-weight:600;letter-spacing:0.06em;color:var(--accent);white-space:nowrap;margin-top:1px;}
+.tension-role{font-size:10px;font-weight:700;letter-spacing:0.07em;color:var(--accent);white-space:nowrap;margin-top:2px;background:var(--accent-light);padding:2px 7px;border-radius:4px;}
 
-/* Outcome buttons */
-.outcome-section{margin-top:auto;}
-.outcome-label{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-faint);margin-bottom:10px;}
-.outcomes-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
-.outcome-btn{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:12px;cursor:pointer;text-align:left;transition:all 0.15s;font-family:'Space Grotesk',sans-serif;}
-.outcome-btn:hover{border-color:var(--border2);background:var(--surface3);}
-.outcome-btn.good:hover{border-color:rgba(61,255,143,0.3);background:var(--accent-dim2);}
-.outcome-btn.bad:hover{border-color:rgba(255,77,77,0.3);background:var(--danger-dim);}
-.outcome-btn .ob-label{font-size:11px;font-weight:600;margin-bottom:4px;}
+.outcome-label{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px;font-weight:500;}
+.outcomes-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.outcome-btn{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;cursor:pointer;text-align:left;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
+.outcome-btn:hover{border-color:var(--border2);background:var(--surface2);}
+.outcome-btn.good:hover{border-color:rgba(26,107,60,0.35);background:var(--accent-light);}
+.outcome-btn.bad:hover{border-color:rgba(139,32,32,0.35);background:var(--danger-bg);}
+.outcome-btn .ob-label{font-size:13px;font-weight:600;margin-bottom:5px;}
 .outcome-btn.good .ob-label{color:var(--accent);}
 .outcome-btn.bad .ob-label{color:var(--danger);}
-.outcome-btn .ob-text{font-size:12px;color:var(--text-muted);line-height:1.4;}
-.btn-next{width:100%;background:transparent;border:1px solid var(--accent);color:var(--accent);font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;padding:12px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;letter-spacing:0.04em;}
-.btn-next:hover{background:var(--accent);color:#020A04;}
+.outcome-btn .ob-text{font-size:13px;color:var(--text-muted);line-height:1.4;}
+.btn-next{width:100%;background:var(--accent);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:14px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;opacity:0.35;pointer-events:none;}
+.btn-next:not(:disabled){opacity:1;pointer-events:auto;}
+.btn-next:not(:disabled):hover{background:#13512E;}
 
-/* ── RIGHT PANEL: Status ── */
-.panel-right{background:var(--surface);border-left:1px solid var(--border);padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:16px;}
-
-.status-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:12px;}
-.status-block .panel-label{margin-bottom:10px;}
-
-.resource-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+/* RIGHT */
+.panel-right{background:var(--surface);border-left:1px solid var(--border);padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:16px;}
+.status-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;}
+.resource-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;}
 .resource-row:last-child{margin-bottom:0;}
-.res-name{font-size:12px;color:var(--text-muted);}
-.res-val{font-family:'Space Mono',monospace;font-size:13px;font-weight:400;}
+.res-name{font-size:13px;color:var(--text-muted);}
+.res-val{font-family:'DM Mono',monospace;font-size:14px;font-weight:500;}
 .res-val.good{color:var(--accent);}
 .res-val.warn{color:var(--warn);}
 .res-val.bad{color:var(--danger);}
 
-.event-log{display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto;}
-.log-item{font-size:11px;color:var(--text-faint);padding:6px 8px;background:var(--surface3);border-radius:6px;line-height:1.4;}
-.log-item .log-day{color:var(--accent);font-weight:600;margin-right:4px;}
-.log-item.bad{color:var(--danger);background:var(--danger-dim);}
-.log-item.good{color:var(--accent);background:var(--accent-dim2);}
+.event-log{display:flex;flex-direction:column;gap:6px;max-height:160px;overflow-y:auto;}
+.log-item{font-size:12px;color:var(--text-faint);padding:7px 10px;background:var(--surface3);border-radius:6px;line-height:1.4;}
+.log-item .log-day{color:var(--accent);font-weight:700;margin-right:5px;}
+.log-item.bad{color:var(--danger);background:var(--danger-bg);}
+.log-item.good{color:var(--accent);background:var(--accent-light);}
 
-.facilitator-tools{display:flex;flex-direction:column;gap:6px;}
-.fac-btn{background:var(--surface3);border:1px solid var(--border);color:var(--text-muted);font-family:'Space Grotesk',sans-serif;font-size:11px;padding:8px 10px;border-radius:var(--radius);cursor:pointer;text-align:left;transition:all 0.15s;letter-spacing:0.02em;}
-.fac-btn:hover{border-color:var(--border2);color:var(--text);}
-.fac-btn.warn-btn:hover{border-color:rgba(255,184,48,0.4);color:var(--warn);background:var(--warn-dim);}
-.fac-btn.danger-btn:hover{border-color:rgba(255,77,77,0.4);color:var(--danger);background:var(--danger-dim);}
+.facilitator-tools{display:flex;flex-direction:column;gap:7px;}
+.fac-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);font-family:'DM Sans',sans-serif;font-size:13px;padding:10px 12px;border-radius:var(--radius);cursor:pointer;text-align:left;transition:all 0.15s;}
+.fac-btn:hover{border-color:var(--border2);color:var(--text);background:var(--surface3);}
+.fac-btn.warn-btn:hover{border-color:rgba(138,88,0,0.4);color:var(--warn);background:var(--warn-bg);}
+.fac-btn.danger-btn:hover{border-color:rgba(139,32,32,0.4);color:var(--danger);background:var(--danger-bg);}
 
-/* ── FINAL SCREEN ── */
-#screen-final{align-items:center;justify-content:center;padding:2rem;background:radial-gradient(ellipse at 50% 50%,rgba(61,255,143,0.05) 0%,transparent 60%);}
-.final-inner{max-width:640px;width:100%;text-align:center;}
-.final-title{font-size:clamp(2rem,6vw,4rem);font-weight:600;margin-bottom:8px;}
-.final-sub{font-size:16px;color:var(--text-muted);margin-bottom:2rem;line-height:1.6;}
+/* FINAL */
+#screen-final{align-items:center;justify-content:center;padding:2.5rem 1.5rem;}
+.final-inner{max-width:680px;width:100%;text-align:center;}
+.final-title{font-size:clamp(2.2rem,6vw,4rem);font-weight:600;margin-bottom:10px;color:var(--text);}
+.final-sub{font-size:17px;color:var(--text-muted);margin-bottom:2rem;line-height:1.65;}
 .final-scores{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:2rem;}
-.fscore-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 8px;text-align:center;}
-.fscore-emoji{font-size:22px;margin-bottom:6px;}
-.fscore-name{font-size:10px;color:var(--text-faint);margin-bottom:6px;letter-spacing:0.04em;}
-.fscore-val{font-family:'Space Mono',monospace;font-size:16px;}
-.debrief-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;text-align:left;margin-bottom:1.5rem;}
-.debrief-box h3{font-size:14px;font-weight:600;color:var(--accent);margin-bottom:12px;letter-spacing:0.06em;text-transform:uppercase;}
-.debrief-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
-.debrief-list li{font-size:13px;color:var(--text-muted);line-height:1.5;padding-left:16px;position:relative;}
+.fscore-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 8px;text-align:center;}
+.fscore-emoji{font-size:24px;margin-bottom:6px;}
+.fscore-name{font-size:11px;color:var(--text-faint);margin-bottom:6px;}
+.fscore-val{font-family:'DM Mono',monospace;font-size:17px;font-weight:500;}
+.debrief-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;text-align:left;margin-bottom:1.5rem;}
+.debrief-box h3{font-size:15px;font-weight:600;color:var(--accent);margin-bottom:14px;text-transform:uppercase;letter-spacing:0.06em;}
+.debrief-list{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.debrief-list li{font-size:14px;color:var(--text-muted);line-height:1.55;padding-left:18px;position:relative;}
 .debrief-list li::before{content:'→';position:absolute;left:0;color:var(--text-faint);}
-.btn-restart{background:transparent;border:1px solid var(--border2);color:var(--text-muted);font-family:'Space Grotesk',sans-serif;font-size:14px;padding:10px 24px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;}
+.btn-restart{background:transparent;border:1.5px solid var(--border2);color:var(--text-muted);font-family:'DM Sans',sans-serif;font-size:15px;padding:12px 28px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;}
 .btn-restart:hover{border-color:var(--accent);color:var(--accent);}
 
-/* ── MODAL ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);display:none;align-items:center;justify-content:center;z-index:100;padding:1rem;}
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(30,26,20,0.55);display:none;align-items:center;justify-content:center;z-index:100;padding:1rem;}
 .modal-overlay.open{display:flex;}
-.modal{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:24px;max-width:420px;width:100%;}
-.modal h3{font-size:18px;font-weight:600;margin-bottom:8px;}
-.modal p{font-size:14px;color:var(--text-muted);line-height:1.6;margin-bottom:20px;}
-.modal-btn{background:var(--accent);color:#020A04;border:none;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;padding:10px 24px;border-radius:var(--radius);cursor:pointer;width:100%;}
-.modal-btn:hover{background:#5DFFAA;}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:28px;max-width:440px;width:100%;}
+.modal h3{font-size:20px;font-weight:600;margin-bottom:10px;color:var(--text);}
+.modal p{font-size:15px;color:var(--text-muted);line-height:1.65;margin-bottom:22px;}
+.modal-btn{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:12px 24px;border-radius:var(--radius);cursor:pointer;width:100%;}
+.modal-btn:hover{background:#13512E;}
 
-/* Timer urgency */
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 .clock.urgent{animation:pulse 1s ease-in-out infinite;color:var(--danger);}
 </style>
 </head>
 <body>
 
-<!-- ───────── INTRO ───────── -->
+<!-- INTRO -->
 <div class="screen active" id="screen-intro">
   <div class="intro-inner">
-    <div class="brand">SIMULACIÓN · LIDERAZGO · TRABAJO EN EQUIPO</div>
-    <div class="intro-title">Everest</div>
-    <p class="intro-sub">Tu equipo tiene 6 días para llegar a la cima. Cada decisión afecta la salud, el clima y las metas de cada integrante. El éxito requiere comunicación, liderazgo y saber cuándo retirarse.</p>
+    <div class="brand">Simulación · Liderazgo · Trabajo en equipo</div>
+    <div class="intro-title">🏔 <span>Everest</span></div>
+    <p class="intro-sub">Tu equipo tiene 6 días para llegar a la cima. Cada decisión afecta la salud, el clima y las metas individuales. El éxito requiere comunicación, liderazgo real y saber cuándo retirarse.</p>
     <div class="roles-grid">
-      <div class="role-chip"><span class="emoji">🧗</span><div class="rname">Líder</div><div class="rgoal">Meta: cima a toda costa</div></div>
-      <div class="role-chip"><span class="emoji">🏥</span><div class="rname">Médico</div><div class="rgoal">Meta: salud del equipo</div></div>
-      <div class="role-chip"><span class="emoji">📸</span><div class="rname">Fotógrafo</div><div class="rgoal">Meta: toma cumbre</div></div>
-      <div class="role-chip"><span class="emoji">🔬</span><div class="rname">Científico</div><div class="rgoal">Meta: datos en altitud</div></div>
-      <div class="role-chip"><span class="emoji">💰</span><div class="rname">Sponsor</div><div class="rgoal">Meta: ROI + visibilidad</div></div>
+      <div class="role-chip r0"><span class="emoji">🧗</span><span class="rname">Líder</span><span class="rperson"></span><div class="rgoal">Llegar a la cima sin importar el costo</div></div>
+      <div class="role-chip r1"><span class="emoji">🏥</span><span class="rname">Médico</span><span class="rperson"></span><div class="rgoal">Que todos regresen con vida</div></div>
+      <div class="role-chip r2"><span class="emoji">📸</span><span class="rname">Fotógrafo</span><span class="rperson"></span><div class="rgoal">Foto en la cima o el proyecto fracasa</div></div>
+      <div class="role-chip r3"><span class="emoji">🔬</span><span class="rname">Científico</span><span class="rperson"></span><div class="rgoal">Recolectar datos en campo 5 y 6</div></div>
+      <div class="role-chip r4"><span class="emoji">💰</span><span class="rname">Sponsor</span><span class="rperson"></span><div class="rgoal">ROI y visibilidad mediática, o retira fondos</div></div>
     </div>
     <button class="btn-start" onclick="startGame()">Iniciar simulación →</button>
   </div>
 </div>
 
-<!-- ───────── GAME ───────── -->
+<!-- GAME -->
 <div class="screen" id="screen-game">
   <div class="topbar">
-    <span class="topbar-title">🏔 Everest</span>
+    <span class="topbar-title">🏔 Everest — Simulación de Liderazgo</span>
     <div class="day-indicator" id="day-dots"></div>
-    <span class="clock" id="clock">7:00</span>
+    <span class="clock" id="clock">60:00</span>
   </div>
   <div class="game-body">
-
-    <!-- LEFT: Team -->
     <div class="panel-left">
-      <div>
-        <div class="panel-label">Estado del equipo</div>
-        <div id="team-cards"></div>
-      </div>
+      <div class="panel-label">Estado del equipo</div>
+      <div id="team-cards"></div>
     </div>
-
-    <!-- CENTER: Day content -->
     <div class="panel-center">
-      <svg class="mountain-svg" viewBox="0 0 700 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="mtnGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#3DFF8F" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="#3DFF8F" stop-opacity="0.02"/>
-          </linearGradient>
-        </defs>
-        <polygon points="0,100 200,20 350,5 500,30 700,100" fill="url(#mtnGrad)" stroke="rgba(61,255,143,0.2)" stroke-width="1"/>
-        <circle id="team-marker" cx="50" cy="95" r="6" fill="#3DFF8F" opacity="0.9"/>
-        <text id="marker-label" x="50" y="82" font-family="Space Grotesk" font-size="9" fill="#3DFF8F" text-anchor="middle" opacity="0.7">Base</text>
+      <svg class="mountain-svg" viewBox="0 0 700 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="0,90 200,18 350,4 500,28 700,90" fill="rgba(26,107,60,0.08)" stroke="rgba(26,107,60,0.25)" stroke-width="1.5"/>
+        <circle id="team-marker" cx="50" cy="86" r="7" fill="#1A6B3C"/>
+        <text id="marker-label" x="50" y="73" font-family="DM Sans" font-size="9" fill="#1A6B3C" text-anchor="middle" font-weight="600">Base</text>
       </svg>
       <div class="day-content" id="day-content"></div>
     </div>
-
-    <!-- RIGHT: Resources + Facilitator -->
     <div class="panel-right">
       <div class="status-block">
         <div class="panel-label">Recursos</div>
@@ -246,12 +234,12 @@ body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--tex
         <div class="event-log" id="event-log"></div>
       </div>
       <div>
-        <div class="panel-label">Herramientas facilitador</div>
+        <div class="panel-label">Herramientas del facilitador</div>
         <div class="facilitator-tools">
           <button class="fac-btn warn-btn" onclick="triggerEvent('storm')">⛈ Activar tormenta repentina</button>
-          <button class="fac-btn danger-btn" onclick="triggerEvent('injury')">🩹 Lesión en miembro</button>
+          <button class="fac-btn danger-btn" onclick="triggerEvent('injury')">🩹 Lesión en miembro del equipo</button>
           <button class="fac-btn warn-btn" onclick="triggerEvent('oxygen')">💨 Falla de oxígeno</button>
-          <button class="fac-btn" onclick="triggerEvent('rescue')">🚁 Oferta de rescate</button>
+          <button class="fac-btn" onclick="triggerEvent('rescue')">🚁 Oferta de rescate disponible</button>
           <button class="fac-btn danger-btn" onclick="triggerEvent('death_zone')">☠️ Alerta zona de muerte</button>
         </div>
       </div>
@@ -259,7 +247,7 @@ body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--tex
   </div>
 </div>
 
-<!-- ───────── FINAL ───────── -->
+<!-- FINAL -->
 <div class="screen" id="screen-final">
   <div class="final-inner">
     <div class="final-title" id="final-title">Simulación completa</div>
@@ -272,7 +260,7 @@ body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--tex
         <li>¿Quién ejerció liderazgo real? ¿Coincidió con el rol asignado de "Líder"?</li>
         <li>¿Cuándo fue necesario tomar una decisión impopular? ¿Cómo reaccionó el equipo?</li>
         <li>¿Qué información ignoraron que luego resultó crítica?</li>
-        <li>¿Cómo manejaron el conflicto entre la misión (llegar a la cima) y la responsabilidad (regresar seguros)?</li>
+        <li>¿Cómo manejaron el conflicto entre la misión (cima) y la responsabilidad (regresar seguros)?</li>
         <li>¿Qué cambiarían en la forma de comunicar y decidir en su trabajo diario?</li>
       </ul>
     </div>
@@ -280,7 +268,7 @@ body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--tex
   </div>
 </div>
 
-<!-- ───────── EVENT MODAL ───────── -->
+<!-- MODAL -->
 <div class="modal-overlay" id="modal">
   <div class="modal">
     <h3 id="modal-title">Evento inesperado</h3>
@@ -290,308 +278,248 @@ body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--tex
 </div>
 
 <script>
-// ── DATA ──
 const TEAM = [
-  {id:'leader',  emoji:'🧗', name:'Líder',      role:'Jefe de expedición', color:'#3DFF8F', health:100, morale:100, goal:'Llegar a la cima sin importar el costo'},
-  {id:'doctor',  emoji:'🏥', name:'Médico',     role:'Dr. Salud del equipo',color:'#4DB8FF', health:100, morale:100, goal:'Que todos regresen con vida'},
-  {id:'photo',   emoji:'📸', name:'Fotógrafo',  role:'Captura de cumbre',  color:'#FFB830', health:100, morale:100, goal:'Foto en la cima o el proyecto fracasa'},
-  {id:'scientist',emoji:'🔬',name:'Científico', role:'Datos en altitud',   color:'#C47EFF', health:100, morale:100, goal:'Recolectar datos en campo 5 y 6'},
-  {id:'sponsor', emoji:'💰', name:'Sponsor',    role:'Rep. financiero',    color:'#FF8C42', health:100, morale:100, goal:'ROI: cobertura mediática o retira fondos'},
+  {id:'leader',   emoji:'🧗', name:'John',    role:'Líder — Jefe de expedición',  color:'#1A6B3C', health:100, morale:100},
+  {id:'doctor',   emoji:'🏥', name:'Mariana', role:'Médico — Salud del equipo',   color:'#1A4A8A', health:100, morale:100},
+  {id:'photo',    emoji:'📸', name:'Pedro',   role:'Fotógrafo — Captura de cumbre',color:'#8A5800', health:100, morale:100},
+  {id:'scientist',emoji:'🔬', name:'Cindi',   role:'Científico — Datos en altitud',color:'#6B2A8A', health:100, morale:100},
+  {id:'sponsor',  emoji:'💰', name:'Agustín', role:'Sponsor — Rep. financiero',   color:'#8B2020', health:100, morale:100},
 ];
 
 const DAYS = [
   {
-    title:'Día 1 — Campo Base',
-    altitude:'5,364 m',
-    weather:'good', weatherLabel:'☀ Despejado y cálido',
-    scenario:'El equipo llega al campo base tras semanas de aclimatación. El ambiente es de <strong>euforia y nerviosismo</strong>. El pronóstico para los próximos días es favorable, pero los sherpas advierten que la ventana climática podría cerrarse en el día 4.',
-    dilemma:'El Sponsor presiona para salir mañana al amanecer y ganar tiempo. El Médico recomienda 24 horas más de aclimatación. El Fotógrafo quiere hacer un reconocimiento fotográfico hoy.',
+    title:'Día 1 — Campo Base',altitude:'5,364 m',
+    weather:'good',weatherLabel:'☀ Despejado y cálido',
+    scenario:'El equipo llega al campo base tras semanas de aclimatación. El ambiente es de <strong>euforia y nerviosismo</strong>. El pronóstico es favorable, pero los sherpas advierten que la ventana climática podría cerrarse en el día 4.',
+    dilemma:'Agustín presiona para salir mañana al amanecer y ganar tiempo. Mariana recomienda 24 horas más de aclimatación. Pedro quiere hacer un reconocimiento fotográfico hoy.',
     tensions:[
-      {role:'LÍDER',text:'¿Salimos mañana y arriesgamos la aclimatación, o esperamos y perdemos ventana?'},
-      {role:'MÉDICO',text:'El equipo no está listo. Una salida apresurada puede causar edema cerebral.'},
-      {role:'SPONSOR',text:'Cada día de retraso cuesta $15,000. El patrocinador necesita resultados.'},
+      {role:'JOHN',text:'¿Salimos mañana y arriesgamos la aclimatación, o esperamos y perdemos la ventana?'},
+      {role:'MARIANA',text:'El equipo no está listo. Una salida apresurada puede causar edema cerebral.'},
+      {role:'AGUSTÍN',text:'Cada día de retraso cuesta $15,000. Necesito resultados visibles.'},
     ],
     outcomes:[
-      {label:'Salida temprana',type:'bad',text:'Ahorra 1 día, pero salud −10 en todos.',effect:()=>{applyToAll('health',-10);logEvent('Salida apresurada — todos sufren AMS leve','bad')}},
+      {label:'Salida temprana',type:'bad',text:'Ahorra 1 día, pero salud −10 en todos.',effect:()=>{applyToAll('health',-10);logEvent('Salida apresurada — AMS leve en equipo','bad')}},
       {label:'Aclimatación completa',type:'good',text:'Moral +10. Salud óptima.',effect:()=>{applyToAll('morale',10);logEvent('Aclimatación completa — equipo listo','good')}},
     ],
-    markerX:80, markerY:95, markerLabel:'Base 5,364m'
+    markerX:80,markerY:86,markerLabel:'Base 5,364m'
   },
   {
-    title:'Día 2 — Campo 1',
-    altitude:'6,065 m',
-    weather:'good', weatherLabel:'☀ Viento leve',
-    scenario:'El equipo avanza hacia el Campo 1. A 6,000m el oxígeno es el <strong>60% del nivel del mar</strong>. Uno de los miembros muestra síntomas de mal de altura: dolor de cabeza severo y vómitos.',
-    dilemma:'El Médico diagnostica AMS moderada en el Científico. Puede seguir con medicación y riesgo, o descender y perder sus datos de altitud media.',
+    title:'Día 2 — Campo 1',altitude:'6,065 m',
+    weather:'good',weatherLabel:'☀ Viento leve',
+    scenario:'El equipo avanza hacia Campo 1. A 6,000m el oxígeno es el <strong>60% del nivel del mar</strong>. Un miembro muestra síntomas de mal de altura: dolor de cabeza severo y vómitos.',
+    dilemma:'Mariana diagnostica AMS moderada en Cindi. Puede seguir con medicación y riesgo, o descender y perder los datos de altitud media.',
     tensions:[
-      {role:'CIENTÍFICO',text:'Mis datos en este campo son críticos. Seguiré con diamox aunque duela.'},
-      {role:'MÉDICO',text:'Ignorar esto es irresponsable. Puede empeorar a HACE en 6 horas.'},
-      {role:'LÍDER',text:'Decidir ahora. Si bajamos, perdemos 1 día de ventana.'},
+      {role:'CINDI',text:'Mis datos en este campo son críticos. Seguiré con diamox aunque duela.'},
+      {role:'MARIANA',text:'Ignorar esto es irresponsable. Puede empeorar a HACE en 6 horas.'},
+      {role:'JOHN',text:'Decidir ahora. Si bajamos, perdemos 1 día de ventana.'},
     ],
     outcomes:[
-      {label:'Científico descansa en C1',type:'good',text:'Se recupera. Pierde datos parciales.',effect:()=>{applyOne('scientist','health',15);logEvent('Científico descansa. Moral equipo +5','good');applyToAll('morale',5)}},
-      {label:'Continúa con medicación',type:'bad',text:'Avanza pero salud −20.',effect:()=>{applyOne('scientist','health',-20);logEvent('Científico fuerza ascenso. Riesgo HACE','bad')}},
+      {label:'Cindi descansa en C1',type:'good',text:'Se recupera. Pierde datos parciales.',effect:()=>{applyOne('scientist','health',15);applyToAll('morale',5);logEvent('Cindi descansa. Moral +5 equipo','good')}},
+      {label:'Continúa con medicación',type:'bad',text:'Avanza pero salud −20.',effect:()=>{applyOne('scientist','health',-20);logEvent('Cindi fuerza ascenso. Riesgo HACE','bad')}},
     ],
-    markerX:180, markerY:55, markerLabel:'C1 6,065m'
+    markerX:180,markerY:50,markerLabel:'C1 6,065m'
   },
   {
-    title:'Día 3 — Campo 2',
-    altitude:'6,500 m',
-    weather:'warn', weatherLabel:'⛅ Nubes altas — posible tormenta en 48h',
-    scenario:'El equipo llega a Campo 2 con desgaste visible. El Fotógrafo recibe un mensaje de su agencia: si no hay fotos de calidad del campo 4 y la cima, el contrato se cancela. El Líder detecta tensión entre el Médico y el Sponsor.',
-    dilemma:'El pronóstico muestra tormenta en 48 horas. Si el equipo no llega al Campo 3 mañana, la ventana se cierra. Pero el estado físico del equipo es límite.',
+    title:'Día 3 — Campo 2',altitude:'6,500 m',
+    weather:'warn',weatherLabel:'⛅ Nubes altas — posible tormenta en 48h',
+    scenario:'El equipo llega a Campo 2 con desgaste visible. Pedro recibe un mensaje de su agencia: sin fotos de campo 4 y cumbre, el contrato se cancela. John detecta tensión entre Mariana y Agustín.',
+    dilemma:'El pronóstico muestra tormenta en 48 horas. Si no llegan al Campo 3 mañana, la ventana se cierra. El estado físico del equipo está al límite.',
     tensions:[
-      {role:'FOTÓGRAFO',text:'Necesito imágenes del campo 4. Sin ellas mi carrera termina.'},
-      {role:'SPONSOR',text:'Si la tormenta cancela la cumbre, retiro los fondos. Decídanse.'},
-      {role:'MÉDICO',text:'Estamos al límite fisiológico. Forzar esto puede matar a alguien.'},
+      {role:'PEDRO',text:'Necesito imágenes del campo 4. Sin ellas mi carrera termina.'},
+      {role:'AGUSTÍN',text:'Si la tormenta cancela la cumbre, retiro los fondos. Decídanse.'},
+      {role:'MARIANA',text:'Estamos al límite fisiológico. Forzar esto puede matar a alguien.'},
     ],
     outcomes:[
       {label:'Push hacia C3',type:'bad',text:'Avanzan. Salud −15 todos. Moral +5.',effect:()=>{applyToAll('health',-15);applyToAll('morale',5);logEvent('Push a C3. Desgaste alto','bad')}},
       {label:'Rotación y descanso',type:'good',text:'Salud +10. Pierden 12 horas.',effect:()=>{applyToAll('health',10);logEvent('Rotación: equipo recuperado','good')}},
     ],
-    markerX:290, markerY:30, markerLabel:'C2 6,500m'
+    markerX:290,markerY:28,markerLabel:'C2 6,500m'
   },
   {
-    title:'Día 4 — Campo 3',
-    altitude:'7,162 m',
-    weather:'warn', weatherLabel:'🌬 Viento fuerte — ventana estrecha',
-    scenario:'A 7,162m el equipo entra en la <strong>zona de muerte</strong> funcional. El cuerpo no se recupera a esta altitud. El oxígeno suplementario es limitado. Hay que decidir quiénes van a cumbre y quiénes apoyan o retroceden.',
-    dilemma:'Solo hay oxígeno para 3 personas en cumbre. Deben elegir quiénes suben. El Sponsor exige estar en la foto cumbre. El Médico dice que él debe bajar por salud. El Científico necesita llegar para sus datos.',
+    title:'Día 4 — Campo 3',altitude:'7,162 m',
+    weather:'warn',weatherLabel:'🌬 Viento fuerte — ventana estrecha',
+    scenario:'A 7,162m el equipo entra en la <strong>zona de muerte funcional</strong>. El cuerpo no se recupera a esta altitud. El oxígeno suplementario es limitado. Hay que decidir quiénes van a cumbre.',
+    dilemma:'Solo hay oxígeno para 3 personas en cumbre. Deben elegir. Agustín exige estar en la foto. Mariana dice que debe gestionar el descenso. Cindi necesita llegar para sus datos.',
     tensions:[
-      {role:'SPONSOR',text:'El contrato dice que el sponsor sube. Punto.'},
-      {role:'MÉDICO',text:'Desde aquí mi rol es gestionar el descenso seguro. No debería subir.'},
-      {role:'LÍDER',text:'Debo elegir: misión o personas. ¿Quién sube?'},
+      {role:'AGUSTÍN',text:'El contrato dice que el sponsor sube. Punto.'},
+      {role:'MARIANA',text:'Desde aquí mi rol es el descenso seguro. No debería subir.'},
+      {role:'JOHN',text:'Debo elegir: misión o personas. ¿Quién sube?'},
     ],
     outcomes:[
-      {label:'Subgrupo: Líder+Foto+Científico',type:'good',text:'Equipo técnico a cumbre.',effect:()=>{logEvent('Subgrupo técnico a cumbre. Sponsor frustrado','good');applyOne('sponsor','morale',-20)}},
+      {label:'Subgrupo técnico sube',type:'good',text:'John + Pedro + Cindi a cumbre.',effect:()=>{logEvent('Subgrupo técnico a cumbre. Agustín frustrado','good');applyOne('sponsor','morale',-20)}},
       {label:'Todos intentan cumbre',type:'bad',text:'Oxígeno insuficiente. Riesgo crítico.',effect:()=>{applyToAll('health',-25);logEvent('Sobrecarga de O₂ — todos en riesgo','bad')}},
     ],
-    markerX:420, markerY:18, markerLabel:'C3 7,162m'
+    markerX:420,markerY:16,markerLabel:'C3 7,162m'
   },
   {
-    title:'Día 5 — Intento de cumbre',
-    altitude:'8,849 m',
-    weather:'bad', weatherLabel:'❄ Tormenta inminente en 4 horas',
-    scenario:'El equipo de cumbre sale a las 2am. A las 10am están a 200m de la cima. <strong>La tormenta llega antes de lo previsto.</strong> El Fotógrafo quiere 20 minutos más para la toma perfecta. El Líder sabe que retrasarse puede ser fatal.',
-    dilemma:'Con la tormenta a 4 horas, seguir 20 minutos podría costar la vida en el descenso. El Fotógrafo argumenta que para eso están aquí. ¿Liderazgo o consenso?',
+    title:'Día 5 — Intento de cumbre',altitude:'8,849 m',
+    weather:'bad',weatherLabel:'❄ Tormenta inminente en 4 horas',
+    scenario:'El equipo de cumbre sale a las 2am. A las 10am están a 200m de la cima. <strong>La tormenta llega antes de lo previsto.</strong> Pedro quiere 20 minutos más para la toma perfecta. John sabe que retrasarse puede ser fatal.',
+    dilemma:'Con tormenta a 4 horas, esperar 20 minutos podría costar vidas en el descenso. Pedro argumenta que para eso están aquí. ¿Liderazgo o consenso?',
     tensions:[
-      {role:'FOTÓGRAFO',text:'Estamos a 200 metros. No me pidan que me rinda ahora.'},
-      {role:'LÍDER',text:'Si esperamos 20 minutos, el descenso con tormenta nos mata.'},
-      {role:'CIENTÍFICO',text:'Mis instrumentos ya recopilaron datos. Puedo bajar. ¿Y los demás?'},
+      {role:'PEDRO',text:'Estamos a 200 metros. No me pidan que me rinda ahora.'},
+      {role:'JOHN',text:'Si esperamos 20 minutos, el descenso con tormenta nos mata.'},
+      {role:'CINDI',text:'Mis instrumentos ya recopilaron datos. Puedo bajar. ¿Y los demás?'},
     ],
     outcomes:[
-      {label:'Descenso inmediato',type:'good',text:'Equipo salvo. Sin foto cumbre.',effect:()=>{applyToAll('health',5);logEvent('Descenso seguro antes de tormenta','good');applyOne('photo','morale',-30)}},
+      {label:'Descenso inmediato',type:'good',text:'Equipo salvo. Sin foto de cumbre.',effect:()=>{applyToAll('health',5);logEvent('Descenso seguro antes de tormenta','good');applyOne('photo','morale',-30)}},
       {label:'20 minutos más',type:'bad',text:'Foto obtenida. Salud −30 todos.',effect:()=>{applyToAll('health',-30);logEvent('Tormenta atrapó al equipo en cumbre','bad')}},
     ],
-    markerX:560, markerY:8, markerLabel:'Cumbre 8,849m'
+    markerX:560,markerY:6,markerLabel:'Cumbre 8,849m'
   },
   {
-    title:'Día 6 — Descenso',
-    altitude:'5,364 m',
-    weather:'good', weatherLabel:'☀ Despejado — rescate posible',
-    scenario:'El equipo desciende. Algunos están al límite físico. Uno de los miembros no puede caminar sin asistencia. Los sherpas piden una decisión: ¿esperamos rescate (6 horas) o bajamos todos juntos más lento?',
-    dilemma:'Esperar el rescate en altura con un miembro herido es riesgo alto. Bajar juntos significa 8 horas de exposición. Separarse es abandonar a alguien.',
+    title:'Día 6 — Descenso',altitude:'5,364 m',
+    weather:'good',weatherLabel:'☀ Despejado — rescate posible',
+    scenario:'El equipo desciende. Algunos están al límite físico. Un miembro no puede caminar sin asistencia. Los sherpas piden una decisión: ¿esperan rescate (6h) o bajan todos juntos más lento?',
+    dilemma:'Esperar el rescate en altura con un miembro herido es riesgo alto. Bajar juntos son 8h de exposición. Separarse es abandonar a alguien.',
     tensions:[
-      {role:'MÉDICO',text:'El paciente no puede más. Necesita evacuación. No lo muevan sin apoyo.'},
-      {role:'LÍDER',text:'Separarnos en descenso va contra todos los protocolos de montaña.'},
-      {role:'SPONSOR',text:'Esto se tiene que resolver hoy. Tengo rueda de prensa mañana.'},
+      {role:'MARIANA',text:'El paciente no puede más. Necesita evacuación. No lo muevan sin apoyo.'},
+      {role:'JOHN',text:'Separarnos en descenso va contra todos los protocolos de montaña.'},
+      {role:'AGUSTÍN',text:'Esto se tiene que resolver hoy. Tengo rueda de prensa mañana.'},
     ],
     outcomes:[
       {label:'Esperar rescate juntos',type:'good',text:'Seguro. Llegan al día siguiente.',effect:()=>{applyToAll('health',10);applyToAll('morale',10);logEvent('Rescate exitoso. Equipo completo a salvo','good')}},
       {label:'Descenso forzado',type:'bad',text:'Más rápido pero salud −20.',effect:()=>{applyToAll('health',-20);logEvent('Descenso forzado — lesiones adicionales','bad')}},
     ],
-    markerX:80, markerY:95, markerLabel:'Descenso'
+    markerX:80,markerY:86,markerLabel:'Descenso'
   },
 ];
 
 const EVENTS = {
-  storm:{title:'⛈ Tormenta repentina',body:'Una tormenta imprevista reduce visibilidad a 5 metros. El equipo tiene 10 minutos para decidir si acampa o fuerza el descenso. Toda la moral −10, salud −5.',effect:()=>{applyToAll('health',-5);applyToAll('morale',-10);logEvent('EVENTO: Tormenta repentina','bad')}},
-  injury:{title:'🩹 Lesión grave',body:'Un miembro del equipo sufre una caída y tiene posible fractura de tobillo. No puede caminar sin asistencia. El equipo debe redistribuir el peso y decidir si continúa o evacúa.',effect:()=>{applyOne('leader','health',-30);logEvent('EVENTO: Líder lesionado en campo','bad')}},
-  oxygen:{title:'💨 Falla de oxígeno',body:'Un regulador de oxígeno falla. Un miembro del equipo queda sin O₂ suplementario en zona de muerte. Deben compartir o enviarlo de vuelta.',effect:()=>{applyOne('photo','health',-20);logEvent('EVENTO: Falla O₂ en Fotógrafo','bad')}},
-  rescue:{title:'🚁 Oferta de rescate',body:'Un helicóptero de rescate está disponible por 2 horas. Pueden evacuar hasta 2 personas ahora, pero los demás deben completar el descenso solos.',effect:()=>{logEvent('EVENTO: Rescate disponible — decisión del equipo','good')}},
-  death_zone:{title:'☠ Alerta zona de muerte',body:'Los médicos de base estiman que el equipo lleva 18 horas en zona de muerte. Cada hora adicional reduce la capacidad cognitiva 15%. Deben bajar AHORA o asumir riesgo de decisiones irracionales.',effect:()=>{applyToAll('health',-15);applyToAll('morale',-15);logEvent('EVENTO: Tiempo crítico en zona de muerte','bad')}},
+  storm:{title:'⛈ Tormenta repentina',body:'Una tormenta imprevista reduce la visibilidad a 5 metros. El equipo tiene 10 minutos para decidir si acampa o fuerza el descenso. Moral −10, salud −5 en todos.',effect:()=>{applyToAll('health',-5);applyToAll('morale',-10);logEvent('EVENTO: Tormenta repentina','bad')}},
+  injury:{title:'🩹 Lesión grave',body:'John sufre una caída con posible fractura de tobillo. No puede caminar sin asistencia. El equipo debe redistribuir el peso y decidir si continúa o evacúa.',effect:()=>{applyOne('leader','health',-30);logEvent('EVENTO: John lesionado en campo','bad')}},
+  oxygen:{title:'💨 Falla de oxígeno',body:'El regulador de Pedro falla. Queda sin O₂ suplementario en zona de muerte. Deben compartir o enviarlo de regreso.',effect:()=>{applyOne('photo','health',-20);logEvent('EVENTO: Falla O₂ en Pedro','bad')}},
+  rescue:{title:'🚁 Oferta de rescate',body:'Un helicóptero de rescate está disponible por 2 horas. Pueden evacuar hasta 2 personas, pero los demás deben completar el descenso solos.',effect:()=>{logEvent('EVENTO: Rescate disponible — decisión del equipo','good')}},
+  death_zone:{title:'☠ Alerta zona de muerte',body:'El equipo lleva 18 horas en zona de muerte. Cada hora adicional reduce la capacidad cognitiva un 15%. Deben bajar AHORA o asumir decisiones irracionales.',effect:()=>{applyToAll('health',-15);applyToAll('morale',-15);logEvent('EVENTO: Tiempo crítico en zona de muerte','bad')}},
 };
 
-let currentDay = 0;
-let timerInterval = null;
-let sessionMinutes = 60;
-let secsElapsed = 0;
-let outcomeApplied = false;
+let currentDay=0, timerInterval=null, secsLeft=3600, outcomeApplied=false;
 
 function startGame(){
   showScreen('game');
-  renderDots();
-  renderTeam();
-  renderResources();
-  renderDay(0);
-  startClock();
+  renderDots(); renderTeam(); renderResources(); renderDay(0); startClock();
 }
-
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen-'+id).classList.add('active');
 }
-
 function startClock(){
-  secsElapsed = 0;
-  timerInterval = setInterval(()=>{
-    secsElapsed++;
-    const remaining = sessionMinutes*60 - secsElapsed;
-    if(remaining <= 0){ clearInterval(timerInterval); document.getElementById('clock').textContent='00:00'; return; }
-    const m = Math.floor(remaining/60), s = remaining%60;
-    const el = document.getElementById('clock');
-    el.textContent = m+':'+String(s).padStart(2,'0');
-    el.className = 'clock'+(remaining<=300?' urgent':'');
+  secsLeft=3600;
+  timerInterval=setInterval(()=>{
+    secsLeft--;
+    const m=Math.floor(secsLeft/60),s=secsLeft%60;
+    const el=document.getElementById('clock');
+    el.textContent=m+':'+String(s).padStart(2,'0');
+    el.className='clock'+(secsLeft<=300?' urgent':'');
+    if(secsLeft<=0) clearInterval(timerInterval);
   },1000);
 }
-
 function renderDots(){
-  const c = document.getElementById('day-dots');
-  c.innerHTML = '';
+  const c=document.getElementById('day-dots');c.innerHTML='';
   for(let i=0;i<6;i++){
-    const d = document.createElement('div');
-    d.className = 'day-dot'+(i<currentDay?' done':i===currentDay?' current':'');
+    const d=document.createElement('div');
+    d.className='day-dot'+(i<currentDay?' done':i===currentDay?' current':'');
     c.appendChild(d);
   }
 }
-
 function renderTeam(){
-  const c = document.getElementById('team-cards');
-  c.innerHTML = '';
+  const c=document.getElementById('team-cards');c.innerHTML='';
   TEAM.forEach(m=>{
-    const hPct = Math.max(0,m.health);
-    const moPct = Math.max(0,m.morale);
-    const hClass = hPct>=70?'fill-health':hPct>=40?'fill-health mid':'fill-health low';
-    c.innerHTML += `
-    <div class="member-card" style="margin-bottom:8px;border-left:2px solid ${m.color}">
+    const h=Math.max(0,m.health),mo=Math.max(0,m.morale);
+    const hc=h>=70?'fill-health':h>=40?'fill-health mid':'fill-health low';
+    const hcolor=h<40?'#8B2020':h<70?'#8A5800':'#1A6B3C';
+    c.innerHTML+=`<div class="member-card" style="border-left:3px solid ${m.color}">
       <div class="member-header">
-        <div class="member-avatar" style="background:${m.color}22">${m.emoji}</div>
+        <div class="member-avatar" style="background:${m.color}18">${m.emoji}</div>
         <div><div class="member-name">${m.name}</div><div class="member-role">${m.role}</div></div>
       </div>
-      <div class="stat-row"><span class="stat-label">Salud</span><div class="stat-bar"><div class="${hClass}" style="width:${hPct}%"></div></div><span class="stat-val" style="color:${hPct<40?'#FF4D4D':hPct<70?'#FFB830':'#3DFF8F'}">${hPct}</span></div>
-      <div class="stat-row"><span class="stat-label">Moral</span><div class="stat-bar"><div class="stat-fill fill-morale" style="width:${moPct}%"></div></div><span class="stat-val" style="color:#4DB8FF">${moPct}</span></div>
+      <div class="stat-row"><span class="stat-label">Salud</span><div class="stat-bar"><div class="${hc}" style="width:${h}%"></div></div><span class="stat-val" style="color:${hcolor}">${h}</span></div>
+      <div class="stat-row"><span class="stat-label">Moral</span><div class="stat-bar"><div class="stat-fill fill-morale" style="width:${mo}%"></div></div><span class="stat-val" style="color:#1A4A8A">${mo}</span></div>
     </div>`;
   });
 }
-
 function renderResources(){
-  const avgHealth = Math.round(TEAM.reduce((a,m)=>a+m.health,0)/TEAM.length);
-  const avgMorale = Math.round(TEAM.reduce((a,m)=>a+m.morale,0)/TEAM.length);
-  const oxygen = Math.max(0, 100 - currentDay*15);
-  const food = Math.max(0, 100 - currentDay*14);
-  const c = document.getElementById('resources-display');
-  c.innerHTML = `
-    <div class="resource-row"><span class="res-name">Salud media</span><span class="res-val ${avgHealth>=70?'good':avgHealth>=40?'warn':'bad'}">${avgHealth}%</span></div>
-    <div class="resource-row"><span class="res-name">Moral media</span><span class="res-val ${avgMorale>=70?'good':avgMorale>=40?'warn':'bad'}">${avgMorale}%</span></div>
-    <div class="resource-row"><span class="res-name">Oxígeno</span><span class="res-val ${oxygen>=50?'good':oxygen>=25?'warn':'bad'}">${oxygen}%</span></div>
+  const avgH=Math.round(TEAM.reduce((a,m)=>a+m.health,0)/TEAM.length);
+  const avgM=Math.round(TEAM.reduce((a,m)=>a+m.morale,0)/TEAM.length);
+  const ox=Math.max(0,100-currentDay*15),food=Math.max(0,100-currentDay*14);
+  document.getElementById('resources-display').innerHTML=`
+    <div class="resource-row"><span class="res-name">Salud media</span><span class="res-val ${avgH>=70?'good':avgH>=40?'warn':'bad'}">${avgH}%</span></div>
+    <div class="resource-row"><span class="res-name">Moral media</span><span class="res-val ${avgM>=70?'good':avgM>=40?'warn':'bad'}">${avgM}%</span></div>
+    <div class="resource-row"><span class="res-name">Oxígeno</span><span class="res-val ${ox>=50?'good':ox>=25?'warn':'bad'}">${ox}%</span></div>
     <div class="resource-row"><span class="res-name">Víveres</span><span class="res-val ${food>=50?'good':food>=25?'warn':'bad'}">${food}%</span></div>
     <div class="resource-row"><span class="res-name">Días restantes</span><span class="res-val warn">${6-currentDay}</span></div>`;
 }
-
-function renderDay(index){
-  outcomeApplied = false;
-  const day = DAYS[index];
-  const marker = document.getElementById('team-marker');
-  const label = document.getElementById('marker-label');
-  marker.setAttribute('cx', day.markerX);
-  marker.setAttribute('cy', day.markerY);
-  label.setAttribute('x', day.markerX);
-  label.setAttribute('y', day.markerY-12);
-  label.textContent = day.markerLabel;
-
-  const wClass = day.weather==='good'?'weather-good':day.weather==='warn'?'weather-warn':'weather-bad';
-
-  let tensionsHTML = day.tensions.map(t=>`<div class="tension-item"><span class="tension-role">${t.role}</span><span>${t.text}</span></div>`).join('');
-  let outcomesHTML = day.outcomes.map((o,i)=>`<button class="outcome-btn ${o.type}" onclick="applyOutcome(${index},${i})""><div class="ob-label">${o.label}</div><div class="ob-text">${o.text}</div></button>`).join('');
-
-  document.getElementById('day-content').innerHTML = `
-    <div class="day-header">
-      <div><div class="day-title">${day.title}</div></div>
-      <div class="day-meta">Altitud: ${day.altitude}</div>
-    </div>
-    <div class="weather-badge ${wClass}">${day.weatherLabel}</div>
+function renderDay(idx){
+  outcomeApplied=false;
+  const day=DAYS[idx];
+  document.getElementById('team-marker').setAttribute('cx',day.markerX);
+  document.getElementById('team-marker').setAttribute('cy',day.markerY);
+  document.getElementById('marker-label').setAttribute('x',day.markerX);
+  document.getElementById('marker-label').setAttribute('y',day.markerY-13);
+  document.getElementById('marker-label').textContent=day.markerLabel;
+  const wc=day.weather==='good'?'weather-good':day.weather==='warn'?'weather-warn':'weather-bad';
+  const tensions=day.tensions.map(t=>`<div class="tension-item"><span class="tension-role">${t.role}</span><span>${t.text}</span></div>`).join('');
+  const outcomes=day.outcomes.map((o,i)=>`<button class="outcome-btn ${o.type}" onclick="applyOutcome(${idx},${i})"><div class="ob-label">${o.label}</div><div class="ob-text">${o.text}</div></button>`).join('');
+  document.getElementById('day-content').innerHTML=`
+    <div class="day-header"><div><div class="day-title">${day.title}</div></div><div class="day-meta">Altitud: ${day.altitude}</div></div>
+    <div class="weather-badge ${wc}">${day.weatherLabel}</div>
     <div class="scenario-box">${day.scenario}</div>
     <div class="dilemma-box"><div class="dilemma-label">Dilema del día</div><div class="dilemma-text">${day.dilemma}</div></div>
-    <div class="tensions-section"><div class="panel-label" style="margin-bottom:8px">Tensiones en el equipo</div>${tensionsHTML}</div>
+    <div class="tensions-section"><div class="panel-label" style="margin-bottom:10px">Tensiones en el equipo</div>${tensions}</div>
     <div class="outcome-section">
       <div class="outcome-label">El equipo decide</div>
-      <div class="outcomes-grid">${outcomesHTML}</div>
+      <div class="outcomes-grid">${outcomes}</div>
       <button class="btn-next" id="btn-next" onclick="nextDay()" disabled>Avanzar al siguiente día →</button>
     </div>`;
 }
-
-function applyOutcome(dayIdx, outcomeIdx){
-  if(outcomeApplied) return;
-  outcomeApplied = true;
-  DAYS[dayIdx].outcomes[outcomeIdx].effect();
-  renderTeam();
-  renderResources();
-  document.getElementById('btn-next').disabled = false;
+function applyOutcome(di,oi){
+  if(outcomeApplied)return;outcomeApplied=true;
+  DAYS[di].outcomes[oi].effect();renderTeam();renderResources();
+  document.getElementById('btn-next').disabled=false;
 }
-
 function nextDay(){
   currentDay++;
-  if(currentDay >= 6){ endGame(); return; }
-  renderDots();
-  renderDay(currentDay);
+  if(currentDay>=6){endGame();return;}
+  renderDots();renderDay(currentDay);
 }
-
 function endGame(){
   clearInterval(timerInterval);
-  const avgH = Math.round(TEAM.reduce((a,m)=>a+m.health,0)/TEAM.length);
-  const avgM = Math.round(TEAM.reduce((a,m)=>a+m.morale,0)/TEAM.length);
-  const success = avgH >= 50 && avgM >= 40;
-  document.getElementById('final-title').textContent = success ? '🏔 Misión completada' : '⛰ Expedición terminada';
-  document.getElementById('final-sub').textContent = success
-    ? `El equipo llegó a la cima y regresó con vida. Salud media: ${avgH}% · Moral media: ${avgM}%. Eso es liderazgo real.`
-    : `La expedición concluyó pero el equipo pagó un precio alto. Salud media: ${avgH}% · Moral media: ${avgM}%. ¿Qué falló?`;
-
-  const scores = document.getElementById('final-scores');
-  scores.innerHTML = TEAM.map(m=>`
+  const avgH=Math.round(TEAM.reduce((a,m)=>a+m.health,0)/TEAM.length);
+  const avgM=Math.round(TEAM.reduce((a,m)=>a+m.morale,0)/TEAM.length);
+  const ok=avgH>=50&&avgM>=40;
+  document.getElementById('final-title').textContent=ok?'🏔 Misión completada':'⛰ Expedición terminada';
+  document.getElementById('final-sub').textContent=ok
+    ?`El equipo llegó a la cima y regresó con vida. Salud media: ${avgH}% · Moral: ${avgM}%. Eso es liderazgo real.`
+    ?`El equipo llegó a la cima y regresó con vida. Salud media: ${avgH}% · Moral: ${avgM}%. Eso es liderazgo real.`
+    :`La expedición concluyó pero el equipo pagó un precio alto. Salud: ${avgH}% · Moral: ${avgM}%. ¿Qué falló?`;
+  document.getElementById('final-scores').innerHTML=TEAM.map(m=>`
     <div class="fscore-card">
       <div class="fscore-emoji">${m.emoji}</div>
       <div class="fscore-name">${m.name}</div>
-      <div class="fscore-val" style="color:${m.health>=70?'#3DFF8F':m.health>=40?'#FFB830':'#FF4D4D'}">${m.health}%</div>
+      <div class="fscore-val" style="color:${m.health>=70?'#1A6B3C':m.health>=40?'#8A5800':'#8B2020'}">${m.health}%</div>
     </div>`).join('');
-
   showScreen('final');
 }
-
 function triggerEvent(key){
-  const ev = EVENTS[key];
-  document.getElementById('modal-title').textContent = ev.title;
-  document.getElementById('modal-body').textContent = ev.body;
+  const ev=EVENTS[key];
+  document.getElementById('modal-title').textContent=ev.title;
+  document.getElementById('modal-body').textContent=ev.body;
   document.getElementById('modal').classList.add('open');
-  ev.effect();
-  renderTeam();
-  renderResources();
+  ev.effect();renderTeam();renderResources();
 }
-
-function closeModal(){
-  document.getElementById('modal').classList.remove('open');
-}
-
-function applyToAll(stat, delta){
-  TEAM.forEach(m=>{ m[stat] = Math.min(100, Math.max(0, m[stat]+delta)); });
-}
-
-function applyOne(id, stat, delta){
-  const m = TEAM.find(t=>t.id===id);
-  if(m) m[stat] = Math.min(100, Math.max(0, m[stat]+delta));
-}
-
-function logEvent(text, type=''){
-  const log = document.getElementById('event-log');
-  const item = document.createElement('div');
-  item.className = 'log-item '+(type||'');
-  item.innerHTML = `<span class="log-day">D${currentDay+1}</span>${text}`;
+function closeModal(){document.getElementById('modal').classList.remove('open');}
+function applyToAll(stat,delta){TEAM.forEach(m=>{m[stat]=Math.min(100,Math.max(0,m[stat]+delta));});}
+function applyOne(id,stat,delta){const m=TEAM.find(t=>t.id===id);if(m)m[stat]=Math.min(100,Math.max(0,m[stat]+delta));}
+function logEvent(text,type=''){
+  const log=document.getElementById('event-log');
+  const item=document.createElement('div');
+  item.className='log-item '+(type||'');
+  item.innerHTML=`<span class="log-day">D${currentDay+1}</span>${text}`;
   log.prepend(item);
 }
-
 function restartGame(){
-  TEAM.forEach(m=>{ m.health=100; m.morale=100; });
-  currentDay = 0;
-  document.getElementById('event-log').innerHTML = '';
+  TEAM.forEach(m=>{m.health=100;m.morale=100;});
+  currentDay=0;document.getElementById('event-log').innerHTML='';
   startGame();
 }
 </script>
