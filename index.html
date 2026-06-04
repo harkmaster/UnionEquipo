@@ -7,61 +7,98 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;1,300&family=DM+Sans:wght@400;500&family=DM+Mono&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+*:focus-visible{outline:2px solid var(--racsa-blue);outline-offset:2px;border-radius:4px;}
+
 :root{
-  --bg:#F5F2EC;--surf:#FFF;--s2:#EDEAE3;--s3:#E3DFD6;
-  --bd:rgba(40,30,15,.10);--bd2:rgba(40,30,15,.18);
-  --tx:#1C1710;--tm:#6A6050;--tf:#A89E88;
-  --r:10px;--rl:18px;
-  --cs:#1A6B3C;--csbg:#E2F0E8;
-  --cst:#1A4A8A;--cstbg:#E6EEFA;
-  --cn:#7A3B10;--cnbg:#FAEADA;
-  --cc:#6B2A8A;--ccbg:#F0E6FA;
-  --ca:#8B2020;--cabg:#FAEAEA;
-  --cy:#1A6B6B;--cybg:#E2F0F0;
+  /* RACSA brand palette */
+  --racsa-navy:#002C5F;
+  --racsa-blue:#0055A5;
+  --racsa-green:#00A651;
+
+  /* Surfaces */
+  --bg:#F0F4FA;
+  --surf:#FFFFFF;
+  --s2:#E8EEF7;
+  --s3:#D6E4F0;
+
+  /* Borders */
+  --bd:rgba(0,44,95,.10);
+  --bd2:rgba(0,44,95,.22);
+
+  /* Text */
+  --tx:#0A1628;
+  --tm:#3A5070;
+  --tf:#7A90A8;
+
+  /* Radii */
+  --r:10px;--rl:16px;
+
+  /* Category: Supervivencia (verde RACSA) */
+  --cs:#00A651;--csbg:#E6F7EE;
+
+  /* Category: Estrategia (azul RACSA) */
+  --cst:#0055A5;--cstbg:#E6EEF9;
+
+  /* Category: Negociación (ámbar) */
+  --cn:#C06000;--cnbg:#FEF3E2;
+
+  /* Category: Cultura (violeta) */
+  --cc:#7B2FBE;--ccbg:#F2EAFB;
+
+  /* Category: Ágil (carmesí) */
+  --ca:#B8003A;--cabg:#FAEAEE;
+
+  /* Category: Sistemas (teal) */
+  --cy:#007B8A;--cybg:#E3F4F6;
 }
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
 .screen{display:none;} .screen.active{display:block;}
 
 /* MENU */
-header{background:var(--surf);border-bottom:1px solid var(--bd);padding:2.5rem 2rem 2rem;}
+header{background:var(--racsa-navy);border-bottom:none;padding:2.5rem 2rem 2rem;}
 .hi{max-width:1100px;margin:0 auto;}
-.ey{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--tf);margin-bottom:10px;}
-.mt{font-family:'Fraunces',serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:600;line-height:1.05;margin-bottom:10px;}
-.mt em{font-style:italic;font-weight:300;color:var(--cs);}
-.ms{font-size:15px;color:var(--tm);line-height:1.6;max-width:540px;margin-bottom:1.5rem;}
+.ey{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:10px;}
+.mt{font-family:'Fraunces',serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:600;line-height:1.05;margin-bottom:10px;color:#FFFFFF;}
+.mt em{font-style:italic;font-weight:300;color:#4DD68A;}
+.ms{font-size:15px;color:rgba(255,255,255,0.75);line-height:1.6;max-width:540px;margin-bottom:1.5rem;}
 .ss{display:flex;gap:2rem;flex-wrap:wrap;}
-.sn{font-family:'Fraunces',serif;font-size:2rem;font-weight:600;line-height:1;}
-.sl{font-size:11px;color:var(--tf);margin-top:2px;}
-.ctrl{max-width:1100px;margin:0 auto;padding:1.5rem 2rem;display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+.sn{font-family:'Fraunces',serif;font-size:2rem;font-weight:600;line-height:1;color:#FFFFFF;}
+.sl{font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;}
+.ctrl{max-width:1100px;margin:0 auto;padding:1.5rem 2rem;display:flex;gap:12px;flex-wrap:wrap;align-items:center;background:var(--surf);border-bottom:1px solid var(--bd);}
 .sw{flex:1;min-width:200px;position:relative;}
 .sw input{width:100%;background:var(--surf);border:1px solid var(--bd2);border-radius:var(--r);padding:10px 14px 10px 38px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--tx);outline:none;}
-.sw input:focus{border-color:var(--cs);}
+.sw input:focus{border-color:var(--racsa-blue);box-shadow:0 0 0 3px rgba(0,85,165,.12);}
 .sw input::placeholder{color:var(--tf);}
 .si{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--tf);pointer-events:none;}
 .flt{display:flex;gap:6px;flex-wrap:wrap;}
 .fb{background:var(--surf);border:1px solid var(--bd2);border-radius:999px;padding:7px 14px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--tm);cursor:pointer;white-space:nowrap;}
 .fb:hover{background:var(--s2);}
-.fb.active{background:var(--tx);color:var(--bg);border-color:var(--tx);}
+.fb.active{background:var(--racsa-blue);color:#FFF;border-color:var(--racsa-blue);}
 .cl{font-size:12px;color:var(--tf);white-space:nowrap;align-self:center;margin-left:auto;}
 .gw{max-width:1100px;margin:0 auto;padding:0 2rem 4rem;}
 .gg{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;}
-.gc{background:var(--surf);border:1px solid var(--bd);border-radius:var(--rl);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s;}
-.gc:hover{box-shadow:0 8px 32px rgba(40,30,15,.10);transform:translateY(-2px);}
-.ca2{height:4px;width:100%;}
+.gc{background:var(--surf);border:1px solid var(--bd);border-radius:var(--rl);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .25s,transform .25s,border-color .25s;}
+.gc:hover{box-shadow:0 8px 28px rgba(0,44,95,.14);transform:translateY(-3px);border-color:rgba(0,85,165,.25);}
+.ca2{height:5px;width:100%;}
 .cb{padding:18px 20px 14px;flex:1;display:flex;flex-direction:column;gap:10px;}
 .ch{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
 .cn2{font-family:'DM Mono',monospace;font-size:10px;color:var(--tf);margin-top:3px;min-width:22px;}
 .ctw{flex:1;}
-.ct{font-family:'Fraunces',serif;font-size:17px;font-weight:600;color:var(--tx);line-height:1.2;margin-bottom:2px;}
+.ct{font-family:'Fraunces',serif;font-size:17px;font-weight:600;color:var(--racsa-navy);line-height:1.2;margin-bottom:2px;}
 .cst2{font-size:11px;color:var(--tf);}
 .cc2{display:inline-flex;align-items:center;font-size:10px;font-weight:500;letter-spacing:.05em;padding:3px 9px;border-radius:999px;white-space:nowrap;flex-shrink:0;}
 .cd{font-size:13px;color:var(--tm);line-height:1.55;}
 .cm{display:flex;gap:8px;flex-wrap:wrap;}
-.mp{font-size:11px;color:var(--tm);background:var(--s2);padding:3px 9px;border-radius:6px;}
-.ci{font-size:12px;color:var(--tm);border-left:2px solid var(--bd2);padding-left:10px;line-height:1.5;font-style:italic;}
-.cf{padding:12px 20px;border-top:1px solid var(--bd);}
-.pb{display:inline-flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:8px 16px;border-radius:var(--r);border:none;cursor:pointer;background:var(--tx);color:var(--bg);}
-.pb:hover{opacity:.85;}
+.mp{font-size:11px;color:var(--tm);background:var(--s2);padding:3px 9px;border-radius:999px;display:inline-flex;align-items:center;gap:4px;}
+.ci{font-size:12px;color:var(--tm);border-left:2px solid var(--racsa-blue);padding-left:10px;line-height:1.5;font-style:italic;opacity:.85;}
+.cf{padding:10px 20px;border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:8px;background:rgba(0,44,95,.015);}
+.mbadge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:500;padding:2px 8px;border-radius:999px;white-space:nowrap;}
+.mbadge.virtual{background:#E6EEF9;color:#0055A5;}
+.mbadge.presencial{background:#E6F7EE;color:#00A651;}
+.mbadge.mixto{background:#EEF4FF;color:#0055A5;border:1px solid rgba(0,85,165,.2);}
+
+.pb{display:inline-flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:8px 18px;border-radius:var(--r);border:none;cursor:pointer;background:var(--racsa-green);color:#FFF;letter-spacing:.01em;}
+.pb:hover{background:#008A44;transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,166,81,.3);}
 .cs2{color:var(--cs);background:var(--csbg);}
 .cst3{color:var(--cst);background:var(--cstbg);}
 .cn3{color:var(--cn);background:var(--cnbg);}
@@ -73,49 +110,49 @@ header{background:var(--surf);border-bottom:1px solid var(--bd);padding:2.5rem 2
 
 /* GAME SHELL */
 #gs{min-height:100vh;display:flex;flex-direction:column;}
-.gtb{background:var(--surf);border-bottom:1px solid var(--bd);padding:12px 20px;display:flex;align-items:center;gap:16px;flex-shrink:0;}
-.bb{background:var(--s2);border:1px solid var(--bd2);border-radius:var(--r);padding:7px 14px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;color:var(--tx);}
-.bb:hover{background:var(--s3);}
-.gtt{font-family:'Fraunces',serif;font-size:18px;font-weight:600;}
+.gtb{background:var(--racsa-navy);border-bottom:none;padding:12px 20px;display:flex;align-items:center;gap:16px;flex-shrink:0;}
+.bb{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:var(--r);padding:7px 14px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;color:#FFF;}
+.bb:hover{background:rgba(255,255,255,0.2);}
+.gtt{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:#FFFFFF;}
 #gc{flex:1;overflow-y:auto;}
 
 /* GAME COMPONENTS */
 .gwr{max-width:720px;margin:0 auto;padding:2rem 1.5rem 4rem;}
 .gh{text-align:center;margin-bottom:2rem;}
-.gh h2{font-family:'Fraunces',serif;font-size:2rem;font-weight:600;margin-bottom:8px;}
+.gh h2{font-family:'Fraunces',serif;font-size:2rem;font-weight:600;margin-bottom:8px;color:var(--racsa-navy);}
 .gh p{font-size:15px;color:var(--tm);line-height:1.65;max-width:520px;margin:0 auto;}
-.gcard{background:var(--surf);border:1px solid var(--bd);border-radius:var(--rl);padding:20px;margin-bottom:16px;}
-.gcard h3{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--tf);margin-bottom:12px;}
-.glb{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--tf);margin-bottom:6px;}
-.gal{background:var(--s2);border-left:3px solid var(--cs);border-radius:0 var(--r) var(--r) 0;padding:12px 16px;margin-bottom:16px;font-size:14px;line-height:1.6;}
+.gcard{background:var(--surf);border:1px solid var(--bd);border-radius:var(--rl);padding:20px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,44,95,.06);}
+.gcard h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--racsa-navy);margin-bottom:12px;opacity:.7;}
+.glb{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--racsa-navy);opacity:.55;margin-bottom:6px;}
+.gal{background:var(--cstbg);border-left:3px solid var(--racsa-blue);border-radius:0 var(--r) var(--r) 0;padding:12px 16px;margin-bottom:16px;font-size:14px;line-height:1.6;}
 .gw2{border-left-color:var(--cn);} .gd{border-left-color:var(--ca);}
-.gbtn{display:inline-flex;align-items:center;gap:8px;background:var(--tx);color:var(--bg);border:none;border-radius:var(--r);padding:11px 22px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;}
-.gbtn:hover{opacity:.85;} .gbtn:disabled{opacity:.35;cursor:not-allowed;}
-.gbo{background:transparent;color:var(--tx);border:1px solid var(--bd2);}
-.gbo:hover{background:var(--s2);}
+.gbtn{display:inline-flex;align-items:center;gap:8px;background:var(--racsa-blue);color:#FFF;border:none;border-radius:var(--r);padding:11px 22px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;}
+.gbtn:hover{background:#0047A0;box-shadow:0 4px 12px rgba(0,85,165,.25);} .gbtn:disabled{opacity:.35;cursor:not-allowed;}
+.gbo{background:transparent;color:var(--racsa-blue);border:1.5px solid var(--racsa-blue);}
+.gbo:hover{background:var(--cstbg);}
 .grow{display:flex;gap:10px;flex-wrap:wrap;margin-top:1rem;}
 .gph{display:none;} .gph.active{display:block;}
 .il{list-style:none;display:flex;flex-direction:column;gap:6px;}
 .il li{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--s2);border-radius:var(--r);font-size:14px;cursor:pointer;border:1.5px solid transparent;}
 .il li:hover{background:var(--s3);}
-.il li.sel{background:var(--csbg);border-color:var(--cs);color:var(--cs);}
+.il li.sel{background:#E6EEF9;border-color:var(--racsa-blue);color:var(--racsa-blue);}
 .sgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:1.5rem;}
-.sb{background:var(--s2);border-radius:var(--r);padding:14px;text-align:center;}
+.sb{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:14px;text-align:center;box-shadow:0 1px 4px rgba(0,44,95,.06);}
 .sb .sbn{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:600;}
 .sb .sbl{font-size:11px;color:var(--tf);margin-top:4px;}
 .dbl{list-style:none;display:flex;flex-direction:column;gap:8px;}
 .dbl li{font-size:14px;color:var(--tm);line-height:1.55;padding-left:18px;position:relative;}
-.dbl li::before{content:'→';position:absolute;left:0;color:var(--tf);}
+.dbl li::before{content:'›';position:absolute;left:0;color:var(--racsa-blue);font-weight:700;font-size:15px;line-height:1.35;}
 .pb2{height:8px;background:var(--s2);border-radius:4px;overflow:hidden;margin-bottom:6px;}
-.pf{height:100%;background:var(--cs);border-radius:4px;transition:width .4s;}
+.pf{height:100%;background:var(--racsa-green);border-radius:4px;transition:width .4s;}
 .td{font-family:'DM Mono',monospace;font-size:2.5rem;text-align:center;color:var(--tx);margin:1rem 0;}
-.td.urg{color:var(--ca);}
-.chb{width:100%;background:var(--s2);border:1.5px solid var(--bd);border-radius:var(--r);padding:14px 16px;text-align:left;font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;margin-bottom:8px;}
-.chb:hover{background:var(--s3);}
-.chb.pg{background:var(--csbg);border-color:var(--cs);color:var(--cs);}
-.chb.pb3{background:var(--cabg);border-color:var(--ca);color:var(--ca);}
+.td.urg{color:#B8003A;}
+.chb{width:100%;background:var(--surf);border:1.5px solid var(--bd);border-radius:var(--r);padding:14px 16px;text-align:left;font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,44,95,.05);transition:all .15s;}
+.chb:hover{background:var(--cstbg);border-color:var(--racsa-blue);transform:translateX(2px);}
+.chb.pg{background:#E6F7EE;border-color:#00A651;color:#006E35;}
+.chb.pb3{background:#FAEAEE;border-color:#B8003A;color:#8A0028;}
 .rc{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:1.5rem;}
-.rcard{background:var(--s2);border-radius:var(--r);padding:14px;border-top:3px solid var(--bd2);}
+.rcard{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:14px;border-top:3px solid var(--racsa-blue);box-shadow:0 1px 4px rgba(0,44,95,.07);}
 .rcard .re{font-size:24px;margin-bottom:6px;}
 .rcard .rn{font-size:14px;font-weight:600;margin-bottom:4px;}
 .rcard .rg{font-size:12px;color:var(--tm);line-height:1.4;}
@@ -123,15 +160,15 @@ table.rk{width:100%;border-collapse:collapse;}
 table.rk tr{border-bottom:1px solid var(--bd);}
 table.rk td{padding:9px 6px;font-size:13px;}
 .pl{display:inline-block;font-size:11px;padding:2px 9px;border-radius:999px;font-weight:500;}
-.plg{background:var(--csbg);color:var(--cs);}
+.plg{background:#E6F7EE;color:#006E35;}
 .plm{background:#FFF3DC;color:#8A5800;}
 .plb{background:var(--cabg);color:var(--ca);}
 .inf{width:100%;background:var(--s2);border:1px solid var(--bd2);border-radius:var(--r);padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--tx);outline:none;margin-bottom:10px;}
-.dbox{background:var(--s2);border-left:3px solid var(--cn);border-radius:0 var(--r) var(--r) 0;padding:14px 16px;margin-bottom:16px;}
-.dlb{font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:var(--cn);font-weight:600;margin-bottom:5px;}
+.dbox{background:#FEF3E2;border-left:3px solid #C06000;border-radius:0 var(--r) var(--r) 0;padding:14px 16px;margin-bottom:16px;}
+.dlb{font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:#C06000;font-weight:700;margin-bottom:5px;}
 .ti{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--bd);font-size:14px;color:var(--tm);line-height:1.5;}
 .ti:last-child{border-bottom:none;}
-.tr2{font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--cs);background:var(--csbg);padding:2px 7px;border-radius:4px;white-space:nowrap;margin-top:2px;}
+.tr2{font-size:10px;font-weight:700;letter-spacing:.06em;color:#006E35;background:#E6F7EE;padding:3px 8px;border-radius:5px;white-space:nowrap;margin-top:2px;}
 @media(max-width:600px){.gwr{padding:1.5rem 1rem 3rem;}.sgrid{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
@@ -139,7 +176,13 @@ table.rk td{padding:9px 6px;font-size:13px;}
 <div class="screen active" id="ms">
   <header>
     <div class="hi">
-      <div class="ey">Biblioteca de simulaciones · Desarrollo organizacional</div>
+      <div class="ey" style="display:flex;align-items:center;gap:10px">
+      <svg width="72" height="18" viewBox="0 0 72 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="72" height="18" rx="3" fill="rgba(255,255,255,0.15)"/>
+        <text x="6" y="13" font-family="DM Sans, sans-serif" font-size="10" font-weight="700" fill="white" letter-spacing="2">RACSA</text>
+      </svg>
+      <span>Biblioteca de dinámicas · Desarrollo organizacional</span>
+    </div>
       <h1 class="mt">Dinámicas de <em>equipo</em></h1>
       <p class="ms">30 simulaciones interactivas para desarrollar liderazgo, comunicación y pensamiento estratégico.</p>
       <div class="ss">
@@ -150,59 +193,56 @@ table.rk td{padding:9px 6px;font-size:13px;}
     </div>
   </header>
   <div class="ctrl">
-    <div class="sw"><span class="si">🔍</span><input type="text" id="srch" placeholder="Buscar dinámica..." oninput="af()"></div>
+    <div class="sw"><span class="si" style="color:var(--tf);display:flex;align-items:center"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle"><circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L13.5 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><input type="text" id="srch" placeholder="Buscar dinámica..." oninput="af()"></div>
     <div class="flt">
       <button class="fb active" onclick="sf('all',this)">Todas</button>
-      <button class="fb" onclick="sf('survival',this)">🏔 Supervivencia</button>
-      <button class="fb" onclick="sf('strategy',this)">♟ Estrategia</button>
-      <button class="fb" onclick="sf('negotiation',this)">🤝 Negociación</button>
-      <button class="fb" onclick="sf('culture',this)">🌍 Cultura</button>
-      <button class="fb" onclick="sf('agile',this)">⚡ Ágil</button>
-      <button class="fb" onclick="sf('systems',this)">⚙ Sistemas</button>
+      <button class="fb" onclick="sf('survival',this)"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;flex-shrink:0"><rect width="16" height="16" rx="4" fill="#00A651"/><path d="M8 3L13 13H3L8 3Z" fill="white" opacity="0.9"/><path d="M5.5 13L8 8.5L10.5 13" fill="white" opacity="0.5"/><circle cx="11" cy="5" r="1.5" fill="white" opacity="0.8"/></svg> Supervivencia</button>
+      <button class="fb" onclick="sf('strategy',this)"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;flex-shrink:0"><rect width="16" height="16" rx="4" fill="#0055A5"/><rect x="6" y="3" width="4" height="2" rx="1" fill="white"/><rect x="7" y="5" width="2" height="4" fill="white"/><rect x="5" y="9" width="6" height="2" rx="1" fill="white" opacity="0.9"/><rect x="5.5" y="11" width="5" height="2" rx="1" fill="white" opacity="0.7"/></svg> Estrategia</button>
+      <button class="fb" onclick="sf('negotiation',this)"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;flex-shrink:0"><rect width="16" height="16" rx="4" fill="#C06000"/><path d="M3 8.5L6 6H8L10 7H13L13 9.5L10.5 11H8L6 10L3 11V8.5Z" fill="white" opacity="0.85"/><path d="M8 7L10 7" stroke="rgba(0,0,0,0.2)" stroke-width="0.5"/></svg> Negociación</button>
+      <button class="fb" onclick="sf('culture',this)"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;flex-shrink:0"><rect width="16" height="16" rx="4" fill="#7B2FBE"/><circle cx="8" cy="8" r="5" stroke="white" stroke-width="1.5" fill="none"/><path d="M3 8H13" stroke="white" stroke-width="1"/><path d="M8 3C6.5 5 6.5 11 8 13" stroke="white" stroke-width="1"/><path d="M8 3C9.5 5 9.5 11 8 13" stroke="white" stroke-width="1"/></svg> Cultura</button>
+      <button class="fb" onclick="sf('agile',this)"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;flex-shrink:0"><rect width="16" height="16" rx="4" fill="#B8003A"/><path d="M9 3L5 9H8.5L7 13L11 7H7.5L9 3Z" fill="white"/></svg> Ágil</button>
+      <button class="fb" onclick="sf('systems',this)"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;flex-shrink:0"><rect width="16" height="16" rx="4" fill="#007B8A"/><circle cx="8" cy="8" r="2.5" fill="white"/><path d="M8 3v1.5M8 11.5V13M3 8h1.5M11.5 8H13M4.6 4.6l1.1 1.1M10.3 10.3l1.1 1.1M4.6 11.4l1.1-1.1M10.3 5.7l1.1-1.1" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg> Sistemas</button>
     </div>
     <span class="cl" id="cl">30 dinámicas</span>
   </div>
   <div class="gw"><div class="gg" id="grid"></div></div>
 </div>
 <div class="screen" id="gs">
-  <div class="gtb">
-    <button class="bb" onclick="goMenu()">← Menú</button>
-    <span class="gtt" id="gtt"></span>
-  </div>
+  <div class="gtb" id="gtb" style="display:none"></div>
   <div id="gc"></div>
 </div>
 <script>
 const GAMES=[
-  {n:1,id:'everest',t:'Everest',s:'Expedición · Nepal',cat:'survival',cl:'Supervivencia',p:'5',d:'60 min',desc:'Gestión de equipo multidisciplinario para alcanzar la cima en 6 días simulados equilibrando metas individuales, salud y climatología.',ins:'El éxito requiere comunicación constante y priorizar la supervivencia del grupo.'},
-  {n:2,id:'samurai',t:'The Samurai Game',s:'Combate simulado · Japón',cat:'survival',cl:'Supervivencia',p:'10–50',d:'90 min',desc:'Simulación de combate feudal que explora liderazgo, ética y consecuencias de la indecisión bajo presión extrema.',ins:'La indecisión tiene consecuencias tan graves como la decisión equivocada.'},
-  {n:3,id:'freshbiz',t:'FreshBiz',s:'Tablero financiero · Israel',cat:'strategy',cl:'Estrategia',p:'4–6',d:'90 min',desc:'Tablero donde equipos compiten y colaboran en un ecosistema financiero. El pensamiento ganar-ganar supera la competencia pura.',ins:'La colaboración entre competidores genera mayor valor que la rivalidad.'},
-  {n:4,id:'beer',t:'Beer Distribution',s:'Cadena de suministro · MIT',cat:'systems',cl:'Sistemas',p:'4–8',d:'60 min',desc:'Cada jugador gestiona un eslabón de la cadena. La mala comunicación crea el efecto látigo: pequeñas variaciones producen caos aguas arriba.',ins:'Los sistemas se optimizan localmente a costa del sistema total.'},
-  {n:5,id:'bafabafa',t:"BaFá BaFá",s:'Intercambio cultural · EE.UU.',cat:'culture',cl:'Cultura',p:'12–40',d:'120 min',desc:'Dos culturas ficticias intercambian embajadores. Los participantes experimentan el choque cultural y los prejuicios automáticos en carne propia.',ins:'Los juicios precipitados sobre otras culturas son inevitables sin inmersión real.'},
-  {n:6,id:'friday',t:'Friday Night at the ER',s:'Simulación hospitalaria',cat:'systems',cl:'Sistemas',p:'4',d:'120 min',desc:'Cuatro equipos gestionan un hospital durante una noche de urgencias. Cada decisión afecta a todos los demás departamentos.',ins:'La optimización de una sola área puede colapsar todo el sistema.'},
-  {n:7,id:'desert',t:'Desert Survival',s:'Accidente en el desierto',cat:'survival',cl:'Supervivencia',p:'4–8',d:'60 min',desc:'El avión se estrelló en el desierto de Sonora. Quedan 15 objetos. El equipo los prioriza individual y colectivamente.',ins:'La sinergia grupal casi siempre supera al mejor individuo del equipo.'},
-  {n:8,id:'markstrat',t:'Markstrat',s:'Mercado hipercompetitivo',cat:'strategy',cl:'Estrategia',p:'4–6',d:'180 min',desc:'Simulación de marketing donde equipos compiten en un mercado ficticio durante varios períodos, gestionando portafolios y anticipando rivales.',ins:'La estrategia a largo plazo supera la táctica reactiva.'},
-  {n:9,id:'go',t:'Weiqi (Go) Empresarial',s:'Tablero estratégico · China',cat:'strategy',cl:'Estrategia',p:'2+',d:'45 min',desc:'Adaptación empresarial del Go milenario. Aprendé visión periférica, control territorial y paciencia estratégica en un tablero 9×9.',ins:'Controlar el territorio importa más que eliminar al oponente.'},
-  {n:10,id:'shogi',t:'Shogi Gerencial',s:'Ajedrez japonés · Japón',cat:'strategy',cl:'Estrategia',p:'2+',d:'45 min',desc:'Adaptación del Shogi: la pieza capturada puede ser reutilizada por el captor — metáfora de cómo el talento rival puede reubicarse.',ins:'Reintegrar el talento del contrincante es más poderoso que eliminarlo.'},
-  {n:11,id:'chanakya',t:"Chanakya's Niti",s:'Rol político · India',cat:'negotiation',cl:'Negociación',p:'5–10',d:'90 min',desc:'Basado en el Arthashastra. Participantes asumen roles de estados rivales y deben forjar alianzas, espiar y negociar sin perder poder.',ins:'El liderazgo pragmático requiere alianzas estratégicas, no lealtades absolutas.'},
-  {n:12,id:'subarctic',t:'Subarctic Survival',s:'Supervivencia extrema · Canadá',cat:'survival',cl:'Supervivencia',p:'4–8',d:'60 min',desc:'El avión se estrelló en el ártico a −40°C. El equipo prioriza objetos de supervivencia donde la experiencia práctica vale más que la lógica urbana.',ins:'El conocimiento situacional supera al razonamiento abstracto.'},
-  {n:13,id:'lostsea',t:'Lost at Sea',s:'Naufragio en el Atlántico',cat:'survival',cl:'Supervivencia',p:'4–8',d:'60 min',desc:'El yate naufragó a 1,000 millas de tierra. Individual vs. consenso vs. expertos de la Marina. El pánico distorsiona la priorización.',ins:'El estrés extremo nubla el juicio incluso en personas expertas.'},
-  {n:14,id:'marshmallow',t:'Marshmallow Challenge',s:'Construcción con espagueti',cat:'agile',cl:'Ágil',p:'4',d:'20 min',desc:'18 minutos para construir la estructura más alta con 20 espaguetis y un malvavisco en la punta. Los MBA fallan más que los niños de kínder.',ins:'Las asunciones no testeadas llevan al colapso al final, no al inicio.'},
-  {n:15,id:'golddesert',t:'Gold of the Desert Kings',s:'Expedición minera',cat:'survival',cl:'Supervivencia',p:'2–4',d:'90 min',desc:'Equipos compiten para extraer oro de una región peligrosa. La velocidad mata: los que se preparan bien y van despacio casi siempre llegan.',ins:'La preparación meticulosa supera a la velocidad de ejecución.'},
-  {n:16,id:'marble',t:'Council of Marble Star',s:'Negociación medieval',cat:'negotiation',cl:'Negociación',p:'9–12',d:'90 min',desc:'Consejo de nobles donde cada facción tiene información incompleta. Solo compartiendo datos se puede tomar la decisión óptima para el reino.',ins:'La información compartida es más poderosa que la información retenida.'},
-  {n:17,id:'dutchman',t:"Lost Dutchman's Gold",s:'Extracción de oro · Arizona',cat:'negotiation',cl:'Negociación',p:'5–6',d:'90 min',desc:'Equipos compiten para extraer oro de la misma mina. Los recursos son limitados. Los que colaboran extraen más que los que compiten.',ins:'Optimizar el sistema completo supera optimizar cada equipo por separado.'},
-  {n:18,id:'nasa',t:'NASA Moon Survival',s:'Varados en la Luna',cat:'survival',cl:'Supervivencia',p:'4–8',d:'60 min',desc:'La nave aterrizó 300 km del módulo de comando. Quedan 15 objetos. Individual vs. consenso vs. respuesta NASA. Clásico desde 1960.',ins:'El consenso grupal informado supera al experto individual casi siempre.'},
-  {n:19,id:'prisoner',t:"Prisoner's Dilemma",s:'Teoría de juegos',cat:'negotiation',cl:'Negociación',p:'2+',d:'30 min',desc:'Múltiples rondas del dilema del prisionero. Tit for Tat emerge como estrategia dominante: cooperar primero, luego imitar al oponente.',ins:'La traición gana en el corto plazo. La cooperación gana en el largo.'},
-  {n:20,id:'capstone',t:'Capstone Simulation',s:'Dirección de empresa',cat:'strategy',cl:'Estrategia',p:'4–6',d:'240 min',desc:'Equipos dirigen una empresa completa durante 8 años simulados: I+D, marketing, finanzas, producción. Cada área interfiere con las demás.',ins:'Las decisiones funcionales siempre tienen efectos sistémicos no previstos.'},
-  {n:21,id:'peak',t:'Peak Performance',s:'Expedición virtual',cat:'survival',cl:'Supervivencia',p:'4–5',d:'90 min',desc:'Equipos coordinan una expedición con roles distribuidos. Los objetivos individuales mal alineados sabotean la misión colectiva.',ins:'Los objetivos claros y compartidos unen al equipo más que los incentivos individuales.'},
-  {n:22,id:'simultrain',t:'SimulTrain',s:'Proyecto informático',cat:'agile',cl:'Ágil',p:'3–4',d:'120 min',desc:'Simulador de gestión de proyecto de software con eventos inesperados, cambios de alcance y presión de tiempo constante.',ins:'La planificación adaptativa reduce el estrés más que la velocidad de reacción.'},
-  {n:23,id:'minefield',t:'Campo Minado',s:'Caminata a ciegas',cat:'agile',cl:'Ágil',p:'parejas',d:'30 min',desc:'Un participante vendado atraviesa obstáculos guiado solo por la voz de su pareja. La comunicación clara es más escasa de lo que creemos.',ins:'Las instrucciones claras para quien habla son ambiguas para quien escucha.'},
-  {n:24,id:'knot',t:'Nudo Humano',s:'Enredo físico',cat:'agile',cl:'Ágil',p:'8–12',d:'20 min',desc:'El grupo entrelaza manos aleatoriamente y debe desatarse sin soltarse. El liderazgo emerge naturalmente sin estar asignado.',ins:'El liderazgo emergente es más efectivo que el liderazgo impuesto.'},
-  {n:25,id:'escape',t:'Escape Room Corporativo',s:'Sala de escape',cat:'agile',cl:'Ágil',p:'4–8',d:'60 min',desc:'Adaptación corporativa donde cada pista requiere competencias distintas. Los equipos homogéneos fallan más que los multidisciplinarios.',ins:'La diversidad de habilidades resuelve lo que el talento homogéneo no puede.'},
-  {n:26,id:'global',t:'Global Management',s:'Dirección ejecutiva global',cat:'strategy',cl:'Estrategia',p:'3–5',d:'180 min',desc:'Simulación ejecutiva con disrupciones regulatorias, competidores y volatilidad cambiaria. La adaptación al cambio es la única ventaja sostenible.',ins:'La rigidez estratégica es más peligrosa que la amenaza externa.'},
-  {n:27,id:'redblue',t:'Red/Blue Exercise',s:'Simulador táctico',cat:'negotiation',cl:'Negociación',p:'equipos',d:'60 min',desc:'Dos equipos negocian en rondas sin comunicación directa. La percepción de la intención del otro define el resultado más que la intención real.',ins:'La percepción de la intención importa más que la intención real.'},
-  {n:28,id:'mancala',t:'Mancala Estratégico',s:'Tablero de siembra · África',cat:'strategy',cl:'Estrategia',p:'2+',d:'30 min',desc:'Adaptación empresarial del ancestral juego africano. Cada movimiento afecta múltiples posiciones — metáfora de la gestión de recursos encadenados.',ins:'La planificación anticipada de recursos es más valiosa que la reacción eficiente.'},
-  {n:29,id:'labyrinth',t:'Labyrinth',s:'Laberinto corporativo',cat:'systems',cl:'Sistemas',p:'4–8',d:'60 min',desc:'El líder ve el mapa pero no puede moverse; el equipo puede moverse pero no ve el mapa. La microgestión paraliza; la delegación libera.',ins:'El líder que no delega se convierte en el mayor obstáculo del equipo.'},
-  {n:30,id:'synergistic',t:'Synergistic Decision',s:'Caso empresarial',cat:'negotiation',cl:'Negociación',p:'4–8',d:'60 min',desc:'Caso de negocio complejo con información distribuida entre los miembros. Solo la síntesis colectiva lleva a la decisión óptima.',ins:'La toma de decisiones de calidad requiere proceso, no solo inteligencia.'},
+  {n:1,id:'everest',t:'Everest',s:'Expedición · Nepal',cat:'survival',cl:'Supervivencia',p:'5',d:'60 min',desc:'Gestión de equipo multidisciplinario para alcanzar la cima en 6 días simulados equilibrando metas individuales, salud y climatología.',ins:'El éxito requiere comunicación constante y priorizar la supervivencia del grupo.',v:'mixto'},
+  {n:2,id:'samurai',t:'The Samurai Game',s:'Combate simulado · Japón',cat:'survival',cl:'Supervivencia',p:'10–50',d:'90 min',desc:'Simulación de combate feudal que explora liderazgo, ética y consecuencias de la indecisión bajo presión extrema.',ins:'La indecisión tiene consecuencias tan graves como la decisión equivocada.',v:'presencial'},
+  {n:3,id:'freshbiz',t:'FreshBiz',s:'Tablero financiero · Israel',cat:'strategy',cl:'Estrategia',p:'4–6',d:'90 min',desc:'Tablero donde equipos compiten y colaboran en un ecosistema financiero. El pensamiento ganar-ganar supera la competencia pura.',ins:'La colaboración entre competidores genera mayor valor que la rivalidad.',v:'presencial'},
+  {n:4,id:'beer',t:'Beer Distribution',s:'Cadena de suministro · MIT',cat:'systems',cl:'Sistemas',p:'4–8',d:'60 min',desc:'Cada jugador gestiona un eslabón de la cadena. La mala comunicación crea el efecto látigo: pequeñas variaciones producen caos aguas arriba.',ins:'Los sistemas se optimizan localmente a costa del sistema total.',v:'mixto'},
+  {n:5,id:'bafabafa',t:"BaFá BaFá",s:'Intercambio cultural · EE.UU.',cat:'culture',cl:'Cultura',p:'12–40',d:'120 min',desc:'Dos culturas ficticias intercambian embajadores. Los participantes experimentan el choque cultural y los prejuicios automáticos en carne propia.',ins:'Los juicios precipitados sobre otras culturas son inevitables sin inmersión real.',v:'presencial'},
+  {n:6,id:'friday',t:'Friday Night at the ER',s:'Simulación hospitalaria',cat:'systems',cl:'Sistemas',p:'4',d:'120 min',desc:'Cuatro equipos gestionan un hospital durante una noche de urgencias. Cada decisión afecta a todos los demás departamentos.',ins:'La optimización de una sola área puede colapsar todo el sistema.',v:'presencial'},
+  {n:7,id:'desert',t:'Desert Survival',s:'Accidente en el desierto',cat:'survival',cl:'Supervivencia',p:'4–8',d:'60 min',desc:'El avión se estrelló en el desierto de Sonora. Quedan 15 objetos. El equipo los prioriza individual y colectivamente.',ins:'La sinergia grupal casi siempre supera al mejor individuo del equipo.',v:'mixto'},
+  {n:8,id:'markstrat',t:'Markstrat',s:'Mercado hipercompetitivo',cat:'strategy',cl:'Estrategia',p:'4–6',d:'180 min',desc:'Simulación de marketing donde equipos compiten en un mercado ficticio durante varios períodos, gestionando portafolios y anticipando rivales.',ins:'La estrategia a largo plazo supera la táctica reactiva.',v:'virtual'},
+  {n:9,id:'go',t:'Weiqi (Go) Empresarial',s:'Tablero estratégico · China',cat:'strategy',cl:'Estrategia',p:'2+',d:'45 min',desc:'Adaptación empresarial del Go milenario. Aprendé visión periférica, control territorial y paciencia estratégica en un tablero 9×9.',ins:'Controlar el territorio importa más que eliminar al oponente.',v:'mixto'},
+  {n:10,id:'shogi',t:'Shogi Gerencial',s:'Ajedrez japonés · Japón',cat:'strategy',cl:'Estrategia',p:'2+',d:'45 min',desc:'Adaptación del Shogi: la pieza capturada puede ser reutilizada por el captor — metáfora de cómo el talento rival puede reubicarse.',ins:'Reintegrar el talento del contrincante es más poderoso que eliminarlo.',v:'mixto'},
+  {n:11,id:'chanakya',t:"Chanakya's Niti",s:'Rol político · India',cat:'negotiation',cl:'Negociación',p:'5–10',d:'90 min',desc:'Basado en el Arthashastra. Participantes asumen roles de estados rivales y deben forjar alianzas, espiar y negociar sin perder poder.',ins:'El liderazgo pragmático requiere alianzas estratégicas, no lealtades absolutas.',v:'presencial'},
+  {n:12,id:'subarctic',t:'Subarctic Survival',s:'Supervivencia extrema · Canadá',cat:'survival',cl:'Supervivencia',p:'4–8',d:'60 min',desc:'El avión se estrelló en el ártico a −40°C. El equipo prioriza objetos de supervivencia donde la experiencia práctica vale más que la lógica urbana.',ins:'El conocimiento situacional supera al razonamiento abstracto.',v:'mixto'},
+  {n:13,id:'lostsea',t:'Lost at Sea',s:'Naufragio en el Atlántico',cat:'survival',cl:'Supervivencia',p:'4–8',d:'60 min',desc:'El yate naufragó a 1,000 millas de tierra. Individual vs. consenso vs. expertos de la Marina. El pánico distorsiona la priorización.',ins:'El estrés extremo nubla el juicio incluso en personas expertas.',v:'mixto'},
+  {n:14,id:'marshmallow',t:'Marshmallow Challenge',s:'Construcción con espagueti',cat:'agile',cl:'Ágil',p:'4',d:'20 min',desc:'18 minutos para construir la estructura más alta con 20 espaguetis y un malvavisco en la punta. Los MBA fallan más que los niños de kínder.',ins:'Las asunciones no testeadas llevan al colapso al final, no al inicio.',v:'presencial'},
+  {n:15,id:'golddesert',t:'Gold of the Desert Kings',s:'Expedición minera',cat:'survival',cl:'Supervivencia',p:'2–4',d:'90 min',desc:'Equipos compiten para extraer oro de una región peligrosa. La velocidad mata: los que se preparan bien y van despacio casi siempre llegan.',ins:'La preparación meticulosa supera a la velocidad de ejecución.',v:'mixto'},
+  {n:16,id:'marble',t:'Council of Marble Star',s:'Negociación medieval',cat:'negotiation',cl:'Negociación',p:'9–12',d:'90 min',desc:'Consejo de nobles donde cada facción tiene información incompleta. Solo compartiendo datos se puede tomar la decisión óptima para el reino.',ins:'La información compartida es más poderosa que la información retenida.',v:'presencial'},
+  {n:17,id:'dutchman',t:"Lost Dutchman's Gold",s:'Extracción de oro · Arizona',cat:'negotiation',cl:'Negociación',p:'5–6',d:'90 min',desc:'Equipos compiten para extraer oro de la misma mina. Los recursos son limitados. Los que colaboran extraen más que los que compiten.',ins:'Optimizar el sistema completo supera optimizar cada equipo por separado.',v:'mixto'},
+  {n:18,id:'nasa',t:'NASA Moon Survival',s:'Varados en la Luna',cat:'survival',cl:'Supervivencia',p:'4–8',d:'60 min',desc:'La nave aterrizó 300 km del módulo de comando. Quedan 15 objetos. Individual vs. consenso vs. respuesta NASA. Clásico desde 1960.',ins:'El consenso grupal informado supera al experto individual casi siempre.',v:'mixto'},
+  {n:19,id:'prisoner',t:"Prisoner's Dilemma",s:'Teoría de juegos',cat:'negotiation',cl:'Negociación',p:'2+',d:'30 min',desc:'Múltiples rondas del dilema del prisionero. Tit for Tat emerge como estrategia dominante: cooperar primero, luego imitar al oponente.',ins:'La traición gana en el corto plazo. La cooperación gana en el largo.',v:'virtual'},
+  {n:20,id:'capstone',t:'Capstone Simulation',s:'Dirección de empresa',cat:'strategy',cl:'Estrategia',p:'4–6',d:'240 min',desc:'Equipos dirigen una empresa completa durante 8 años simulados: I+D, marketing, finanzas, producción. Cada área interfiere con las demás.',ins:'Las decisiones funcionales siempre tienen efectos sistémicos no previstos.',v:'virtual'},
+  {n:21,id:'peak',t:'Peak Performance',s:'Expedición virtual',cat:'survival',cl:'Supervivencia',p:'4–5',d:'90 min',desc:'Equipos coordinan una expedición con roles distribuidos. Los objetivos individuales mal alineados sabotean la misión colectiva.',ins:'Los objetivos claros y compartidos unen al equipo más que los incentivos individuales.',v:'mixto'},
+  {n:22,id:'simultrain',t:'SimulTrain',s:'Proyecto informático',cat:'agile',cl:'Ágil',p:'3–4',d:'120 min',desc:'Simulador de gestión de proyecto de software con eventos inesperados, cambios de alcance y presión de tiempo constante.',ins:'La planificación adaptativa reduce el estrés más que la velocidad de reacción.',v:'virtual'},
+  {n:23,id:'minefield',t:'Campo Minado',s:'Caminata a ciegas',cat:'agile',cl:'Ágil',p:'parejas',d:'30 min',desc:'Un participante vendado atraviesa obstáculos guiado solo por la voz de su pareja. La comunicación clara es más escasa de lo que creemos.',ins:'Las instrucciones claras para quien habla son ambiguas para quien escucha.',v:'presencial'},
+  {n:24,id:'knot',t:'Nudo Humano',s:'Enredo físico',cat:'agile',cl:'Ágil',p:'8–12',d:'20 min',desc:'El grupo entrelaza manos aleatoriamente y debe desatarse sin soltarse. El liderazgo emerge naturalmente sin estar asignado.',ins:'El liderazgo emergente es más efectivo que el liderazgo impuesto.',v:'presencial'},
+  {n:25,id:'escape',t:'Escape Room Corporativo',s:'Sala de escape',cat:'agile',cl:'Ágil',p:'4–8',d:'60 min',desc:'Adaptación corporativa donde cada pista requiere competencias distintas. Los equipos homogéneos fallan más que los multidisciplinarios.',ins:'La diversidad de habilidades resuelve lo que el talento homogéneo no puede.',v:'mixto'},
+  {n:26,id:'global',t:'Global Management',s:'Dirección ejecutiva global',cat:'strategy',cl:'Estrategia',p:'3–5',d:'180 min',desc:'Simulación ejecutiva con disrupciones regulatorias, competidores y volatilidad cambiaria. La adaptación al cambio es la única ventaja sostenible.',ins:'La rigidez estratégica es más peligrosa que la amenaza externa.',v:'virtual'},
+  {n:27,id:'redblue',t:'Red/Blue Exercise',s:'Simulador táctico',cat:'negotiation',cl:'Negociación',p:'equipos',d:'60 min',desc:'Dos equipos negocian en rondas sin comunicación directa. La percepción de la intención del otro define el resultado más que la intención real.',ins:'La percepción de la intención importa más que la intención real.',v:'mixto'},
+  {n:28,id:'mancala',t:'Mancala Estratégico',s:'Tablero de siembra · África',cat:'strategy',cl:'Estrategia',p:'2+',d:'30 min',desc:'Adaptación empresarial del ancestral juego africano. Cada movimiento afecta múltiples posiciones — metáfora de la gestión de recursos encadenados.',ins:'La planificación anticipada de recursos es más valiosa que la reacción eficiente.',v:'mixto'},
+  {n:29,id:'labyrinth',t:'Labyrinth',s:'Laberinto corporativo',cat:'systems',cl:'Sistemas',p:'4–8',d:'60 min',desc:'El líder ve el mapa pero no puede moverse; el equipo puede moverse pero no ve el mapa. La microgestión paraliza; la delegación libera.',ins:'El líder que no delega se convierte en el mayor obstáculo del equipo.',v:'mixto'},
+  {n:30,id:'synergistic',t:'Synergistic Decision',s:'Caso empresarial',cat:'negotiation',cl:'Negociación',p:'4–8',d:'60 min',desc:'Caso de negocio complejo con información distribuida entre los miembros. Solo la síntesis colectiva lleva a la decisión óptima.',ins:'La toma de decisiones de calidad requiere proceso, no solo inteligencia.',v:'mixto'},
 ];
 const CC={survival:'cs2',strategy:'cst3',negotiation:'cn3',culture:'cc3',agile:'ca3',systems:'cy2'};
 const AC={survival:'as',strategy:'ast',negotiation:'an',culture:'ac',agile:'aa',systems:'ay'};
@@ -221,21 +261,27 @@ function af(){
       <div class="ctw"><div class="ct">${g2.t}</div><div class="cst2">${g2.s}</div></div>
       <span class="cc2 ${c}">${g2.cl}</span></div>
       <p class="cd">${g2.desc}</p>
-      <div class="cm"><span class="mp">👥 ${g2.p}</span><span class="mp">⏱ ${g2.d}</span></div>
+      <div class="cm"><span class="mp"><svg width="11" height="11" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle"><circle cx="8" cy="5.5" r="3" fill="currentColor" opacity="0.85"/><path d="M2 13.5C2 11 4.7 9 8 9s6 2 6 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg> ${g2.p}</span><span class="mp"><svg width="11" height="11" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle"><circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v3.5L10.5 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> ${g2.d}</span></div>
       <div class="ci">${g2.ins}</div>
-    </div><div class="cf"><button class="pb" onclick="launch('${g2.id}','${g2.t}')">▶ Jugar ahora</button></div>`;
+    </div><div class="cf"><button class="pb" onclick="launch('${g2.id}','${g2.t}')"><svg width="11" height="11" viewBox="0 0 16 16" fill="white" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle"><path d="M5 3.5L13 8L5 12.5V3.5Z"/></svg> Jugar ahora</button><span class="mbadge ${g2.v||'mixto'}">${g2.v==='virtual'?'🖥️ Virtual':g2.v==='presencial'?'👥 Presencial':'🖥️+👥 Mixto'}</span></div>`;
     g.appendChild(el);
   });
 }
 function goMenu(){document.getElementById('ms').classList.add('active');document.getElementById('gs').classList.remove('active');document.getElementById('gc').innerHTML='';}
 function launch(id,title){
   document.getElementById('ms').classList.remove('active');document.getElementById('gs').classList.add('active');
-  document.getElementById('gtt').textContent=title;
+  const gtb=document.getElementById('gtb');
+  if(id==='everest'){
+    gtb.style.display='none';gtb.innerHTML='';
+  } else {
+    gtb.style.display='flex';
+    gtb.innerHTML=`<button class="bb" onclick="goMenu()"><svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Menú</button><span class="gtt">${title}</span>`;
+  }
   const fn=window['G_'+id];
   if(fn)fn();else document.getElementById('gc').innerHTML=`<div class="gwr"><div class="gh"><h2>${title}</h2><p style="color:var(--ca)">Próximamente.</p></div></div>`;
 }
 function gc2(){return document.getElementById('gc');}
-function debrf(el,qs){el.innerHTML+=`<div class="gcard"><h3>Preguntas de debriefing</h3><ul class="dbl">${qs.map(q=>`<li>${q}</li>`).join('')}</ul></div><div class="grow"><button class="gbtn" onclick="goMenu()">← Volver al menú</button></div>`;}
+function debrf(el,qs){el.innerHTML+=`<div class="gcard"><h3>Preguntas de debriefing</h3><ul class="dbl">${qs.map(q=>`<li>${q}</li>`).join('')}</ul></div><div class="grow"><button class="gbtn" onclick="goMenu()"><svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Volver al menú</button></div>`;}
 // ── SURVIVAL TEMPLATE ──
 function survivalGame(cfg){
   let iSel=[],tSel=[],ph=0,secs=cfg.secs||600,ti=null;
@@ -254,9 +300,9 @@ function survivalGame(cfg){
   function grid(sel,max,fn){
     return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1rem">${cfg.items.map(it=>{
       const s=sel.includes(it.id),lk=!s&&sel.length>=max;
-      return`<div onclick="${fn}T(${it.id})" style="background:${s?'var(--csbg)':'var(--s2)'};border:${s?'2px solid var(--cs)':'1.5px solid var(--bd)'};border-radius:var(--r);padding:10px 12px;cursor:${lk?'not-allowed':'pointer'};opacity:${lk?.45:1};display:flex;align-items:center;gap:8px">
+      return`<div onclick="${fn}T(${it.id})" style="background:${s?'#E6EEF9':'var(--surf)'};border:${s?'2px solid #0055A5':'1px solid var(--bd)'};;border-radius:var(--r);padding:10px 12px;cursor:${lk?'not-allowed':'pointer'};opacity:${lk?.45:1};display:flex;align-items:center;gap:8px">
         <span style="font-size:18px">${it.icon}</span>
-        <div><div style="font-size:13px;font-weight:500;color:${s?'var(--cs)':'var(--tx)'}">${it.name}</div><div style="font-size:11px;color:var(--tf)">${it.desc}</div></div>
+        <div><div style="font-size:13px;font-weight:500;color:${s?'#0055A5':'var(--tx)'}">${it.name}</div><div style="font-size:11px;color:var(--tf)">${it.desc}</div></div>
         ${s?'<span style="margin-left:auto;color:var(--cs)">✓</span>':''}
       </div>`;}).join('')}</div>`;
   }
@@ -374,7 +420,7 @@ function dilemmaGame(cfg){
     const pct=mx>0?Math.round(score/mx*100):50;
     gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Simulación completada</h2></div>
     <div class="sgrid">
-      <div class="sb"><div class="sbn" style="color:${pct>=70?'var(--cs)':pct>=40?'var(--cn)':'var(--ca)'}">${score}</div><div class="sbl">Puntos</div></div>
+      <div class="sb"><div class="sbn" style="color:${pct>=70?'#00A651':pct>=40?'#C06000':'#B8003A'}">${score}</div><div class="sbl">Puntos</div></div>
       <div class="sb"><div class="sbn">${pct}%</div><div class="sbl">Efectividad</div></div>
       <div class="sb"><div class="sbn">${pct>=70?'🏆':pct>=40?'📊':'🔄'}</div><div class="sbl">${pct>=70?'Excelente':pct>=40?'Aceptable':'Revisar'}</div></div>
     </div>
@@ -513,9 +559,9 @@ function bizGame(cfg){
     const ok=R.share>=28&&R.cash>=40&&R.brand>=45;
     gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>${ok?'🏆 Empresa líder':'📉 Empresa en reestructuración'}</h2></div>
     <div class="sgrid">
-      <div class="sb"><div class="sbn" style="color:${R.cash>=60?'var(--cs)':R.cash>=30?'var(--cn)':'var(--ca)'}">${R.cash}M</div><div class="sbl">💰 Capital</div></div>
-      <div class="sb"><div class="sbn" style="color:${R.share>=30?'var(--cs)':R.share>=18?'var(--cn)':'var(--ca)'}">${R.share}%</div><div class="sbl">📊 Cuota</div></div>
-      <div class="sb"><div class="sbn" style="color:${R.brand>=55?'var(--cs)':R.brand>=30?'var(--cn)':'var(--ca)'}">${R.brand}</div><div class="sbl">⭐ Brand</div></div>
+      <div class="sb"><div class="sbn" style="color:${R.cash>=60?'#00A651':R.cash>=30?'#C06000':'#B8003A'}">${R.cash}M</div><div class="sbl">💰 Capital</div></div>
+      <div class="sb"><div class="sbn" style="color:${R.share>=30?'#00A651':R.share>=18?'#C06000':'#B8003A'}">${R.share}%</div><div class="sbl">📊 Cuota</div></div>
+      <div class="sb"><div class="sbn" style="color:${R.brand>=55?'#00A651':R.brand>=30?'#C06000':'#B8003A'}">${R.brand}</div><div class="sbl">⭐ Brand</div></div>
     </div>
     <div class="gcard"><h3>Historial</h3>${choices.map(c=>`<div style="padding:9px 0;border-bottom:1px solid var(--bd)">
       <div style="font-size:11px;color:var(--tf)">${c.period}</div>
@@ -590,8 +636,8 @@ window.G_prisoner=function(){
   function render(){
     gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Prisoner's Dilemma</h2><p>Ronda ${rnd+1}/${tot}. Elegí sin saber el movimiento del oponente.</p></div>
     <div class="sgrid">
-      <div class="sb"><div class="sbn" style="color:var(--cs)">${mySc}</div><div class="sbl">Tu puntaje</div></div>
-      <div class="sb"><div class="sbn" style="color:var(--ca)">${oppSc}</div><div class="sbl">Oponente</div></div>
+      <div class="sb"><div class="sbn" style="color:#00A651">${mySc}</div><div class="sbl">Tu puntaje</div></div>
+      <div class="sb"><div class="sbn" style="color:#B8003A">${oppSc}</div><div class="sbl">Oponente</div></div>
       <div class="sb"><div class="sbn">${tot-rnd}</div><div class="sbl">Rondas restantes</div></div>
     </div>
     <div class="gcard"><h3>Matriz de pagos</h3>
@@ -1066,7 +1112,7 @@ window.G_beer=function(){
     ${[{n:'🏭 Fábrica',inv:F.inv,bk:bk.f},{n:'🚚 Distribuidor',inv:D.inv,bk:bk.d},{n:'🏪 Mayorista',inv:W.inv,bk:bk.w},{n:'🛒 Minorista',inv:R.inv,bk:bk.r,dem:d}].map(node=>`<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--bd)">
       <div style="min-width:90px;font-size:13px;font-weight:600">${node.n}</div>
       <div style="flex:1">
-        <div class="pb2" style="margin-bottom:3px"><div class="pf" style="width:${Math.min(100,node.inv/200*100)}%;background:${node.inv>30?'var(--cs)':node.inv>10?'var(--cn)':'var(--ca)'}"></div></div>
+        <div class="pb2" style="margin-bottom:3px"><div class="pf" style="width:${Math.min(100,node.inv/200*100)}%;background:${node.inv>30?'#00A651':node.inv>10?'#C06000':'#B8003A'}"></div></div>
         <div style="font-size:11px;color:var(--tf)">Inv: ${node.inv} | Backorders: ${node.bk}${node.dem?` | Demanda: ${node.dem}`:''}</div>
       </div>
     </div>`).join('')}</div>
@@ -1163,7 +1209,9 @@ window.G_everest = function() {
   if (!evStyle) {
     evStyle = document.createElement('style');
     evStyle.id = 'ev-style';
-    evStyle.textContent = "\n*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}\n:root{\n  --bg:#F4F1EC;\n  --surface:#FFFFFF;\n  --surface2:#EDE9E2;\n  --surface3:#E4DFD6;\n  --border:rgba(60,50,30,0.10);\n  --border2:rgba(60,50,30,0.18);\n  --text:#1E1A14;\n  --text-muted:#6B6050;\n  --text-faint:#A09880;\n  --accent:#1A6B3C;\n  --accent-light:#E2F0E8;\n  --accent-mid:#2E9E5A;\n  --warn:#8A5800;\n  --warn-bg:#FFF3DC;\n  --warn-mid:#C47F00;\n  --danger:#8B2020;\n  --danger-bg:#FDEAEA;\n  --danger-mid:#C03030;\n  --info:#1A4A8A;\n  --info-bg:#E6EEFA;\n  --radius:10px;\n  --radius-lg:16px;\n}\nbody{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;font-size:15px;}\n\n.screen{display:none;min-height:100vh;}\n.screen.active{display:flex;flex-direction:column;}\n\n/* ── INTRO ── */\n#screen-intro{align-items:center;justify-content:center;padding:2.5rem 1.5rem;}\n.intro-inner{max-width:680px;width:100%;text-align:center;}\n.brand{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.14em;color:var(--accent);margin-bottom:1.5rem;opacity:0.8;text-transform:uppercase;}\n.intro-title{font-size:clamp(3rem,8vw,5.5rem);font-weight:600;line-height:1.0;margin-bottom:1rem;color:var(--text);}\n.intro-title span{color:var(--accent);}\n.intro-sub{font-size:17px;color:var(--text-muted);line-height:1.7;margin-bottom:2.5rem;max-width:520px;margin-left:auto;margin-right:auto;}\n\n.roles-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:2.5rem;}\n.role-chip{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:18px 10px;text-align:center;border-top:4px solid var(--border2);}\n.role-chip.r0{border-top-color:#1A6B3C;}\n.role-chip.r1{border-top-color:#1A4A8A;}\n.role-chip.r2{border-top-color:#8A5800;}\n.role-chip.r3{border-top-color:#6B2A8A;}\n.role-chip.r4{border-top-color:#8B2020;}\n.role-chip .emoji{font-size:28px;display:block;margin-bottom:8px;}\n.role-chip .rname{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px;}\n.role-chip .rperson{font-size:12px;color:var(--accent);font-weight:500;margin-bottom:4px;display:block;}\n.role-chip .rgoal{font-size:11px;color:var(--text-muted);line-height:1.4;}\n\n.btn-start{background:var(--accent);color:#fff;font-family:'DM Sans',sans-serif;font-size:17px;font-weight:600;border:none;padding:16px 40px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;}\n.btn-start:hover{background:#13512E;transform:translateY(-1px);}\n\n/* ── GAME ── */\n#screen-game{flex-direction:column;}\n\n.topbar{display:flex;align-items:center;gap:16px;padding:14px 24px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;}\n.topbar-title{font-size:16px;font-weight:600;color:var(--accent);margin-right:auto;}\n.day-indicator{display:flex;gap:8px;align-items:center;}\n.day-dot{width:12px;height:12px;border-radius:50%;background:var(--surface2);border:1.5px solid var(--border2);transition:all 0.4s;}\n.day-dot.done{background:var(--accent);border-color:var(--accent);}\n.day-dot.current{background:var(--warn-mid);border-color:var(--warn-mid);}\n.clock{font-family:'DM Mono',monospace;font-size:15px;color:var(--warn);min-width:52px;text-align:right;font-weight:500;}\n\n.game-body{flex:1;display:grid;grid-template-columns:280px 1fr 260px;gap:0;overflow:hidden;}\n\n/* LEFT */\n.panel-left{background:var(--surface);border-right:1px solid var(--border);padding:18px;overflow-y:auto;}\n.panel-label{font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-faint);margin-bottom:10px;font-weight:500;}\n\n.member-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;}\n.member-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}\n.member-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}\n.member-name{font-size:14px;font-weight:600;color:var(--text);}\n.member-role{font-size:11px;color:var(--text-faint);}\n.stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}\n.stat-label{font-size:11px;color:var(--text-muted);min-width:40px;}\n.stat-bar{flex:1;height:5px;background:var(--surface3);border-radius:3px;margin:0 10px;overflow:hidden;}\n.stat-fill{height:100%;border-radius:3px;transition:width 0.5s;}\n.stat-val{font-family:'DM Mono',monospace;font-size:11px;min-width:28px;text-align:right;font-weight:500;}\n.fill-health{background:var(--accent-mid);}\n.fill-morale{background:var(--info);}\n.fill-health.low{background:var(--danger-mid);}\n.fill-health.mid{background:var(--warn-mid);}\n\n/* CENTER */\n.panel-center{display:flex;flex-direction:column;overflow:hidden;}\n.mountain-svg{width:100%;height:90px;flex-shrink:0;}\n\n.day-content{flex:1;overflow-y:auto;padding:22px 24px;}\n.day-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}\n.day-title{font-size:24px;font-weight:600;color:var(--text);}\n.day-meta{font-size:13px;color:var(--text-muted);line-height:1.5;text-align:right;}\n.weather-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:999px;font-size:13px;font-weight:500;margin-bottom:16px;}\n.weather-good{background:var(--accent-light);color:var(--accent);border:1px solid rgba(26,107,60,0.2);}\n.weather-warn{background:var(--warn-bg);color:var(--warn);border:1px solid rgba(138,88,0,0.2);}\n.weather-bad{background:var(--danger-bg);color:var(--danger);border:1px solid rgba(139,32,32,0.2);}\n\n.scenario-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;margin-bottom:16px;line-height:1.75;font-size:15px;color:var(--text-muted);}\n.scenario-box strong{color:var(--text);}\n\n.dilemma-box{background:var(--warn-bg);border:1px solid rgba(138,88,0,0.18);border-left:4px solid var(--warn-mid);border-radius:0 var(--radius) var(--radius) 0;padding:16px 18px;margin-bottom:16px;}\n.dilemma-label{font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:var(--warn);margin-bottom:6px;font-weight:600;}\n.dilemma-text{font-size:15px;line-height:1.65;color:var(--text);}\n\n.tensions-section{margin-bottom:18px;}\n.tension-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--text-muted);line-height:1.55;}\n.tension-item:last-child{border-bottom:none;}\n.tension-role{font-size:10px;font-weight:700;letter-spacing:0.07em;color:var(--accent);white-space:nowrap;margin-top:2px;background:var(--accent-light);padding:2px 7px;border-radius:4px;}\n\n.outcome-label{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px;font-weight:500;}\n.outcomes-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}\n.outcome-btn{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;cursor:pointer;text-align:left;transition:all 0.15s;font-family:'DM Sans',sans-serif;}\n.outcome-btn:hover{border-color:var(--border2);background:var(--surface2);}\n.outcome-btn.good:hover{border-color:rgba(26,107,60,0.35);background:var(--accent-light);}\n.outcome-btn.bad:hover{border-color:rgba(139,32,32,0.35);background:var(--danger-bg);}\n.outcome-btn .ob-label{font-size:13px;font-weight:600;margin-bottom:5px;}\n.outcome-btn.good .ob-label{color:var(--accent);}\n.outcome-btn.bad .ob-label{color:var(--danger);}\n.outcome-btn .ob-text{font-size:13px;color:var(--text-muted);line-height:1.4;}\n.btn-next{width:100%;background:var(--accent);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:14px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;opacity:0.35;pointer-events:none;}\n.btn-next:not(:disabled){opacity:1;pointer-events:auto;}\n.btn-next:not(:disabled):hover{background:#13512E;}\n\n/* RIGHT */\n.panel-right{background:var(--surface);border-left:1px solid var(--border);padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:16px;}\n.status-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;}\n.resource-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;}\n.resource-row:last-child{margin-bottom:0;}\n.res-name{font-size:13px;color:var(--text-muted);}\n.res-val{font-family:'DM Mono',monospace;font-size:14px;font-weight:500;}\n.res-val.good{color:var(--accent);}\n.res-val.warn{color:var(--warn);}\n.res-val.bad{color:var(--danger);}\n\n.event-log{display:flex;flex-direction:column;gap:6px;max-height:160px;overflow-y:auto;}\n.log-item{font-size:12px;color:var(--text-faint);padding:7px 10px;background:var(--surface3);border-radius:6px;line-height:1.4;}\n.log-item .log-day{color:var(--accent);font-weight:700;margin-right:5px;}\n.log-item.bad{color:var(--danger);background:var(--danger-bg);}\n.log-item.good{color:var(--accent);background:var(--accent-light);}\n\n.facilitator-tools{display:flex;flex-direction:column;gap:7px;}\n.fac-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);font-family:'DM Sans',sans-serif;font-size:13px;padding:10px 12px;border-radius:var(--radius);cursor:pointer;text-align:left;transition:all 0.15s;}\n.fac-btn:hover{border-color:var(--border2);color:var(--text);background:var(--surface3);}\n.fac-btn.warn-btn:hover{border-color:rgba(138,88,0,0.4);color:var(--warn);background:var(--warn-bg);}\n.fac-btn.danger-btn:hover{border-color:rgba(139,32,32,0.4);color:var(--danger);background:var(--danger-bg);}\n\n/* FINAL */\n#screen-final{align-items:center;justify-content:center;padding:2.5rem 1.5rem;}\n.final-inner{max-width:680px;width:100%;text-align:center;}\n.final-title{font-size:clamp(2.2rem,6vw,4rem);font-weight:600;margin-bottom:10px;color:var(--text);}\n.final-sub{font-size:17px;color:var(--text-muted);margin-bottom:2rem;line-height:1.65;}\n.final-scores{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:2rem;}\n.fscore-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 8px;text-align:center;}\n.fscore-emoji{font-size:24px;margin-bottom:6px;}\n.fscore-name{font-size:11px;color:var(--text-faint);margin-bottom:6px;}\n.fscore-val{font-family:'DM Mono',monospace;font-size:17px;font-weight:500;}\n.debrief-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;text-align:left;margin-bottom:1.5rem;}\n.debrief-box h3{font-size:15px;font-weight:600;color:var(--accent);margin-bottom:14px;text-transform:uppercase;letter-spacing:0.06em;}\n.debrief-list{list-style:none;display:flex;flex-direction:column;gap:10px;}\n.debrief-list li{font-size:14px;color:var(--text-muted);line-height:1.55;padding-left:18px;position:relative;}\n.debrief-list li::before{content:'→';position:absolute;left:0;color:var(--text-faint);}\n.btn-restart{background:transparent;border:1.5px solid var(--border2);color:var(--text-muted);font-family:'DM Sans',sans-serif;font-size:15px;padding:12px 28px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;}\n.btn-restart:hover{border-color:var(--accent);color:var(--accent);}\n\n/* MODAL */\n.modal-overlay{position:fixed;inset:0;background:rgba(30,26,20,0.55);display:none;align-items:center;justify-content:center;z-index:100;padding:1rem;}\n.modal-overlay.open{display:flex;}\n.modal{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:28px;max-width:440px;width:100%;}\n.modal h3{font-size:20px;font-weight:600;margin-bottom:10px;color:var(--text);}\n.modal p{font-size:15px;color:var(--text-muted);line-height:1.65;margin-bottom:22px;}\n.modal-btn{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:12px 24px;border-radius:var(--radius);cursor:pointer;width:100%;}\n.modal-btn:hover{background:#13512E;}\n\n@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}\n.clock.urgent{animation:pulse 1s ease-in-out infinite;color:var(--danger);}\n";
+    evStyle.textContent = "\n*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+*:focus-visible{outline:2px solid var(--racsa-blue);outline-offset:2px;border-radius:4px;}
+\n:root{\n  --bg:#F4F1EC;\n  --surface:#FFFFFF;\n  --surface2:#EDE9E2;\n  --surface3:#E4DFD6;\n  --border:rgba(60,50,30,0.10);\n  --border2:rgba(60,50,30,0.18);\n  --text:#1E1A14;\n  --text-muted:#6B6050;\n  --text-faint:#A09880;\n  --accent:#1A6B3C;\n  --accent-light:#E2F0E8;\n  --accent-mid:#2E9E5A;\n  --warn:#8A5800;\n  --warn-bg:#FFF3DC;\n  --warn-mid:#C47F00;\n  --danger:#8B2020;\n  --danger-bg:#FDEAEA;\n  --danger-mid:#C03030;\n  --info:#1A4A8A;\n  --info-bg:#E6EEFA;\n  --radius:10px;\n  --radius-lg:16px;\n}\nbody{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;font-size:15px;}\n\n.screen{display:none;min-height:100vh;}\n.screen.active{display:flex;flex-direction:column;}\n\n/* ── INTRO ── */\n#screen-intro{align-items:center;justify-content:center;padding:2.5rem 1.5rem;}\n.intro-inner{max-width:680px;width:100%;text-align:center;}\n.brand{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.14em;color:var(--accent);margin-bottom:1.5rem;opacity:0.8;text-transform:uppercase;}\n.intro-title{font-size:clamp(3rem,8vw,5.5rem);font-weight:600;line-height:1.0;margin-bottom:1rem;color:var(--text);}\n.intro-title span{color:var(--accent);}\n.intro-sub{font-size:17px;color:var(--text-muted);line-height:1.7;margin-bottom:2.5rem;max-width:520px;margin-left:auto;margin-right:auto;}\n\n.roles-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:2.5rem;}\n.role-chip{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:18px 10px;text-align:center;border-top:4px solid var(--border2);}\n.role-chip.r0{border-top-color:#1A6B3C;}\n.role-chip.r1{border-top-color:#1A4A8A;}\n.role-chip.r2{border-top-color:#8A5800;}\n.role-chip.r3{border-top-color:#6B2A8A;}\n.role-chip.r4{border-top-color:#8B2020;}\n.role-chip .emoji{font-size:28px;display:block;margin-bottom:8px;}\n.role-chip .rname{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px;}\n.role-chip .rperson{font-size:12px;color:var(--accent);font-weight:500;margin-bottom:4px;display:block;}\n.role-chip .rgoal{font-size:11px;color:var(--text-muted);line-height:1.4;}\n\n.btn-start{background:var(--accent);color:#fff;font-family:'DM Sans',sans-serif;font-size:17px;font-weight:600;border:none;padding:16px 40px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;}\n.btn-start:hover{background:#13512E;transform:translateY(-1px);}\n\n/* ── GAME ── */\n#screen-game{flex-direction:column;}\n\n.topbar{display:flex;align-items:center;gap:16px;padding:14px 24px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;}\n.topbar-title{font-size:16px;font-weight:600;color:var(--accent);margin-right:auto;}\n.day-indicator{display:flex;gap:8px;align-items:center;}\n.day-dot{width:12px;height:12px;border-radius:50%;background:var(--surface2);border:1.5px solid var(--border2);transition:all 0.4s;}\n.day-dot.done{background:var(--accent);border-color:var(--accent);}\n.day-dot.current{background:var(--warn-mid);border-color:var(--warn-mid);}\n.clock{font-family:'DM Mono',monospace;font-size:15px;color:var(--warn);min-width:52px;text-align:right;font-weight:500;}\n\n.game-body{flex:1;display:grid;grid-template-columns:280px 1fr 260px;gap:0;overflow:hidden;}\n\n/* LEFT */\n.panel-left{background:var(--surface);border-right:1px solid var(--border);padding:18px;overflow-y:auto;}\n.panel-label{font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-faint);margin-bottom:10px;font-weight:500;}\n\n.member-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;}\n.member-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}\n.member-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}\n.member-name{font-size:14px;font-weight:600;color:var(--text);}\n.member-role{font-size:11px;color:var(--text-faint);}\n.stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}\n.stat-label{font-size:11px;color:var(--text-muted);min-width:40px;}\n.stat-bar{flex:1;height:5px;background:var(--surface3);border-radius:3px;margin:0 10px;overflow:hidden;}\n.stat-fill{height:100%;border-radius:3px;transition:width 0.5s;}\n.stat-val{font-family:'DM Mono',monospace;font-size:11px;min-width:28px;text-align:right;font-weight:500;}\n.fill-health{background:var(--accent-mid);}\n.fill-morale{background:var(--info);}\n.fill-health.low{background:var(--danger-mid);}\n.fill-health.mid{background:var(--warn-mid);}\n\n/* CENTER */\n.panel-center{display:flex;flex-direction:column;overflow:hidden;}\n.mountain-svg{width:100%;height:90px;flex-shrink:0;}\n\n.day-content{flex:1;overflow-y:auto;padding:22px 24px;}\n.day-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}\n.day-title{font-size:24px;font-weight:600;color:var(--text);}\n.day-meta{font-size:13px;color:var(--text-muted);line-height:1.5;text-align:right;}\n.weather-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:999px;font-size:13px;font-weight:500;margin-bottom:16px;}\n.weather-good{background:var(--accent-light);color:var(--accent);border:1px solid rgba(26,107,60,0.2);}\n.weather-warn{background:var(--warn-bg);color:var(--warn);border:1px solid rgba(138,88,0,0.2);}\n.weather-bad{background:var(--danger-bg);color:var(--danger);border:1px solid rgba(139,32,32,0.2);}\n\n.scenario-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;margin-bottom:16px;line-height:1.75;font-size:15px;color:var(--text-muted);}\n.scenario-box strong{color:var(--text);}\n\n.dilemma-box{background:var(--warn-bg);border:1px solid rgba(138,88,0,0.18);border-left:4px solid var(--warn-mid);border-radius:0 var(--radius) var(--radius) 0;padding:16px 18px;margin-bottom:16px;}\n.dilemma-label{font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:var(--warn);margin-bottom:6px;font-weight:600;}\n.dilemma-text{font-size:15px;line-height:1.65;color:var(--text);}\n\n.tensions-section{margin-bottom:18px;}\n.tension-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--text-muted);line-height:1.55;}\n.tension-item:last-child{border-bottom:none;}\n.tension-role{font-size:10px;font-weight:700;letter-spacing:0.07em;color:var(--accent);white-space:nowrap;margin-top:2px;background:var(--accent-light);padding:2px 7px;border-radius:4px;}\n\n.outcome-label{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px;font-weight:500;}\n.outcomes-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}\n.outcome-btn{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;cursor:pointer;text-align:left;transition:all 0.15s;font-family:'DM Sans',sans-serif;}\n.outcome-btn:hover{border-color:var(--border2);background:var(--surface2);}\n.outcome-btn.good:hover{border-color:rgba(26,107,60,0.35);background:var(--accent-light);}\n.outcome-btn.bad:hover{border-color:rgba(139,32,32,0.35);background:var(--danger-bg);}\n.outcome-btn .ob-label{font-size:13px;font-weight:600;margin-bottom:5px;}\n.outcome-btn.good .ob-label{color:var(--accent);}\n.outcome-btn.bad .ob-label{color:var(--danger);}\n.outcome-btn .ob-text{font-size:13px;color:var(--text-muted);line-height:1.4;}\n.btn-next{width:100%;background:var(--accent);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:14px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;opacity:0.35;pointer-events:none;}\n.btn-next:not(:disabled){opacity:1;pointer-events:auto;}\n.btn-next:not(:disabled):hover{background:#13512E;}\n\n/* RIGHT */\n.panel-right{background:var(--surface);border-left:1px solid var(--border);padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:16px;}\n.status-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;}\n.resource-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;}\n.resource-row:last-child{margin-bottom:0;}\n.res-name{font-size:13px;color:var(--text-muted);}\n.res-val{font-family:'DM Mono',monospace;font-size:14px;font-weight:500;}\n.res-val.good{color:var(--accent);}\n.res-val.warn{color:var(--warn);}\n.res-val.bad{color:var(--danger);}\n\n.event-log{display:flex;flex-direction:column;gap:6px;max-height:160px;overflow-y:auto;}\n.log-item{font-size:12px;color:var(--text-faint);padding:7px 10px;background:var(--surface3);border-radius:6px;line-height:1.4;}\n.log-item .log-day{color:var(--accent);font-weight:700;margin-right:5px;}\n.log-item.bad{color:var(--danger);background:var(--danger-bg);}\n.log-item.good{color:var(--accent);background:var(--accent-light);}\n\n.facilitator-tools{display:flex;flex-direction:column;gap:7px;}\n.fac-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);font-family:'DM Sans',sans-serif;font-size:13px;padding:10px 12px;border-radius:var(--radius);cursor:pointer;text-align:left;transition:all 0.15s;}\n.fac-btn:hover{border-color:var(--border2);color:var(--text);background:var(--surface3);}\n.fac-btn.warn-btn:hover{border-color:rgba(138,88,0,0.4);color:var(--warn);background:var(--warn-bg);}\n.fac-btn.danger-btn:hover{border-color:rgba(139,32,32,0.4);color:var(--danger);background:var(--danger-bg);}\n\n/* FINAL */\n#screen-final{align-items:center;justify-content:center;padding:2.5rem 1.5rem;}\n.final-inner{max-width:680px;width:100%;text-align:center;}\n.final-title{font-size:clamp(2.2rem,6vw,4rem);font-weight:600;margin-bottom:10px;color:var(--text);}\n.final-sub{font-size:17px;color:var(--text-muted);margin-bottom:2rem;line-height:1.65;}\n.final-scores{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:2rem;}\n.fscore-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 8px;text-align:center;}\n.fscore-emoji{font-size:24px;margin-bottom:6px;}\n.fscore-name{font-size:11px;color:var(--text-faint);margin-bottom:6px;}\n.fscore-val{font-family:'DM Mono',monospace;font-size:17px;font-weight:500;}\n.debrief-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;text-align:left;margin-bottom:1.5rem;}\n.debrief-box h3{font-size:15px;font-weight:600;color:var(--accent);margin-bottom:14px;text-transform:uppercase;letter-spacing:0.06em;}\n.debrief-list{list-style:none;display:flex;flex-direction:column;gap:10px;}\n.debrief-list li{font-size:14px;color:var(--text-muted);line-height:1.55;padding-left:18px;position:relative;}\n.debrief-list li::before{content:'→';position:absolute;left:0;color:var(--text-faint);}\n.btn-restart{background:transparent;border:1.5px solid var(--border2);color:var(--text-muted);font-family:'DM Sans',sans-serif;font-size:15px;padding:12px 28px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;}\n.btn-restart:hover{border-color:var(--accent);color:var(--accent);}\n\n/* MODAL */\n.modal-overlay{position:fixed;inset:0;background:rgba(30,26,20,0.55);display:none;align-items:center;justify-content:center;z-index:100;padding:1rem;}\n.modal-overlay.open{display:flex;}\n.modal{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:28px;max-width:440px;width:100%;}\n.modal h3{font-size:20px;font-weight:600;margin-bottom:10px;color:var(--text);}\n.modal p{font-size:15px;color:var(--text-muted);line-height:1.65;margin-bottom:22px;}\n.modal-btn{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:12px 24px;border-radius:var(--radius);cursor:pointer;width:100%;}\n.modal-btn:hover{background:#13512E;}\n\n@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}\n.clock.urgent{animation:pulse 1s ease-in-out infinite;color:var(--danger);}\n";
     document.head.appendChild(evStyle);
   }
   
