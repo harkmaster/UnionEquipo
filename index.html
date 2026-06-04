@@ -180,7 +180,7 @@ table.rk td{padding:9px 6px;font-size:13px;}
       <div class="ey" style="display:flex;align-items:center;gap:10px">
       <svg width="72" height="18" viewBox="0 0 72 18" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="72" height="18" rx="3" fill="rgba(255,255,255,0.15)"/>
-        <text x="6" y="13" font-family="DM Sans, sans-serif" font-size="10" font-weight="700" fill="white" letter-spacing="2">Agustín</text>
+        <text x="6" y="13" font-family="DM Sans, sans-serif" font-size="10" font-weight="700" fill="white" letter-spacing="2">RACSA</text>
       </svg>
       <span>Biblioteca de dinámicas · Desarrollo organizacional</span>
     </div>
@@ -1220,9 +1220,9 @@ window.G_everest = function() {
   // Run Everest JS — expose functions to window so onclick handlers work
   (function() {
 const TEAM = [
-  {id:'leader',   emoji:'🧗', name:'Líder',      role:'Jefe de expedición',  color:'#1A6B3C', health:100, morale:100},
-  {id:'doctor',   emoji:'🏥', name:'Médico',     role:'Salud del equipo',   color:'#1A4A8A', health:100, morale:100},
-  {id:'photo',    emoji:'📸', name:'Fotógrafo',  role:'Captura de cumbre',color:'#8A5800', health:100, morale:100},
+  {id:'leader',   emoji:'🧗', name:'Líder', dead:false,      role:'Jefe de expedición',  color:'#1A6B3C', health:100, morale:100},
+  {id:'doctor',   emoji:'🏥', name:'Médico', dead:false,     role:'Salud del equipo',   color:'#1A4A8A', health:100, morale:100},
+  {id:'photo',    emoji:'📸', name:'Fotógrafo', dead:false,  role:'Captura de cumbre',color:'#8A5800', health:100, morale:100},
   {id:'scientist',emoji:'🔬', name:'Científico', role:'Datos en altitud',color:'#6B2A8A', health:100, morale:100},
   {id:'sponsor',  emoji:'💰', name:'Sponsor',    role:'Rep. financiero',   color:'#8B2020', health:100, morale:100},
 ];
@@ -1370,9 +1370,10 @@ function renderTeam(){
     const h=Math.max(0,m.health),mo=Math.max(0,m.morale);
     const hc=h>=70?'fill-health':h>=40?'fill-health mid':'fill-health low';
     const hcolor=h<40?'#8B2020':h<70?'#8A5800':'#1A6B3C';
-    c.innerHTML+=`<div class="member-card" style="border-left:3px solid ${m.color}">
+    c.innerHTML+=`<div class="member-card" style="border-left:3px solid ${m.dead?'#8B2020':m.color};${m.dead?'opacity:0.6':''}">
+      ${m.dead?'<div style="text-align:center;font-size:10px;font-weight:700;color:#8B2020;letter-spacing:.05em;margin-bottom:4px;text-transform:uppercase">💀 Fallecido</div>':''}
       <div class="member-header">
-        <div class="member-avatar" style="background:${m.color}18">${m.emoji}</div>
+        <div class="member-avatar" style="background:${m.dead?'#8B202018':m.color+'18'}">${m.dead?'💀':m.emoji}</div>
         <div><div class="member-name">${m.name}</div><div class="member-role">${m.role}</div></div>
       </div>
       <div class="stat-row"><span class="stat-label">Salud</span><div class="stat-bar"><div class="${hc}" style="width:${h}%"></div></div><span class="stat-val" style="color:${hcolor}">${h}</span></div>
@@ -1427,19 +1428,44 @@ function nextDay(){
 }
 function endGame(){
   clearInterval(timerInterval);
-  const avgH=Math.round(TEAM.reduce((a,m)=>a+m.health,0)/TEAM.length);
+  const dead=TEAM.filter(m=>m.dead);
+  const alive=TEAM.filter(m=>!m.dead);
+  const avgH=Math.round(alive.length>0?alive.reduce((a,m)=>a+m.health,0)/alive.length:0);
   const avgM=Math.round(TEAM.reduce((a,m)=>a+m.morale,0)/TEAM.length);
-  const ok=avgH>=50&&avgM>=40;
-  document.getElementById('final-title').textContent=ok?'🏔 Misión completada':'⛰ Expedición terminada';
+  const ok=dead.length===0&&avgH>=50&&avgM>=40;
+  const partial=dead.length>0&&dead.length<TEAM.length;
+  document.getElementById('final-title').textContent=
+    dead.length===TEAM.length?'💀 Todos han muerto':
+    ok?'🏔 Misión completada':
+    partial?'⛰ Expedición con bajas':'⛰ Expedición terminada';
   document.getElementById('final-sub').textContent=ok
-    ?`El equipo llegó a la cima y regresó con vida. Salud media: ${avgH}% · Moral: ${avgM}%. Eso es liderazgo real.`
-    :`La expedición concluyó pero el equipo pagó un precio alto. Salud: ${avgH}% · Moral: ${avgM}%. ¿Qué falló?`;
-  document.getElementById('final-scores').innerHTML=TEAM.map(m=>`
-    <div class="fscore-card">
-      <div class="fscore-emoji">${m.emoji}</div>
+    ?`El equipo llegó a la cima y regresó completo. Un logro real de coordinación y liderazgo.`
+    :dead.length===TEAM.length
+    ?`Ningún miembro sobrevivió. Las decisiones del equipo agotaron completamente la salud de todos.`
+    :`${dead.length} miembro${dead.length>1?'s':''} no regresó${dead.length>1?'n':''} con vida. ¿Qué decisiones lo provocaron?`;
+  document.getElementById('final-scores').innerHTML=TEAM.map(m=>{
+    const statusColor=m.dead?'#8B2020':m.health>=70?'#1A6B3C':m.health>=40?'#8A5800':'#8B2020';
+    const statusLabel=m.dead
+      ?'Fallecido — la salud llegó a 0. Las decisiones del equipo no priorizaron su supervivencia.'
+      :m.health>=70
+      ?`Salud excelente (${m.health}%) — las decisiones del equipo protegieron bien a este rol.`
+      :m.health>=40
+      ?`Salud comprometida (${m.health}%) — sufrió consecuencias importantes pero sobrevivió.`
+      :`Salud crítica (${m.health}%) — estuvo al borde. Una mala decisión más lo habría matado.`;
+    const moralLabel=m.morale>=70
+      ?`Moral alta (${m.morale}%) — se sintió escuchado y valorado en las decisiones del grupo.`
+      :m.morale>=40
+      ?`Moral media (${m.morale}%) — algunas decisiones ignoraron sus objetivos personales.`
+      :`Moral baja (${m.morale}%) — el equipo no consideró sus metas. Generó tensión real.`;
+    return `<div class="fscore-card" style="${m.dead?'opacity:0.75;border-top:3px solid #8B2020':''}">
+      <div class="fscore-emoji">${m.dead?'💀':m.emoji}</div>
       <div class="fscore-name">${m.name}</div>
-      <div class="fscore-val" style="color:${m.health>=70?'#1A6B3C':m.health>=40?'#8A5800':'#8B2020'}">${m.health}%</div>
-    </div>`).join('');
+      <div class="fscore-role" style="font-size:11px;color:#888;margin-bottom:6px">${m.role}</div>
+      <div class="fscore-val" style="color:${statusColor};font-size:13px;font-weight:600;margin-bottom:4px">${m.dead?'Fallecido':'Sobrevivió'}</div>
+      <div style="font-size:11px;color:#666;line-height:1.4;margin-bottom:6px">${statusLabel}</div>
+      ${m.dead?'':`<div style="font-size:11px;color:#666;line-height:1.4">${moralLabel}</div>`}
+    </div>`;
+  }).join('');
   showScreen('final');
 }
 function triggerEvent(key){
@@ -1450,8 +1476,16 @@ function triggerEvent(key){
   ev.effect();renderTeam();renderResources();
 }
 function closeModal(){document.getElementById('modal').classList.remove('open');}
-function applyToAll(stat,delta){TEAM.forEach(m=>{m[stat]=Math.min(100,Math.max(0,m[stat]+delta));});}
-function applyOne(id,stat,delta){const m=TEAM.find(t=>t.id===id);if(m)m[stat]=Math.min(100,Math.max(0,m[stat]+delta));}
+function applyToAll(stat,delta){TEAM.forEach(m=>{
+  if(stat==='health'&&m.dead)return;
+  m[stat]=Math.min(100,m[stat]+delta);
+  if(stat==='health'&&m.health<=0){m.health=0;m.dead=true;logEvent(`💀 ${m.name} (${m.role}) ha muerto en la montaña.`,'danger');}
+});}
+function applyOne(id,stat,delta){const m=TEAM.find(t=>t.id===id);if(!m)return;
+  if(stat==='health'&&m.dead)return;
+  m[stat]=Math.min(100,m[stat]+delta);
+  if(stat==='health'&&m.health<=0){m.health=0;m.dead=true;logEvent(`💀 ${m.name} (${m.role}) ha muerto en la montaña.`,'danger');}
+}
 function logEvent(text,type=''){
   const log=document.getElementById('event-log');
   const item=document.createElement('div');
