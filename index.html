@@ -3,281 +3,1175 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Everest — Simulación de Liderazgo</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono&display=swap" rel="stylesheet">
+<title>Dinámicas de Equipo</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;1,300&family=DM+Sans:wght@400;500&family=DM+Mono&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#F4F1EC;
-  --surface:#FFFFFF;
-  --surface2:#EDE9E2;
-  --surface3:#E4DFD6;
-  --border:rgba(60,50,30,0.10);
-  --border2:rgba(60,50,30,0.18);
-  --text:#1E1A14;
-  --text-muted:#6B6050;
-  --text-faint:#A09880;
-  --accent:#1A6B3C;
-  --accent-light:#E2F0E8;
-  --accent-mid:#2E9E5A;
-  --warn:#8A5800;
-  --warn-bg:#FFF3DC;
-  --warn-mid:#C47F00;
-  --danger:#8B2020;
-  --danger-bg:#FDEAEA;
-  --danger-mid:#C03030;
-  --info:#1A4A8A;
-  --info-bg:#E6EEFA;
-  --radius:10px;
-  --radius-lg:16px;
+  --bg:#F5F2EC;--surf:#FFF;--s2:#EDEAE3;--s3:#E3DFD6;
+  --bd:rgba(40,30,15,.10);--bd2:rgba(40,30,15,.18);
+  --tx:#1C1710;--tm:#6A6050;--tf:#A89E88;
+  --r:10px;--rl:18px;
+  --cs:#1A6B3C;--csbg:#E2F0E8;
+  --cst:#1A4A8A;--cstbg:#E6EEFA;
+  --cn:#7A3B10;--cnbg:#FAEADA;
+  --cc:#6B2A8A;--ccbg:#F0E6FA;
+  --ca:#8B2020;--cabg:#FAEAEA;
+  --cy:#1A6B6B;--cybg:#E2F0F0;
 }
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;font-size:15px;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;}
+.screen{display:none;} .screen.active{display:block;}
 
-.screen{display:none;min-height:100vh;}
-.screen.active{display:flex;flex-direction:column;}
+/* MENU */
+header{background:var(--surf);border-bottom:1px solid var(--bd);padding:2.5rem 2rem 2rem;}
+.hi{max-width:1100px;margin:0 auto;}
+.ey{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--tf);margin-bottom:10px;}
+.mt{font-family:'Fraunces',serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:600;line-height:1.05;margin-bottom:10px;}
+.mt em{font-style:italic;font-weight:300;color:var(--cs);}
+.ms{font-size:15px;color:var(--tm);line-height:1.6;max-width:540px;margin-bottom:1.5rem;}
+.ss{display:flex;gap:2rem;flex-wrap:wrap;}
+.sn{font-family:'Fraunces',serif;font-size:2rem;font-weight:600;line-height:1;}
+.sl{font-size:11px;color:var(--tf);margin-top:2px;}
+.ctrl{max-width:1100px;margin:0 auto;padding:1.5rem 2rem;display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+.sw{flex:1;min-width:200px;position:relative;}
+.sw input{width:100%;background:var(--surf);border:1px solid var(--bd2);border-radius:var(--r);padding:10px 14px 10px 38px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--tx);outline:none;}
+.sw input:focus{border-color:var(--cs);}
+.sw input::placeholder{color:var(--tf);}
+.si{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--tf);pointer-events:none;}
+.flt{display:flex;gap:6px;flex-wrap:wrap;}
+.fb{background:var(--surf);border:1px solid var(--bd2);border-radius:999px;padding:7px 14px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--tm);cursor:pointer;white-space:nowrap;}
+.fb:hover{background:var(--s2);}
+.fb.active{background:var(--tx);color:var(--bg);border-color:var(--tx);}
+.cl{font-size:12px;color:var(--tf);white-space:nowrap;align-self:center;margin-left:auto;}
+.gw{max-width:1100px;margin:0 auto;padding:0 2rem 4rem;}
+.gg{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;}
+.gc{background:var(--surf);border:1px solid var(--bd);border-radius:var(--rl);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s;}
+.gc:hover{box-shadow:0 8px 32px rgba(40,30,15,.10);transform:translateY(-2px);}
+.ca2{height:4px;width:100%;}
+.cb{padding:18px 20px 14px;flex:1;display:flex;flex-direction:column;gap:10px;}
+.ch{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+.cn2{font-family:'DM Mono',monospace;font-size:10px;color:var(--tf);margin-top:3px;min-width:22px;}
+.ctw{flex:1;}
+.ct{font-family:'Fraunces',serif;font-size:17px;font-weight:600;color:var(--tx);line-height:1.2;margin-bottom:2px;}
+.cst2{font-size:11px;color:var(--tf);}
+.cc2{display:inline-flex;align-items:center;font-size:10px;font-weight:500;letter-spacing:.05em;padding:3px 9px;border-radius:999px;white-space:nowrap;flex-shrink:0;}
+.cd{font-size:13px;color:var(--tm);line-height:1.55;}
+.cm{display:flex;gap:8px;flex-wrap:wrap;}
+.mp{font-size:11px;color:var(--tm);background:var(--s2);padding:3px 9px;border-radius:6px;}
+.ci{font-size:12px;color:var(--tm);border-left:2px solid var(--bd2);padding-left:10px;line-height:1.5;font-style:italic;}
+.cf{padding:12px 20px;border-top:1px solid var(--bd);}
+.pb{display:inline-flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:8px 16px;border-radius:var(--r);border:none;cursor:pointer;background:var(--tx);color:var(--bg);}
+.pb:hover{opacity:.85;}
+.cs2{color:var(--cs);background:var(--csbg);}
+.cst3{color:var(--cst);background:var(--cstbg);}
+.cn3{color:var(--cn);background:var(--cnbg);}
+.cc3{color:var(--cc);background:var(--ccbg);}
+.ca3{color:var(--ca);background:var(--cabg);}
+.cy2{color:var(--cy);background:var(--cybg);}
+.as{background:var(--cs);} .ast{background:var(--cst);} .an{background:var(--cn);}
+.ac{background:var(--cc);} .aa{background:var(--ca);} .ay{background:var(--cy);}
 
-/* ── INTRO ── */
-#screen-intro{align-items:center;justify-content:center;padding:2.5rem 1.5rem;}
-.intro-inner{max-width:680px;width:100%;text-align:center;}
-.brand{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.14em;color:var(--accent);margin-bottom:1.5rem;opacity:0.8;text-transform:uppercase;}
-.intro-title{font-size:clamp(3rem,8vw,5.5rem);font-weight:600;line-height:1.0;margin-bottom:1rem;color:var(--text);}
-.intro-title span{color:var(--accent);}
-.intro-sub{font-size:17px;color:var(--text-muted);line-height:1.7;margin-bottom:2.5rem;max-width:520px;margin-left:auto;margin-right:auto;}
+/* GAME SHELL */
+#gs{min-height:100vh;display:flex;flex-direction:column;}
+.gtb{background:var(--surf);border-bottom:1px solid var(--bd);padding:12px 20px;display:flex;align-items:center;gap:16px;flex-shrink:0;}
+.bb{background:var(--s2);border:1px solid var(--bd2);border-radius:var(--r);padding:7px 14px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;color:var(--tx);}
+.bb:hover{background:var(--s3);}
+.gtt{font-family:'Fraunces',serif;font-size:18px;font-weight:600;}
+#gc{flex:1;overflow-y:auto;}
 
-.roles-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:2.5rem;}
-.role-chip{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:18px 10px;text-align:center;border-top:4px solid var(--border2);}
-.role-chip.r0{border-top-color:#1A6B3C;}
-.role-chip.r1{border-top-color:#1A4A8A;}
-.role-chip.r2{border-top-color:#8A5800;}
-.role-chip.r3{border-top-color:#6B2A8A;}
-.role-chip.r4{border-top-color:#8B2020;}
-.role-chip .emoji{font-size:28px;display:block;margin-bottom:8px;}
-.role-chip .rname{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px;}
-.role-chip .rperson{font-size:12px;color:var(--accent);font-weight:500;margin-bottom:4px;display:block;}
-.role-chip .rgoal{font-size:11px;color:var(--text-muted);line-height:1.4;}
-
-.btn-start{background:var(--accent);color:#fff;font-family:'DM Sans',sans-serif;font-size:17px;font-weight:600;border:none;padding:16px 40px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;}
-.btn-start:hover{background:#13512E;transform:translateY(-1px);}
-
-/* ── GAME ── */
-#screen-game{flex-direction:column;}
-
-.topbar{display:flex;align-items:center;gap:16px;padding:14px 24px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;}
-.topbar-title{font-size:16px;font-weight:600;color:var(--accent);margin-right:auto;}
-.day-indicator{display:flex;gap:8px;align-items:center;}
-.day-dot{width:12px;height:12px;border-radius:50%;background:var(--surface2);border:1.5px solid var(--border2);transition:all 0.4s;}
-.day-dot.done{background:var(--accent);border-color:var(--accent);}
-.day-dot.current{background:var(--warn-mid);border-color:var(--warn-mid);}
-.clock{font-family:'DM Mono',monospace;font-size:15px;color:var(--warn);min-width:52px;text-align:right;font-weight:500;}
-
-.game-body{flex:1;display:grid;grid-template-columns:280px 1fr 260px;gap:0;overflow:hidden;}
-
-/* LEFT */
-.panel-left{background:var(--surface);border-right:1px solid var(--border);padding:18px;overflow-y:auto;}
-.panel-label{font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-faint);margin-bottom:10px;font-weight:500;}
-
-.member-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;}
-.member-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.member-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.member-name{font-size:14px;font-weight:600;color:var(--text);}
-.member-role{font-size:11px;color:var(--text-faint);}
-.stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}
-.stat-label{font-size:11px;color:var(--text-muted);min-width:40px;}
-.stat-bar{flex:1;height:5px;background:var(--surface3);border-radius:3px;margin:0 10px;overflow:hidden;}
-.stat-fill{height:100%;border-radius:3px;transition:width 0.5s;}
-.stat-val{font-family:'DM Mono',monospace;font-size:11px;min-width:28px;text-align:right;font-weight:500;}
-.fill-health{background:var(--accent-mid);}
-.fill-morale{background:var(--info);}
-.fill-health.low{background:var(--danger-mid);}
-.fill-health.mid{background:var(--warn-mid);}
-
-/* CENTER */
-.panel-center{display:flex;flex-direction:column;overflow:hidden;}
-.mountain-svg{width:100%;height:90px;flex-shrink:0;}
-
-.day-content{flex:1;overflow-y:auto;padding:22px 24px;}
-.day-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}
-.day-title{font-size:24px;font-weight:600;color:var(--text);}
-.day-meta{font-size:13px;color:var(--text-muted);line-height:1.5;text-align:right;}
-.weather-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:999px;font-size:13px;font-weight:500;margin-bottom:16px;}
-.weather-good{background:var(--accent-light);color:var(--accent);border:1px solid rgba(26,107,60,0.2);}
-.weather-warn{background:var(--warn-bg);color:var(--warn);border:1px solid rgba(138,88,0,0.2);}
-.weather-bad{background:var(--danger-bg);color:var(--danger);border:1px solid rgba(139,32,32,0.2);}
-
-.scenario-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;margin-bottom:16px;line-height:1.75;font-size:15px;color:var(--text-muted);}
-.scenario-box strong{color:var(--text);}
-
-.dilemma-box{background:var(--warn-bg);border:1px solid rgba(138,88,0,0.18);border-left:4px solid var(--warn-mid);border-radius:0 var(--radius) var(--radius) 0;padding:16px 18px;margin-bottom:16px;}
-.dilemma-label{font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:var(--warn);margin-bottom:6px;font-weight:600;}
-.dilemma-text{font-size:15px;line-height:1.65;color:var(--text);}
-
-.tensions-section{margin-bottom:18px;}
-.tension-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--text-muted);line-height:1.55;}
-.tension-item:last-child{border-bottom:none;}
-.tension-role{font-size:10px;font-weight:700;letter-spacing:0.07em;color:var(--accent);white-space:nowrap;margin-top:2px;background:var(--accent-light);padding:2px 7px;border-radius:4px;}
-
-.outcome-label{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px;font-weight:500;}
-.outcomes-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
-.outcome-btn{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;cursor:pointer;text-align:left;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
-.outcome-btn:hover{border-color:var(--border2);background:var(--surface2);}
-.outcome-btn.good:hover{border-color:rgba(26,107,60,0.35);background:var(--accent-light);}
-.outcome-btn.bad:hover{border-color:rgba(139,32,32,0.35);background:var(--danger-bg);}
-.outcome-btn .ob-label{font-size:13px;font-weight:600;margin-bottom:5px;}
-.outcome-btn.good .ob-label{color:var(--accent);}
-.outcome-btn.bad .ob-label{color:var(--danger);}
-.outcome-btn .ob-text{font-size:13px;color:var(--text-muted);line-height:1.4;}
-.btn-next{width:100%;background:var(--accent);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:14px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;opacity:0.35;pointer-events:none;}
-.btn-next:not(:disabled){opacity:1;pointer-events:auto;}
-.btn-next:not(:disabled):hover{background:#13512E;}
-
-/* RIGHT */
-.panel-right{background:var(--surface);border-left:1px solid var(--border);padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:16px;}
-.status-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;}
-.resource-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;}
-.resource-row:last-child{margin-bottom:0;}
-.res-name{font-size:13px;color:var(--text-muted);}
-.res-val{font-family:'DM Mono',monospace;font-size:14px;font-weight:500;}
-.res-val.good{color:var(--accent);}
-.res-val.warn{color:var(--warn);}
-.res-val.bad{color:var(--danger);}
-
-.event-log{display:flex;flex-direction:column;gap:6px;max-height:160px;overflow-y:auto;}
-.log-item{font-size:12px;color:var(--text-faint);padding:7px 10px;background:var(--surface3);border-radius:6px;line-height:1.4;}
-.log-item .log-day{color:var(--accent);font-weight:700;margin-right:5px;}
-.log-item.bad{color:var(--danger);background:var(--danger-bg);}
-.log-item.good{color:var(--accent);background:var(--accent-light);}
-
-.facilitator-tools{display:flex;flex-direction:column;gap:7px;}
-.fac-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);font-family:'DM Sans',sans-serif;font-size:13px;padding:10px 12px;border-radius:var(--radius);cursor:pointer;text-align:left;transition:all 0.15s;}
-.fac-btn:hover{border-color:var(--border2);color:var(--text);background:var(--surface3);}
-.fac-btn.warn-btn:hover{border-color:rgba(138,88,0,0.4);color:var(--warn);background:var(--warn-bg);}
-.fac-btn.danger-btn:hover{border-color:rgba(139,32,32,0.4);color:var(--danger);background:var(--danger-bg);}
-
-/* FINAL */
-#screen-final{align-items:center;justify-content:center;padding:2.5rem 1.5rem;}
-.final-inner{max-width:680px;width:100%;text-align:center;}
-.final-title{font-size:clamp(2.2rem,6vw,4rem);font-weight:600;margin-bottom:10px;color:var(--text);}
-.final-sub{font-size:17px;color:var(--text-muted);margin-bottom:2rem;line-height:1.65;}
-.final-scores{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:2rem;}
-.fscore-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 8px;text-align:center;}
-.fscore-emoji{font-size:24px;margin-bottom:6px;}
-.fscore-name{font-size:11px;color:var(--text-faint);margin-bottom:6px;}
-.fscore-val{font-family:'DM Mono',monospace;font-size:17px;font-weight:500;}
-.debrief-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;text-align:left;margin-bottom:1.5rem;}
-.debrief-box h3{font-size:15px;font-weight:600;color:var(--accent);margin-bottom:14px;text-transform:uppercase;letter-spacing:0.06em;}
-.debrief-list{list-style:none;display:flex;flex-direction:column;gap:10px;}
-.debrief-list li{font-size:14px;color:var(--text-muted);line-height:1.55;padding-left:18px;position:relative;}
-.debrief-list li::before{content:'→';position:absolute;left:0;color:var(--text-faint);}
-.btn-restart{background:transparent;border:1.5px solid var(--border2);color:var(--text-muted);font-family:'DM Sans',sans-serif;font-size:15px;padding:12px 28px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;}
-.btn-restart:hover{border-color:var(--accent);color:var(--accent);}
-
-/* MODAL */
-.modal-overlay{position:fixed;inset:0;background:rgba(30,26,20,0.55);display:none;align-items:center;justify-content:center;z-index:100;padding:1rem;}
-.modal-overlay.open{display:flex;}
-.modal{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:28px;max-width:440px;width:100%;}
-.modal h3{font-size:20px;font-weight:600;margin-bottom:10px;color:var(--text);}
-.modal p{font-size:15px;color:var(--text-muted);line-height:1.65;margin-bottom:22px;}
-.modal-btn{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:12px 24px;border-radius:var(--radius);cursor:pointer;width:100%;}
-.modal-btn:hover{background:#13512E;}
-
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-.clock.urgent{animation:pulse 1s ease-in-out infinite;color:var(--danger);}
+/* GAME COMPONENTS */
+.gwr{max-width:720px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+.gh{text-align:center;margin-bottom:2rem;}
+.gh h2{font-family:'Fraunces',serif;font-size:2rem;font-weight:600;margin-bottom:8px;}
+.gh p{font-size:15px;color:var(--tm);line-height:1.65;max-width:520px;margin:0 auto;}
+.gcard{background:var(--surf);border:1px solid var(--bd);border-radius:var(--rl);padding:20px;margin-bottom:16px;}
+.gcard h3{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--tf);margin-bottom:12px;}
+.glb{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--tf);margin-bottom:6px;}
+.gal{background:var(--s2);border-left:3px solid var(--cs);border-radius:0 var(--r) var(--r) 0;padding:12px 16px;margin-bottom:16px;font-size:14px;line-height:1.6;}
+.gw2{border-left-color:var(--cn);} .gd{border-left-color:var(--ca);}
+.gbtn{display:inline-flex;align-items:center;gap:8px;background:var(--tx);color:var(--bg);border:none;border-radius:var(--r);padding:11px 22px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;}
+.gbtn:hover{opacity:.85;} .gbtn:disabled{opacity:.35;cursor:not-allowed;}
+.gbo{background:transparent;color:var(--tx);border:1px solid var(--bd2);}
+.gbo:hover{background:var(--s2);}
+.grow{display:flex;gap:10px;flex-wrap:wrap;margin-top:1rem;}
+.gph{display:none;} .gph.active{display:block;}
+.il{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.il li{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--s2);border-radius:var(--r);font-size:14px;cursor:pointer;border:1.5px solid transparent;}
+.il li:hover{background:var(--s3);}
+.il li.sel{background:var(--csbg);border-color:var(--cs);color:var(--cs);}
+.sgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:1.5rem;}
+.sb{background:var(--s2);border-radius:var(--r);padding:14px;text-align:center;}
+.sb .sbn{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:600;}
+.sb .sbl{font-size:11px;color:var(--tf);margin-top:4px;}
+.dbl{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.dbl li{font-size:14px;color:var(--tm);line-height:1.55;padding-left:18px;position:relative;}
+.dbl li::before{content:'→';position:absolute;left:0;color:var(--tf);}
+.pb2{height:8px;background:var(--s2);border-radius:4px;overflow:hidden;margin-bottom:6px;}
+.pf{height:100%;background:var(--cs);border-radius:4px;transition:width .4s;}
+.td{font-family:'DM Mono',monospace;font-size:2.5rem;text-align:center;color:var(--tx);margin:1rem 0;}
+.td.urg{color:var(--ca);}
+.chb{width:100%;background:var(--s2);border:1.5px solid var(--bd);border-radius:var(--r);padding:14px 16px;text-align:left;font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;margin-bottom:8px;}
+.chb:hover{background:var(--s3);}
+.chb.pg{background:var(--csbg);border-color:var(--cs);color:var(--cs);}
+.chb.pb3{background:var(--cabg);border-color:var(--ca);color:var(--ca);}
+.rc{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:1.5rem;}
+.rcard{background:var(--s2);border-radius:var(--r);padding:14px;border-top:3px solid var(--bd2);}
+.rcard .re{font-size:24px;margin-bottom:6px;}
+.rcard .rn{font-size:14px;font-weight:600;margin-bottom:4px;}
+.rcard .rg{font-size:12px;color:var(--tm);line-height:1.4;}
+table.rk{width:100%;border-collapse:collapse;}
+table.rk tr{border-bottom:1px solid var(--bd);}
+table.rk td{padding:9px 6px;font-size:13px;}
+.pl{display:inline-block;font-size:11px;padding:2px 9px;border-radius:999px;font-weight:500;}
+.plg{background:var(--csbg);color:var(--cs);}
+.plm{background:#FFF3DC;color:#8A5800;}
+.plb{background:var(--cabg);color:var(--ca);}
+.inf{width:100%;background:var(--s2);border:1px solid var(--bd2);border-radius:var(--r);padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--tx);outline:none;margin-bottom:10px;}
+.dbox{background:var(--s2);border-left:3px solid var(--cn);border-radius:0 var(--r) var(--r) 0;padding:14px 16px;margin-bottom:16px;}
+.dlb{font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:var(--cn);font-weight:600;margin-bottom:5px;}
+.ti{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--bd);font-size:14px;color:var(--tm);line-height:1.5;}
+.ti:last-child{border-bottom:none;}
+.tr2{font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--cs);background:var(--csbg);padding:2px 7px;border-radius:4px;white-space:nowrap;margin-top:2px;}
+@media(max-width:600px){.gwr{padding:1.5rem 1rem 3rem;}.sgrid{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body>
-
-<!-- INTRO -->
-<div class="screen active" id="screen-intro">
-  <div class="intro-inner">
-    <div class="brand">Simulación · Liderazgo · Trabajo en equipo</div>
-    <div class="intro-title">🏔 <span>Everest</span></div>
-    <p class="intro-sub">Tu equipo tiene 6 días para llegar a la cima. Cada decisión afecta la salud, el clima y las metas individuales. El éxito requiere comunicación, liderazgo real y saber cuándo retirarse.</p>
-    <div class="roles-grid">
-      <div class="role-chip r0"><span class="emoji">🧗</span><span class="rname">Líder</span><div class="rgoal">Llegar a la cima sin importar el costo</div></div>
-      <div class="role-chip r1"><span class="emoji">🏥</span><span class="rname">Médico</span><div class="rgoal">Que todos regresen con vida</div></div>
-      <div class="role-chip r2"><span class="emoji">📸</span><span class="rname">Fotógrafo</span><div class="rgoal">Foto en la cima o el proyecto fracasa</div></div>
-      <div class="role-chip r3"><span class="emoji">🔬</span><span class="rname">Científico</span><div class="rgoal">Recolectar datos en campo 5 y 6</div></div>
-      <div class="role-chip r4"><span class="emoji">💰</span><span class="rname">Sponsor</span><div class="rgoal">ROI y visibilidad mediática, o retira fondos</div></div>
+<div class="screen active" id="ms">
+  <header>
+    <div class="hi">
+      <div class="ey">Biblioteca de simulaciones · Desarrollo organizacional</div>
+      <h1 class="mt">Dinámicas de <em>equipo</em></h1>
+      <p class="ms">30 simulaciones interactivas para desarrollar liderazgo, comunicación y pensamiento estratégico.</p>
+      <div class="ss">
+        <div><div class="sn">30</div><div class="sl">Dinámicas</div></div>
+        <div><div class="sn">6</div><div class="sl">Categorías</div></div>
+        <div><div class="sn">30</div><div class="sl">Disponibles</div></div>
+      </div>
     </div>
-    <button class="btn-start" onclick="startGame()">Iniciar simulación →</button>
+  </header>
+  <div class="ctrl">
+    <div class="sw"><span class="si">🔍</span><input type="text" id="srch" placeholder="Buscar dinámica..." oninput="af()"></div>
+    <div class="flt">
+      <button class="fb active" onclick="sf('all',this)">Todas</button>
+      <button class="fb" onclick="sf('survival',this)">🏔 Supervivencia</button>
+      <button class="fb" onclick="sf('strategy',this)">♟ Estrategia</button>
+      <button class="fb" onclick="sf('negotiation',this)">🤝 Negociación</button>
+      <button class="fb" onclick="sf('culture',this)">🌍 Cultura</button>
+      <button class="fb" onclick="sf('agile',this)">⚡ Ágil</button>
+      <button class="fb" onclick="sf('systems',this)">⚙ Sistemas</button>
+    </div>
+    <span class="cl" id="cl">30 dinámicas</span>
   </div>
+  <div class="gw"><div class="gg" id="grid"></div></div>
 </div>
-
-<!-- GAME -->
-<div class="screen" id="screen-game">
-  <div class="topbar">
-    <span class="topbar-title">🏔 Everest — Simulación de Liderazgo</span>
-    <div class="day-indicator" id="day-dots"></div>
-    <span class="clock" id="clock">60:00</span>
+<div class="screen" id="gs">
+  <div class="gtb">
+    <button class="bb" onclick="goMenu()">← Menú</button>
+    <span class="gtt" id="gtt"></span>
   </div>
-  <div class="game-body">
-    <div class="panel-left">
-      <div class="panel-label">Estado del equipo</div>
-      <div id="team-cards"></div>
+  <div id="gc"></div>
+</div>
+<script>
+const GAMES=[
+  {n:1,id:'everest',t:'Everest',s:'Expedición · Nepal',cat:'survival',cl:'Supervivencia',p:'5',d:'60 min',desc:'Gestión de equipo multidisciplinario para alcanzar la cima en 6 días simulados equilibrando metas individuales, salud y climatología.',ins:'El éxito requiere comunicación constante y priorizar la supervivencia del grupo.'},
+  {n:2,id:'samurai',t:'The Samurai Game',s:'Combate simulado · Japón',cat:'survival',cl:'Supervivencia',p:'10–50',d:'90 min',desc:'Simulación de combate feudal que explora liderazgo, ética y consecuencias de la indecisión bajo presión extrema.',ins:'La indecisión tiene consecuencias tan graves como la decisión equivocada.'},
+  {n:3,id:'freshbiz',t:'FreshBiz',s:'Tablero financiero · Israel',cat:'strategy',cl:'Estrategia',p:'4–6',d:'90 min',desc:'Tablero donde equipos compiten y colaboran en un ecosistema financiero. El pensamiento ganar-ganar supera la competencia pura.',ins:'La colaboración entre competidores genera mayor valor que la rivalidad.'},
+  {n:4,id:'beer',t:'Beer Distribution',s:'Cadena de suministro · MIT',cat:'systems',cl:'Sistemas',p:'4–8',d:'60 min',desc:'Cada jugador gestiona un eslabón de la cadena. La mala comunicación crea el efecto látigo: pequeñas variaciones producen caos aguas arriba.',ins:'Los sistemas se optimizan localmente a costa del sistema total.'},
+  {n:5,id:'bafabafa',t:"BaFá BaFá",s:'Intercambio cultural · EE.UU.',cat:'culture',cl:'Cultura',p:'12–40',d:'120 min',desc:'Dos culturas ficticias intercambian embajadores. Los participantes experimentan el choque cultural y los prejuicios automáticos en carne propia.',ins:'Los juicios precipitados sobre otras culturas son inevitables sin inmersión real.'},
+  {n:6,id:'friday',t:'Friday Night at the ER',s:'Simulación hospitalaria',cat:'systems',cl:'Sistemas',p:'4',d:'120 min',desc:'Cuatro equipos gestionan un hospital durante una noche de urgencias. Cada decisión afecta a todos los demás departamentos.',ins:'La optimización de una sola área puede colapsar todo el sistema.'},
+  {n:7,id:'desert',t:'Desert Survival',s:'Accidente en el desierto',cat:'survival',cl:'Supervivencia',p:'4–8',d:'60 min',desc:'El avión se estrelló en el desierto de Sonora. Quedan 15 objetos. El equipo los prioriza individual y colectivamente.',ins:'La sinergia grupal casi siempre supera al mejor individuo del equipo.'},
+  {n:8,id:'markstrat',t:'Markstrat',s:'Mercado hipercompetitivo',cat:'strategy',cl:'Estrategia',p:'4–6',d:'180 min',desc:'Simulación de marketing donde equipos compiten en un mercado ficticio durante varios períodos, gestionando portafolios y anticipando rivales.',ins:'La estrategia a largo plazo supera la táctica reactiva.'},
+  {n:9,id:'go',t:'Weiqi (Go) Empresarial',s:'Tablero estratégico · China',cat:'strategy',cl:'Estrategia',p:'2+',d:'45 min',desc:'Adaptación empresarial del Go milenario. Aprendé visión periférica, control territorial y paciencia estratégica en un tablero 9×9.',ins:'Controlar el territorio importa más que eliminar al oponente.'},
+  {n:10,id:'shogi',t:'Shogi Gerencial',s:'Ajedrez japonés · Japón',cat:'strategy',cl:'Estrategia',p:'2+',d:'45 min',desc:'Adaptación del Shogi: la pieza capturada puede ser reutilizada por el captor — metáfora de cómo el talento rival puede reubicarse.',ins:'Reintegrar el talento del contrincante es más poderoso que eliminarlo.'},
+  {n:11,id:'chanakya',t:"Chanakya's Niti",s:'Rol político · India',cat:'negotiation',cl:'Negociación',p:'5–10',d:'90 min',desc:'Basado en el Arthashastra. Participantes asumen roles de estados rivales y deben forjar alianzas, espiar y negociar sin perder poder.',ins:'El liderazgo pragmático requiere alianzas estratégicas, no lealtades absolutas.'},
+  {n:12,id:'subarctic',t:'Subarctic Survival',s:'Supervivencia extrema · Canadá',cat:'survival',cl:'Supervivencia',p:'4–8',d:'60 min',desc:'El avión se estrelló en el ártico a −40°C. El equipo prioriza objetos de supervivencia donde la experiencia práctica vale más que la lógica urbana.',ins:'El conocimiento situacional supera al razonamiento abstracto.'},
+  {n:13,id:'lostsea',t:'Lost at Sea',s:'Naufragio en el Atlántico',cat:'survival',cl:'Supervivencia',p:'4–8',d:'60 min',desc:'El yate naufragó a 1,000 millas de tierra. Individual vs. consenso vs. expertos de la Marina. El pánico distorsiona la priorización.',ins:'El estrés extremo nubla el juicio incluso en personas expertas.'},
+  {n:14,id:'marshmallow',t:'Marshmallow Challenge',s:'Construcción con espagueti',cat:'agile',cl:'Ágil',p:'4',d:'20 min',desc:'18 minutos para construir la estructura más alta con 20 espaguetis y un malvavisco en la punta. Los MBA fallan más que los niños de kínder.',ins:'Las asunciones no testeadas llevan al colapso al final, no al inicio.'},
+  {n:15,id:'golddesert',t:'Gold of the Desert Kings',s:'Expedición minera',cat:'survival',cl:'Supervivencia',p:'2–4',d:'90 min',desc:'Equipos compiten para extraer oro de una región peligrosa. La velocidad mata: los que se preparan bien y van despacio casi siempre llegan.',ins:'La preparación meticulosa supera a la velocidad de ejecución.'},
+  {n:16,id:'marble',t:'Council of Marble Star',s:'Negociación medieval',cat:'negotiation',cl:'Negociación',p:'9–12',d:'90 min',desc:'Consejo de nobles donde cada facción tiene información incompleta. Solo compartiendo datos se puede tomar la decisión óptima para el reino.',ins:'La información compartida es más poderosa que la información retenida.'},
+  {n:17,id:'dutchman',t:"Lost Dutchman's Gold",s:'Extracción de oro · Arizona',cat:'negotiation',cl:'Negociación',p:'5–6',d:'90 min',desc:'Equipos compiten para extraer oro de la misma mina. Los recursos son limitados. Los que colaboran extraen más que los que compiten.',ins:'Optimizar el sistema completo supera optimizar cada equipo por separado.'},
+  {n:18,id:'nasa',t:'NASA Moon Survival',s:'Varados en la Luna',cat:'survival',cl:'Supervivencia',p:'4–8',d:'60 min',desc:'La nave aterrizó 300 km del módulo de comando. Quedan 15 objetos. Individual vs. consenso vs. respuesta NASA. Clásico desde 1960.',ins:'El consenso grupal informado supera al experto individual casi siempre.'},
+  {n:19,id:'prisoner',t:"Prisoner's Dilemma",s:'Teoría de juegos',cat:'negotiation',cl:'Negociación',p:'2+',d:'30 min',desc:'Múltiples rondas del dilema del prisionero. Tit for Tat emerge como estrategia dominante: cooperar primero, luego imitar al oponente.',ins:'La traición gana en el corto plazo. La cooperación gana en el largo.'},
+  {n:20,id:'capstone',t:'Capstone Simulation',s:'Dirección de empresa',cat:'strategy',cl:'Estrategia',p:'4–6',d:'240 min',desc:'Equipos dirigen una empresa completa durante 8 años simulados: I+D, marketing, finanzas, producción. Cada área interfiere con las demás.',ins:'Las decisiones funcionales siempre tienen efectos sistémicos no previstos.'},
+  {n:21,id:'peak',t:'Peak Performance',s:'Expedición virtual',cat:'survival',cl:'Supervivencia',p:'4–5',d:'90 min',desc:'Equipos coordinan una expedición con roles distribuidos. Los objetivos individuales mal alineados sabotean la misión colectiva.',ins:'Los objetivos claros y compartidos unen al equipo más que los incentivos individuales.'},
+  {n:22,id:'simultrain',t:'SimulTrain',s:'Proyecto informático',cat:'agile',cl:'Ágil',p:'3–4',d:'120 min',desc:'Simulador de gestión de proyecto de software con eventos inesperados, cambios de alcance y presión de tiempo constante.',ins:'La planificación adaptativa reduce el estrés más que la velocidad de reacción.'},
+  {n:23,id:'minefield',t:'Campo Minado',s:'Caminata a ciegas',cat:'agile',cl:'Ágil',p:'parejas',d:'30 min',desc:'Un participante vendado atraviesa obstáculos guiado solo por la voz de su pareja. La comunicación clara es más escasa de lo que creemos.',ins:'Las instrucciones claras para quien habla son ambiguas para quien escucha.'},
+  {n:24,id:'knot',t:'Nudo Humano',s:'Enredo físico',cat:'agile',cl:'Ágil',p:'8–12',d:'20 min',desc:'El grupo entrelaza manos aleatoriamente y debe desatarse sin soltarse. El liderazgo emerge naturalmente sin estar asignado.',ins:'El liderazgo emergente es más efectivo que el liderazgo impuesto.'},
+  {n:25,id:'escape',t:'Escape Room Corporativo',s:'Sala de escape',cat:'agile',cl:'Ágil',p:'4–8',d:'60 min',desc:'Adaptación corporativa donde cada pista requiere competencias distintas. Los equipos homogéneos fallan más que los multidisciplinarios.',ins:'La diversidad de habilidades resuelve lo que el talento homogéneo no puede.'},
+  {n:26,id:'global',t:'Global Management',s:'Dirección ejecutiva global',cat:'strategy',cl:'Estrategia',p:'3–5',d:'180 min',desc:'Simulación ejecutiva con disrupciones regulatorias, competidores y volatilidad cambiaria. La adaptación al cambio es la única ventaja sostenible.',ins:'La rigidez estratégica es más peligrosa que la amenaza externa.'},
+  {n:27,id:'redblue',t:'Red/Blue Exercise',s:'Simulador táctico',cat:'negotiation',cl:'Negociación',p:'equipos',d:'60 min',desc:'Dos equipos negocian en rondas sin comunicación directa. La percepción de la intención del otro define el resultado más que la intención real.',ins:'La percepción de la intención importa más que la intención real.'},
+  {n:28,id:'mancala',t:'Mancala Estratégico',s:'Tablero de siembra · África',cat:'strategy',cl:'Estrategia',p:'2+',d:'30 min',desc:'Adaptación empresarial del ancestral juego africano. Cada movimiento afecta múltiples posiciones — metáfora de la gestión de recursos encadenados.',ins:'La planificación anticipada de recursos es más valiosa que la reacción eficiente.'},
+  {n:29,id:'labyrinth',t:'Labyrinth',s:'Laberinto corporativo',cat:'systems',cl:'Sistemas',p:'4–8',d:'60 min',desc:'El líder ve el mapa pero no puede moverse; el equipo puede moverse pero no ve el mapa. La microgestión paraliza; la delegación libera.',ins:'El líder que no delega se convierte en el mayor obstáculo del equipo.'},
+  {n:30,id:'synergistic',t:'Synergistic Decision',s:'Caso empresarial',cat:'negotiation',cl:'Negociación',p:'4–8',d:'60 min',desc:'Caso de negocio complejo con información distribuida entre los miembros. Solo la síntesis colectiva lleva a la decisión óptima.',ins:'La toma de decisiones de calidad requiere proceso, no solo inteligencia.'},
+];
+const CC={survival:'cs2',strategy:'cst3',negotiation:'cn3',culture:'cc3',agile:'ca3',systems:'cy2'};
+const AC={survival:'as',strategy:'ast',negotiation:'an',culture:'ac',agile:'aa',systems:'ay'};
+let CF='all';
+function sf(f,b){CF=f;document.querySelectorAll('.fb').forEach(x=>x.classList.remove('active'));b.classList.add('active');af();}
+function af(){
+  const q=document.getElementById('srch').value.toLowerCase();
+  const g=document.getElementById('grid');g.innerHTML='';
+  const fl=GAMES.filter(x=>(CF==='all'||x.cat===CF)&&(!q||x.t.toLowerCase().includes(q)||x.desc.toLowerCase().includes(q)||x.s.toLowerCase().includes(q)));
+  document.getElementById('cl').textContent=fl.length+(fl.length===1?' dinámica':' dinámicas');
+  fl.forEach(g2=>{
+    const c=CC[g2.cat],a=AC[g2.cat];
+    const el=document.createElement('div');el.className='gc';
+    el.innerHTML=`<div class="ca2 ${a}"></div><div class="cb">
+      <div class="ch"><span class="cn2">${String(g2.n).padStart(2,'0')}</span>
+      <div class="ctw"><div class="ct">${g2.t}</div><div class="cst2">${g2.s}</div></div>
+      <span class="cc2 ${c}">${g2.cl}</span></div>
+      <p class="cd">${g2.desc}</p>
+      <div class="cm"><span class="mp">👥 ${g2.p}</span><span class="mp">⏱ ${g2.d}</span></div>
+      <div class="ci">${g2.ins}</div>
+    </div><div class="cf"><button class="pb" onclick="launch('${g2.id}','${g2.t}')">▶ Jugar ahora</button></div>`;
+    g.appendChild(el);
+  });
+}
+function goMenu(){document.getElementById('ms').classList.add('active');document.getElementById('gs').classList.remove('active');document.getElementById('gc').innerHTML='';}
+function launch(id,title){
+  document.getElementById('ms').classList.remove('active');document.getElementById('gs').classList.add('active');
+  document.getElementById('gtt').textContent=title;
+  const fn=window['G_'+id];
+  if(fn)fn();else document.getElementById('gc').innerHTML=`<div class="gwr"><div class="gh"><h2>${title}</h2><p style="color:var(--ca)">Próximamente.</p></div></div>`;
+}
+function gc2(){return document.getElementById('gc');}
+function debrf(el,qs){el.innerHTML+=`<div class="gcard"><h3>Preguntas de debriefing</h3><ul class="dbl">${qs.map(q=>`<li>${q}</li>`).join('')}</ul></div><div class="grow"><button class="gbtn" onclick="goMenu()">← Volver al menú</button></div>`;}
+// ── SURVIVAL TEMPLATE ──
+function survivalGame(cfg){
+  let iSel=[],tSel=[],ph=0,secs=cfg.secs||600,ti=null;
+  function render(){ph===0?rIntro():ph===1?rInd():ph===2?rTeam():rRes();}
+  function rIntro(){
+    gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>${cfg.title}</h2><p>${cfg.intro}</p></div>
+    <div class="gal gw2"><strong>Situación:</strong> ${cfg.sit}</div>
+    <div class="gcard"><h3>Cómo funciona</h3><ul class="dbl">
+      <li>Ronda individual: elegí los ${cfg.pick} objetos más importantes sin consultar a nadie.</li>
+      <li>Ronda de equipo: discutan por consenso en ${Math.round(cfg.secs/60)} minutos.</li>
+      <li>Resultados: comparen con expertos.</li>
+    </ul></div>
+    <div class="grow"><button class="gbtn" onclick="sph(1)">Comenzar →</button></div>`;
+    window.sph=p=>{ph=p;render();};
+  }
+  function grid(sel,max,fn){
+    return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1rem">${cfg.items.map(it=>{
+      const s=sel.includes(it.id),lk=!s&&sel.length>=max;
+      return`<div onclick="${fn}T(${it.id})" style="background:${s?'var(--csbg)':'var(--s2)'};border:${s?'2px solid var(--cs)':'1.5px solid var(--bd)'};border-radius:var(--r);padding:10px 12px;cursor:${lk?'not-allowed':'pointer'};opacity:${lk?.45:1};display:flex;align-items:center;gap:8px">
+        <span style="font-size:18px">${it.icon}</span>
+        <div><div style="font-size:13px;font-weight:500;color:${s?'var(--cs)':'var(--tx)'}">${it.name}</div><div style="font-size:11px;color:var(--tf)">${it.desc}</div></div>
+        ${s?'<span style="margin-left:auto;color:var(--cs)">✓</span>':''}
+      </div>`;}).join('')}</div>`;
+  }
+  function rInd(){
+    gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Ronda individual</h2><p>Elegí los <strong>${cfg.pick} objetos</strong> más importantes. No consultes a nadie.</p></div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:12px"><span style="font-size:13px;color:var(--tm)">Seleccionados</span>
+    <span id="ic" style="background:var(--csbg);color:var(--cs);font-size:13px;font-weight:500;padding:4px 12px;border-radius:999px">${iSel.length}/${cfg.pick}</span></div>
+    ${grid(iSel,cfg.pick,'ind')}
+    <button class="gbtn" id="ib" onclick="sph(2)" ${iSel.length!==cfg.pick?'disabled':''}>Pasar a ronda de equipo →</button>`;
+    window.indT=id=>{const i=iSel.indexOf(id);i>-1?iSel.splice(i,1):(iSel.length<cfg.pick&&iSel.push(id));rInd();};
+  }
+  function rTeam(){
+    secs=cfg.secs||600;const tot=secs;
+    gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Ronda de equipo</h2><p>Elijan los <strong>${cfg.pick} objetos</strong> por consenso.</p></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+    <span style="font-size:13px;color:var(--tm)">Tiempo</span>
+    <span id="tmr" class="td" style="font-size:1.8rem;margin:0">${Math.floor(secs/60)}:${String(secs%60).padStart(2,'0')}</span></div>
+    <div class="pb2"><div class="pf" id="tf2" style="width:100%"></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin:12px 0">
+    <span style="font-size:13px;color:var(--tm)">Seleccionados</span>
+    <span id="tc" style="background:var(--csbg);color:var(--cs);font-size:13px;font-weight:500;padding:4px 12px;border-radius:999px">${tSel.length}/${cfg.pick}</span></div>
+    ${grid(tSel,cfg.pick,'team')}
+    <div class="grow"><button class="gbtn" id="tb" onclick="sph(3)" ${tSel.length!==cfg.pick?'disabled':''}>Ver resultados →</button>
+    <button class="gbtn gbo" onclick="clearInterval(ti)">⏸ Pausar</button></div>`;
+    ti=setInterval(()=>{secs--;const t=document.getElementById('tmr'),f=document.getElementById('tf2');if(!t){clearInterval(ti);return;}
+      t.textContent=Math.floor(secs/60)+':'+String(secs%60).padStart(2,'0');
+      t.className='td'+(secs<=60?' urg':'');if(f)f.style.width=Math.round(secs/tot*100)+'%';
+      if(secs<=0)clearInterval(ti);},1000);
+    window.teamT=id=>{const i=tSel.indexOf(id);i>-1?tSel.splice(i,1):(tSel.length<cfg.pick&&tSel.push(id));
+      const c=document.getElementById('tc'),b=document.getElementById('tb');
+      if(c)c.textContent=`${tSel.length}/${cfg.pick}`;if(b)b.disabled=tSel.length!==cfg.pick;
+      const gr=gc2().querySelector('.gwr > div:nth-of-type(4)');if(gr)gr.outerHTML=grid(tSel,cfg.pick,'team');rTeam();};
+  }
+  function rRes(){
+    clearInterval(ti);
+    const top=cfg.expert.slice(0,cfg.pick).map(e=>e.id);
+    function sc(sel){return sel.reduce((a,id)=>{const r=cfg.expert.find(e=>e.id===id)?.rank??cfg.items.length;return a+(r<=cfg.pick?2:r<=cfg.pick*2?1:0);},0);}
+    const is=sc(iSel),ts=sc(tSel),mx=cfg.pick*2;
+    const col=v=>v>=mx*.7?'var(--cs)':v>=mx*.4?'var(--cn)':'var(--ca)';
+    gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Resultados</h2></div>
+    <div class="sgrid">
+      <div class="sb"><div class="sbn" style="color:${col(is)}">${is}/${mx}</div><div class="sbl">Tu puntaje</div></div>
+      <div class="sb" style="${ts>is?'border:2px solid var(--cs)':''}"><div class="sbn" style="color:${col(ts)}">${ts}/${mx}</div><div class="sbl">Equipo</div></div>
+      <div class="sb"><div class="sbn">${ts>is?'🏆':'🤔'}</div><div class="sbl">${ts>is?'Equipo ganó':'Revisá'}</div></div>
     </div>
-    <div class="panel-center">
-      <svg class="mountain-svg" viewBox="0 0 700 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="0,90 200,18 350,4 500,28 700,90" fill="rgba(26,107,60,0.08)" stroke="rgba(26,107,60,0.25)" stroke-width="1.5"/>
-        <circle id="team-marker" cx="50" cy="86" r="7" fill="#1A6B3C"/>
-        <text id="marker-label" x="50" y="73" font-family="DM Sans" font-size="9" fill="#1A6B3C" text-anchor="middle" font-weight="600">Base</text>
-      </svg>
-      <div class="day-content" id="day-content"></div>
+    <div class="gcard"><h3>Ranking de expertos</h3>
+    <table class="rk">${cfg.expert.map(e=>{const it=cfg.items.find(i=>i.id===e.id);const cls=e.rank<=cfg.pick?'plg':e.rank<=cfg.pick*2?'plm':'plb';const lbl=e.rank<=cfg.pick?'Esencial':e.rank<=cfg.pick*2?'Útil':'Prescindible';
+      return`<tr><td style="color:var(--tf);font-family:'DM Mono',monospace;font-size:10px;width:20px">${e.rank}</td><td>${it.icon} ${it.name}</td><td><span class="pl ${cls}">${lbl}</span></td></tr>`;}).join('')}</table></div>
+    <div class="gcard"><h3>Tu selección</h3><div style="display:flex;flex-wrap:wrap;gap:6px">${iSel.map(id=>{const it=cfg.items.find(i=>i.id===id);return`<span class="pl ${top.includes(id)?'plg':'plb'}">${it.icon} ${it.name}</span>`;}).join('')}</div></div>
+    <div class="gcard"><h3>Selección del equipo</h3><div style="display:flex;flex-wrap:wrap;gap:6px">${tSel.map(id=>{const it=cfg.items.find(i=>i.id===id);return`<span class="pl ${top.includes(id)?'plg':'plb'}">${it.icon} ${it.name}</span>`;}).join('')}</div></div>`;
+    debrf(gc2(),cfg.debrf);
+  }
+  render();
+}
+
+// Survival configs
+window.G_desert=()=>survivalGame({title:'Desert Survival',intro:'Tu avión se estrelló en el desierto de Sonora. Agosto, 45°C.',
+  sit:'Son las 10am. El avión se estrelló a 80km de un pueblo. Caminarán de noche. Estos son los 15 objetos salvados.',pick:6,secs:600,
+  items:[{id:1,icon:'🪞',name:'Espejo de señales',desc:'Para reflejar luz solar'},{id:2,icon:'🌵',name:'Navaja',desc:'Multiusos'},{id:3,icon:'💧',name:'Cantimplora (1L)',desc:'Agua potable'},{id:4,icon:'🗺️',name:'Mapa topográfico',desc:'Zona del Sonora'},{id:5,icon:'🧴',name:'Impermeable plástico',desc:'Refugio y destilación solar'},{id:6,icon:'🧭',name:'Brújula',desc:'Orientación'},{id:7,icon:'🩹',name:'Botiquín',desc:'Primeros auxilios'},{id:8,icon:'🔦',name:'Linterna',desc:'Desplazamiento nocturno'},{id:9,icon:'🔫',name:'Pistola .45',desc:'2 cargadores'},{id:10,icon:'🪂',name:'Tela de paracaídas',desc:'Sombra y señal'},{id:11,icon:'🌡️',name:'Termómetro',desc:'Control temperatura'},{id:12,icon:'⭐',name:'Libro constelaciones',desc:'Navegación nocturna'},{id:13,icon:'🍝',name:'Espaguetis (2kg)',desc:'Comida'},{id:14,icon:'🧂',name:'Sales rehidratación',desc:'Hidratación'},{id:15,icon:'🎒',name:'Mochila vacía',desc:'Transporte'}],
+  expert:[{id:1,rank:1},{id:3,rank:2},{id:5,rank:3},{id:14,rank:4},{id:10,rank:5},{id:8,rank:6},{id:7,rank:7},{id:9,rank:8},{id:4,rank:9},{id:6,rank:10},{id:2,rank:11},{id:12,rank:12},{id:15,rank:13},{id:11,rank:14},{id:13,rank:15}],
+  debrf:['¿El puntaje del equipo superó al mejor individuo?','¿Qué objetos generaron más debate?','¿Hubo voces que no fueron escuchadas?','¿Cómo tomaron la decisión final?']});
+
+window.G_subarctic=()=>survivalGame({title:'Subarctic Survival',intro:'Tu avión se estrelló en el norte de Canadá en enero. −40°C.',
+  sit:'Es enero en Ontario. El avión se estrelló en un lago congelado. El rescate llega en 36 horas si permanecen en el área.',pick:6,secs:600,
+  items:[{id:1,icon:'🔥',name:'Fósforos impermeables',desc:'Encender fuego'},{id:2,icon:'🪓',name:'Hacha pequeña',desc:'Cortar leña'},{id:3,icon:'🗺️',name:'Mapa topográfico',desc:'Norte de Ontario'},{id:4,icon:'🛌',name:'Saco ártico −50°C',desc:'Dormir con calor'},{id:5,icon:'🎣',name:'Kit de pesca',desc:'Comida en el lago'},{id:6,icon:'🔦',name:'Linterna + pilas',desc:'Oscuridad ártica'},{id:7,icon:'🩺',name:'Botiquín',desc:'Primeros auxilios'},{id:8,icon:'🔧',name:'Navaja multiusos',desc:'Versátil'},{id:9,icon:'📡',name:'Baliza GPS',desc:'Señal satelital'},{id:10,icon:'🧤',name:'Guantes térmicos',desc:'Doble capa'},{id:11,icon:'⛺',name:'Cocina camping',desc:'Con combustible'},{id:12,icon:'📻',name:'Radio AM/FM',desc:'Con pilas'},{id:13,icon:'🌿',name:'Libro plantas árticas',desc:'Comestibles'},{id:14,icon:'🪣',name:'Pala plegable',desc:'Refugio de nieve'},{id:15,icon:'🕯️',name:'Velas (x12)',desc:'Luz y calor'}],
+  expert:[{id:1,rank:1},{id:4,rank:2},{id:9,rank:3},{id:2,rank:4},{id:14,rank:5},{id:11,rank:6},{id:10,rank:7},{id:7,rank:8},{id:6,rank:9},{id:8,rank:10},{id:15,rank:11},{id:5,rank:12},{id:3,rank:13},{id:12,rank:14},{id:13,rank:15}],
+  debrf:['¿El conocimiento del frío polar influyó en las decisiones?','¿Qué asunciones urbanas llevaron a errores?','¿Quién lideró la discusión y por qué?']});
+
+window.G_lostsea=()=>survivalGame({title:'Lost at Sea',intro:'El yate naufragó a 1,400 km de tierra firme en el Atlántico norte.',
+  sit:'Tu yate naufragó en el Atlántico. El motor no funciona. La costa más cercana está a 1,400km. Salvaron estos objetos antes de hundirse.',pick:7,secs:600,
+  items:[{id:1,icon:'🗺️',name:'Carta náutica',desc:'Atlántico Norte'},{id:2,icon:'🪞',name:'Espejo de señales',desc:'Reflector solar'},{id:3,icon:'💧',name:'Bidón agua (20L)',desc:'Agua potable'},{id:4,icon:'🚨',name:'Bengalas (x4)',desc:'Señal de emergencia'},{id:5,icon:'⚓',name:'Ancla flotante',desc:'Reduce deriva'},{id:6,icon:'📻',name:'Radio marina AM',desc:'Sin batería extra'},{id:7,icon:'🩹',name:'Botiquín avanzado',desc:'Con morfina'},{id:8,icon:'🔭',name:'Sextante',desc:'Navegación astronómica'},{id:9,icon:'🦈',name:'Repelente tiburones',desc:'Pastillas'},{id:10,icon:'🎣',name:'Kit de pesca',desc:'Anzuelos y sedal'},{id:11,icon:'🥃',name:'Ron 1L (70%)',desc:'Desinfectante'},{id:12,icon:'📡',name:'Baliza EPIRB',desc:'Señal satelital'},{id:13,icon:'🥫',name:'Raciones militares',desc:'2 días'},{id:14,icon:'🔦',name:'Linterna impermeable',desc:'Pilas extra'},{id:15,icon:'🧭',name:'Brújula',desc:'Orientación'}],
+  expert:[{id:12,rank:1},{id:3,rank:2},{id:4,rank:3},{id:2,rank:4},{id:5,rank:5},{id:13,rank:6},{id:10,rank:7},{id:15,rank:8},{id:8,rank:9},{id:7,rank:10},{id:6,rank:11},{id:14,rank:12},{id:1,rank:13},{id:9,rank:14},{id:11,rank:15}],
+  debrf:['¿Qué objetos generaron mayor debate?','¿El pánico influyó en alguna decisión individual?','¿Qué aprendió el equipo sobre priorización bajo presión?']});
+
+window.G_nasa=()=>survivalGame({title:'NASA Moon Survival',intro:'La nave aterrizó en el lado iluminado de la Luna, a 300km del módulo de comando.',
+  sit:'Deben hacer el trayecto a pie. Solo pueden llevar lo que una persona carga. Salvaron estos 15 objetos.',pick:6,secs:600,
+  items:[{id:1,icon:'🔥',name:'Fósforos',desc:'Caja estándar'},{id:2,icon:'🥫',name:'Concentrado alimenticio',desc:'2 días'},{id:3,icon:'📻',name:'Radio FM-AM',desc:'Con pilas'},{id:4,icon:'💧',name:'Agua (20L)',desc:'Contenedor'},{id:5,icon:'🥗',name:'Comida deshidratada',desc:'1 semana'},{id:6,icon:'🔭',name:'Telescopio solar',desc:'Navegación estelar'},{id:7,icon:'🪢',name:'Cuerda nylon 15m',desc:'50kg resistencia'},{id:8,icon:'🌡️',name:'Regulador O₂',desc:'Portátil 2 horas'},{id:9,icon:'🗺️',name:'Mapa estelar lunar',desc:'Constelaciones'},{id:10,icon:'🛟',name:'Balsa inflable',desc:'Con CO₂'},{id:11,icon:'🧲',name:'Brújula magnética',desc:'Estándar'},{id:12,icon:'💊',name:'Medicamentos',desc:'Analgésicos'},{id:13,icon:'💡',name:'Señal luminosa solar',desc:'Reflector'},{id:14,icon:'🔫',name:'Pistola bengalas',desc:'45 calibre'},{id:15,icon:'📡',name:'Radio FM portátil',desc:'Receptor'}],
+  expert:[{id:4,rank:1},{id:8,rank:2},{id:9,rank:3},{id:13,rank:4},{id:2,rank:5},{id:12,rank:6},{id:7,rank:7},{id:5,rank:8},{id:6,rank:9},{id:14,rank:10},{id:3,rank:11},{id:15,rank:12},{id:11,rank:13},{id:10,rank:14},{id:1,rank:15}],
+  debrf:['¿Las condiciones de la Luna (sin O₂, sin brújula magnética) cambiaron el razonamiento?','¿Hubo asunciones terrestres que dificultaron la decisión?','¿Cómo cambió la selección individual al discutirla en grupo?']});
+
+window.G_golddesert=()=>survivalGame({title:'Gold of the Desert Kings',intro:'Expedición minera en el desierto. La preparación lo es todo.',
+  sit:'Tu equipo debe cruzar un desierto peligroso para extraer oro y regresar. Cada día sin preparación aumenta el riesgo.',pick:6,secs:600,
+  items:[{id:1,icon:'💧',name:'Agua extra (3 días)',desc:'Reservas adicionales'},{id:2,icon:'🗺️',name:'Mapa detallado',desc:'Con rutas de agua'},{id:3,icon:'🩺',name:'Kit médico avanzado',desc:'Suero y antibióticos'},{id:4,icon:'⛏️',name:'Herramientas minería',desc:'Pico, pala, tamiz'},{id:5,icon:'📡',name:'Radio satelital',desc:'Emergencias'},{id:6,icon:'⛺',name:'Refugio portátil',desc:'Sol extremo'},{id:7,icon:'📍',name:'GPS de precisión',desc:'Pilas extra'},{id:8,icon:'🔦',name:'Linternas alto brillo',desc:'Recargables'},{id:9,icon:'🥫',name:'Comida alta densidad',desc:'5 días'},{id:10,icon:'❄️',name:'Bolsas térmicas',desc:'Para agua y comida'},{id:11,icon:'🔧',name:'Kit de reparaciones',desc:'Vehículo y equipo'},{id:12,icon:'💊',name:'Medicamentos',desc:'Antidiarreicos'},{id:13,icon:'👕',name:'Ropa UV extra',desc:'Protección total'},{id:14,icon:'☀️',name:'Panel solar portátil',desc:'Carga dispositivos'},{id:15,icon:'💵',name:'Efectivo',desc:'Emergencias locales'}],
+  expert:[{id:1,rank:1},{id:2,rank:2},{id:3,rank:3},{id:5,rank:4},{id:6,rank:5},{id:7,rank:6},{id:9,rank:7},{id:4,rank:8},{id:10,rank:9},{id:11,rank:10},{id:8,rank:11},{id:12,rank:12},{id:14,rank:13},{id:13,rank:14},{id:15,rank:15}],
+  debrf:['¿La preparación vs. velocidad generó debate?','¿Cuánto pesó la experiencia previa?','¿Cómo gestionaron el riesgo vs. la recompensa?']});
+
+window.G_peak=window.G_desert; // Similar survival mechanic
+// ── DILEMMA TEMPLATE ──
+function dilemmaGame(cfg){
+  let step=0,score=0,choices=[];
+  function render(){step===0?rIntro():step<=cfg.scenarios.length?rScenario(step-1):rEnd();}
+  function rIntro(){
+    gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>${cfg.title}</h2><p>${cfg.intro}</p></div>
+    <div class="gal">${cfg.context}</div>
+    ${cfg.roles?`<div class="rc">${cfg.roles.map(r=>`<div class="rcard" style="border-top-color:${r.color}"><div class="re">${r.e}</div><div class="rn">${r.name}</div><div class="rg">${r.goal}</div></div>`).join('')}</div>`:''}
+    <div class="grow"><button class="gbtn" onclick="dN()">Comenzar →</button></div>`;
+    window.dN=()=>{step++;render();};
+  }
+  function rScenario(i){
+    const s=cfg.scenarios[i];
+    gc2().innerHTML=`<div class="gwr">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+      <div class="glb">Escenario ${i+1}/${cfg.scenarios.length}</div>
+      <div class="pb2" style="width:200px;margin-bottom:0"><div class="pf" style="width:${Math.round(i/cfg.scenarios.length*100)}%"></div></div>
     </div>
-    <div class="panel-right">
-      <div class="status-block">
-        <div class="panel-label">Recursos</div>
-        <div id="resources-display"></div>
+    <div class="gh" style="text-align:left;margin-bottom:1rem"><h2 style="font-size:1.4rem">${s.title}</h2></div>
+    <div class="gal gw2">${s.sit}</div>
+    ${s.ten?`<div class="dbox"><div class="dlb">Tensión</div><div style="font-size:14px">${s.ten}</div></div>`:''}
+    <div class="glb" style="margin-bottom:10px">¿Qué decide el equipo?</div>
+    ${s.choices.map((c,ci)=>`<button class="chb" onclick="dC(${i},${ci})">${c.l}<br><span style="font-size:12px;color:var(--tf)">${c.h}</span></button>`).join('')}`;
+    window.dC=(si,ci)=>{const c=cfg.scenarios[si].choices[ci];score+=(c.pts||0);choices.push({scenario:cfg.scenarios[si].title,choice:c.l,fb:c.fb,good:c.good});step++;render();};
+  }
+  function rEnd(){
+    const mx=cfg.scenarios.reduce((a,s)=>a+Math.max(...s.choices.map(c=>c.pts||0)),0);
+    const pct=mx>0?Math.round(score/mx*100):50;
+    gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Simulación completada</h2></div>
+    <div class="sgrid">
+      <div class="sb"><div class="sbn" style="color:${pct>=70?'var(--cs)':pct>=40?'var(--cn)':'var(--ca)'}">${score}</div><div class="sbl">Puntos</div></div>
+      <div class="sb"><div class="sbn">${pct}%</div><div class="sbl">Efectividad</div></div>
+      <div class="sb"><div class="sbn">${pct>=70?'🏆':pct>=40?'📊':'🔄'}</div><div class="sbl">${pct>=70?'Excelente':pct>=40?'Aceptable':'Revisar'}</div></div>
+    </div>
+    <div class="gcard"><h3>Decisiones tomadas</h3>
+    ${choices.map(c=>`<div style="padding:10px 0;border-bottom:1px solid var(--bd)">
+      <div style="font-size:11px;color:var(--tf)">${c.scenario}</div>
+      <div style="font-size:13px;font-weight:500;color:${c.good?'var(--cs)':'var(--ca)'}">${c.choice}</div>
+      <div style="font-size:12px;color:var(--tm);margin-top:3px">${c.fb}</div>
+    </div>`).join('')}</div>`;
+    debrf(gc2(),cfg.debrf);
+  }
+  render();
+}
+
+window.G_samurai=()=>dilemmaGame({title:'The Samurai Game',intro:'Japón feudal, siglo XVI. Tu clan debe sobrevivir. Cada decisión define el honor y el destino.',
+  context:'Sos el Daimyo (señor feudal). Liderazgo, ética y estrategia definen el clan.',
+  roles:[{e:'⚔️',name:'Daimyo',goal:'Proteger el honor del clan',color:'var(--cs)'},{e:'🏹',name:'Samurái senior',goal:'Ejecutar órdenes con precisión',color:'var(--cst)'},{e:'📜',name:'Consejero',goal:'Asesorar con sabiduría',color:'var(--cn)'},{e:'🌸',name:'Diplomático',goal:'Evitar conflictos innecesarios',color:'var(--cc)'}],
+  scenarios:[
+    {title:'El enemigo ofrece rendición',sit:'El clan rival envía mensajeros ofreciendo rendición incondicional si cesas el ataque.',ten:'La victoria total puede destruir al rival... y crear enemigos futuros.',choices:[
+      {l:'Acepta la rendición con términos honorables',h:'Ganas territorio y respeto',good:true,pts:3,fb:'Sabia decisión. La rendición honorable construye alianzas duraderas.'},
+      {l:'Rechaza — victoria total o nada',h:'Demuestras fuerza pero creás enemigos',good:false,pts:1,fb:'La victoria pírrica debilitó al clan. Los enemigos de hoy son la amenaza de mañana.'},
+      {l:'Consultá a todos los oficiales primero',h:'Genera consenso pero toma tiempo',good:true,pts:2,fb:'El proceso fue correcto aunque lento. El consenso fortalece la implementación.'}]},
+    {title:'Traición en el clan',sit:'Descubrís que un samurái senior filtró planes de batalla al enemigo. Las pruebas son claras.',ten:'La justicia rápida puede ser injusta. La lentitud parece debilidad.',choices:[
+      {l:'Juicio formal con testigos',h:'Lento pero justo',good:true,pts:3,fb:'La justicia visible fortalece la confianza del clan.'},
+      {l:'Ejecución inmediata',h:'Rápido pero puede ser injusto',good:false,pts:1,fb:'La dureza sin proceso crea miedo, no lealtad.'},
+      {l:'Exilio — preservás su honor',h:'Balance entre justicia y compasión',good:true,pts:2,fb:'El exilio balanceó justicia y compasión. Muestra madurez de liderazgo.'}]},
+    {title:'El guerrero indeciso',sit:'Tu mejor guerrero duda antes de cada batalla. Es brillante pero la indecisión puede costar vidas.',ten:'El talento sin decisión es peligroso. ¿Cómo lo gestionás?',choices:[
+      {l:'Asignalo a planificación — fuera del campo de batalla',h:'Aprovechás su talento sin el riesgo',good:true,pts:3,fb:'Reubicar el talento es sabiduría. Sus mapas salvaron más vidas que su espada.'},
+      {l:'Entrenamiento adicional',h:'Inversión con retorno incierto',good:true,pts:2,fb:'La inversión en desarrollo fue correcta. La decisión mejoró gradualmente.'},
+      {l:'Lo reemplazás',h:'Perdés su talento estratégico',good:false,pts:0,fb:'Perder al mejor estratega por un problema tratable fue un error costoso.'}]}],
+  debrf:['¿En qué decisión hubo más debate?','¿Cómo se maneja la indecisión en tu equipo de trabajo?','¿Cuándo es preferible la justicia rápida vs. el proceso formal?']});
+
+window.G_chanakya=()=>dilemmaGame({title:"Chanakya's Niti",intro:'India, 300 a.C. Sos asesor del rey Chandragupta. El fin justifica los medios si el fin es el bienestar del reino.',
+  context:'Cada decisión involucra alianzas, información y poder. El liderazgo pragmático requiere ver más allá de las apariencias.',
+  scenarios:[
+    {title:'El aliado dudoso',sit:'Un reino vecino ofrece alianza militar pero sus motivos son cuestionables. Necesitás su ejército para el próximo mes.',choices:[
+      {l:'Acepta con cláusulas de salida',h:'Pragmático y protegido',good:true,pts:3,fb:'Las alianzas con salvaguardas son la base del Arthashastra.'},
+      {l:'Rechazá — no confíes en aliados de conveniencia',h:'Pureza moral pero debilidad militar',good:false,pts:1,fb:'La pureza sin pragmatismo es un lujo que un reino no puede permitirse.'},
+      {l:'Aceptá y preparate para si traicionan',h:'Doble estrategia',good:true,pts:2,fb:'Planificar para ambos escenarios es lo que enseña el Arthashastra.'}]},
+    {title:'Información privilegiada',sit:'Un espía te revela que un ministro corrupto planea un golpe de estado. Las pruebas son indirectas.',choices:[
+      {l:'Actuá antes del golpe aunque las pruebas sean débiles',h:'Preventivo pero arriesgado',good:false,pts:1,fb:'Actuar sin pruebas claras daña la legitimidad del rey.'},
+      {l:'Conseguí más pruebas antes de actuar',h:'Seguro pero con riesgo de que ocurra el golpe',good:true,pts:2,fb:'La paciencia táctica es una virtud en el Arthashastra.'},
+      {l:'Usá al ministro como doble agente',h:'Arriesgado pero muy poderoso',good:true,pts:3,fb:'Convertir la amenaza en activo es el movimiento maestro del Arthashastra.'}]},
+    {title:'La sucesión del reino',sit:'El rey está enfermo. Hay dos sucesores: el legítimo (débil) y el capaz (sin derecho al trono).',choices:[
+      {l:'Apoyá al legítimo y asesóralo',h:'Tradición con mentoría',good:true,pts:2,fb:'La estabilidad de la sucesión legítima evita guerras civiles.'},
+      {l:'Diseñá un sistema donde el capaz asesora al legítimo',h:'Ingeniería política',good:true,pts:3,fb:'La ingeniería institucional que captura lo mejor de ambos es la solución del Arthashastra.'},
+      {l:'Apoyá al capaz',h:'Rompe tradición pero gana capacidad',good:false,pts:1,fb:'Romper la sucesión legítima siembra inestabilidad generacional.'}]}],
+  debrf:['¿Cuándo el fin justifica los medios en tu contexto laboral?','¿Cómo manejan la información privilegiada en su equipo?','¿Qué diferencia hay entre pragmatismo y falta de ética?']});
+
+window.G_friday=()=>dilemmaGame({title:'Friday Night at the ER',intro:'Son las 9pm del viernes. Cuatro departamentos del hospital compiten por los mismos recursos: camas, enfermeras, médicos y equipos.',
+  context:'Los recursos son compartidos. Optimizar tu departamento puede colapsar a otro. El objetivo es que el HOSPITAL funcione.',
+  roles:[{e:'🚨',name:'Urgencias',goal:'Tratar 30 pacientes esta noche',color:'var(--ca)'},{e:'🏥',name:'Cirugía',goal:'Completar 4 cirugías programadas',color:'var(--cs)'},{e:'🧪',name:'Laboratorio',goal:'Procesar 50 muestras urgentes',color:'var(--cst)'},{e:'🛏️',name:'Hospitalización',goal:'Mantener camas disponibles',color:'var(--cn)'}],
+  scenarios:[
+    {title:'Crisis de 11pm',sit:'Llegan 5 pacientes de accidente masivo. Urgencias necesita 3 camas de Hospitalización, 1 médico de Cirugía y laboratorio urgente.',ten:'Hospitalización tenía esas camas para cirugías de mañana.',choices:[
+      {l:'Urgencias toma los recursos — emergencia primero',h:'Soluciona ahora, crea problema mañana',good:false,pts:1,fb:'La solución inmediata creó caos en las cirugías de mañana. No se evaluó el impacto sistémico.'},
+      {l:'Reunión express de 5 minutos entre jefes',h:'Coordinación antes de actuar',good:true,pts:3,fb:'5 minutos de coordinación ahorraron 2 horas de caos.'},
+      {l:'Cada departamento decide independientemente',h:'Velocidad pero descoordinación',good:false,pts:0,fb:'La descoordinación resultó en duplicación y omisiones.'}]},
+    {title:'El equipo de MRI',sit:'El único MRI está siendo usado por Cirugía para una cirugía no urgente. Urgencias lo necesita urgentemente para un posible ACV.',ten:'Interrumpir la cirugía es riesgoso. Esperar puede costar la vida del paciente.',choices:[
+      {l:'Urgencias interrumpe el MRI — ACV es urgencia mayor',h:'Correcto médicamente',good:true,pts:2,fb:'La prioridad médica fue correcta.'},
+      {l:'Hospital vecino tiene MRI disponible — trasladar',h:'Preserva recursos internos',good:true,pts:3,fb:'La solución creativa preservó ambas operaciones.'},
+      {l:'Esperan 30 minutos a que Cirugía termine',h:'Riesgo alto',good:false,pts:0,fb:'30 minutos en un ACV agudo puede ser la diferencia entre vida y muerte.'}]},
+    {title:'Las enfermeras del turno de noche',sit:'Solo hay 8 enfermeras para 4 departamentos. Cada departamento necesita al menos 3.',choices:[
+      {l:'Distribución igualitaria: 2 por departamento',h:'Nadie queda bien servido',good:false,pts:1,fb:'La distribución igualitaria ignoró la demanda variable. Urgencias colapsó.'},
+      {l:'Distribución por carga actual: Urgencias 4, Cirugía 2, Lab 1, Hosp 1',h:'Basada en demanda real',good:true,pts:3,fb:'La asignación dinámica basada en carga real es la práctica óptima.'},
+      {l:'Cada departamento negocia directamente con la jefa',h:'Más lento pero considera cada caso',good:true,pts:2,fb:'La negociación directa fue más lenta pero consideró información que la jefa no tenía.'}]}],
+  debrf:['¿Cuándo optimizaron su departamento a costa del sistema?','¿Qué información faltaba para tomar mejores decisiones?','¿Cómo aplica esto a los "viernes por la noche" en su organización?']});
+
+window.G_simultrain=()=>dilemmaGame({title:'SimulTrain — Proyecto de Software',intro:'Proyecto de software de 12 semanas, 4 personas. Eventos inesperados amenazan el timeline.',
+  context:'Capacidad: 80 semanas-persona. Requerimiento: 70. El margen es engañoso cuando empiezan los eventos.',
+  scenarios:[
+    {title:'Sprint 1: El cliente quiere más',sit:'El cliente agrega 15% de funcionalidad nueva. Sin presupuesto adicional. El equipo ya está al 100%.',choices:[
+      {l:'Absorber con horas extra',h:'Rápido pero desgasta al equipo',good:false,pts:1,fb:'Las horas extra generaron bugs que costaron el doble de tiempo.'},
+      {l:'Renegociar alcance o plazo con evidencia',h:'Difícil pero correcto',good:true,pts:3,fb:'La renegociación transparente fue valorada por el cliente.'},
+      {l:'Reducir calidad para absorber el alcance',h:'Entrega a tiempo con deuda técnica',good:false,pts:0,fb:'Los bugs en producción costaron 3× el tiempo de renegociación.'}]},
+    {title:'Sprint 4: Renuncia inesperada',sit:'El líder técnico renuncia. Lleva el 40% del conocimiento crítico del proyecto.',choices:[
+      {l:'Contratar freelance urgente',h:'Costoso y lento en contextualizarse',good:false,pts:1,fb:'El freelance tardó 2 semanas en entender el proyecto.'},
+      {l:'Sesión de transferencia de conocimiento antes de que se vaya',h:'Una semana que vale oro',good:true,pts:3,fb:'La documentación generada fue el activo más valioso del proyecto.'},
+      {l:'Distribuir el trabajo en el equipo actual',h:'Riesgo de sobrecarga',good:true,pts:2,fb:'El equipo absorbió la carga con tensión pero sin colapsar.'}]},
+    {title:'Sprint 9: Bug en producción',sit:'Bug crítico afecta 30% de usuarios. Quedan 3 semanas de desarrollo.',choices:[
+      {l:'Todos al bug — paralizar el desarrollo',h:'Excesivo para el tamaño del problema',good:false,pts:1,fb:'Paralizar el equipo fue innecesario. El bug requería 2 personas, no 4.'},
+      {l:'2 al bug, 2 continúan el desarrollo',h:'Balance óptimo',good:true,pts:3,fb:'La segmentación fue perfecta. Bug resuelto en 2 días sin perder ritmo.'},
+      {l:'Pedirle al cliente que espere',h:'Prioriza el código sobre la relación',good:false,pts:0,fb:'El cliente canceló el contrato.'}]}],
+  debrf:['¿Cuándo la planificación inicial resultó insuficiente?','¿Cómo manejaron la incertidumbre?','¿Cuándo el equipo debería decirle no al cliente?']});
+
+window.G_labyrinth=()=>dilemmaGame({title:'Labyrinth',intro:'El Líder ve el mapa completo pero NO puede moverse. El equipo puede moverse pero NO ve el mapa.',
+  context:'La microgestión paraliza. La delegación libera. ¿Cuál es el estilo de liderazgo de tu equipo?',
+  scenarios:[
+    {title:'Primer cruce del laberinto',sit:'El equipo está en la entrada. El Líder puede ver la ruta pero debe comunicarla solo con palabras.',choices:[
+      {l:'El Líder da instrucción por instrucción detallada',h:'Control total, lentitud máxima',good:false,pts:1,fb:'La microgestión verbal ralentizó al equipo. Cada movimiento dependía del Líder.'},
+      {l:'El Líder explica el mapa completo primero, luego el equipo se mueve',h:'Contexto antes de acción',good:true,pts:3,fb:'Dar el contexto completo antes de actuar permitió al equipo tomar decisiones autónomas.'},
+      {l:'El equipo decide sus propios movimientos y pregunta al Líder cuando duda',h:'Delegación con soporte',good:true,pts:2,fb:'La delegación con soporte de respaldo fue efectiva.'}]},
+    {title:'Callejón sin salida',sit:'El equipo llegó a un callejón sin salida. El Líder ve la salida pero el equipo se frustró.',ten:'La frustración del equipo eleva el tono. El Líder está tentado de tomar el control.',choices:[
+      {l:'El Líder asume el control total y dirige cada paso',h:'Resuelve la crisis pero destruye la confianza',good:false,pts:1,fb:'Asumir el control bajo presión enseña al equipo que el Líder no confía en ellos.'},
+      {l:'El Líder hace preguntas en vez de dar respuestas',h:'Socrático — más lento pero más poderoso',good:true,pts:3,fb:'Las preguntas guiadas generaron aprendizaje real. El equipo resolvió el callejón sin instrucciones directas.'},
+      {l:'El Líder da una pista pero deja que el equipo decida',h:'Balance justo',good:true,pts:2,fb:'La pista fue suficiente. El equipo encontró la salida con el mínimo de apoyo.'}]},
+    {title:'Línea final',sit:'A 3 movimientos de la salida. El equipo puede completarlo solo pero el Líder ve un atajo.',choices:[
+      {l:'El Líder señala el atajo y lo aprovechan',h:'Eficiente pero elimina el logro del equipo',good:false,pts:1,fb:'El equipo completó el laberinto pero el logro fue del Líder, no de ellos.'},
+      {l:'El Líder se queda callado — el equipo termina solo',h:'El logro es del equipo',good:true,pts:3,fb:'El equipo completó el laberinto sin ayuda final. La celebración fue genuina.'},
+      {l:'El Líder pregunta si quieren la pista',h:'Les da la elección',good:true,pts:2,fb:'Dar la opción de recibir o no la pista respetó la autonomía del equipo.'}]}],
+  debrf:['¿En qué momento el Líder intervino más de lo necesario?','¿Cuándo el equipo pidió instrucciones vs. tomó iniciativa?','¿En qué situaciones de trabajo real se microgestiona?','¿Qué condiciones permiten delegar con confianza?']});
+// ── BUSINESS STRATEGY TEMPLATE ──
+function bizGame(cfg){
+  let period=0,R={cash:100,share:25,brand:50},choices=[];
+  function render(){period===0?rIntro():period<=cfg.periods.length?rPeriod(period-1):rEnd();}
+  function rIntro(){
+    gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>${cfg.title}</h2><p>${cfg.intro}</p></div>
+    <div class="gcard"><h3>Estado inicial</h3><div class="sgrid">
+      <div class="sb"><div class="sbn">${R.cash}</div><div class="sbl">💰 Capital (M$)</div></div>
+      <div class="sb"><div class="sbn">${R.share}%</div><div class="sbl">📊 Cuota de mercado</div></div>
+      <div class="sb"><div class="sbn">${R.brand}</div><div class="sbl">⭐ Brand equity</div></div>
+    </div></div>
+    <div class="grow"><button class="gbtn" onclick="bN()">Comenzar →</button></div>`;
+    window.bN=()=>{period++;render();};
+  }
+  function rPeriod(i){
+    const p=cfg.periods[i];
+    gc2().innerHTML=`<div class="gwr">
+    <div style="display:flex;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:8px">
+      <div class="glb">Período ${i+1}/${cfg.periods.length}: ${p.title}</div>
+      <div style="display:flex;gap:8px">
+        <span class="mp">💰 ${R.cash}M</span><span class="mp">📊 ${R.share}%</span><span class="mp">⭐ ${R.brand}</span>
       </div>
-      <div class="status-block">
-        <div class="panel-label">Registro de eventos</div>
-        <div class="event-log" id="event-log"></div>
+    </div>
+    <div class="gal gw2">${p.sit}</div>
+    ${p.ev?`<div class="dbox"><div class="dlb">Evento del mercado</div><div style="font-size:14px">${p.ev}</div></div>`:''}
+    <div class="glb" style="margin-bottom:10px">Decisión estratégica</div>
+    ${p.choices.map((c,ci)=>`<button class="chb" onclick="bC(${i},${ci})">${c.l}<br><span style="font-size:12px;color:var(--tf)">${c.h}</span></button>`).join('')}`;
+    window.bC=(pi,ci)=>{
+      const c=cfg.periods[pi].choices[ci];
+      R.cash=Math.max(0,R.cash+(c.cash||0));R.share=Math.max(0,Math.min(100,R.share+(c.share||0)));R.brand=Math.max(0,Math.min(100,R.brand+(c.brand||0)));
+      choices.push({period:cfg.periods[pi].title,choice:c.l,fb:c.fb,good:c.good,cash:c.cash||0,share:c.share||0,brand:c.brand||0});
+      period++;render();
+    };
+  }
+  function rEnd(){
+    const ok=R.share>=28&&R.cash>=40&&R.brand>=45;
+    gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>${ok?'🏆 Empresa líder':'📉 Empresa en reestructuración'}</h2></div>
+    <div class="sgrid">
+      <div class="sb"><div class="sbn" style="color:${R.cash>=60?'var(--cs)':R.cash>=30?'var(--cn)':'var(--ca)'}">${R.cash}M</div><div class="sbl">💰 Capital</div></div>
+      <div class="sb"><div class="sbn" style="color:${R.share>=30?'var(--cs)':R.share>=18?'var(--cn)':'var(--ca)'}">${R.share}%</div><div class="sbl">📊 Cuota</div></div>
+      <div class="sb"><div class="sbn" style="color:${R.brand>=55?'var(--cs)':R.brand>=30?'var(--cn)':'var(--ca)'}">${R.brand}</div><div class="sbl">⭐ Brand</div></div>
+    </div>
+    <div class="gcard"><h3>Historial</h3>${choices.map(c=>`<div style="padding:9px 0;border-bottom:1px solid var(--bd)">
+      <div style="font-size:11px;color:var(--tf)">${c.period}</div>
+      <div style="font-size:13px;font-weight:500;color:${c.good?'var(--cs)':'var(--ca)'}">${c.choice}</div>
+      <div style="font-size:11px;color:var(--tm)">${c.fb}</div>
+      <div style="font-size:11px;color:var(--tf);margin-top:2px">💰${c.cash>0?'+':''}${c.cash}M · 📊${c.share>0?'+':''}${c.share}% · ⭐${c.brand>0?'+':''}${c.brand}</div>
+    </div>`).join('')}</div>`;
+    debrf(gc2(),cfg.debrf);
+  }
+  render();
+}
+
+window.G_markstrat=()=>bizGame({title:'Markstrat',intro:'Director de marketing de SONITE Corp. Mercado duopolístico durante 5 períodos.',
+  periods:[
+    {title:'Lanzamiento',sit:'Tu producto SONO tiene 25% de cuota. El competidor lanzó un producto premium que amenaza tu segmento estrella.',ev:'Estudio de mercado: el segmento "Professionals" crece 40% este año.',choices:[
+      {l:'Invertí todo en publicidad defensiva',h:'Costoso y reactivo',good:false,pts:1,cash:-20,share:2,brand:5,fb:'La publicidad defensiva es reactiva. Perdiste la oportunidad en el segmento en crecimiento.'},
+      {l:'Redirigí presupuesto a I+D para producto premium',h:'Inversión a futuro',good:true,pts:3,cash:-15,share:-3,brand:10,fb:'Excelente decisión a largo plazo. El nuevo segmento compensará la pérdida temporal.'},
+      {l:'Bajá el precio de SONO para competir por volumen',h:'Ganas volumen pero dañás margen',good:false,pts:1,cash:-5,share:5,brand:-10,fb:'La guerra de precios erosiona brand equity y es difícil de revertir.'}]},
+    {title:'Crisis de calidad',sit:'Tres lotes tienen defecto de fábrica. Las redes sociales amplifican el problema.',ev:'El competidor aprovecha y lanza campaña comparativa.',choices:[
+      {l:'Recall inmediato y comunicación proactiva',h:'Costoso pero protege la marca',good:true,pts:3,cash:-25,share:-5,brand:15,fb:'El recall proactivo es la respuesta correcta. La transparencia construye confianza.'},
+      {l:'Minimizá y reemplazá solo a quienes reclamen',h:'Ahorra dinero pero arriesga la marca',good:false,pts:0,cash:5,share:-10,brand:-20,fb:'El encubrimiento destruye marcas. El costo fue mayor que el recall.'},
+      {l:'Compensación generosa + mejora del producto',h:'Convierte la crisis en oportunidad',good:true,pts:2,cash:-20,share:-2,brand:10,fb:'Convertir la crisis en oportunidad de mejora fue inteligente.'}]},
+    {title:'Expansión geográfica',sit:'El mercado local está saturado. Hay oportunidad en Asia pero requiere inversión significativa.',ev:'Un fondo ofrece capital a cambio del 20% de la empresa.',choices:[
+      {l:'Expandí con capital propio',h:'Lento pero sin dilución',good:true,pts:2,cash:-30,share:8,brand:10,fb:'La expansión autónoma preserva el control pero es más lenta.'},
+      {l:'Aceptá el fondo',h:'Velocidad a cambio de control',good:false,pts:1,cash:30,share:12,brand:5,fb:'El capital aceleró el crecimiento pero la pérdida de control es un riesgo estratégico.'},
+      {l:'Joint venture con empresa local',h:'Mitad del riesgo, mitad del retorno',good:true,pts:3,cash:-15,share:10,brand:8,fb:'La joint venture local es la estrategia óptima para mercados desconocidos.'}]},
+    {title:'Disrupción digital',sit:'Un competidor digital lanza un producto similar al 60% de tu precio con distribución directa.',ev:'Tu canal tradicional amenaza con reducir espacio si vendés online.',choices:[
+      {l:'Ignorá el canal digital — los retailers son el núcleo',h:'Seguro a corto, arriesgado a largo',good:false,pts:0,cash:5,share:-8,brand:-5,fb:'Ignorar la disrupción digital es la causa #1 de irrelevancia corporativa.'},
+      {l:'Construí canal digital propio y negociá con retailers',h:'Complejo pero necesario',good:true,pts:3,cash:-20,share:3,brand:12,fb:'La omnicanalidad es la respuesta correcta.'},
+      {l:'Adquirí al competidor digital',h:'Costoso pero elimina la amenaza',good:true,pts:2,cash:-35,share:5,brand:8,fb:'La adquisición fue estratégica aunque cara.'}]},
+    {title:'Sostenibilidad',sit:'Los consumidores exigen productos sostenibles. Tu producción actual tiene huella alta.',choices:[
+      {l:'Certificación B Corp y rediseño de empaque',h:'Inversión media, beneficio alto',good:true,pts:3,cash:-10,share:4,brand:18,fb:'La sostenibilidad genuina genera lealtad que supera cualquier campaña.'},
+      {l:'Comunicación de sostenibilidad sin cambios reales',h:'Greenwashing — riesgo alto',good:false,pts:0,cash:5,share:2,brand:-15,fb:'El greenwashing fue detectado. Multa y daño de marca severos.'},
+      {l:'Esperar — la tendencia puede ser volátil',h:'Conservador',good:false,pts:1,cash:0,share:-2,brand:-5,fb:'La inacción en sostenibilidad tiene costo. El mercado no espera.'}]}],
+  debrf:['¿Qué decisión generó más debate?','¿Cómo balancearon corto y largo plazo?','¿Qué analogías ven con su empresa real?']});
+
+window.G_capstone=()=>bizGame({title:'Capstone Simulation',intro:'Empresa de sensores electrónicos, 5 departamentos. Cada decisión en un área afecta a todas las demás.',
+  periods:[
+    {title:'Año 1 — Estrategia',sit:'La empresa tiene 4 segmentos. No podés servirlos todos bien con los recursos actuales.',ev:'El equipo de ventas quiere cubrir todos. Finanzas dice que es imposible.',choices:[
+      {l:'Foco en 2 segmentos de alto margen',h:'Concentración de recursos',good:true,pts:3,cash:10,share:-3,brand:8,fb:'El foco estratégico permite profundidad donde el mercado lo recompensa.'},
+      {l:'Cobertura completa con presupuesto dividido',h:'Presencia en todo sin profundidad',good:false,pts:1,cash:-10,share:3,brand:-5,fb:'La dilución llevó a ser mediocre en todo y líder en nada.'},
+      {l:'Segmento único ultra-premium',h:'Alto riesgo, alto retorno',good:true,pts:2,cash:5,share:-8,brand:15,fb:'La especialización creó posicionamiento diferenciado y márgenes superiores.'}]},
+    {title:'Año 2 — Conflicto interdepartamental',sit:'I+D creó un producto nuevo pero Marketing no lo incluyó en el plan. Finanzas ya presupuestó el lanzamiento.',ev:'El producto tiene potencial pero el timing es incorrecto según ventas.',choices:[
+      {l:'Lanzá el producto — el capital ya está comprometido',h:'Sunk cost fallacy',good:false,pts:0,cash:-20,share:2,brand:-8,fb:'El costo hundido nunca debe dictar decisiones futuras.'},
+      {l:'Retrasá 6 meses y re-alineá todos los departamentos',h:'Pierdes tiempo pero ganás coherencia',good:true,pts:3,cash:-5,share:-2,brand:5,fb:'La alineación interdepartamental antes del lanzamiento es crítica.'},
+      {l:'Lanzá en mercado piloto primero',h:'Reduce riesgo con data real',good:true,pts:2,cash:-10,share:1,brand:3,fb:'El piloto fue la decisión más inteligente. Data real antes de compromiso total.'}]},
+    {title:'Año 3 — Crisis de RRHH',sit:'Los mejores ingenieros de I+D reciben ofertas de la competencia con 40% más de salario.',ev:'RRHH dice que no hay presupuesto para igualar salarios.',choices:[
+      {l:'Retenelos con salario competitivo + equity',h:'Costoso pero preserva el talento',good:true,pts:3,cash:-15,share:0,brand:8,fb:'El talento clave no se puede reemplazar fácilmente.'},
+      {l:'Dejá ir a los que se van y contratá nuevos',h:'Económico pero perdés conocimiento',good:false,pts:1,cash:5,share:-5,brand:-10,fb:'Perder conocimiento institucional costó más que retener.'},
+      {l:'Creá un plan de carrera que cambie los incentivos',h:'Estructural, no solo monetario',good:true,pts:2,cash:-8,share:0,brand:5,fb:'Abordar la causa raíz fue más efectivo que solo subir salarios.'}]}],
+  debrf:['¿Cómo impactaron las decisiones de un departamento en los demás?','¿Cuándo debería RRHH tener veto en decisiones de I+D?','¿Qué aprendieron sobre la interdependencia organizacional?']});
+
+window.G_global=()=>bizGame({title:'Global Management',intro:'Multinacional con operaciones en 6 países. Las disrupciones externas definen el juego.',
+  periods:[
+    {title:'Regulación imprevista',sit:'El mercado más rentable (30% de ingresos) introduce regulación que duplica tus costos de cumplimiento.',ev:'Competidor local ya está en cumplimiento porque tenía acceso político previo.',choices:[
+      {l:'Cumplí rápido aunque cueste',h:'Costo alto, posición asegurada',good:true,pts:3,cash:-25,share:0,brand:8,fb:'El cumplimiento proactivo protegió la posición en el mercado más rentable.'},
+      {l:'Impugnalo legalmente mientras buscás alternativas',h:'Tiempo ganado pero incertidumbre',good:false,pts:1,cash:-10,share:-5,brand:-5,fb:'La batalla legal demoró la adaptación. El mercado no espera litigios.'},
+      {l:'Pivotá a otro mercado',h:'Abandona pero diversifica',good:true,pts:2,cash:-15,share:-8,brand:5,fb:'Diversificar ante señales regulatorias adversas es visión estratégica.'}]},
+    {title:'Volatilidad cambiaria',sit:'La moneda de tu mercado emergente más grande se devaluó 35% en 3 meses.',choices:[
+      {l:'Cobertura cambiaria — contratos forward',h:'Protección con costo',good:true,pts:3,cash:-8,share:0,brand:0,fb:'La cobertura financiera es la respuesta correcta ante volatilidad anticipable.'},
+      {l:'Ajustá precios locales para compensar',h:'Puede perder cuota',good:false,pts:1,cash:5,share:-10,brand:-8,fb:'El ajuste de precios en un mercado sensible al precio destruyó cuota.'},
+      {l:'Mantené precios y absorbé el impacto',h:'Costo a corto, lealtad a largo',good:true,pts:2,cash:-15,share:5,brand:12,fb:'Absorber el costo preservó la relación con el mercado.'}]},
+    {title:'Competidor asiático',sit:'Un competidor de China lanza productos similares al 40% de tu precio. Su calidad mejora rápido.',choices:[
+      {l:'Diferenciá en servicio y customización',h:'No podés competir en precio',good:true,pts:3,cash:-10,share:-3,brand:12,fb:'La diferenciación en servicio es la respuesta correcta ante competidores de bajo costo.'},
+      {l:'Alianza con el competidor para mercados complementarios',h:'Si no podés vencerlos, únete',good:true,pts:2,cash:10,share:2,brand:0,fb:'La alianza estratégica convirtió una amenaza en oportunidad.'},
+      {l:'Guerra de precios',h:'Insostenible a largo plazo',good:false,pts:0,cash:-20,share:3,brand:-15,fb:'Las guerras de precio con competidores de costos estructurales menores son insostenibles.'}]}],
+  debrf:['¿Cómo cambia la estrategia cuando el entorno externo es incontrolable?','¿Qué tan bien su empresa real anticipa disrupciones externas?','¿Cuándo la adaptación es más valiosa que la consistencia?']});
+// ── PRISONER'S DILEMMA ──
+window.G_prisoner=function(){
+  let rnd=0,tot=8,mySc=0,oppSc=0,hist=[];
+  function opp(){return rnd===0?'C':hist[hist.length-1].me==='D'?'D':'C';}
+  function render(){
+    gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Prisoner's Dilemma</h2><p>Ronda ${rnd+1}/${tot}. Elegí sin saber el movimiento del oponente.</p></div>
+    <div class="sgrid">
+      <div class="sb"><div class="sbn" style="color:var(--cs)">${mySc}</div><div class="sbl">Tu puntaje</div></div>
+      <div class="sb"><div class="sbn" style="color:var(--ca)">${oppSc}</div><div class="sbl">Oponente</div></div>
+      <div class="sb"><div class="sbn">${tot-rnd}</div><div class="sbl">Rondas restantes</div></div>
+    </div>
+    <div class="gcard"><h3>Matriz de pagos</h3>
+    <table style="width:100%;text-align:center;font-size:13px;border-collapse:collapse">
+      <tr><td></td><td style="padding:6px;color:var(--cs);font-weight:600">Oponente coopera</td><td style="padding:6px;color:var(--ca);font-weight:600">Oponente traiciona</td></tr>
+      <tr><td style="padding:6px;font-weight:600;color:var(--cs)">Vos cooperás</td><td style="background:var(--csbg);padding:8px;border-radius:6px">Vos 3 / Opp 3</td><td style="background:var(--cabg);padding:8px;border-radius:6px">Vos 0 / Opp 5</td></tr>
+      <tr><td style="padding:6px;font-weight:600;color:var(--ca)">Vos traicionás</td><td style="background:var(--cabg);padding:8px;border-radius:6px">Vos 5 / Opp 0</td><td style="background:var(--s2);padding:8px;border-radius:6px">Vos 1 / Opp 1</td></tr>
+    </table></div>
+    ${hist.length>0?`<div class="gcard"><h3>Historial</h3><div style="display:flex;flex-wrap:wrap;gap:6px">${hist.map((h,i)=>`<div style="background:${h.me==='C'&&h.opp==='C'?'var(--csbg)':h.me==='D'&&h.opp==='D'?'var(--cabg)':'#FFF3DC'};border-radius:6px;padding:6px 10px;font-size:11px;text-align:center"><div>R${i+1}</div><div>Vos:${h.me==='C'?'✅':'❌'}</div><div>Opp:${h.opp==='C'?'✅':'❌'}</div></div>`).join('')}</div></div>`:''}
+    <div class="grow">
+      <button class="gbtn" style="background:var(--cs);flex:1" onclick="pdM('C')">✅ Cooperar</button>
+      <button class="gbtn" style="background:var(--ca);flex:1" onclick="pdM('D')">❌ Traicionar</button>
+    </div>`;
+    window.pdM=me=>{
+      const o=opp();const pay={CC:{me:3,opp:3},CD:{me:0,opp:5},DC:{me:5,opp:0},DD:{me:1,opp:1}};
+      mySc+=pay[me+o].me;oppSc+=pay[me+o].opp;hist.push({me,opp:o});rnd++;
+      if(rnd>=tot){
+        gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>${mySc>=oppSc?'🏆 Ganaste':'🤔 Perdiste'}</h2>
+        <p>El oponente usaba <strong>Tit for Tat</strong>: cooperó primero y luego imitó tu movimiento anterior.</p></div>
+        <div class="sgrid">
+          <div class="sb"><div class="sbn" style="color:${mySc>=oppSc?'var(--cs)':'var(--ca)'}">${mySc}</div><div class="sbl">Tu puntaje</div></div>
+          <div class="sb"><div class="sbn">${oppSc}</div><div class="sbl">Oponente</div></div>
+          <div class="sb"><div class="sbn">${Math.round(hist.filter(h=>h.me==='C').length/tot*100)}%</div><div class="sbl">% cooperación</div></div>
+        </div>`;
+        debrf(gc2(),['¿En qué ronda cambió la estrategia?','¿Cómo influye el horizonte de tiempo en la decisión de cooperar?','¿Identifican situaciones similares en su trabajo?','¿Qué aprendieron sobre confianza y reciprocidad?']);
+      }else render();
+    };
+  }
+  render();
+};
+
+// ── RED/BLUE EXERCISE ──
+window.G_redblue=function(){
+  let rnd=0,tot=8,aS=0,bS=0,hist=[];
+  function render(){
+    if(rnd===0){
+      gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Red/Blue Exercise</h2><p>Dos equipos, rondas simultáneas. Elegís Rojo o Azul sin saber la elección del otro. El objetivo es maximizar el puntaje COMBINADO.</p></div>
+      <div class="gcard"><h3>Tabla de pagos</h3>
+      <table style="width:100%;text-align:center;font-size:13px;border-collapse:collapse">
+        <tr><td></td><td style="padding:8px;color:var(--ca);font-weight:600">B elige Rojo</td><td style="padding:8px;color:var(--cst);font-weight:600">B elige Azul</td></tr>
+        <tr><td style="font-weight:600;color:var(--ca);padding:8px">A elige Rojo</td><td style="background:var(--cabg);padding:10px;border-radius:6px">A −3 / B −3</td><td style="background:#FFF3DC;padding:10px;border-radius:6px">A +5 / B −5</td></tr>
+        <tr><td style="font-weight:600;color:var(--cst);padding:8px">A elige Azul</td><td style="background:#FFF3DC;padding:10px;border-radius:6px">A −5 / B +5</td><td style="background:var(--csbg);padding:10px;border-radius:6px">A +3 / B +3</td></tr>
+      </table><p style="font-size:12px;color:var(--tm);margin-top:10px">Rondas 7 y 8 valen el triple.</p></div>
+      <div class="grow"><button class="gbtn" onclick="rbN()">Comenzar →</button></div>`;
+      window.rbN=()=>{rnd=1;render();};return;
+    }
+    if(rnd>tot){renderRBEnd();return;}
+    const bChoice=rnd===1?'blue':hist[hist.length-1].a==='red'?'red':'blue';
+    gc2().innerHTML=`<div class="gwr"><div class="gh" style="text-align:left"><h2>Ronda ${rnd}/${tot}${rnd>=7?' ✕3':''}</h2></div>
+    <div class="sgrid">
+      <div class="sb"><div class="sbn" style="color:${aS>=bS?'var(--cs)':'var(--ca)'}">${aS}</div><div class="sbl">Equipo A (vos)</div></div>
+      <div class="sb"><div class="sbn">${bS}</div><div class="sbl">Equipo B</div></div>
+      <div class="sb"><div class="sbn">${aS+bS}</div><div class="sbl">Total combinado</div></div>
+    </div>
+    ${rnd===5?`<div class="gal gw2">⚠️ Pausa de negociación: podés enviar un mensaje al Equipo B antes de esta ronda.</div>`:''}
+    ${hist.length>0?`<div class="gcard"><h3>Historial</h3><div style="display:flex;gap:6px;flex-wrap:wrap">${hist.map((h,i)=>`<div style="font-size:11px;background:${h.a==='blue'&&h.b==='blue'?'var(--csbg)':'var(--cabg)'};padding:5px 9px;border-radius:6px;text-align:center"><div>R${i+1}</div><div>A:${h.a==='red'?'🔴':'🔵'}</div><div>B:${h.b==='red'?'🔴':'🔵'}</div></div>`).join('')}</div></div>`:''}
+    <div class="grow">
+      <button class="gbtn" style="background:var(--ca);flex:1" onclick="rbM('red')">🔴 Rojo</button>
+      <button class="gbtn" style="background:var(--cst);flex:1" onclick="rbM('blue')">🔵 Azul</button>
+    </div>`;
+    window.rbM=a=>{
+      const b=bChoice,mult=rnd>=7?3:1;
+      let aP=0,bP=0;
+      if(a==='red'&&b==='red'){aP=-3;bP=-3;}else if(a==='red'&&b==='blue'){aP=5;bP=-5;}
+      else if(a==='blue'&&b==='red'){aP=-5;bP=5;}else{aP=3;bP=3;}
+      aS+=aP*mult;bS+=bP*mult;hist.push({a,b});rnd++;render();
+    };
+  }
+  function renderRBEnd(){
+    const comb=aS+bS,max=tot*3*2;
+    gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>${comb>=max*.7?'✅ Excelente colaboración':'⚠️ Competencia prevaleció'}</h2>
+    <p>Puntaje combinado: ${comb} de ${max} posibles (${Math.round(comb/max*100)}%)</p></div>
+    <div class="sgrid">
+      <div class="sb"><div class="sbn">${aS}</div><div class="sbl">Equipo A</div></div>
+      <div class="sb"><div class="sbn">${bS}</div><div class="sbl">Equipo B</div></div>
+      <div class="sb"><div class="sbn" style="color:${comb>=max*.7?'var(--cs)':'var(--ca)'}">${comb}</div><div class="sbl">Total</div></div>
+    </div>`;
+    debrf(gc2(),['¿Cuándo intentaron comunicarse con el Equipo B?','¿Qué tan fácil fue confiar en el otro equipo?','¿Identifican dinámicas similares entre departamentos?','¿Cómo cambia la estrategia cuando el objetivo es el total combinado?']);
+  }
+  render();
+};
+
+// ── COUNCIL OF MARBLE STAR ──
+window.G_marble=function(){
+  const factions=[
+    {name:'Casa del Norte',e:'❄️',info:'Controlás las minas de hierro. 400 unidades/mes. Necesitás rutas al sur.',secret:'El rey del sur tiene deuda de 200 unidades con vos.',color:'var(--cst)'},
+    {name:'Casa del Sur',e:'🌅',info:'Controlás los puertos. 600 unidades/mes. Necesitás materia prima.',secret:'Hay una ruta secreta al norte que solo vos conocés.',color:'var(--cs)'},
+    {name:'Casa del Este',e:'🌸',info:'Controlás los campos de trigo. 500 unidades/mes. Necesitás hierro.',secret:'La cosecha de este año fallará — lo sabés y no lo anunciaste.',color:'var(--cc)'},
+    {name:'Casa del Oeste',e:'⚡',info:'Controlás la tecnología de armas. 300 unidades/mes.',secret:'Tenés planos de una nueva arma que duplicaría la producción minera.',color:'var(--cn)'},
+  ];
+  let step=0,agreed=[];
+  const phases=['Presentación de posiciones — cada facción declara qué necesita y qué ofrece.','Negociación directa — las facciones pueden negociar en pares. Decidan qué información compartir.','Propuesta al Consejo — cada facción presenta su propuesta multilateral.','Votación final — el consejo vota. ¿Llegaron a un acuerdo con la información completa?'];
+  function render(){
+    if(step===0){
+      gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Council of Marble Star</h2><p>Cada facción tiene información que las demás necesitan. Solo compartiendo datos se toma la decisión óptima.</p></div>
+      <div class="rc">${factions.map(f=>`<div class="rcard" style="border-top-color:${f.color}"><div class="re">${f.e}</div><div class="rn">${f.name}</div><div class="rg">${f.info}</div></div>`).join('')}</div>
+      <div class="gcard"><h3>Información secreta por facción — Solo para el facilitador</h3>
+      ${factions.map(f=>`<div style="padding:10px 0;border-bottom:1px solid var(--bd)"><div style="font-weight:600;font-size:13px">${f.e} ${f.name}</div>
+      <div style="font-size:12px;color:var(--cn);margin-top:4px">🔒 ${f.secret}</div></div>`).join('')}</div>
+      <div class="grow"><button class="gbtn" onclick="msN()">Comenzar negociación →</button></div>`;
+      window.msN=()=>{step++;render();};return;
+    }
+    if(step>phases.length){
+      const rate=Math.round(agreed.filter(Boolean).length/phases.length*100);
+      gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>${rate>=75?'👑 Reino próspero':'⚔️ Reino en tensión'}</h2>
+      <p>Tasa de acuerdos: ${rate}%.</p></div>`;
+      debrf(gc2(),['¿Qué información fue retenida y por qué?','¿Quién reveló sus secretos primero? ¿Qué lo motivó?','¿Qué paralelismo tienen los "secretos" con situaciones reales de tu organización?','¿Cómo cambiaría el resultado si todos compartieran toda la información desde el inicio?']);
+      return;
+    }
+    gc2().innerHTML=`<div class="gwr"><div class="glb">Fase ${step}/${phases.length}</div>
+    <div class="gh" style="text-align:left;margin-bottom:1rem"><h2 style="font-size:1.4rem">Ronda ${step}</h2><p>${phases[step-1]}</p></div>
+    <div class="gcard"><h3>Facciones en el consejo</h3>
+    ${factions.map(f=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--bd)">
+      <span style="font-size:20px">${f.e}</span><div style="flex:1"><div style="font-size:13px;font-weight:600">${f.name}</div><div style="font-size:11px;color:var(--tf)">${f.info}</div></div></div>`).join('')}
+    </div>
+    <div class="grow">
+      <button class="gbtn" onclick="msAg(true)">✅ Acuerdo alcanzado</button>
+      <button class="gbtn gbo" onclick="msAg(false)">⚠️ Continuar con desacuerdos</button>
+    </div>`;
+    window.msAg=a=>{agreed.push(a);step++;render();};
+  }
+  render();
+};
+
+// ── LOST DUTCHMAN / FRESHBIZ ──
+function dutchmanGame(){
+  let rnd=0,tot=6,aG=0,bG=0,hist=[],stability=100;
+  function render(){
+    if(rnd===0){
+      gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Lost Dutchman's Gold</h2><p>Dos equipos compiten por extraer oro de la misma mina. Los recursos son compartidos. ¿Competencia o colaboración?</p></div>
+      <div class="gal gw2">La mina tiene capacidad limitada. Si ambos equipos extraen agresivamente, el rendimiento cae para todos.</div>
+      <div class="gcard"><h3>Reglas</h3><ul class="dbl">
+        <li><strong>Agresivo:</strong> 30 oro, −20 suministros. Si ambos eligen agresivo, la mina pierde estabilidad y el rendimiento cae.</li>
+        <li><strong>Moderado:</strong> 15 oro, −10 suministros. Preserva la mina.</li>
+        <li>Gana el equipo con más oro, o ambos si superan 150 oro combinado.</li>
+      </ul></div>
+      <div class="grow"><button class="gbtn" onclick="ldN()">Comenzar →</button></div>`;
+      window.ldN=()=>{rnd=1;render();};return;
+    }
+    if(rnd>tot){
+      const total=aG+bG;
+      gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>${total>=150?'🏆 Meta colaborativa alcanzada':'⚖️ La competencia limitó el resultado'}</h2>
+      <p>Oro total: ${total} de 180 posibles con colaboración plena.</p></div>
+      <div class="sgrid">
+        <div class="sb"><div class="sbn" style="color:var(--cn)">${aG}</div><div class="sbl">🏅 Equipo A</div></div>
+        <div class="sb"><div class="sbn" style="color:var(--cn)">${bG}</div><div class="sbl">🏅 Equipo B</div></div>
+        <div class="sb"><div class="sbn" style="color:${total>=150?'var(--cs)':'var(--ca)'}">${total}</div><div class="sbl">Total</div></div>
+      </div>`;
+      debrf(gc2(),['¿Cuándo decidieron colaborar o competir?','¿Qué tan difícil fue confiar en que el otro equipo mantendría el acuerdo?','¿Esto refleja dinámicas entre departamentos en su organización?']);
+      return;
+    }
+    gc2().innerHTML=`<div class="gwr"><div class="glb">Ronda ${rnd}/${tot} — Estabilidad de la mina: ${stability}%</div>
+    <div class="pb2"><div class="pf" style="width:${stability}%;background:${stability>60?'var(--cs)':stability>30?'var(--cn)':'var(--ca)'}"></div></div>
+    <div class="sgrid">
+      <div class="sb"><div class="sbn" style="color:var(--cn)">${aG}</div><div class="sbl">🪙 Equipo A</div></div>
+      <div class="sb"><div class="sbn" style="color:var(--cn)">${bG}</div><div class="sbl">🪙 Equipo B</div></div>
+      <div class="sb"><div class="sbn">${aG+bG}</div><div class="sbl">Total</div></div>
+    </div>
+    <div class="glb" style="margin-bottom:10px">Estrategia de Equipo A esta ronda:</div>
+    <button class="chb" onclick="ldC('a')">⚒️ Extracción agresiva — 30 oro, −20 suministros<br><span style="font-size:12px;color:var(--tf)">Mayor ganancia individual, mayor impacto en la mina</span></button>
+    <button class="chb" onclick="ldC('m')">🌿 Extracción moderada — 15 oro, −10 suministros<br><span style="font-size:12px;color:var(--tf)">Menor ganancia pero preserva la mina para todos</span></button>`;
+    window.ldC=stratA=>{
+      const stratB=stability>50?'m':'a';
+      const both=stratA==='a'&&stratB==='a';
+      const mult=both?0.6:stability/100;
+      aG+=Math.round((stratA==='a'?30:15)*mult);bG+=Math.round((stratB==='a'?30:15)*mult);
+      if(both)stability=Math.max(0,stability-20);
+      hist.push({stratA,stratB,both});rnd++;render();
+    };
+  }
+  render();
+}
+window.G_dutchman=dutchmanGame;
+window.G_freshbiz=dutchmanGame;
+
+// ── SYNERGISTIC DECISION ──
+window.G_synergistic=function(){
+  const roles=[
+    {r:'CEO',e:'👔',info:'El board exige retorno en 18 meses. La expansión típicamente tarda 24 meses en ser rentable.',key:'Timeline del board incompatible con expansión pura.'},
+    {r:'CFO',e:'💰',info:'Automatización: ROI 340% en 3 años. Expansión: ROI 180% en 3 años pero abre mercado de $2B.',key:'Automatización gana en ROI pero menor potencial total.'},
+    {r:'CTO',e:'💻',info:'La tecnología de automatización seleccionada tiene un proveedor único. Riesgo de dependencia crítica.',key:'Riesgo de proveedor único no documentado en el análisis financiero.'},
+    {r:'CMO',e:'📢',info:'En Latam hay 3 competidores posicionados. La ventana de entrada óptima cierra en 6 meses.',key:'Ventana competitiva de solo 6 meses.'},
+    {r:'CHRO',e:'👥',info:'La automatización eliminará 200 empleos. Sindicalización puede retrasar la implementación 12 meses.',key:'Riesgo laboral puede anular el ROI de la automatización.'},
+  ];
+  let step=0,shared=[],decision='';
+  function render(){
+    if(step===0){
+      gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Synergistic Decision</h2><p>TechCorp debe decidir: expandirse a Latinoamérica o invertir en automatización. Cada rol tiene información crítica que los demás no tienen.</p></div>
+      <div class="gal gw2">Información distribuida entre 5 roles. Nadie tiene el cuadro completo. Solo la síntesis colectiva lleva a la decisión óptima.</div>
+      <div class="gcard"><h3>Distribución de roles — Para el facilitador</h3>
+      ${roles.map(r=>`<div style="padding:10px;background:var(--s2);border-radius:var(--r);margin-bottom:8px">
+        <div style="font-weight:600;font-size:14px">${r.e} ${r.r}</div>
+        <div style="font-size:13px;color:var(--tm);margin-top:4px">${r.info}</div>
+        <div style="font-size:12px;color:var(--ca);margin-top:4px">🔑 ${r.key}</div>
+      </div>`).join('')}</div>
+      <div class="grow"><button class="gbtn" onclick="sdN()">Iniciar discusión →</button></div>`;
+      window.sdN=()=>{step++;render();};return;
+    }
+    const phases=['Presentación individual — cada rol presenta su información sin interpretaciones.','Síntesis grupal — construyan un cuadro unificado con toda la información disponible.','Decisión — con el cuadro completo, tomen la decisión.'];
+    if(step>phases.length){
+      const opt=shared.length>=4&&decision==='hybrid';
+      const fb={expansion:'La expansión ignora el timeline del board y la ventana competitiva real. Sin la información del CFO y CTO, parece atractiva.',automation:'La automatización ignora el riesgo laboral que puede anular el ROI completamente.',hybrid:'La estrategia híbrida reconoce los trade-offs y distribuye el riesgo — es la decisión óptima con información completa.'};
+      gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>${opt?'🎯 Decisión óptima':'🔍 Proceso revelador'}</h2>
+      <p>Información compartida: ${shared.length}/5. Decisión: ${decision==='expansion'?'Expansión':decision==='automation'?'Automatización':'Estrategia híbrida'}</p></div>
+      <div class="gal ${opt?'':'gw2'}">${fb[decision]}</div>`;
+      debrf(gc2(),['¿Cuánta información fue compartida voluntariamente?','¿Qué información resultó más crítica y por qué fue retenida?','¿Cómo afecta el rol de cada persona a qué información comparte?','¿Qué proceso de decisión implementarían en su organización?']);
+      return;
+    }
+    gc2().innerHTML=`<div class="gwr"><div class="glb">Fase ${step}/${phases.length}</div>
+    <div class="gh" style="text-align:left;margin-bottom:1rem"><h2 style="font-size:1.4rem">${phases[step-1]}</h2></div>
+    <div class="gcard"><h3>¿Qué información fue compartida?</h3>
+    ${roles.map(r=>`<label style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--bd);cursor:pointer">
+      <input type="checkbox" onchange="sdSh('${r.r}',this.checked)" ${shared.includes(r.r)?'checked':''} style="width:16px;height:16px">
+      <div><div style="font-size:13px;font-weight:600">${r.e} ${r.r}</div><div style="font-size:12px;color:var(--tm)">${r.key}</div></div>
+    </label>`).join('')}
+    <div style="font-size:12px;color:var(--tf);margin-top:8px">Compartida: ${shared.length}/5 roles</div></div>
+    ${step===3?`<div class="glb" style="margin-bottom:10px">Decisión del grupo:</div>
+    <button class="chb" onclick="sdD('expansion')">🌎 Expansión a Latinoamérica ($50M)<br><span style="font-size:12px;color:var(--tf)">Mercado de $2B pero ROI lento</span></button>
+    <button class="chb" onclick="sdD('automation')">🤖 Automatización de planta ($50M)<br><span style="font-size:12px;color:var(--tf)">ROI 340% en 3 años pero riesgos laborales</span></button>
+    <button class="chb" onclick="sdD('hybrid')">⚖️ Estrategia híbrida: $25M en cada opción<br><span style="font-size:12px;color:var(--tf)">Menor impacto en ambas pero diversifica riesgo</span></button>`
+    :`<div class="grow"><button class="gbtn" onclick="sdN()">Siguiente fase →</button></div>`}`;
+    window.sdSh=(r,c)=>{c&&!shared.includes(r)?shared.push(r):(!c&&(shared=shared.filter(x=>x!==r)));};
+    window.sdD=d=>{decision=d;step++;render();};
+    window.sdN=()=>{step++;render();};
+  }
+  render();
+};
+// ── PHYSICAL GAME TEMPLATE ──
+function physGame(cfg){
+  let ph=0,secs=cfg.secs||1200,ti=null;
+  function render(){
+    if(ph===0){
+      gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>${cfg.title}</h2><p>${cfg.intro}</p></div>
+      ${cfg.materials?`<div class="gcard"><h3>Materiales</h3><ul class="dbl">${cfg.materials.map(m=>`<li>${m}</li>`).join('')}</ul></div>`:''}
+      <div class="gcard"><h3>Instrucciones</h3><ol style="padding-left:1.2rem;display:flex;flex-direction:column;gap:8px">${cfg.steps.map(s=>`<li style="font-size:14px;color:var(--tm);line-height:1.5">${s}</li>`).join('')}</ol></div>
+      <div class="grow"><button class="gbtn" onclick="pgS()">Iniciar actividad →</button></div>`;
+      window.pgS=()=>{ph=1;render();};return;
+    }
+    if(ph===1){
+      const tot=secs;
+      gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>En progreso</h2><p>${cfg.note||'El facilitador guía la actividad presencial.'}</p></div>
+      <div class="td" id="pgt">${Math.floor(secs/60)}:${String(secs%60).padStart(2,'0')}</div>
+      <div class="pb2"><div class="pf" id="pgf" style="width:100%"></div></div>
+      ${cfg.fnotes?`<div class="gcard"><h3>Notas para el facilitador</h3><ul class="dbl">${cfg.fnotes.map(n=>`<li>${n}</li>`).join('')}</ul></div>`:''}
+      <div class="grow">
+        <button class="gbtn" onclick="pgEnd()">Actividad completada →</button>
+        <button class="gbtn gbo" onclick="clearInterval(pgTi)">⏸ Pausar</button>
+      </div>`;
+      window.pgTi=ti=setInterval(()=>{secs--;const t=document.getElementById('pgt'),f=document.getElementById('pgf');if(!t){clearInterval(ti);return;}
+        t.textContent=Math.floor(secs/60)+':'+String(secs%60).padStart(2,'0');
+        t.className='td'+(secs<=60?' urg':'');if(f)f.style.width=Math.round(secs/tot*100)+'%';if(secs<=0)clearInterval(ti);},1000);
+      window.pgEnd=()=>{clearInterval(ti);ph=2;render();};return;
+    }
+    gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>✅ Actividad completada</h2></div>
+    ${cfg.vars?`<div class="gcard"><h3>Variaciones para próximas sesiones</h3><ul class="dbl">${cfg.vars.map(v=>`<li>${v}</li>`).join('')}</ul></div>`:''}`;
+    debrf(gc2(),cfg.debrf);
+  }
+  render();
+}
+
+window.G_marshmallow=()=>physGame({title:'Marshmallow Challenge',intro:'18 minutos para construir la estructura más alta posible. Un malvavisco debe quedar en la punta. Los MBA fallan más que los niños de kínder.',secs:1080,
+  materials:['20 espaguetis crudos por equipo','1 metro de cinta adhesiva','1 metro de hilo','1 malvavisco','Regla para medir'],
+  steps:['Dividir en equipos de 4 personas','Distribuir materiales — no se pueden pedir más','Iniciar el timer: 18 minutos','El malvavisco DEBE estar en la punta final','Medir la altura de cada estructura al finalizar'],
+  fnotes:['Observar quién lidera y cuándo','Los equipos exitosos testean la estructura desde el minuto 1','Los MBA típicamente planean mucho y testean tarde','Los niños de kínder colocan el marshmallow primero y van ajustando'],
+  vars:['Versión silenciosa: nadie puede hablar','Versión con roles: CEO, CFO, CTO, diseñador','Un miembro tiene los ojos vendados'],
+  note:'Facilitar en silencio. Observar sin intervenir.',
+  debrf:['¿Cuándo colocaron el malvavisco por primera vez?','¿Qué pasó en los últimos 3 minutos?','¿Quién lideró? ¿Fue nombrado o emergió?','¿Cómo se relaciona con el prototipado ágil?','¿Qué asunciones tuvieron que abandonar?']});
+
+window.G_knot=()=>physGame({title:'Nudo Humano',intro:'El grupo se enreda y debe desatarse sin soltarse. El liderazgo emergente se vuelve visible en minutos.',secs:1200,
+  materials:['Espacio abierto (mínimo 4m² por persona)','Grupo de 8–12 personas'],
+  steps:['Todos en círculo, hombro con hombro','Cada persona extiende la mano derecha y toma la mano de alguien que NO esté a su lado','Cada persona extiende la mano izquierda y toma la mano de OTRA persona diferente','Sin soltarse, el grupo debe desatarse hasta quedar en círculo','Está permitido hablar. No está permitido soltarse. Sí está permitido girar manos.'],
+  fnotes:['Dejar que el grupo se auto-organice — no intervengas','Si se quedan trabados más de 5 minutos, preguntar: ¿qué está faltando?','Observar quién da instrucciones y si se le escucha','Hay casos sin solución — también es un aprendizaje válido'],
+  vars:['En silencio total','Con un miembro vendado','Con un miembro que solo puede indicar con la cabeza'],
+  note:'Facilitar en silencio. Registrar quién lidera, quién sigue, quién frustra el proceso.',
+  debrf:['¿Quién tomó el liderazgo? ¿Fue nombrado?','¿Hubo momentos donde alguien debería haber cedido el liderazgo?','¿Qué estrategias probaron?','¿Cómo se comunicaron bajo presión espacial?']});
+
+window.G_minefield=()=>physGame({title:'Campo Minado',intro:'Un participante vendado atraviesa obstáculos guiado SOLO por la voz de su pareja. Revela todo sobre la calidad de la comunicación de tu equipo.',secs:600,
+  materials:['Venda para los ojos','Obstáculos: sillas, conos, cajas (10–15 objetos)','Espacio de mínimo 5×5 metros','Cinta en el suelo para marcar el camino'],
+  steps:['Preparar el campo con obstáculos aleatorios','Marcar punto de inicio y punto de llegada','Formar parejas','Un miembro se venda. El otro NO puede tocar al vendado.','El guía dirige solo con voz desde fuera del campo','Rotar roles'],
+  fnotes:['Observar el vocabulario de instrucciones: ¿izquierda? ¿cuántos pasos?','Notar si el guía anticipa o reacciona','Los mejores guías preguntan al vendado su orientación actual','Los errores de comunicación se vuelven literalmente visibles'],
+  vars:['El guía no puede decir izquierda/derecha — solo adelante/atrás','Múltiples guías simultáneos — el vendado decide a quién seguir','Añadir ruido de fondo para simular reuniones con interrupciones'],
+  note:'El facilitador observa el vocabulario usado. Registrar instrucciones que causaron confusión.',
+  debrf:['¿Qué instrucciones generaron confusión?','¿El guía usó el punto de vista del vendado o el propio?','¿Cuándo el vendado tomó decisiones propias?','¿Qué cambiarían en cómo dan instrucciones en el trabajo?']});
+
+// ── ESCAPE ROOM ──
+window.G_escape=function(){
+  const puzzles=[
+    {title:'El Código',desc:'Hay una caja fuerte con un código de 4 dígitos. En la sala hay 4 pistas distribuidas entre los miembros del equipo.',sol:'La respuesta requiere que todos compartan su número. Nadie puede resolver esto solo.',skills:['Comunicación','Colaboración']},
+    {title:'El Mapa Fragmentado',desc:'Un mapa dividido en 4 piezas. Cada pieza tiene información diferente sobre la ubicación del tesoro.',sol:'Las piezas solo tienen sentido juntas. La información aislada no tiene valor.',skills:['Síntesis','Interdependencia']},
+    {title:'La Cadena de Decisiones',desc:'3 decisiones secuenciales. La primera debe ser tomada por el más junior, la última por el más senior.',sol:'Las jerarquías invertidas generan mejores decisiones en puzzles con información distribuida.',skills:['Liderazgo situacional','Delegación']},
+    {title:'El Reloj de Arena',desc:'Tienen 5 minutos. Solo una persona puede trabajar en el puzzle a la vez. El puzzle requiere 4 acciones, cada una de 2 minutos.',sol:'Es matemáticamente imposible. El aprendizaje: a veces hay que renegociar el constraint, no resolver el puzzle.',skills:['Pensamiento lateral','Gestión de restricciones']},
+  ];
+  let ph=0,score=0,secs=3600,ti=null,solved=[];
+  function render(){
+    if(ph===0){
+      gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Escape Room Corporativo</h2><p>4 puzzles que requieren distintas competencias. Los equipos homogéneos fallan; los multidisciplinarios sobresalen.</p></div>
+      <div class="gal">Tiempo total: 60 minutos. Cada puzzle resuelto aporta puntos.</div>
+      <div class="gcard"><h3>Los puzzles</h3>${puzzles.map(p=>`<div style="padding:10px 0;border-bottom:1px solid var(--bd)">
+        <div style="font-size:13px;font-weight:600">${p.title}</div>
+        <div style="font-size:12px;color:var(--tm)">${p.desc}</div>
+        <div style="display:flex;gap:5px;margin-top:5px">${p.skills.map(s=>`<span class="pl plm">${s}</span>`).join('')}</div>
+      </div>`).join('')}</div>
+      <div class="grow"><button class="gbtn" onclick="escS()">Iniciar escape →</button></div>`;
+      window.escS=()=>{ph=1;render();};return;
+    }
+    if(ph>puzzles.length){
+      clearInterval(ti);
+      gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>${solved.length===4?'🔓 Escape completo':solved.length>=2?'🔑 Escape parcial':'🔒 Sin escape'}</h2>
+      <p>${solved.length} de 4 puzzles resueltos.</p></div>
+      <div class="sgrid">${puzzles.map((p,i)=>`<div class="sb"><div class="sbn">${solved.includes(i)?'✅':'❌'}</div><div class="sbl">${p.title}</div></div>`).join('')}</div>
+      <div class="gcard"><h3>Soluciones y aprendizajes</h3>${puzzles.map((p,i)=>`<div style="padding:10px 0;border-bottom:1px solid var(--bd)">
+        <div style="font-weight:600;font-size:13px">${solved.includes(i)?'✅':'❌'} ${p.title}</div>
+        <div style="font-size:12px;color:var(--tm);margin-top:4px">${p.sol}</div>
+      </div>`).join('')}</div>`;
+      debrf(gc2(),['¿Qué puzzle generó más frustración?','¿Quién tomó el liderazgo en cada puzzle?','¿El puzzle #4 (imposible) fue identificado como tal? ¿Quién lo dijo primero?','¿La diversidad de habilidades del equipo ayudó?']);
+      return;
+    }
+    const p=puzzles[ph-1];
+    gc2().innerHTML=`<div class="gwr">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+      <div class="glb">Puzzle ${ph}/${puzzles.length}</div>
+      <span id="esct" style="font-family:'DM Mono',monospace;font-size:1.2rem">${Math.floor(secs/60)}:${String(secs%60).padStart(2,'0')}</span>
+    </div>
+    <div class="gh" style="text-align:left"><h2>${p.title}</h2></div>
+    <div class="gal gw2">${p.desc}</div>
+    <div class="gcard"><h3>Competencias activadas</h3><div style="display:flex;gap:8px">${p.skills.map(s=>`<span class="pl plg">${s}</span>`).join('')}</div></div>
+    <div class="grow">
+      <button class="gbtn" onclick="escSolve(true)">✅ Puzzle resuelto</button>
+      <button class="gbtn gbo" onclick="escSolve(false)">⏭ Saltar puzzle</button>
+    </div>`;
+    if(!ti) window.pgTi=ti=setInterval(()=>{secs--;const t=document.getElementById('esct');if(t)t.textContent=Math.floor(secs/60)+':'+String(secs%60).padStart(2,'0');if(secs<=0){clearInterval(ti);ph=puzzles.length+1;render();}},1000);
+    window.escSolve=ok=>{if(ok){score+=25;solved.push(ph-1);}ph++;render();};
+  }
+  render();
+};
+
+// ── GO (9×9) ──
+window.G_go=function(){
+  let board=Array(9).fill(null).map(()=>Array(9).fill(0)),turn=1,scores={1:0,2:0};
+  function render(){
+    gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Weiqi (Go) Empresarial</h2><p>${turn===1?'⚫ Negro':'⚪ Blanco'} juega. Objetivo: controlar territorio, no eliminar piezas.</p></div>
+    <div style="display:flex;gap:10px;justify-content:center;margin-bottom:1rem">
+      <span class="mp">⚫ Negro: ${scores[1]} territorios</span>
+      <span class="mp">⚪ Blanco: ${scores[2]} territorios</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(9,1fr);gap:2px;max-width:360px;margin:0 auto 1.5rem;background:var(--cn);padding:2px;border-radius:var(--r)">
+      ${board.map((row,r)=>row.map((c,col)=>`<div onclick="goP(${r},${col})" style="background:${c===0?'#DEB887':c===1?'#222':'#EEE'};aspect-ratio:1;border-radius:50%;cursor:${c===0?'pointer':'default'};border:${c===0?'1px solid rgba(0,0,0,0.15)':'none'}"></div>`).join('')).join('')}
+    </div>
+    <div class="gcard"><h3>Principios empresariales del Go</h3><ul class="dbl">
+      <li>Cada piedra afecta múltiples intersecciones</li>
+      <li>El control territorial supera la eliminación</li>
+      <li>La paciencia es una ventaja competitiva</li>
+    </ul></div>
+    <div class="grow">
+      <button class="gbtn gbo" onclick="turn=turn===1?2:1;render()">Pasar turno</button>
+      <button class="gbtn gbo" onclick="board=Array(9).fill(null).map(()=>Array(9).fill(0));turn=1;scores={1:0,2:0};render()">Reiniciar</button>
+      <button class="gbtn" onclick="goEnd()">Terminar →</button>
+    </div>`;
+    window.goP=(r,c)=>{if(board[r][c])return;board[r][c]=turn;scores[turn]++;turn=turn===1?2:1;render();};
+    window.goEnd=()=>{
+      gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Análisis de la partida</h2></div>
+      <div class="sgrid"><div class="sb"><div class="sbn">${scores[1]}</div><div class="sbl">⚫ Negro</div></div><div class="sb"><div class="sbn">${scores[2]}</div><div class="sbl">⚪ Blanco</div></div></div>`;
+      debrf(gc2(),['¿Cuándo intentaron eliminar piezas vs. construir territorio?','¿Cuándo sacrificaron posición local por ventaja global?','¿Qué analogía tiene el control territorial con su industria?']);
+    };
+  }
+  render();
+};
+
+// ── SHOGI (5×5) ──
+window.G_shogi=function(){
+  let cells=Array(5).fill(null).map(()=>Array(5).fill(null));
+  let turn='b',cap={b:[],w:[]},sel=null;
+  const lbl={king:'王',rook:'飛',bishop:'角',gold:'金',silver:'銀',pawn:'歩'};
+  cells[0]=['w-king','w-rook','w-bishop','w-gold','w-silver'];
+  cells[1]=[null,'w-pawn',null,'w-pawn',null];
+  cells[3]=[null,'b-pawn',null,'b-pawn',null];
+  cells[4]=['b-silver','b-gold','b-bishop','b-rook','b-king'];
+  function render(){
+    gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Shogi Gerencial</h2><p>Tablero 5×5. ${turn==='b'?'⚫ Negro':'⚪ Blanco'} juega. Las piezas capturadas se pueden reutilizar.</p></div>
+    <div style="max-width:320px;margin:0 auto 1.5rem">
+      <div style="font-size:12px;margin-bottom:8px">Capturas ⚫: ${cap.b.map(p=>`<span>${lbl[p.split('-')[1]]||'?'}</span>`).join(' ')||'—'}</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:3px;background:var(--s3);padding:3px;border-radius:var(--r)">
+        ${cells.map((row,r)=>row.map((c,col)=>{const isSel=sel&&sel[0]===r&&sel[1]===col;return`<div onclick="shoC(${r},${col})" style="background:${isSel?'var(--csbg)':c?'var(--surf)':'#DEB88799'};aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:${isSel?'2px solid var(--cs)':'1px solid rgba(0,0,0,0.1)'};font-size:11px;color:${c&&c[0]==='b'?'#1C1710':'#666'}">${c?lbl[c.split('-')[1]]||'?':''}</div>`;}).join('')).join('')}
       </div>
-      <div>
-        <div class="panel-label">Herramientas del facilitador</div>
-        <div class="facilitator-tools">
-          <button class="fac-btn warn-btn" onclick="triggerEvent('storm')">⛈ Activar tormenta repentina</button>
-          <button class="fac-btn danger-btn" onclick="triggerEvent('injury')">🩹 Lesión en miembro del equipo</button>
-          <button class="fac-btn warn-btn" onclick="triggerEvent('oxygen')">💨 Falla de oxígeno</button>
-          <button class="fac-btn" onclick="triggerEvent('rescue')">🚁 Oferta de rescate disponible</button>
-          <button class="fac-btn danger-btn" onclick="triggerEvent('death_zone')">☠️ Alerta zona de muerte</button>
+      <div style="font-size:12px;margin-top:8px">Capturas ⚪: ${cap.w.map(p=>`<span>${lbl[p.split('-')[1]]||'?'}</span>`).join(' ')||'—'}</div>
+    </div>
+    <div class="gcard"><h3>Principio clave</h3><p style="font-size:14px;color:var(--tm);line-height:1.6">Las piezas capturadas NO se eliminan — el captor puede colocarlas de su lado. <strong>Metáfora de la reubicación estratégica de talento.</strong></p></div>
+    <div class="grow">
+      <button class="gbtn gbo" onclick="cells=Array(5).fill(null).map(()=>Array(5).fill(null));turn='b';cap={b:[],w:[]};sel=null;cells[0]=['w-king','w-rook','w-bishop','w-gold','w-silver'];cells[1]=[null,'w-pawn',null,'w-pawn',null];cells[3]=[null,'b-pawn',null,'b-pawn',null];cells[4]=['b-silver','b-gold','b-bishop','b-rook','b-king'];render()">Reiniciar</button>
+      <button class="gbtn" onclick="shoEnd()">Debriefing →</button>
+    </div>`;
+    window.shoC=(r,c)=>{
+      if(!sel){if(cells[r][c]&&cells[r][c][0]===turn){sel=[r,c];}render();return;}
+      const[sr,sc]=sel;if(r===sr&&c===sc){sel=null;render();return;}
+      if(cells[r][c]&&cells[r][c][0]===turn){sel=[r,c];render();return;}
+      if(cells[r][c]&&cells[r][c][0]!==turn){
+        const[cc2,ct]=cells[r][c].split('-');cap[turn].push(turn+'-'+ct);
+      }
+      cells[r][c]=cells[sr][sc];cells[sr][sc]=null;sel=null;turn=turn==='b'?'w':'b';render();
+    };
+    window.shoEnd=()=>{
+      gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Análisis de la partida</h2></div>
+      <div class="sgrid"><div class="sb"><div class="sbn">${cap.b.length}</div><div class="sbl">Capturas ⚫</div></div><div class="sb"><div class="sbn">${cap.w.length}</div><div class="sbl">Capturas ⚪</div></div></div>`;
+      debrf(gc2(),['¿Cuándo prefirieron capturar vs. posicionarse?','¿Usaron piezas capturadas del oponente?','¿Qué significa en el trabajo real "reutilizar el talento del oponente"?']);
+    };
+  }
+  render();
+};
+
+// ── MANCALA ──
+window.G_mancala=function(){
+  let board=[4,4,4,4,4,4,0,4,4,4,4,4,4,0],turn=1;
+  function render(){
+    gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Mancala Estratégico</h2><p>Jugador ${turn} juega. Sembrar semillas pensando varios turnos adelante.</p></div>
+    <div style="max-width:440px;margin:0 auto 1.5rem">
+      <div style="display:grid;grid-template-columns:60px 1fr 60px;gap:8px;align-items:center">
+        <div style="background:var(--cnbg);border-radius:var(--r);padding:12px;text-align:center">
+          <div style="font-size:10px;color:var(--cn);font-weight:600;margin-bottom:4px">P2</div>
+          <div style="font-size:24px;font-weight:600;font-family:'DM Mono',monospace">${board[13]}</div>
+        </div>
+        <div>
+          <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-bottom:4px">
+            ${[12,11,10,9,8,7].map(i=>`<div onclick="mP(${i-7},2)" style="background:${turn===2?'var(--surf)':'var(--s3)'};border:${turn===2?'1.5px solid var(--bd2)':'1px solid var(--bd)'};border-radius:var(--r);padding:8px 4px;text-align:center;cursor:${turn===2?'pointer':'not-allowed'};opacity:${turn===2?1:0.5}"><div style="font-size:16px;font-weight:600;font-family:'DM Mono',monospace">${board[i]}</div></div>`).join('')}
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:4px">
+            ${[0,1,2,3,4,5].map(i=>`<div onclick="mP(${i},1)" style="background:${turn===1?'var(--surf)':'var(--s3)'};border:${turn===1?'1.5px solid var(--bd2)':'1px solid var(--bd)'};border-radius:var(--r);padding:8px 4px;text-align:center;cursor:${turn===1?'pointer':'not-allowed'};opacity:${turn===1?1:0.5}"><div style="font-size:16px;font-weight:600;font-family:'DM Mono',monospace">${board[i]}</div></div>`).join('')}
+          </div>
+        </div>
+        <div style="background:var(--csbg);border-radius:var(--r);padding:12px;text-align:center">
+          <div style="font-size:10px;color:var(--cs);font-weight:600;margin-bottom:4px">P1</div>
+          <div style="font-size:24px;font-weight:600;font-family:'DM Mono',monospace">${board[6]}</div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+    <div class="gcard"><h3>Principio del Mancala</h3><p style="font-size:14px;color:var(--tm);line-height:1.6">Cada movimiento afecta <strong>múltiples posiciones simultáneamente</strong>. La planificación anticipada supera la reacción eficiente.</p></div>
+    <div class="grow">
+      <button class="gbtn gbo" onclick="board=[4,4,4,4,4,4,0,4,4,4,4,4,4,0];turn=1;render()">Reiniciar</button>
+      <button class="gbtn" onclick="mEnd()">Terminar →</button>
+    </div>`;
+    window.mP=(pit,player)=>{
+      if(player!==turn)return;const idx=player===1?pit:pit+7;if(board[idx]===0)return;
+      let seeds=board[idx];board[idx]=0;let pos=idx;
+      while(seeds>0){pos=(pos+1)%14;if(player===1&&pos===13)continue;if(player===2&&pos===6)continue;board[pos]++;seeds--;}
+      const extra=(player===1&&pos===6)||(player===2&&pos===13);
+      if(!extra)turn=turn===1?2:1;
+      const p1e=board.slice(0,6).every(v=>v===0),p2e=board.slice(7,13).every(v=>v===0);
+      if(p1e||p2e){board[6]+=board.slice(0,6).reduce((a,b)=>a+b,0);board[13]+=board.slice(7,13).reduce((a,b)=>a+b,0);for(let i=0;i<6;i++){board[i]=0;board[i+7]=0;}mEnd();return;}
+      render();
+    };
+    window.mEnd=()=>{
+      gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>${board[6]>board[13]?'🏆 Jugador 1 gana':board[13]>board[6]?'🏆 Jugador 2 gana':'🤝 Empate'}</h2></div>
+      <div class="sgrid"><div class="sb"><div class="sbn" style="color:var(--cs)">${board[6]}</div><div class="sbl">Jugador 1</div></div><div class="sb"><div class="sbn" style="color:var(--cn)">${board[13]}</div><div class="sbl">Jugador 2</div></div></div>`;
+      debrf(gc2(),['¿En qué momentos planificaron más de un turno adelante?','¿Cuándo sacrificaron una posición para ganar otra?','¿Qué analogía tiene la siembra de semillas con la gestión de recursos?']);
+    };
+  }
+  render();
+};
 
-<!-- FINAL -->
-<div class="screen" id="screen-final">
-  <div class="final-inner">
-    <div class="final-title" id="final-title">Simulación completa</div>
-    <p class="final-sub" id="final-sub"></p>
-    <div class="final-scores" id="final-scores"></div>
-    <div class="debrief-box">
-      <h3>Preguntas de debriefing</h3>
-      <ul class="debrief-list">
-        <li>¿En qué momentos el equipo priorizó metas individuales sobre la supervivencia del grupo?</li>
-        <li>¿Quién ejerció liderazgo real? ¿Coincidió con el rol asignado de "Líder"?</li>
-        <li>¿Cuándo fue necesario tomar una decisión impopular? ¿Cómo reaccionó el equipo?</li>
-        <li>¿Qué información ignoraron que luego resultó crítica?</li>
-        <li>¿Cómo manejaron el conflicto entre la misión (cima) y la responsabilidad (regresar seguros)?</li>
-        <li>¿Qué cambiarían en la forma de comunicar y decidir en su trabajo diario?</li>
-      </ul>
+// ── BEER DISTRIBUTION ──
+window.G_beer=function(){
+  let wk=1,tot=8;
+  let F={inv:200,prod:20},D={inv:50},W={inv:50},R={inv:50};
+  let bk={f:0,d:0,w:0,r:0},hist=[];
+  const dem=[4,4,4,4,8,8,8,8];
+  let ord={r:4,w:4,d:4};
+  function render(){
+    if(wk>tot){renderEnd();return;}
+    const d=dem[wk-1];
+    gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Beer Distribution Game</h2><p>Semana ${wk}/${tot}. Cada eslabón decide cuánto pedir al eslabón anterior sin saber la demanda real.</p></div>
+    ${wk===5?`<div class="gal gd">📣 La demanda del consumidor subió de 4 a 8 unidades esta semana. Solo el minorista lo sabe.</div>`:''}
+    <div class="gcard"><h3>Estado de la cadena</h3>
+    ${[{n:'🏭 Fábrica',inv:F.inv,bk:bk.f},{n:'🚚 Distribuidor',inv:D.inv,bk:bk.d},{n:'🏪 Mayorista',inv:W.inv,bk:bk.w},{n:'🛒 Minorista',inv:R.inv,bk:bk.r,dem:d}].map(node=>`<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--bd)">
+      <div style="min-width:90px;font-size:13px;font-weight:600">${node.n}</div>
+      <div style="flex:1">
+        <div class="pb2" style="margin-bottom:3px"><div class="pf" style="width:${Math.min(100,node.inv/200*100)}%;background:${node.inv>30?'var(--cs)':node.inv>10?'var(--cn)':'var(--ca)'}"></div></div>
+        <div style="font-size:11px;color:var(--tf)">Inv: ${node.inv} | Backorders: ${node.bk}${node.dem?` | Demanda: ${node.dem}`:''}</div>
+      </div>
+    </div>`).join('')}</div>
+    <div class="gcard"><h3>Decide cuánto pedir</h3>
+    ${['r','w','d'].map(n=>`<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+      <label style="font-size:13px;min-width:110px">${n==='r'?'🛒 Minorista':n==='w'?'🏪 Mayorista':'🚚 Distribuidor'} pide:</label>
+      <input type="number" min="0" max="50" value="${ord[n]}" id="o${n}" style="width:65px;padding:6px 10px;border:1px solid var(--bd2);border-radius:var(--r);font-size:14px;background:var(--s2)">
+      <span style="font-size:11px;color:var(--tf)">unidades</span>
+    </div>`).join('')}</div>
+    <div class="grow"><button class="gbtn" onclick="beerAdv()">Siguiente semana →</button></div>`;
+    window.beerAdv=()=>{
+      ord.r=parseInt(document.getElementById('or').value)||4;
+      ord.w=parseInt(document.getElementById('ow').value)||4;
+      ord.d=parseInt(document.getElementById('od').value)||4;
+      const dd=dem[wk-1];
+      const rs=Math.min(R.inv,dd);R.inv-=rs;bk.r+=dd-rs;
+      const ws=Math.min(W.inv,ord.r);W.inv-=ws;R.inv+=ws;bk.w+=ord.r-ws;
+      const ds=Math.min(D.inv,ord.w);D.inv-=ds;W.inv+=ds;bk.d+=ord.w-ds;
+      const fs=Math.min(F.inv,ord.d);F.inv-=fs;D.inv+=fs;F.inv+=F.prod;
+      hist.push({wk,ord:{...ord}});wk++;render();
+    };
+  }
+  function renderEnd(){
+    gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Análisis del efecto látigo</h2>
+    <p>Un aumento de demanda de 4→8 unidades causó distorsiones progresivas aguas arriba.</p></div>
+    <div class="sgrid">
+      ${[{n:'🏭',inv:F.inv,bk:bk.f},{n:'🚚',inv:D.inv,bk:bk.d},{n:'🏪',inv:W.inv,bk:bk.w},{n:'🛒',inv:R.inv,bk:bk.r}].map(x=>`<div class="sb"><div class="sbn" style="color:${x.bk===0?'var(--cs)':'var(--ca)'}">${x.inv}</div><div class="sbl">${x.n} Inventario</div>${x.bk>0?`<div style="font-size:11px;color:var(--ca)">+${x.bk} backorders</div>`:''}</div>`).join('')}
+    </div>`;
+    debrf(gc2(),['¿Por qué cada eslabón sobreordenó cuando la demanda subió?','¿Qué información no tenían y cómo los afectó?','¿Cómo se manifiesta el efecto látigo en su cadena de valor?','¿Qué cambio en comunicación entre eslabones lo hubiera evitado?']);
+  }
+  render();
+};
+
+// ── BaFa' BaFa' ──
+window.G_bafabafa=function(){
+  let ph=0,obs=[];
+  const phases=[
+    {t:'Fase 1 — Práctica interna',d:'Cada cultura practica sus reglas internamente durante 5 minutos.',fn:'Circular entre grupos. No corrijas — deja que cada grupo construya su dinámica.',secs:300},
+    {t:'Fase 2 — Primer embajador',d:'Alpha envía un embajador a Beta por 5 minutos. Beta no explica sus reglas. El embajador debe adaptarse solo.',fn:'Observar la reacción de Beta cuando el embajador viola las normas.',secs:300},
+    {t:'Fase 3 — Regreso y debriefing parcial',d:'El embajador regresa. Comparte sus observaciones con su grupo.',fn:'Preguntar: ¿Qué observaste? ¿Qué te pareció extraño? ¿Cómo te trataron?',secs:180},
+    {t:'Fase 4 — Embajador inverso',d:'Beta envía un embajador a Alpha por 5 minutos.',fn:'Observar si la segunda cultura comete errores similares o los anticipa.',secs:300},
+    {t:'Fase 5 — Reunión intercultural de negocios',d:'Ambas culturas deben llegar a un acuerdo comercial. Sin revelar sus reglas culturales.',fn:'Registrar malentendidos, frustraciones y momentos de conexión.',secs:600},
+  ];
+  function render(){
+    if(ph===0){
+      gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>BaFá BaFá</h2><p>Dos culturas ficticias con valores opuestos. Los participantes experimentan el choque cultural desde adentro.</p></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem">
+        <div class="gcard" style="border-top:4px solid var(--cs)"><h3 style="color:var(--cs)">🌴 Cultura Alpha</h3><ul class="dbl">
+          <li>Sociedad colectivista y cálida</li><li>El contacto físico es normal</li><li>Decisiones por consenso</li><li>El tiempo es flexible</li><li>Hablar de negocios directamente es de mala educación</li></ul></div>
+        <div class="gcard" style="border-top:4px solid var(--cst)"><h3 style="color:var(--cst)">🏙️ Cultura Beta</h3><ul class="dbl">
+          <li>Sociedad individualista y eficiente</li><li>El espacio personal es sagrado</li><li>Decisiones rápidas e individuales</li><li>El tiempo es dinero</li><li>Ir directo al punto es señal de profesionalismo</li></ul></div>
+      </div>
+      <div class="grow"><button class="gbtn" onclick="bfN()">Iniciar simulación →</button></div>`;
+      window.bfN=()=>{ph++;render();};return;
+    }
+    if(ph>phases.length){
+      gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Debrief intercultural</h2></div>
+      ${obs.length>0?`<div class="gcard"><h3>Observaciones registradas</h3>${obs.map((o,i)=>`<div style="font-size:13px;color:var(--tm);padding:6px 0;border-bottom:1px solid var(--bd)"><span style="color:var(--tf);font-size:11px">F${i+1}: </span>${o}</div>`).join('')}</div>`:''}`;
+      debrf(gc2(),['¿Cómo te sentiste al entrar a la cultura del otro?','¿Qué comportamientos parecían "raros" hasta entender el por qué?','¿Cuándo asumiste que el otro era maleducado sin tener información?','¿Cómo aplica esto a equipos multiculturales o multigeneracionales?']);
+      return;
+    }
+    const p=phases[ph-1];let secs=p.secs,ti=null;
+    gc2().innerHTML=`<div class="gwr"><div class="glb">Fase ${ph}/${phases.length}</div>
+    <div class="gh" style="text-align:left;margin-bottom:1rem"><h2>${p.t}</h2><p>${p.d}</p></div>
+    <div class="td" id="bft">${Math.floor(secs/60)}:${String(secs%60).padStart(2,'0')}</div>
+    <div class="pb2"><div class="pf" id="bff" style="width:100%"></div></div>
+    <div class="dbox"><div class="dlb">Nota del facilitador</div><div>${p.fn}</div></div>
+    <div class="gcard"><h3>Registrar observaciones</h3>
+      <textarea id="bfobs" rows="2" style="width:100%;background:var(--s2);border:1px solid var(--bd2);border-radius:var(--r);padding:10px;font-size:13px;font-family:'DM Sans',sans-serif;outline:none" placeholder="Anotá lo que observás..."></textarea>
     </div>
-    <button class="btn-restart" onclick="restartGame()">↺ Reiniciar simulación</button>
-  </div>
-</div>
+    <div class="grow">
+      <button class="gbtn" onclick="bfNext()">Siguiente fase →</button>
+      <button class="gbtn gbo" onclick="clearInterval(bfTi)">⏸ Pausar</button>
+    </div>`;
+    const tot=secs;window.bfTi=ti=setInterval(()=>{secs--;const t=document.getElementById('bft'),f=document.getElementById('bff');if(!t){clearInterval(ti);return;}
+      t.textContent=Math.floor(secs/60)+':'+String(secs%60).padStart(2,'0');t.className='td'+(secs<=30?' urg':'');if(f)f.style.width=Math.round(secs/tot*100)+'%';if(secs<=0)clearInterval(ti);},1000);
+    window.bfNext=()=>{clearInterval(ti);const v=document.getElementById('bfobs')?.value;if(v&&v.trim())obs.push(v.trim());ph++;render();};
+  }
+  render();
+};
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modal">
-  <div class="modal">
-    <h3 id="modal-title">Evento inesperado</h3>
-    <p id="modal-body"></p>
-    <button class="modal-btn" onclick="closeModal()">El equipo decide →</button>
-  </div>
-</div>
+// Aliases for similar games
+window.G_peak=window.G_desert;
 
-<script>
+
+
+
+// ── EVEREST (original) ──
+window.G_everest = function() {
+  const container = document.getElementById('gc');
+  
+  // Inject scoped CSS
+  let evStyle = document.getElementById('ev-style');
+  if (!evStyle) {
+    evStyle = document.createElement('style');
+    evStyle.id = 'ev-style';
+    evStyle.textContent = "\n*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}\n:root{\n  --bg:#F4F1EC;\n  --surface:#FFFFFF;\n  --surface2:#EDE9E2;\n  --surface3:#E4DFD6;\n  --border:rgba(60,50,30,0.10);\n  --border2:rgba(60,50,30,0.18);\n  --text:#1E1A14;\n  --text-muted:#6B6050;\n  --text-faint:#A09880;\n  --accent:#1A6B3C;\n  --accent-light:#E2F0E8;\n  --accent-mid:#2E9E5A;\n  --warn:#8A5800;\n  --warn-bg:#FFF3DC;\n  --warn-mid:#C47F00;\n  --danger:#8B2020;\n  --danger-bg:#FDEAEA;\n  --danger-mid:#C03030;\n  --info:#1A4A8A;\n  --info-bg:#E6EEFA;\n  --radius:10px;\n  --radius-lg:16px;\n}\nbody{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;font-size:15px;}\n\n.screen{display:none;min-height:100vh;}\n.screen.active{display:flex;flex-direction:column;}\n\n/* ── INTRO ── */\n#screen-intro{align-items:center;justify-content:center;padding:2.5rem 1.5rem;}\n.intro-inner{max-width:680px;width:100%;text-align:center;}\n.brand{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.14em;color:var(--accent);margin-bottom:1.5rem;opacity:0.8;text-transform:uppercase;}\n.intro-title{font-size:clamp(3rem,8vw,5.5rem);font-weight:600;line-height:1.0;margin-bottom:1rem;color:var(--text);}\n.intro-title span{color:var(--accent);}\n.intro-sub{font-size:17px;color:var(--text-muted);line-height:1.7;margin-bottom:2.5rem;max-width:520px;margin-left:auto;margin-right:auto;}\n\n.roles-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:2.5rem;}\n.role-chip{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:18px 10px;text-align:center;border-top:4px solid var(--border2);}\n.role-chip.r0{border-top-color:#1A6B3C;}\n.role-chip.r1{border-top-color:#1A4A8A;}\n.role-chip.r2{border-top-color:#8A5800;}\n.role-chip.r3{border-top-color:#6B2A8A;}\n.role-chip.r4{border-top-color:#8B2020;}\n.role-chip .emoji{font-size:28px;display:block;margin-bottom:8px;}\n.role-chip .rname{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px;}\n.role-chip .rperson{font-size:12px;color:var(--accent);font-weight:500;margin-bottom:4px;display:block;}\n.role-chip .rgoal{font-size:11px;color:var(--text-muted);line-height:1.4;}\n\n.btn-start{background:var(--accent);color:#fff;font-family:'DM Sans',sans-serif;font-size:17px;font-weight:600;border:none;padding:16px 40px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;}\n.btn-start:hover{background:#13512E;transform:translateY(-1px);}\n\n/* ── GAME ── */\n#screen-game{flex-direction:column;}\n\n.topbar{display:flex;align-items:center;gap:16px;padding:14px 24px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;}\n.topbar-title{font-size:16px;font-weight:600;color:var(--accent);margin-right:auto;}\n.day-indicator{display:flex;gap:8px;align-items:center;}\n.day-dot{width:12px;height:12px;border-radius:50%;background:var(--surface2);border:1.5px solid var(--border2);transition:all 0.4s;}\n.day-dot.done{background:var(--accent);border-color:var(--accent);}\n.day-dot.current{background:var(--warn-mid);border-color:var(--warn-mid);}\n.clock{font-family:'DM Mono',monospace;font-size:15px;color:var(--warn);min-width:52px;text-align:right;font-weight:500;}\n\n.game-body{flex:1;display:grid;grid-template-columns:280px 1fr 260px;gap:0;overflow:hidden;}\n\n/* LEFT */\n.panel-left{background:var(--surface);border-right:1px solid var(--border);padding:18px;overflow-y:auto;}\n.panel-label{font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-faint);margin-bottom:10px;font-weight:500;}\n\n.member-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;}\n.member-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}\n.member-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}\n.member-name{font-size:14px;font-weight:600;color:var(--text);}\n.member-role{font-size:11px;color:var(--text-faint);}\n.stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}\n.stat-label{font-size:11px;color:var(--text-muted);min-width:40px;}\n.stat-bar{flex:1;height:5px;background:var(--surface3);border-radius:3px;margin:0 10px;overflow:hidden;}\n.stat-fill{height:100%;border-radius:3px;transition:width 0.5s;}\n.stat-val{font-family:'DM Mono',monospace;font-size:11px;min-width:28px;text-align:right;font-weight:500;}\n.fill-health{background:var(--accent-mid);}\n.fill-morale{background:var(--info);}\n.fill-health.low{background:var(--danger-mid);}\n.fill-health.mid{background:var(--warn-mid);}\n\n/* CENTER */\n.panel-center{display:flex;flex-direction:column;overflow:hidden;}\n.mountain-svg{width:100%;height:90px;flex-shrink:0;}\n\n.day-content{flex:1;overflow-y:auto;padding:22px 24px;}\n.day-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}\n.day-title{font-size:24px;font-weight:600;color:var(--text);}\n.day-meta{font-size:13px;color:var(--text-muted);line-height:1.5;text-align:right;}\n.weather-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:999px;font-size:13px;font-weight:500;margin-bottom:16px;}\n.weather-good{background:var(--accent-light);color:var(--accent);border:1px solid rgba(26,107,60,0.2);}\n.weather-warn{background:var(--warn-bg);color:var(--warn);border:1px solid rgba(138,88,0,0.2);}\n.weather-bad{background:var(--danger-bg);color:var(--danger);border:1px solid rgba(139,32,32,0.2);}\n\n.scenario-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;margin-bottom:16px;line-height:1.75;font-size:15px;color:var(--text-muted);}\n.scenario-box strong{color:var(--text);}\n\n.dilemma-box{background:var(--warn-bg);border:1px solid rgba(138,88,0,0.18);border-left:4px solid var(--warn-mid);border-radius:0 var(--radius) var(--radius) 0;padding:16px 18px;margin-bottom:16px;}\n.dilemma-label{font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:var(--warn);margin-bottom:6px;font-weight:600;}\n.dilemma-text{font-size:15px;line-height:1.65;color:var(--text);}\n\n.tensions-section{margin-bottom:18px;}\n.tension-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--text-muted);line-height:1.55;}\n.tension-item:last-child{border-bottom:none;}\n.tension-role{font-size:10px;font-weight:700;letter-spacing:0.07em;color:var(--accent);white-space:nowrap;margin-top:2px;background:var(--accent-light);padding:2px 7px;border-radius:4px;}\n\n.outcome-label{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px;font-weight:500;}\n.outcomes-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}\n.outcome-btn{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;cursor:pointer;text-align:left;transition:all 0.15s;font-family:'DM Sans',sans-serif;}\n.outcome-btn:hover{border-color:var(--border2);background:var(--surface2);}\n.outcome-btn.good:hover{border-color:rgba(26,107,60,0.35);background:var(--accent-light);}\n.outcome-btn.bad:hover{border-color:rgba(139,32,32,0.35);background:var(--danger-bg);}\n.outcome-btn .ob-label{font-size:13px;font-weight:600;margin-bottom:5px;}\n.outcome-btn.good .ob-label{color:var(--accent);}\n.outcome-btn.bad .ob-label{color:var(--danger);}\n.outcome-btn .ob-text{font-size:13px;color:var(--text-muted);line-height:1.4;}\n.btn-next{width:100%;background:var(--accent);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:14px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;opacity:0.35;pointer-events:none;}\n.btn-next:not(:disabled){opacity:1;pointer-events:auto;}\n.btn-next:not(:disabled):hover{background:#13512E;}\n\n/* RIGHT */\n.panel-right{background:var(--surface);border-left:1px solid var(--border);padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:16px;}\n.status-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;}\n.resource-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;}\n.resource-row:last-child{margin-bottom:0;}\n.res-name{font-size:13px;color:var(--text-muted);}\n.res-val{font-family:'DM Mono',monospace;font-size:14px;font-weight:500;}\n.res-val.good{color:var(--accent);}\n.res-val.warn{color:var(--warn);}\n.res-val.bad{color:var(--danger);}\n\n.event-log{display:flex;flex-direction:column;gap:6px;max-height:160px;overflow-y:auto;}\n.log-item{font-size:12px;color:var(--text-faint);padding:7px 10px;background:var(--surface3);border-radius:6px;line-height:1.4;}\n.log-item .log-day{color:var(--accent);font-weight:700;margin-right:5px;}\n.log-item.bad{color:var(--danger);background:var(--danger-bg);}\n.log-item.good{color:var(--accent);background:var(--accent-light);}\n\n.facilitator-tools{display:flex;flex-direction:column;gap:7px;}\n.fac-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);font-family:'DM Sans',sans-serif;font-size:13px;padding:10px 12px;border-radius:var(--radius);cursor:pointer;text-align:left;transition:all 0.15s;}\n.fac-btn:hover{border-color:var(--border2);color:var(--text);background:var(--surface3);}\n.fac-btn.warn-btn:hover{border-color:rgba(138,88,0,0.4);color:var(--warn);background:var(--warn-bg);}\n.fac-btn.danger-btn:hover{border-color:rgba(139,32,32,0.4);color:var(--danger);background:var(--danger-bg);}\n\n/* FINAL */\n#screen-final{align-items:center;justify-content:center;padding:2.5rem 1.5rem;}\n.final-inner{max-width:680px;width:100%;text-align:center;}\n.final-title{font-size:clamp(2.2rem,6vw,4rem);font-weight:600;margin-bottom:10px;color:var(--text);}\n.final-sub{font-size:17px;color:var(--text-muted);margin-bottom:2rem;line-height:1.65;}\n.final-scores{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:2rem;}\n.fscore-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 8px;text-align:center;}\n.fscore-emoji{font-size:24px;margin-bottom:6px;}\n.fscore-name{font-size:11px;color:var(--text-faint);margin-bottom:6px;}\n.fscore-val{font-family:'DM Mono',monospace;font-size:17px;font-weight:500;}\n.debrief-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;text-align:left;margin-bottom:1.5rem;}\n.debrief-box h3{font-size:15px;font-weight:600;color:var(--accent);margin-bottom:14px;text-transform:uppercase;letter-spacing:0.06em;}\n.debrief-list{list-style:none;display:flex;flex-direction:column;gap:10px;}\n.debrief-list li{font-size:14px;color:var(--text-muted);line-height:1.55;padding-left:18px;position:relative;}\n.debrief-list li::before{content:'→';position:absolute;left:0;color:var(--text-faint);}\n.btn-restart{background:transparent;border:1.5px solid var(--border2);color:var(--text-muted);font-family:'DM Sans',sans-serif;font-size:15px;padding:12px 28px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;}\n.btn-restart:hover{border-color:var(--accent);color:var(--accent);}\n\n/* MODAL */\n.modal-overlay{position:fixed;inset:0;background:rgba(30,26,20,0.55);display:none;align-items:center;justify-content:center;z-index:100;padding:1rem;}\n.modal-overlay.open{display:flex;}\n.modal{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:28px;max-width:440px;width:100%;}\n.modal h3{font-size:20px;font-weight:600;margin-bottom:10px;color:var(--text);}\n.modal p{font-size:15px;color:var(--text-muted);line-height:1.65;margin-bottom:22px;}\n.modal-btn{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:12px 24px;border-radius:var(--radius);cursor:pointer;width:100%;}\n.modal-btn:hover{background:#13512E;}\n\n@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}\n.clock.urgent{animation:pulse 1s ease-in-out infinite;color:var(--danger);}\n";
+    document.head.appendChild(evStyle);
+  }
+  
+  // Inject HTML
+  container.innerHTML = '<!-- INTRO -->\n<div class="screen active" id="screen-intro">\n  <div class="intro-inner">\n    <div class="brand">Simulación · Liderazgo · Trabajo en equipo</div>\n    <div class="intro-title">🏔 <span>Everest</span></div>\n    <p class="intro-sub">Tu equipo tiene 6 días para llegar a la cima. Cada decisión afecta la salud, el clima y las metas individuales. El éxito requiere comunicación, liderazgo real y saber cuándo retirarse.</p>\n    <div class="roles-grid">\n      <div class="role-chip r0"><span class="emoji">🧗</span><span class="rname">Líder</span><div class="rgoal">Llegar a la cima sin importar el costo</div></div>\n      <div class="role-chip r1"><span class="emoji">🏥</span><span class="rname">Médico</span><div class="rgoal">Que todos regresen con vida</div></div>\n      <div class="role-chip r2"><span class="emoji">📸</span><span class="rname">Fotógrafo</span><div class="rgoal">Foto en la cima o el proyecto fracasa</div></div>\n      <div class="role-chip r3"><span class="emoji">🔬</span><span class="rname">Científico</span><div class="rgoal">Recolectar datos en campo 5 y 6</div></div>\n      <div class="role-chip r4"><span class="emoji">💰</span><span class="rname">Sponsor</span><div class="rgoal">ROI y visibilidad mediática, o retira fondos</div></div>\n    </div>\n    <button class="btn-start" onclick="startGame()">Iniciar simulación →</button>\n  </div>\n</div>\n\n<!-- GAME -->\n<div class="screen" id="screen-game">\n  <div class="topbar">\n    <span class="topbar-title">🏔 Everest — Simulación de Liderazgo</span>\n    <div class="day-indicator" id="day-dots"></div>\n    <span class="clock" id="clock">60:00</span>\n  </div>\n  <div class="game-body">\n    <div class="panel-left">\n      <div class="panel-label">Estado del equipo</div>\n      <div id="team-cards"></div>\n    </div>\n    <div class="panel-center">\n      <svg class="mountain-svg" viewBox="0 0 700 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">\n        <polygon points="0,90 200,18 350,4 500,28 700,90" fill="rgba(26,107,60,0.08)" stroke="rgba(26,107,60,0.25)" stroke-width="1.5"/>\n        <circle id="team-marker" cx="50" cy="86" r="7" fill="#1A6B3C"/>\n        <text id="marker-label" x="50" y="73" font-family="DM Sans" font-size="9" fill="#1A6B3C" text-anchor="middle" font-weight="600">Base</text>\n      </svg>\n      <div class="day-content" id="day-content"></div>\n    </div>\n    <div class="panel-right">\n      <div class="status-block">\n        <div class="panel-label">Recursos</div>\n        <div id="resources-display"></div>\n      </div>\n      <div class="status-block">\n        <div class="panel-label">Registro de eventos</div>\n        <div class="event-log" id="event-log"></div>\n      </div>\n      <div>\n        <div class="panel-label">Herramientas del facilitador</div>\n        <div class="facilitator-tools">\n          <button class="fac-btn warn-btn" onclick="triggerEvent(\'storm\')">⛈ Activar tormenta repentina</button>\n          <button class="fac-btn danger-btn" onclick="triggerEvent(\'injury\')">🩹 Lesión en miembro del equipo</button>\n          <button class="fac-btn warn-btn" onclick="triggerEvent(\'oxygen\')">💨 Falla de oxígeno</button>\n          <button class="fac-btn" onclick="triggerEvent(\'rescue\')">🚁 Oferta de rescate disponible</button>\n          <button class="fac-btn danger-btn" onclick="triggerEvent(\'death_zone\')">☠️ Alerta zona de muerte</button>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<!-- FINAL -->\n<div class="screen" id="screen-final">\n  <div class="final-inner">\n    <div class="final-title" id="final-title">Simulación completa</div>\n    <p class="final-sub" id="final-sub"></p>\n    <div class="final-scores" id="final-scores"></div>\n    <div class="debrief-box">\n      <h3>Preguntas de debriefing</h3>\n      <ul class="debrief-list">\n        <li>¿En qué momentos el equipo priorizó metas individuales sobre la supervivencia del grupo?</li>\n        <li>¿Quién ejerció liderazgo real? ¿Coincidió con el rol asignado de "Líder"?</li>\n        <li>¿Cuándo fue necesario tomar una decisión impopular? ¿Cómo reaccionó el equipo?</li>\n        <li>¿Qué información ignoraron que luego resultó crítica?</li>\n        <li>¿Cómo manejaron el conflicto entre la misión (cima) y la responsabilidad (regresar seguros)?</li>\n        <li>¿Qué cambiarían en la forma de comunicar y decidir en su trabajo diario?</li>\n      </ul>\n    </div>\n    <button class="btn-restart" onclick="restartGame()">↺ Reiniciar simulación</button>\n  </div>\n</div>\n\n<!-- MODAL -->\n<div class="modal-overlay" id="modal">\n  <div class="modal">\n    <h3 id="modal-title">Evento inesperado</h3>\n    <p id="modal-body"></p>\n    <button class="modal-btn" onclick="closeModal()">El equipo decide →</button>\n  </div>\n</div>';
+  
+  // Run Everest JS — expose functions to window so onclick handlers work
+  (function() {
 const TEAM = [
   {id:'leader',   emoji:'🧗', name:'Líder',      role:'Jefe de expedición',  color:'#1A6B3C', health:100, morale:100},
   {id:'doctor',   emoji:'🏥', name:'Médico',     role:'Salud del equipo',   color:'#1A4A8A', health:100, morale:100},
@@ -521,6 +1415,19 @@ function restartGame(){
   currentDay=0;document.getElementById('event-log').innerHTML='';
   startGame();
 }
+    // Expose to global scope for onclick handlers
+    window.startGame = startGame;
+    window.restartGame = restartGame;
+    window.applyOutcome = applyOutcome;
+    window.nextDay = nextDay;
+    window.triggerEvent = triggerEvent;
+    window.closeModal = closeModal;
+    window.showScreen = showScreen;
+  })();
+};
+
+// INIT
+af();
 </script>
 </body>
 </html>
