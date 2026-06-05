@@ -1107,7 +1107,7 @@ window.G_go=function(){
       <span class="mp">⚪ Blanco: ${scores[2]} territorios</span>
     </div>
     <div style="display:grid;grid-template-columns:repeat(9,1fr);gap:2px;max-width:360px;margin:0 auto 1.5rem;background:var(--cn);padding:2px;border-radius:var(--r)">
-      ${board.map((row,r)=>row.map((c,col)=>`<div onclick="goP(${r},${col})" style="background:${c===0?'#DEB887':c===1?'#222':'#EEE'};aspect-ratio:1;border-radius:50%;cursor:${c===0?'pointer':'default'};border:${c===0?'1px solid rgba(0,0,0,0.15)':'none'}"></div>`).join('')).join('')}
+      ${board.map((row,r)=>row.map((c,col)=>`<div onclick="goP(${r},${col})" style="background:${c===0?'#D6E4F0':c===1?'#002C5F':'#EEE'};aspect-ratio:1;border-radius:50%;cursor:${c===0?'pointer':'default'};border:${c===0?'1px solid rgba(0,0,0,0.15)':'none'}"></div>`).join('')).join('')}
     </div>
     <div class="gcard"><h3>Principios empresariales del Go</h3><ul class="dbl">
       <li>Cada piedra afecta múltiples intersecciones</li>
@@ -1143,7 +1143,7 @@ window.G_shogi=function(){
     <div style="max-width:320px;margin:0 auto 1.5rem">
       <div style="font-size:12px;margin-bottom:8px">Capturas ⚫: ${cap.b.map(p=>`<span>${lbl[p.split('-')[1]]||'?'}</span>`).join(' ')||'—'}</div>
       <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:3px;background:var(--s3);padding:3px;border-radius:var(--r)">
-        ${cells.map((row,r)=>row.map((c,col)=>{const isSel=sel&&sel[0]===r&&sel[1]===col;return`<div onclick="shoC(${r},${col})" style="background:${isSel?'var(--csbg)':c?'var(--surf)':'#DEB88799'};aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:${isSel?'2px solid var(--cs)':'1px solid rgba(0,0,0,0.1)'};font-size:11px;color:${c&&c[0]==='b'?'#1C1710':'#666'}">${c?lbl[c.split('-')[1]]||'?':''}</div>`;}).join('')).join('')}
+        ${cells.map((row,r)=>row.map((c,col)=>{const isSel=sel&&sel[0]===r&&sel[1]===col;return`<div onclick="shoC(${r},${col})" style="background:${isSel?'var(--csbg)':c?'var(--surf)':'#D6E4F099'};aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:${isSel?'2px solid var(--cs)':'1px solid rgba(0,0,0,0.1)'};font-size:11px;color:${c&&c[0]==='b'?'#0A1628':'#666'}">${c?lbl[c.split('-')[1]]||'?':''}</div>`;}).join('')).join('')}
       </div>
       <div style="font-size:12px;margin-top:8px">Capturas ⚪: ${cap.w.map(p=>`<span>${lbl[p.split('-')[1]]||'?'}</span>`).join(' ')||'—'}</div>
     </div>
@@ -1332,12 +1332,12 @@ window.G_everest = function() {
   if (!evStyle) {
     evStyle = document.createElement('style');
     evStyle.id = 'ev-style';
-    evStyle.textContent = "\n*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}\n\n:root{\n  --bg:#F4F1EC;\n  --surface:#FFFFFF;\n  --surface2:#EDE9E2;\n  --surface3:#E4DFD6;\n  --border:rgba(60,50,30,0.10);\n  --border2:rgba(60,50,30,0.18);\n  --text:#1E1A14;\n  --text-muted:#6B6050;\n  --text-faint:#A09880;\n  --accent:#00A651;\n  --accent-light:#E2F0E8;\n  --accent-mid:#2E9E5A;\n  --warn:#8A5800;\n  --warn-bg:#FFF3DC;\n  --warn-mid:#C47F00;\n  --danger:#B8003A;\n  --danger-bg:#FDEAEA;\n  --danger-mid:#C03030;\n  --info:#0055A5;\n  --info-bg:#E6EEFA;\n  --radius:10px;\n  --radius-lg:16px;\n}\nbody{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;font-size:15px;}\n\n.screen{display:none;min-height:100vh;}\n.screen.active{display:flex;flex-direction:column;}\n\n/* ── INTRO ── */\n#screen-intro{align-items:center;justify-content:center;padding:2.5rem 1.5rem;}\n.intro-inner{max-width:680px;width:100%;text-align:center;}\n.brand{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.14em;color:var(--accent);margin-bottom:1.5rem;opacity:0.8;text-transform:uppercase;}\n.intro-title{font-size:clamp(3rem,8vw,5.5rem);font-weight:600;line-height:1.0;margin-bottom:1rem;color:var(--text);}\n.intro-title span{color:var(--accent);}\n.intro-sub{font-size:17px;color:var(--text-muted);line-height:1.7;margin-bottom:2.5rem;max-width:520px;margin-left:auto;margin-right:auto;}\n\n.roles-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:2.5rem;}\n.role-chip{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:18px 10px;text-align:center;border-top:4px solid var(--border2);}\n.role-chip.r0{border-top-color:#00A651;}\n.role-chip.r1{border-top-color:#0055A5;}\n.role-chip.r2{border-top-color:#8A5800;}\n.role-chip.r3{border-top-color:#6B2A8A;}\n.role-chip.r4{border-top-color:#B8003A;}\n.role-chip .emoji{font-size:28px;display:block;margin-bottom:8px;}\n.role-chip .rname{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px;}\n.role-chip .rperson{font-size:12px;color:var(--accent);font-weight:500;margin-bottom:4px;display:block;}\n.role-chip .rgoal{font-size:11px;color:var(--text-muted);line-height:1.4;}\n\n.btn-start{background:var(--accent);color:#fff;font-family:'DM Sans',sans-serif;font-size:17px;font-weight:600;border:none;padding:16px 40px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;}\n.btn-start:hover{background:#13512E;transform:translateY(-1px);}\n\n/* ── GAME ── */\n#screen-game{flex-direction:column;}\n\n.topbar{display:flex;align-items:center;gap:16px;padding:14px 24px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;}\n.topbar-title{font-size:16px;font-weight:600;color:var(--accent);margin-right:auto;}\n.day-indicator{display:flex;gap:8px;align-items:center;}\n.day-dot{width:12px;height:12px;border-radius:50%;background:var(--surface2);border:1.5px solid var(--border2);transition:all 0.4s;}\n.day-dot.done{background:var(--accent);border-color:var(--accent);}\n.day-dot.current{background:var(--warn-mid);border-color:var(--warn-mid);}\n.clock{font-family:'DM Mono',monospace;font-size:15px;color:var(--warn);min-width:52px;text-align:right;font-weight:500;}\n\n.game-body{flex:1;display:grid;grid-template-columns:280px 1fr 260px;gap:0;overflow:hidden;}\n\n/* LEFT */\n.panel-left{background:var(--surface);border-right:1px solid var(--border);padding:18px;overflow-y:auto;}\n.panel-label{font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-faint);margin-bottom:10px;font-weight:500;}\n\n.member-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;}\n.member-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}\n.member-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}\n.member-name{font-size:14px;font-weight:600;color:var(--text);}\n.member-role{font-size:11px;color:var(--text-faint);}\n.stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}\n.stat-label{font-size:11px;color:var(--text-muted);min-width:40px;}\n.stat-bar{flex:1;height:5px;background:var(--surface3);border-radius:3px;margin:0 10px;overflow:hidden;}\n.stat-fill{height:100%;border-radius:3px;transition:width 0.5s;}\n.stat-val{font-family:'DM Mono',monospace;font-size:11px;min-width:28px;text-align:right;font-weight:500;}\n.fill-health{background:var(--accent-mid);}\n.fill-morale{background:var(--info);}\n.fill-health.low{background:var(--danger-mid);}\n.fill-health.mid{background:var(--warn-mid);}\n\n/* CENTER */\n.panel-center{display:flex;flex-direction:column;overflow:hidden;}\n.mountain-svg{width:100%;height:90px;flex-shrink:0;}\n\n.day-content{flex:1;overflow-y:auto;padding:22px 24px;}\n.day-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}\n.day-title{font-size:24px;font-weight:600;color:var(--text);}\n.day-meta{font-size:13px;color:var(--text-muted);line-height:1.5;text-align:right;}\n.weather-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:999px;font-size:13px;font-weight:500;margin-bottom:16px;}\n.weather-good{background:var(--accent-light);color:var(--accent);border:1px solid rgba(26,107,60,0.2);}\n.weather-warn{background:var(--warn-bg);color:var(--warn);border:1px solid rgba(138,88,0,0.2);}\n.weather-bad{background:var(--danger-bg);color:var(--danger);border:1px solid rgba(139,32,32,0.2);}\n\n.scenario-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;margin-bottom:16px;line-height:1.75;font-size:15px;color:var(--text-muted);}\n.scenario-box strong{color:var(--text);}\n\n.dilemma-box{background:var(--warn-bg);border:1px solid rgba(138,88,0,0.18);border-left:4px solid var(--warn-mid);border-radius:0 var(--radius) var(--radius) 0;padding:16px 18px;margin-bottom:16px;}\n.dilemma-label{font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:var(--warn);margin-bottom:6px;font-weight:600;}\n.dilemma-text{font-size:15px;line-height:1.65;color:var(--text);}\n\n.tensions-section{margin-bottom:18px;}\n.tension-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--text-muted);line-height:1.55;}\n.tension-item:last-child{border-bottom:none;}\n.tension-role{font-size:10px;font-weight:700;letter-spacing:0.07em;color:var(--accent);white-space:nowrap;margin-top:2px;background:var(--accent-light);padding:2px 7px;border-radius:4px;}\n\n.outcome-label{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px;font-weight:500;}\n.outcomes-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}\n.outcome-btn{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;cursor:pointer;text-align:left;transition:all 0.15s;font-family:'DM Sans',sans-serif;}\n.outcome-btn:hover{border-color:var(--border2);background:var(--surface2);}\n.outcome-btn.good:hover{border-color:rgba(26,107,60,0.35);background:var(--accent-light);}\n.outcome-btn.bad:hover{border-color:rgba(139,32,32,0.35);background:var(--danger-bg);}\n.outcome-btn .ob-label{font-size:13px;font-weight:600;margin-bottom:5px;}\n.outcome-btn.good .ob-label{color:var(--accent);}\n.outcome-btn.bad .ob-label{color:var(--danger);}\n.outcome-btn .ob-text{font-size:13px;color:var(--text-muted);line-height:1.4;}\n.btn-next{width:100%;background:var(--accent);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:14px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;opacity:0.35;pointer-events:none;}\n.btn-next:not(:disabled){opacity:1;pointer-events:auto;}\n.btn-next:not(:disabled):hover{background:#13512E;}\n\n/* RIGHT */\n.panel-right{background:var(--surface);border-left:1px solid var(--border);padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:16px;}\n.status-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;}\n.resource-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;}\n.resource-row:last-child{margin-bottom:0;}\n.res-name{font-size:13px;color:var(--text-muted);}\n.res-val{font-family:'DM Mono',monospace;font-size:14px;font-weight:500;}\n.res-val.good{color:var(--accent);}\n.res-val.warn{color:var(--warn);}\n.res-val.bad{color:var(--danger);}\n\n.event-log{display:flex;flex-direction:column;gap:6px;max-height:160px;overflow-y:auto;}\n.log-item{font-size:12px;color:var(--text-faint);padding:7px 10px;background:var(--surface3);border-radius:6px;line-height:1.4;}\n.log-item .log-day{color:var(--accent);font-weight:700;margin-right:5px;}\n.log-item.bad{color:var(--danger);background:var(--danger-bg);}\n.log-item.good{color:var(--accent);background:var(--accent-light);}\n\n.facilitator-tools{display:flex;flex-direction:column;gap:7px;}\n.fac-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);font-family:'DM Sans',sans-serif;font-size:13px;padding:10px 12px;border-radius:var(--radius);cursor:pointer;text-align:left;transition:all 0.15s;}\n.fac-btn:hover{border-color:var(--border2);color:var(--text);background:var(--surface3);}\n.fac-btn.warn-btn:hover{border-color:rgba(138,88,0,0.4);color:var(--warn);background:var(--warn-bg);}\n.fac-btn.danger-btn:hover{border-color:rgba(139,32,32,0.4);color:var(--danger);background:var(--danger-bg);}\n\n/* FINAL */\n#screen-final{align-items:center;justify-content:center;padding:2.5rem 1.5rem;}\n.final-inner{max-width:680px;width:100%;text-align:center;}\n.final-title{font-size:clamp(2.2rem,6vw,4rem);font-weight:600;margin-bottom:10px;color:var(--text);}\n.final-sub{font-size:17px;color:var(--text-muted);margin-bottom:2rem;line-height:1.65;}\n.final-scores{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:2rem;}\n.fscore-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 8px;text-align:center;}\n.fscore-emoji{font-size:24px;margin-bottom:6px;}\n.fscore-name{font-size:11px;color:var(--text-faint);margin-bottom:6px;}\n.fscore-val{font-family:'DM Mono',monospace;font-size:17px;font-weight:500;}\n.debrief-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;text-align:left;margin-bottom:1.5rem;}\n.debrief-box h3{font-size:15px;font-weight:600;color:var(--accent);margin-bottom:14px;text-transform:uppercase;letter-spacing:0.06em;}\n.debrief-list{list-style:none;display:flex;flex-direction:column;gap:10px;}\n.debrief-list li{font-size:14px;color:var(--text-muted);line-height:1.55;padding-left:18px;position:relative;}\n.debrief-list li::before{content:'→';position:absolute;left:0;color:var(--text-faint);}\n.btn-restart{background:transparent;border:1.5px solid var(--border2);color:var(--text-muted);font-family:'DM Sans',sans-serif;font-size:15px;padding:12px 28px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;}\n.btn-restart:hover{border-color:var(--accent);color:var(--accent);}\n\n/* MODAL */\n.modal-overlay{position:fixed;inset:0;background:rgba(30,26,20,0.55);display:none;align-items:center;justify-content:center;z-index:100;padding:1rem;}\n.modal-overlay.open{display:flex;}\n.modal{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:28px;max-width:440px;width:100%;}\n.modal h3{font-size:20px;font-weight:600;margin-bottom:10px;color:var(--text);}\n.modal p{font-size:15px;color:var(--text-muted);line-height:1.65;margin-bottom:22px;}\n.modal-btn{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:12px 24px;border-radius:var(--radius);cursor:pointer;width:100%;}\n.modal-btn:hover{background:#13512E;}\n\n@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}\n.clock.urgent{animation:pulse 1s ease-in-out infinite;color:var(--danger);}\n\n@media(max-width:900px){\n  .game-body{grid-template-columns:220px 1fr 220px;}\n  .day-title{font-size:20px;}\n}\n@media(max-width:700px){\n  .game-body{grid-template-columns:1fr;overflow:visible;}\n  .panel-left{border-right:none;border-bottom:1px solid var(--border);padding:14px;}\n  .panel-right{border-left:none;border-top:1px solid var(--border);padding:14px;}\n  .roles-grid{grid-template-columns:repeat(3,1fr);gap:8px;}\n  .role-chip{padding:12px 6px;}\n  .role-chip .emoji{font-size:22px;}\n  .final-scores{grid-template-columns:repeat(3,1fr);}\n  .outcomes-grid{grid-template-columns:1fr;}\n  .topbar{padding:10px 14px;}\n  .topbar-title{font-size:14px;}\n  .day-content{padding:16px;}\n  .day-title{font-size:18px;}\n  .scenario-box{font-size:14px;padding:14px;}\n  .dilemma-text{font-size:14px;}\n  .tension-item{font-size:13px;}\n  .mountain-svg{height:70px;}\n}\n@media(max-width:480px){\n  .roles-grid{grid-template-columns:1fr 1fr;gap:6px;}\n  .role-chip{padding:10px 4px;}\n  .role-chip .emoji{font-size:20px;}\n  .role-chip .rname{font-size:11px;}\n  .role-chip .rgoal{font-size:10px;}\n  .intro-sub{font-size:15px;}\n  .btn-start{font-size:15px;padding:13px 28px;}\n  .final-scores{grid-template-columns:1fr 1fr;}\n  .final-title{font-size:1.8rem;}\n  .final-sub{font-size:14px;}\n  .fscore-card{padding:10px 4px;}\n  .fscore-name{font-size:10px;}\n  .topbar{padding:8px 12px;}\n  .clock{font-size:13px;}\n  .day-dot{width:10px;height:10px;}\n  .outcome-btn{padding:12px;}\n  .btn-next{font-size:14px;padding:12px;}\n  .fac-btn{font-size:12px;padding:8px 10px;}\n  #screen-intro{padding:1.5rem 1rem;}\n  #screen-final{padding:1.5rem 1rem;}\n}\n";
+    evStyle.textContent = "\n*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}\n\n:root{\n  --bg:#F0F4FA;\n  --surface:#FFFFFF;\n  --surface2:#E8EEF7;\n  --surface3:#D6E4F0;\n  --border:rgba(0,44,95,0.10);\n  --border2:rgba(0,44,95,0.22);\n  --text:#0A1628;\n  --text-muted:#3A5070;\n  --text-faint:#7A90A8;\n  --accent:#00A651;\n  --accent-light:#E6F7EE;\n  --accent-mid:#008A44;\n  --warn:#C06000;\n  --warn-bg:#FEF3E2;\n  --warn-mid:#C06000;\n  --danger:#B8003A;\n  --danger-bg:#FAEAEE;\n  --danger-mid:#B8003A;\n  --info:#0055A5;\n  --info-bg:#E6EEF9;\n  --navy:#002C5F;\n  --radius:10px;\n  --radius-lg:16px;\n}\nbody{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;font-size:15px;}\n\n.screen{display:none;min-height:100vh;}\n.screen.active{display:flex;flex-direction:column;}\n\n/* ── INTRO ── */\n#screen-intro{align-items:center;justify-content:center;padding:2.5rem 1.5rem;}\n.intro-inner{max-width:680px;width:100%;text-align:center;}\n.brand{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.14em;color:var(--info);margin-bottom:1.5rem;opacity:0.9;text-transform:uppercase;}\n.intro-title{font-size:clamp(3rem,8vw,5.5rem);font-weight:600;line-height:1.0;margin-bottom:1rem;color:var(--navy);}\n.intro-title span{color:var(--accent);}\n.intro-sub{font-size:17px;color:var(--text-muted);line-height:1.7;margin-bottom:2.5rem;max-width:520px;margin-left:auto;margin-right:auto;}\n\n.roles-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:2.5rem;}\n.role-chip{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:18px 10px;text-align:center;border-top:4px solid var(--border2);}\n.role-chip.r0{border-top-color:#00A651;}\n.role-chip.r1{border-top-color:#0055A5;}\n.role-chip.r2{border-top-color:#C06000;}\n.role-chip.r3{border-top-color:#6B2A8A;}\n.role-chip.r4{border-top-color:#B8003A;}\n.role-chip .emoji{font-size:28px;display:block;margin-bottom:8px;}\n.role-chip .rname{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px;}\n.role-chip .rperson{font-size:12px;color:var(--accent);font-weight:500;margin-bottom:4px;display:block;}\n.role-chip .rgoal{font-size:11px;color:var(--text-muted);line-height:1.4;}\n\n.btn-start{background:var(--accent);color:#fff;font-family:'DM Sans',sans-serif;font-size:17px;font-weight:600;border:none;padding:16px 40px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;}\n.btn-start:hover{background:#008A44;transform:translateY(-1px);}\n\n/* ── GAME ── */\n#screen-game{flex-direction:column;}\n\n.topbar{display:flex;align-items:center;gap:16px;padding:14px 24px;background:var(--navy);border-bottom:none;flex-shrink:0;}\n.topbar-title{font-size:16px;font-weight:600;color:#FFFFFF;margin-right:auto;}\n.day-indicator{display:flex;gap:8px;align-items:center;}\n.day-dot{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.35);transition:all 0.4s;}\n.day-dot.done{background:var(--accent);border-color:var(--accent);}\n.day-dot.current{background:var(--warn-mid);border-color:var(--warn-mid);}\n.clock{font-family:'DM Mono',monospace;font-size:15px;color:rgba(255,255,255,0.75);min-width:52px;text-align:right;font-weight:500;}\n\n.game-body{flex:1;display:grid;grid-template-columns:280px 1fr 260px;gap:0;overflow:hidden;}\n\n/* LEFT */\n.panel-left{background:var(--surface);border-right:1px solid var(--border);padding:18px;overflow-y:auto;}\n.panel-label{font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-faint);margin-bottom:10px;font-weight:500;}\n\n.member-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;}\n.member-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}\n.member-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}\n.member-name{font-size:14px;font-weight:600;color:var(--text);}\n.member-role{font-size:11px;color:var(--text-faint);}\n.stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}\n.stat-label{font-size:11px;color:var(--text-muted);min-width:40px;}\n.stat-bar{flex:1;height:5px;background:var(--surface3);border-radius:3px;margin:0 10px;overflow:hidden;}\n.stat-fill{height:100%;border-radius:3px;transition:width 0.5s;}\n.stat-val{font-family:'DM Mono',monospace;font-size:11px;min-width:28px;text-align:right;font-weight:500;}\n.fill-health{background:var(--accent-mid);}\n.fill-morale{background:var(--info);}\n.fill-health.low{background:var(--danger-mid);}\n.fill-health.mid{background:var(--warn-mid);}\n\n/* CENTER */\n.panel-center{display:flex;flex-direction:column;overflow:hidden;}\n.mountain-svg{width:100%;height:90px;flex-shrink:0;}\n\n.day-content{flex:1;overflow-y:auto;padding:22px 24px;}\n.day-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}\n.day-title{font-size:24px;font-weight:600;color:var(--text);}\n.day-meta{font-size:13px;color:var(--text-muted);line-height:1.5;text-align:right;}\n.weather-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:999px;font-size:13px;font-weight:500;margin-bottom:16px;}\n.weather-good{background:var(--accent-light);color:var(--accent);border:1px solid rgba(26,107,60,0.2);}\n.weather-warn{background:var(--warn-bg);color:var(--warn);border:1px solid rgba(138,88,0,0.2);}\n.weather-bad{background:var(--danger-bg);color:var(--danger);border:1px solid rgba(139,32,32,0.2);}\n\n.scenario-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;margin-bottom:16px;line-height:1.75;font-size:15px;color:var(--text-muted);}\n.scenario-box strong{color:var(--text);}\n\n.dilemma-box{background:var(--warn-bg);border:1px solid rgba(138,88,0,0.18);border-left:4px solid var(--warn-mid);border-radius:0 var(--radius) var(--radius) 0;padding:16px 18px;margin-bottom:16px;}\n.dilemma-label{font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:var(--warn);margin-bottom:6px;font-weight:600;}\n.dilemma-text{font-size:15px;line-height:1.65;color:var(--text);}\n\n.tensions-section{margin-bottom:18px;}\n.tension-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--text-muted);line-height:1.55;}\n.tension-item:last-child{border-bottom:none;}\n.tension-role{font-size:10px;font-weight:700;letter-spacing:0.07em;color:#006E35;white-space:nowrap;margin-top:2px;background:var(--accent-light);padding:2px 7px;border-radius:4px;}\n\n.outcome-label{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px;font-weight:500;}\n.outcomes-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}\n.outcome-btn{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;cursor:pointer;text-align:left;transition:all 0.15s;font-family:'DM Sans',sans-serif;}\n.outcome-btn:hover{border-color:var(--border2);background:var(--surface2);}\n.outcome-btn.good:hover{border-color:rgba(0,166,81,0.35);background:var(--accent-light);}\n.outcome-btn.bad:hover{border-color:rgba(139,32,32,0.35);background:var(--danger-bg);}\n.outcome-btn .ob-label{font-size:13px;font-weight:600;margin-bottom:5px;}\n.outcome-btn.good .ob-label{color:var(--accent);}\n.outcome-btn.bad .ob-label{color:var(--danger);}\n.outcome-btn .ob-text{font-size:13px;color:var(--text-muted);line-height:1.4;}\n.btn-next{width:100%;background:var(--accent);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:14px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;opacity:0.35;pointer-events:none;}\n.btn-next:not(:disabled){opacity:1;pointer-events:auto;}\n.btn-next:not(:disabled):hover{background:#008A44;}\n\n/* RIGHT */\n.panel-right{background:var(--surface);border-left:1px solid var(--border);padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:16px;}\n.status-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;}\n.resource-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;}\n.resource-row:last-child{margin-bottom:0;}\n.res-name{font-size:13px;color:var(--text-muted);}\n.res-val{font-family:'DM Mono',monospace;font-size:14px;font-weight:500;}\n.res-val.good{color:var(--accent);}\n.res-val.warn{color:var(--warn);}\n.res-val.bad{color:var(--danger);}\n\n.event-log{display:flex;flex-direction:column;gap:6px;max-height:160px;overflow-y:auto;}\n.log-item{font-size:12px;color:var(--text-faint);padding:7px 10px;background:var(--surface3);border-radius:6px;line-height:1.4;}\n.log-item .log-day{color:var(--accent);font-weight:700;margin-right:5px;}\n.log-item.bad{color:var(--danger);background:var(--danger-bg);}\n.log-item.good{color:var(--accent);background:var(--accent-light);}\n\n.facilitator-tools{display:flex;flex-direction:column;gap:7px;}\n.fac-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);font-family:'DM Sans',sans-serif;font-size:13px;padding:10px 12px;border-radius:var(--radius);cursor:pointer;text-align:left;transition:all 0.15s;}\n.fac-btn:hover{border-color:var(--border2);color:var(--text);background:var(--surface3);}\n.fac-btn.warn-btn:hover{border-color:rgba(138,88,0,0.4);color:var(--warn);background:var(--warn-bg);}\n.fac-btn.danger-btn:hover{border-color:rgba(139,32,32,0.4);color:var(--danger);background:var(--danger-bg);}\n\n/* FINAL */\n#screen-final{align-items:center;justify-content:center;padding:2.5rem 1.5rem;}\n.final-inner{max-width:680px;width:100%;text-align:center;}\n.final-title{font-size:clamp(2.2rem,6vw,4rem);font-weight:600;margin-bottom:10px;color:var(--text);}\n.final-sub{font-size:17px;color:var(--text-muted);margin-bottom:2rem;line-height:1.65;}\n.final-scores{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:2rem;}\n.fscore-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 8px;text-align:center;}\n.fscore-emoji{font-size:24px;margin-bottom:6px;}\n.fscore-name{font-size:11px;color:var(--text-faint);margin-bottom:6px;}\n.fscore-val{font-family:'DM Mono',monospace;font-size:17px;font-weight:500;}\n.debrief-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;text-align:left;margin-bottom:1.5rem;}\n.debrief-box h3{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:14px;text-transform:uppercase;letter-spacing:0.06em;}\n.debrief-list{list-style:none;display:flex;flex-direction:column;gap:10px;}\n.debrief-list li{font-size:14px;color:var(--text-muted);line-height:1.55;padding-left:18px;position:relative;}\n.debrief-list li::before{content:'→';position:absolute;left:0;color:var(--text-faint);}\n.btn-restart{background:transparent;border:1.5px solid var(--border2);color:var(--text-muted);font-family:'DM Sans',sans-serif;font-size:15px;padding:12px 28px;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;}\n.btn-restart:hover{border-color:var(--accent);color:var(--accent);}\n\n/* MODAL */\n.modal-overlay{position:fixed;inset:0;background:rgba(30,26,20,0.55);display:none;align-items:center;justify-content:center;z-index:100;padding:1rem;}\n.modal-overlay.open{display:flex;}\n.modal{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:28px;max-width:440px;width:100%;}\n.modal h3{font-size:20px;font-weight:600;margin-bottom:10px;color:var(--text);}\n.modal p{font-size:15px;color:var(--text-muted);line-height:1.65;margin-bottom:22px;}\n.modal-btn{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:12px 24px;border-radius:var(--radius);cursor:pointer;width:100%;}\n.modal-btn:hover{background:#13512E;}\n\n@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}\n.clock.urgent{animation:pulse 1s ease-in-out infinite;color:var(--danger);}\n\n@media(max-width:900px){\n  .game-body{grid-template-columns:220px 1fr 220px;}\n  .day-title{font-size:20px;}\n}\n@media(max-width:700px){\n  .game-body{grid-template-columns:1fr;overflow:visible;}\n  .panel-left{border-right:none;border-bottom:1px solid var(--border);padding:14px;}\n  .panel-right{border-left:none;border-top:1px solid var(--border);padding:14px;}\n  .roles-grid{grid-template-columns:repeat(3,1fr);gap:8px;}\n  .role-chip{padding:12px 6px;}\n  .role-chip .emoji{font-size:22px;}\n  .final-scores{grid-template-columns:repeat(3,1fr);}\n  .outcomes-grid{grid-template-columns:1fr;}\n  .topbar{padding:10px 14px;}\n  .topbar-title{font-size:14px;}\n  .day-content{padding:16px;}\n  .day-title{font-size:18px;}\n  .scenario-box{font-size:14px;padding:14px;}\n  .dilemma-text{font-size:14px;}\n  .tension-item{font-size:13px;}\n  .mountain-svg{height:70px;}\n}\n@media(max-width:480px){\n  .roles-grid{grid-template-columns:1fr 1fr;gap:6px;}\n  .role-chip{padding:10px 4px;}\n  .role-chip .emoji{font-size:20px;}\n  .role-chip .rname{font-size:11px;}\n  .role-chip .rgoal{font-size:10px;}\n  .intro-sub{font-size:15px;}\n  .btn-start{font-size:15px;padding:13px 28px;}\n  .final-scores{grid-template-columns:1fr 1fr;}\n  .final-title{font-size:1.8rem;}\n  .final-sub{font-size:14px;}\n  .fscore-card{padding:10px 4px;}\n  .fscore-name{font-size:10px;}\n  .topbar{padding:8px 12px;}\n  .clock{font-size:13px;}\n  .day-dot{width:10px;height:10px;}\n  .outcome-btn{padding:12px;}\n  .btn-next{font-size:14px;padding:12px;}\n  .fac-btn{font-size:12px;padding:8px 10px;}\n  #screen-intro{padding:1.5rem 1rem;}\n  #screen-final{padding:1.5rem 1rem;}\n}\n";
     document.head.appendChild(evStyle);
   }
   
   // Inject HTML
-  container.innerHTML = '<!-- INTRO -->\n<div class="screen active" id="screen-intro">\n  <div class="intro-inner">\n    <div class="brand">Simulación · Liderazgo · Trabajo en equipo</div>\n    <div class="intro-title">🏔 <span>Everest</span></div>\n    <p class="intro-sub">Tu equipo tiene 6 días para llegar a la cima. Cada decisión afecta la salud, el clima y las metas individuales. El éxito requiere comunicación, liderazgo real y saber cuándo retirarse.</p>\n    <div class="roles-grid">\n      <div class="role-chip r0"><span class="emoji">🧗</span><span class="rname">Líder</span><div class="rgoal">Llegar a la cima sin importar el costo</div></div>\n      <div class="role-chip r1"><span class="emoji">🏥</span><span class="rname">Médico</span><div class="rgoal">Que todos regresen con vida</div></div>\n      <div class="role-chip r2"><span class="emoji">📸</span><span class="rname">Fotógrafo</span><div class="rgoal">Foto en la cima o el proyecto fracasa</div></div>\n      <div class="role-chip r3"><span class="emoji">🔬</span><span class="rname">Científico</span><div class="rgoal">Recolectar datos en campo 5 y 6</div></div>\n      <div class="role-chip r4"><span class="emoji">💰</span><span class="rname">Sponsor</span><div class="rgoal">ROI y visibilidad mediática, o retira fondos</div></div>\n    </div>\n    <button class="btn-start" onclick="startGame()">Iniciar simulación →</button>\n  </div>\n</div>\n\n<!-- GAME -->\n<div class="screen" id="screen-game">\n  <div class="topbar">\n    <button onclick=\"goMenu()\" style=\"flex-shrink:0;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:13px;font-weight:500;cursor:pointer;color:var(--text);display:inline-flex;align-items:center;gap:6px;\"><svg width=\"10\" height=\"10\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" style=\"display:inline-block;vertical-align:middle\"><path d=\"M10 3L5 8L10 13\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg> Men\u00fa</button> <span class="topbar-title">🏔 Everest — Simulación de Liderazgo</span>\n    <div class="day-indicator" id="day-dots"></div>\n    <span class="clock" id="clock">60:00</span>\n  </div>\n  <div class="game-body">\n    <div class="panel-left">\n      <div class="panel-label">Estado del equipo</div>\n      <div id="team-cards"></div>\n    </div>\n    <div class="panel-center">\n      <svg class="mountain-svg" viewBox="0 0 700 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">\n        <polygon points="0,90 200,18 350,4 500,28 700,90" fill="rgba(26,107,60,0.08)" stroke="rgba(26,107,60,0.25)" stroke-width="1.5"/>\n        <circle id="team-marker" cx="50" cy="86" r="7" fill="#00A651"/>\n        <text id="marker-label" x="50" y="73" font-family="DM Sans" font-size="9" fill="#00A651" text-anchor="middle" font-weight="600">Base</text>\n      </svg>\n      <div class="day-content" id="day-content"></div>\n    </div>\n    <div class="panel-right">\n      <div class="status-block">\n        <div class="panel-label">Recursos</div>\n        <div id="resources-display"></div>\n      </div>\n      <div class="status-block">\n        <div class="panel-label">Registro de eventos</div>\n        <div class="event-log" id="event-log"></div>\n      </div>\n      <div>\n        <div class="panel-label">Herramientas del facilitador</div>\n        <div class="facilitator-tools">\n          <button class="fac-btn warn-btn" onclick="triggerEvent(\'storm\')">⛈ Activar tormenta repentina</button>\n          <button class="fac-btn danger-btn" onclick="triggerEvent(\'injury\')">🩹 Lesión en miembro del equipo</button>\n          <button class="fac-btn warn-btn" onclick="triggerEvent(\'oxygen\')">💨 Falla de oxígeno</button>\n          <button class="fac-btn" onclick="triggerEvent(\'rescue\')">🚁 Oferta de rescate disponible</button>\n          <button class="fac-btn danger-btn" onclick="triggerEvent(\'death_zone\')">☠️ Alerta zona de muerte</button>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<!-- FINAL -->\n<div class="screen" id="screen-final">\n  <div class="final-inner">\n    <div class="final-title" id="final-title">Simulación completa</div>\n    <p class="final-sub" id="final-sub"></p>\n    <div class="final-scores" id="final-scores"></div>\n    <div class="debrief-box">\n      <h3>Preguntas de debriefing</h3>\n      <ul class="debrief-list">\n        <li>¿En qué momentos el equipo priorizó metas individuales sobre la supervivencia del grupo?</li>\n        <li>¿Quién ejerció liderazgo real? ¿Coincidió con el rol asignado de "Líder"?</li>\n        <li>¿Cuándo fue necesario tomar una decisión impopular? ¿Cómo reaccionó el equipo?</li>\n        <li>¿Qué información ignoraron que luego resultó crítica?</li>\n        <li>¿Cómo manejaron el conflicto entre la misión (cima) y la responsabilidad (regresar seguros)?</li>\n        <li>¿Qué cambiarían en la forma de comunicar y decidir en su trabajo diario?</li>\n      </ul>\n    </div>\n    <button class="btn-restart" onclick="restartGame()">↺ Reiniciar simulación</button>\n  </div>\n</div>\n\n<!-- MODAL -->\n<div class="modal-overlay" id="modal">\n  <div class="modal">\n    <h3 id="modal-title">Evento inesperado</h3>\n    <p id="modal-body"></p>\n    <button class="modal-btn" onclick="closeModal()">El equipo decide →</button>\n  </div>\n</div>';
+  container.innerHTML = '<!-- INTRO -->\n<div class="screen active" id="screen-intro">\n  <div class="intro-inner">\n    <div class="brand">Simulación · Liderazgo · Trabajo en equipo</div>\n    <div class="intro-title">🏔 <span>Everest</span></div>\n    <p class="intro-sub">Tu equipo tiene 6 días para llegar a la cima. Cada decisión afecta la salud, el clima y las metas individuales. El éxito requiere comunicación, liderazgo real y saber cuándo retirarse.</p>\n    <div class="roles-grid">\n      <div class="role-chip r0"><span class="emoji">🧗</span><span class="rname">Líder</span><div class="rgoal">Llegar a la cima sin importar el costo</div></div>\n      <div class="role-chip r1"><span class="emoji">🏥</span><span class="rname">Médico</span><div class="rgoal">Que todos regresen con vida</div></div>\n      <div class="role-chip r2"><span class="emoji">📸</span><span class="rname">Fotógrafo</span><div class="rgoal">Foto en la cima o el proyecto fracasa</div></div>\n      <div class="role-chip r3"><span class="emoji">🔬</span><span class="rname">Científico</span><div class="rgoal">Recolectar datos en campo 5 y 6</div></div>\n      <div class="role-chip r4"><span class="emoji">💰</span><span class="rname">Sponsor</span><div class="rgoal">ROI y visibilidad mediática, o retira fondos</div></div>\n    </div>\n    <button class="btn-start" onclick="startGame()">Iniciar simulación →</button>\n  </div>\n</div>\n\n<!-- GAME -->\n<div class="screen" id="screen-game">\n  <div class="topbar">\n    <button onclick=\"goMenu()\" style=\"flex-shrink:0;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:8px;padding:6px 12px;font-size:13px;font-weight:500;cursor:pointer;color:#FFFFFF;display:inline-flex;align-items:center;gap:6px;\"><svg width=\"10\" height=\"10\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" style=\"display:inline-block;vertical-align:middle\"><path d=\"M10 3L5 8L10 13\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg> Men\u00fa</button> <span class="topbar-title">🏔 Everest — Simulación de Liderazgo</span>\n    <div class="day-indicator" id="day-dots"></div>\n    <span class="clock" id="clock">60:00</span>\n  </div>\n  <div class="game-body">\n    <div class="panel-left">\n      <div class="panel-label">Estado del equipo</div>\n      <div id="team-cards"></div>\n    </div>\n    <div class="panel-center">\n      <svg class="mountain-svg" viewBox="0 0 700 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">\n        <polygon points="0,90 200,18 350,4 500,28 700,90" fill="rgba(26,107,60,0.08)" stroke="rgba(26,107,60,0.25)" stroke-width="1.5"/>\n        <circle id="team-marker" cx="50" cy="86" r="7" fill="#00A651"/>\n        <text id="marker-label" x="50" y="73" font-family="DM Sans" font-size="9" fill="#00A651" text-anchor="middle" font-weight="600">Base</text>\n      </svg>\n      <div class="day-content" id="day-content"></div>\n    </div>\n    <div class="panel-right">\n      <div class="status-block">\n        <div class="panel-label">Recursos</div>\n        <div id="resources-display"></div>\n      </div>\n      <div class="status-block">\n        <div class="panel-label">Registro de eventos</div>\n        <div class="event-log" id="event-log"></div>\n      </div>\n      <div>\n        <div class="panel-label">Herramientas del facilitador</div>\n        <div class="facilitator-tools">\n          <button class="fac-btn warn-btn" onclick="triggerEvent(\'storm\')">⛈ Activar tormenta repentina</button>\n          <button class="fac-btn danger-btn" onclick="triggerEvent(\'injury\')">🩹 Lesión en miembro del equipo</button>\n          <button class="fac-btn warn-btn" onclick="triggerEvent(\'oxygen\')">💨 Falla de oxígeno</button>\n          <button class="fac-btn" onclick="triggerEvent(\'rescue\')">🚁 Oferta de rescate disponible</button>\n          <button class="fac-btn danger-btn" onclick="triggerEvent(\'death_zone\')">☠️ Alerta zona de muerte</button>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<!-- FINAL -->\n<div class="screen" id="screen-final">\n  <div class="final-inner">\n    <div class="final-title" id="final-title">Simulación completa</div>\n    <p class="final-sub" id="final-sub"></p>\n    <div class="final-scores" id="final-scores"></div>\n    <div class="debrief-box">\n      <h3>Preguntas de debriefing</h3>\n      <ul class="debrief-list">\n        <li>¿En qué momentos el equipo priorizó metas individuales sobre la supervivencia del grupo?</li>\n        <li>¿Quién ejerció liderazgo real? ¿Coincidió con el rol asignado de "Líder"?</li>\n        <li>¿Cuándo fue necesario tomar una decisión impopular? ¿Cómo reaccionó el equipo?</li>\n        <li>¿Qué información ignoraron que luego resultó crítica?</li>\n        <li>¿Cómo manejaron el conflicto entre la misión (cima) y la responsabilidad (regresar seguros)?</li>\n        <li>¿Qué cambiarían en la forma de comunicar y decidir en su trabajo diario?</li>\n      </ul>\n    </div>\n    <button class="btn-restart" onclick="restartGame()">↺ Reiniciar simulación</button>\n  </div>\n</div>\n\n<!-- MODAL -->\n<div class="modal-overlay" id="modal">\n  <div class="modal">\n    <h3 id="modal-title">Evento inesperado</h3>\n    <p id="modal-body"></p>\n    <button class="modal-btn" onclick="closeModal()">El equipo decide →</button>\n  </div>\n</div>';
   
   // Run Everest JS — expose functions to window so onclick handlers work
   (function() {
@@ -1350,313 +1350,266 @@ const TEAM = [
 ];
 
 const DAYS_POOL = [
-  // DAY 1 — Campo Base (5,364m)
+  // ══ DAY 1 — Campo Base (5,364m) ══ 5 scenarios
   [
     {
-      title:'Día 1 — Campo Base',altitude:'5,364 m',
-      weather:'good',weatherLabel:'☀ Despejado y cálido',
-      scenario:'El equipo llega al campo base tras semanas de aclimatación. Ambiente de euforia pero los sherpas advierten que la ventana climática podría cerrarse en el día 4.',
+      title:'Día 1 — Campo Base',altitude:'5,364 m',weather:'good',weatherLabel:'☀ Despejado y cálido',
+      scenario:'El equipo llega al campo base tras semanas de aclimatación. Euforia y nerviosismo. La ventana climática podría cerrarse en el día 4.',
       dilemma:'El Sponsor presiona para salir mañana al amanecer. El Médico recomienda 24 horas más de aclimatación.',
-      tensions:[
-        {role:'LÍDER',text:'¿Salimos mañana y arriesgamos la aclimatación, o esperamos y perdemos la ventana?'},
-        {role:'MÉDICO',text:'El equipo no está listo. Una salida apresurada puede causar edema cerebral.'},
-        {role:'SPONSOR',text:'Cada día de retraso cuesta $15,000. Necesito resultados visibles.'},
-      ],
-      outcomes:[
-        {label:'Salida temprana',type:'bad',text:'Ahorra 1 día, pero salud −10 en todos.',effect:()=>{applyToAll('health',-10);logEvent('Salida apresurada — AMS leve en equipo','bad')}},
-        {label:'Aclimatación completa',type:'good',text:'Moral +10. Salud óptima.',effect:()=>{applyToAll('morale',10);logEvent('Aclimatación completa — equipo en forma','good')}},
-      ],
+      tensions:[{role:'LÍDER',text:'¿Salimos mañana y arriesgamos la aclimatación, o esperamos y perdemos la ventana?'},{role:'MÉDICO',text:'El equipo no está listo. Una salida apresurada puede causar edema cerebral.'},{role:'SPONSOR',text:'Cada día de retraso cuesta $15,000. Necesito resultados visibles.'}],
+      outcomes:[{label:'Salida temprana',type:'bad',text:'Ahorra 1 día, pero salud −10 en todos.',effect:()=>{applyToAll('health',-10);logEvent('Salida apresurada — AMS leve en equipo','bad')}},{label:'Aclimatación completa',type:'good',text:'Moral +10. Salud óptima.',effect:()=>{applyToAll('morale',10);logEvent('Aclimatación completa — equipo en forma','good')}}],
       markerX:80,markerY:86,markerLabel:'Base 5,364m'
     },
     {
-      title:'Día 1 — Campo Base',altitude:'5,364 m',
-      weather:'warn',weatherLabel:'⛅ Viento moderado',
-      scenario:'Al llegar al campo base, el equipo encuentra a otro grupo de expedición que ocupa los mejores espacios. Hay tensión sobre los recursos compartidos: oxígeno, guías y zona de cocina.',
+      title:'Día 1 — Campo Base',altitude:'5,364 m',weather:'warn',weatherLabel:'⛅ Viento moderado',
+      scenario:'Al llegar al campo base, el equipo encuentra a otro grupo que ocupa los mejores espacios. Hay tensión sobre recursos compartidos: oxígeno, guías y zona de cocina.',
       dilemma:'¿Negocian un acuerdo de recursos con el otro equipo o avanzan de forma independiente y arriesgan quedarse sin guías de apoyo?',
-      tensions:[
-        {role:'LÍDER',text:'Si no acordamos ahora, competiremos por los mismos guías en cumbre. Eso es peligroso.'},
-        {role:'SPONSOR',text:'No venimos a compartir la cima. El crédito mediático es nuestro.'},
-        {role:'FOTÓGRAFO',text:'El otro equipo tiene equipo fotográfico superior. Podría ser una amenaza o una oportunidad.'},
-      ],
-      outcomes:[
-        {label:'Negociar acuerdo de recursos',type:'good',text:'Acceso a guías extra. Moral +8.',effect:()=>{applyToAll('morale',8);logEvent('Acuerdo con equipo rival — guías compartidos','good')}},
-        {label:'Operar de forma independiente',type:'bad',text:'Tensión con el otro equipo. Salud −5 todos.',effect:()=>{applyToAll('health',-5);logEvent('Tensión con equipo rival — ambiente hostil','bad')}},
-      ],
+      tensions:[{role:'LÍDER',text:'Si no acordamos ahora, competiremos por los mismos guías en cumbre. Eso es peligroso.'},{role:'SPONSOR',text:'No venimos a compartir la cima. El crédito mediático es nuestro.'},{role:'FOTÓGRAFO',text:'El otro equipo tiene equipo fotográfico superior. Podría ser una amenaza o una oportunidad.'}],
+      outcomes:[{label:'Negociar acuerdo de recursos',type:'good',text:'Acceso a guías extra. Moral +8.',effect:()=>{applyToAll('morale',8);logEvent('Acuerdo con equipo rival — guías compartidos','good')}},{label:'Operar de forma independiente',type:'bad',text:'Tensión con el otro equipo. Salud −5 todos.',effect:()=>{applyToAll('health',-5);logEvent('Tensión con equipo rival — ambiente hostil','bad')}}],
       markerX:80,markerY:86,markerLabel:'Base 5,364m'
     },
     {
-      title:'Día 1 — Campo Base',altitude:'5,364 m',
-      weather:'good',weatherLabel:'☀ Cielo despejado',
-      scenario:'El equipo recibe información de que una avalancha cerró la ruta norte hace 3 días. La única alternativa es la ruta sur, más larga y técnicamente difícil, pero más segura.',
-      dilemma:'Tomar la ruta sur segura pero que consume 2 días extra, o intentar reabrir la ruta norte con los sherpas.',
-      tensions:[
-        {role:'LÍDER',text:'La ruta sur es más larga pero no puedo arriesgar el equipo en terreno no evaluado.'},
-        {role:'CIENTÍFICO',text:'La ruta norte tiene mis puntos de muestreo críticos. Cambiar invalida meses de preparación.'},
-        {role:'SPONSOR',text:'2 días más de expedición = $30,000 adicionales. Necesito justificación.'},
-      ],
-      outcomes:[
-        {label:'Ruta sur — más segura',type:'good',text:'Sin riesgo de avalancha. Salud +5.',effect:()=>{applyToAll('health',5);logEvent('Ruta sur elegida — terreno evaluado y seguro','good')}},
-        {label:'Intentar reabrir ruta norte',type:'bad',text:'Ganan tiempo pero salud −15 todos.',effect:()=>{applyToAll('health',-15);logEvent('Ruta norte — exposición a zona inestable','bad')}},
-      ],
+      title:'Día 1 — Campo Base',altitude:'5,364 m',weather:'good',weatherLabel:'☀ Cielo despejado',
+      scenario:'Una avalancha cerró la ruta norte hace 3 días. La única alternativa es la ruta sur, más larga y técnicamente difícil, pero más segura.',
+      dilemma:'Tomar la ruta sur segura que consume 2 días extra, o intentar reabrir la ruta norte con los sherpas.',
+      tensions:[{role:'LÍDER',text:'La ruta sur es más larga pero no puedo arriesgar al equipo en terreno no evaluado.'},{role:'CIENTÍFICO',text:'La ruta norte tiene mis puntos de muestreo críticos. Cambiar invalida meses de preparación.'},{role:'SPONSOR',text:'2 días más de expedición = $30,000 adicionales. Necesito justificación.'}],
+      outcomes:[{label:'Ruta sur — más segura',type:'good',text:'Sin riesgo de avalancha. Salud +5.',effect:()=>{applyToAll('health',5);logEvent('Ruta sur elegida — terreno evaluado y seguro','good')}},{label:'Intentar reabrir ruta norte',type:'bad',text:'Ganan tiempo pero salud −15 todos.',effect:()=>{applyToAll('health',-15);logEvent('Ruta norte — exposición a zona inestable','bad')}}],
+      markerX:80,markerY:86,markerLabel:'Base 5,364m'
+    },
+    {
+      title:'Día 1 — Campo Base',altitude:'5,364 m',weather:'warn',weatherLabel:'🌬 Viento en aumento',
+      scenario:'El sherpa jefe informa que hay un conflicto salarial entre los sherpas de apoyo. Si no se resuelve esta noche, amenazan con no participar en la expedición.',
+      dilemma:'¿El equipo cede y aumenta el salario de los sherpas, o mantiene los términos originales del contrato?',
+      tensions:[{role:'LÍDER',text:'Sin sherpas no hay expedición. Esto es una negociación, no una derrota.'},{role:'SPONSOR',text:'Ceder ante la presión sienta un precedente peligroso. El contrato es el contrato.'},{role:'MÉDICO',text:'La tensión en el campamento afecta la moral de todo el equipo antes de comenzar.'}],
+      outcomes:[{label:'Aumentar salario 20% — resolver conflicto',type:'good',text:'Sherpas comprometidos. Moral equipo +10.',effect:()=>{applyToAll('morale',10);logEvent('Conflicto salarial resuelto — sherpas motivados','good')}},{label:'Mantener contrato original',type:'bad',text:'Sherpas desmotivados. Salud −8 todos.',effect:()=>{applyToAll('health',-8);logEvent('Tensión con sherpas — ambiente de inicio comprometido','bad')}}],
+      markerX:80,markerY:86,markerLabel:'Base 5,364m'
+    },
+    {
+      title:'Día 1 — Campo Base',altitude:'5,364 m',weather:'bad',weatherLabel:'❄ Tormenta pasajera',
+      scenario:'Una tormenta corta pero intensa daña el equipo de comunicaciones. Sin radio funcionando, el equipo pierde contacto con el soporte en base avanzada. Repararlo toma tiempo o implica esperar rescate técnico.',
+      dilemma:'¿Improvisan reparando la radio con los materiales disponibles, o esperan al técnico que llega en 18 horas?',
+      tensions:[{role:'CIENTÍFICO',text:'Puedo intentar la reparación. He trabajado con equipos similares antes.'},{role:'LÍDER',text:'Si la reparación falla, quedamos sin comunicaciones y sin radio de emergencia.'},{role:'SPONSOR',text:'18 horas de espera significa perder otro día de ventana climática.'}],
+      outcomes:[{label:'Reparación improvisada',type:'bad',text:'Radio funcional al 60%. Salud −5 todos por estrés.',effect:()=>{applyToAll('health',-5);logEvent('Radio reparada parcialmente — comunicación degradada','bad')}},{label:'Esperar técnico 18 horas',type:'good',text:'Radio perfecta. Moral −5 por la espera.',effect:()=>{applyToAll('morale',-5);logEvent('Técnico llega — radio completamente funcional','good')}}],
       markerX:80,markerY:86,markerLabel:'Base 5,364m'
     },
   ],
-  // DAY 2 — Campo 1 (6,065m)
+  // ══ DAY 2 — Campo 1 (6,065m) ══ 5 scenarios
   [
     {
-      title:'Día 2 — Campo 1',altitude:'6,065 m',
-      weather:'good',weatherLabel:'☀ Viento leve',
-      scenario:'A 6,000m el oxígeno es el 60% del nivel del mar. Un miembro muestra síntomas de mal de altura: dolor de cabeza severo y vómitos.',
-      dilemma:'El Médico diagnostica AMS moderada en el Científico. Puede seguir con medicación y riesgo, o descender y perder datos críticos.',
-      tensions:[
-        {role:'CIENTÍFICO',text:'Mis datos en este campo son irreemplazables. Seguiré con diamox aunque duela.'},
-        {role:'MÉDICO',text:'Ignorar esto es irresponsable. Puede empeorar a HACE en 6 horas.'},
-        {role:'LÍDER',text:'Si bajamos perdemos 1 día de ventana. Decidan ahora.'},
-      ],
-      outcomes:[
-        {label:'Científico descansa en C1',type:'good',text:'Se recupera. Pierde datos parciales.',effect:()=>{applyOne('sci','health',15);applyToAll('morale',5);logEvent('Científico descansa — recuperación exitosa','good')}},
-        {label:'Continúa con medicación',type:'bad',text:'Avanza pero salud −20.',effect:()=>{applyOne('sci','health',-20);logEvent('Científico fuerza ascenso — riesgo HACE','bad')}},
-      ],
+      title:'Día 2 — Campo 1',altitude:'6,065 m',weather:'good',weatherLabel:'☀ Viento leve',
+      scenario:'A 6,000m el oxígeno es el 60% del nivel del mar. El Científico muestra síntomas de AMS: dolor de cabeza severo y vómitos.',
+      dilemma:'El Médico diagnostica AMS moderada. El Científico puede seguir con medicación y riesgo, o descender y perder datos críticos.',
+      tensions:[{role:'CIENTÍFICO',text:'Mis datos en este campo son irreemplazables. Seguiré con diamox aunque duela.'},{role:'MÉDICO',text:'Ignorar esto es irresponsable. Puede empeorar a HACE en 6 horas.'},{role:'LÍDER',text:'Si bajamos perdemos 1 día de ventana. Decidan ahora.'}],
+      outcomes:[{label:'Científico descansa en C1',type:'good',text:'Se recupera. Pierde datos parciales.',effect:()=>{applyOne('sci','health',15);applyToAll('morale',5);logEvent('Científico descansa — recuperación exitosa','good')}},{label:'Continúa con medicación',type:'bad',text:'Avanza pero salud −20.',effect:()=>{applyOne('sci','health',-20);logEvent('Científico fuerza ascenso — riesgo HACE','bad')}}],
       markerX:180,markerY:50,markerLabel:'C1 6,065m'
     },
     {
-      title:'Día 2 — Campo 1',altitude:'6,065 m',
-      weather:'warn',weatherLabel:'⛅ Nubes bajas',
+      title:'Día 2 — Campo 1',altitude:'6,065 m',weather:'warn',weatherLabel:'⛅ Nubes bajas',
       scenario:'El equipo descubre que 2 de los 4 cilindros de oxígeno suplementario están defectuosos. Hay suficiente para 3 personas hasta la cumbre, no para 5.',
-      dilemma:'¿Quién va sin oxígeno suplementario? ¿Regresan a base por más y pierden 2 días, o improvisan racionando?',
-      tensions:[
-        {role:'MÉDICO',text:'Sin oxígeno adecuado sobre 7,500m, el riesgo de muerte aumenta exponencialmente.'},
-        {role:'LÍDER',text:'Alguien tiene que asumir el riesgo. Necesito voluntarios, no quejas.'},
-        {role:'SPONSOR',text:'Si volvemos por oxígeno perdemos la ventana. El contrato tiene una cláusula de fecha límite.'},
-      ],
-      outcomes:[
-        {label:'Regresar a base por oxígeno',type:'good',text:'Equipo seguro. Pierden 2 días.',effect:()=>{applyToAll('morale',-5);logEvent('Regreso a base — oxígeno reemplazado, 2 días perdidos','good')}},
-        {label:'Racionar el oxígeno disponible',type:'bad',text:'Avanzan. Salud −15 a dos miembros.',effect:()=>{applyOne('leader','health',-15);applyOne('photo','health',-15);logEvent('Racionamiento de O₂ — riesgo hipoxia','bad')}},
-      ],
+      dilemma:'¿Quién va sin oxígeno suplementario? ¿Regresan a base por más y pierden 2 días, o racionan lo que tienen?',
+      tensions:[{role:'MÉDICO',text:'Sin oxígeno adecuado sobre 7,500m, el riesgo de muerte aumenta exponencialmente.'},{role:'LÍDER',text:'Alguien tiene que asumir el riesgo. Necesito voluntarios, no quejas.'},{role:'SPONSOR',text:'Si volvemos por oxígeno perdemos la ventana. El contrato tiene una cláusula de fecha límite.'}],
+      outcomes:[{label:'Regresar a base por oxígeno',type:'good',text:'Equipo seguro. Pierden 2 días.',effect:()=>{applyToAll('morale',-5);logEvent('Regreso a base — oxígeno reemplazado, 2 días perdidos','good')}},{label:'Racionar el oxígeno disponible',type:'bad',text:'Avanzan. Salud −15 a dos miembros.',effect:()=>{applyOne('leader','health',-15);applyOne('photo','health',-15);logEvent('Racionamiento de O₂ — riesgo hipoxia','bad')}}],
       markerX:180,markerY:50,markerLabel:'C1 6,065m'
     },
     {
-      title:'Día 2 — Campo 1',altitude:'6,065 m',
-      weather:'bad',weatherLabel:'🌬 Viento fuerte',
+      title:'Día 2 — Campo 1',altitude:'6,065 m',weather:'bad',weatherLabel:'🌬 Viento fuerte',
       scenario:'Una expedición italiana perdió a un sherpa en la pared norte. El equipo escucha la llamada de socorro. Desviarse para ayudar significa perder el ritmo y posiblemente la ventana climática.',
-      dilemma:'¿El equipo desvía su ruta para participar en el rescate, o continúa su ascenso y notifica a los equipos de rescate profesionales?',
-      tensions:[
-        {role:'MÉDICO',text:'Hay un hombre en peligro de muerte. Tenemos el equipo médico. No hay discusión.'},
-        {role:'LÍDER',text:'Los rescates en altitud son extremadamente peligrosos. Podemos perder miembros nuestros.'},
-        {role:'SPONSOR',text:'Participar en el rescate genera cobertura mediática positiva. Hay ángulo aquí.'},
-      ],
-      outcomes:[
-        {label:'Participar activamente en el rescate',type:'bad',text:'Salvan al sherpa. Salud −10 equipo. Moral +15.',effect:()=>{applyToAll('health',-10);applyToAll('morale',15);logEvent('Rescate exitoso — equipo agotado pero unido','good')}},
-        {label:'Notificar y continuar ascenso',type:'good',text:'Avanza sin desgaste. Moral −10.',effect:()=>{applyToAll('morale',-10);logEvent('Continúan ascenso — tension moral en equipo','bad')}},
-      ],
+      dilemma:'¿El equipo participa en el rescate o continúa el ascenso y notifica a los equipos de rescate profesionales?',
+      tensions:[{role:'MÉDICO',text:'Hay un hombre en peligro de muerte. Tenemos el equipo médico. No hay discusión.'},{role:'LÍDER',text:'Los rescates en altitud son extremadamente peligrosos. Podemos perder miembros nuestros.'},{role:'SPONSOR',text:'Participar en el rescate genera cobertura mediática positiva. Hay ángulo aquí.'}],
+      outcomes:[{label:'Participar activamente en el rescate',type:'bad',text:'Salvan al sherpa. Salud −10 equipo. Moral +15.',effect:()=>{applyToAll('health',-10);applyToAll('morale',15);logEvent('Rescate exitoso — equipo agotado pero unido','good')}},{label:'Notificar y continuar ascenso',type:'good',text:'Avanza sin desgaste. Moral −10.',effect:()=>{applyToAll('morale',-10);logEvent('Continúan ascenso — tensión moral en equipo','bad')}}],
+      markerX:180,markerY:50,markerLabel:'C1 6,065m'
+    },
+    {
+      title:'Día 2 — Campo 1',altitude:'6,065 m',weather:'warn',weatherLabel:'⛅ Cielo variable',
+      scenario:'El Fotógrafo descubre que su cámara principal falló por el frío extremo. La de repuesto tiene el 40% de la resolución. Sin las fotos prometidas, el contrato mediático podría caerse.',
+      dilemma:'¿El equipo desvía un día para buscar una cámara de reemplazo con un equipo de soporte a 4 horas, o continúan con el equipo degradado?',
+      tensions:[{role:'FOTÓGRAFO',text:'Sin las fotos correctas, toda esta expedición es un fracaso para mí.'},{role:'LÍDER',text:'Un día perdido ahora puede significar perder la ventana completa.'},{role:'SPONSOR',text:'El contrato mediático vale $80,000. Una cámara de reemplazo vale la inversión.'}],
+      outcomes:[{label:'Buscar cámara de reemplazo',type:'good',text:'Fotos garantizadas. Moral Fotógrafo +15. Pierden 1 día.',effect:()=>{applyOne('photo','morale',15);applyToAll('morale',-3);logEvent('Cámara reemplazada — calidad fotográfica asegurada','good')}},{label:'Continuar con equipo degradado',type:'bad',text:'Avanzan. Fotógrafo moral −20.',effect:()=>{applyOne('photo','morale',-20);logEvent('Fotógrafo continúa con cámara degradada — frustración alta','bad')}}],
+      markerX:180,markerY:50,markerLabel:'C1 6,065m'
+    },
+    {
+      title:'Día 2 — Campo 1',altitude:'6,065 m',weather:'good',weatherLabel:'☀ Ventana estable',
+      scenario:'El Médico detecta que el Líder lleva signos de agotamiento severo no declarado. Durmió 3 horas las últimas dos noches coordinando la logística. El equipo no lo sabe.',
+      dilemma:'¿El Médico revela el estado del Líder al grupo, o gestiona el problema en privado para no afectar la moral?',
+      tensions:[{role:'MÉDICO',text:'El Líder está poniendo en riesgo su vida y la del equipo por no delegar.'},{role:'LÍDER',text:'Si el equipo sabe que estoy mal, pierden confianza justo cuando más me necesitan.'},{role:'CIENTÍFICO',text:'El liderazgo distribuido existe para estos momentos. El equipo puede asumir más responsabilidad.'}],
+      outcomes:[{label:'Revelar el estado al equipo — repartir carga',type:'good',text:'Equipo asume más. Líder salud +15. Moral equipo +5.',effect:()=>{applyOne('leader','health',15);applyToAll('morale',5);logEvent('Liderazgo distribuido — carga compartida exitosamente','good')}},{label:'El Líder sigue solo sin decir nada',type:'bad',text:'Líder salud −20. Riesgo de colapso.',effect:()=>{applyOne('leader','health',-20);logEvent('Líder oculta agotamiento — riesgo de colapso en ascenso','bad')}}],
       markerX:180,markerY:50,markerLabel:'C1 6,065m'
     },
   ],
-  // DAY 3 — Campo 2 (6,500m)
+  // ══ DAY 3 — Campo 2 (6,500m) ══ 5 scenarios
   [
     {
-      title:'Día 3 — Campo 2',altitude:'6,500 m',
-      weather:'warn',weatherLabel:'⛅ Nubes altas — posible tormenta en 48h',
+      title:'Día 3 — Campo 2',altitude:'6,500 m',weather:'warn',weatherLabel:'⛅ Posible tormenta en 48h',
       scenario:'El equipo llega a Campo 2 con desgaste visible. El Fotógrafo recibe mensaje: sin fotos de campo 4 y cumbre, el contrato se cancela.',
       dilemma:'El pronóstico muestra tormenta en 48 horas. Si no llegan a C3 mañana, la ventana se cierra.',
-      tensions:[
-        {role:'FOTÓGRAFO',text:'Sin las fotos mi carrera termina. Necesito llegar a C4 sí o sí.'},
-        {role:'MÉDICO',text:'El equipo está al límite fisiológico. Otro día de push puede ser irreversible.'},
-        {role:'LÍDER',text:'Si descansamos hoy, mañana hacemos doble etapa. ¿El equipo aguanta?'},
-      ],
-      outcomes:[
-        {label:'Push hacia C3 mañana temprano',type:'bad',text:'Salud −15 todos.',effect:()=>{applyToAll('health',-15);logEvent('Push forzado — equipo al límite físico','bad')}},
-        {label:'Rotación de acclimatación y descanso',type:'good',text:'Salud +10. Pierden 12h.',effect:()=>{applyToAll('health',10);logEvent('Descanso estratégico — equipo recuperado','good')}},
-      ],
+      tensions:[{role:'FOTÓGRAFO',text:'Sin las fotos mi carrera termina. Necesito llegar a C4 sí o sí.'},{role:'MÉDICO',text:'El equipo está al límite fisiológico. Otro día de push puede ser irreversible.'},{role:'LÍDER',text:'Si descansamos hoy, mañana hacemos doble etapa. ¿El equipo aguanta?'}],
+      outcomes:[{label:'Push hacia C3 mañana temprano',type:'bad',text:'Salud −15 todos.',effect:()=>{applyToAll('health',-15);logEvent('Push forzado — equipo al límite físico','bad')}},{label:'Rotación de aclimatación y descanso',type:'good',text:'Salud +10. Pierden 12h.',effect:()=>{applyToAll('health',10);logEvent('Descanso estratégico — equipo recuperado','good')}}],
       markerX:290,markerY:28,markerLabel:'C2 6,500m'
     },
     {
-      title:'Día 3 — Campo 2',altitude:'6,500 m',
-      weather:'bad',weatherLabel:'❄ Nevada ligera',
-      scenario:'En la noche, el Sponsor le revela al Líder que el contrato de patrocinio tiene una cláusula: si el equipo no llega a la cima antes del día 5, los fondos se retiran y todos pierden su pago.',
+      title:'Día 3 — Campo 2',altitude:'6,500 m',weather:'bad',weatherLabel:'❄ Nevada ligera',
+      scenario:'El Sponsor le revela al Líder que el contrato de patrocinio tiene una cláusula: si el equipo no llega a la cima antes del día 5, los fondos se retiran.',
       dilemma:'El Líder debe decidir si revelar esta información al equipo o cargar con la presión solo para no afectar la moral.',
-      tensions:[
-        {role:'LÍDER',text:'Si les digo, el pánico puede matarlos. Si no les digo, pierdo su confianza si algo sale mal.'},
-        {role:'SPONSOR',text:'Era información confidencial. Si se filtra al equipo, el trato está roto.'},
-        {role:'MÉDICO',text:'El equipo tiene derecho a tomar decisiones informadas sobre su propia vida.'},
-      ],
-      outcomes:[
-        {label:'Revelar la cláusula al equipo',type:'good',text:'Moral −5 pero confianza +. Equipo decide unido.',effect:()=>{applyToAll('morale',-5);applyOne('spon','morale',-15);logEvent('Líder revela cláusula — tensión con Sponsor','bad')}},
-        {label:'Cargar con el secreto y presionar el ritmo',type:'bad',text:'Salud −10 equipo. Sponsor +moral.',effect:()=>{applyToAll('health',-10);applyOne('spon','morale',10);logEvent('Secreto mantenido — ritmo forzado sin explicación','bad')}},
-      ],
+      tensions:[{role:'LÍDER',text:'Si les digo, el pánico puede matarlos. Si no les digo, pierdo su confianza si algo sale mal.'},{role:'SPONSOR',text:'Era información confidencial. Si se filtra al equipo, el trato está roto.'},{role:'MÉDICO',text:'El equipo tiene derecho a tomar decisiones informadas sobre su propia vida.'}],
+      outcomes:[{label:'Revelar la cláusula al equipo',type:'good',text:'Moral −5 pero confianza sube. Equipo decide unido.',effect:()=>{applyToAll('morale',-5);applyOne('spon','morale',-15);logEvent('Líder revela cláusula — tensión con Sponsor','good')}},{label:'Cargar con el secreto y acelerar el ritmo',type:'bad',text:'Salud −10 equipo. Sponsor moral +10.',effect:()=>{applyToAll('health',-10);applyOne('spon','morale',10);logEvent('Secreto mantenido — ritmo forzado sin explicación','bad')}}],
       markerX:290,markerY:28,markerLabel:'C2 6,500m'
     },
     {
-      title:'Día 3 — Campo 2',altitude:'6,500 m',
-      weather:'warn',weatherLabel:'🌬 Viento en aumento',
-      scenario:'El sherpa principal informa que las cuerdas fijas de la sección más peligrosa del ascenso no han sido revisadas en 2 semanas. Hacerlo tomaría 6 horas.',
-      dilemma:'Revisar las cuerdas y perder medio día, o confiar en que están bien y continuar.',
-      tensions:[
-        {role:'LÍDER',text:'Nunca se puede asumir que las cuerdas están bien. Es protocolo básico.'},
-        {role:'CIENTÍFICO',text:'Matemáticamente el riesgo es bajo. Las cuerdas de expedición duran semanas.'},
-        {role:'SPONSOR',text:'6 horas son 6 horas. Cada decisión conservadora nos acerca a perder la ventana.'},
-      ],
-      outcomes:[
-        {label:'Revisar las cuerdas fijas',type:'good',text:'Encuentran 1 sección dañada. Salud equipo +10.',effect:()=>{applyToAll('health',10);logEvent('Cuerdas revisadas — sección dañada encontrada y reparada','good')}},
-        {label:'Continuar sin revisar',type:'bad',text:'Ahorran tiempo pero salud −20 al cruzar.',effect:()=>{applyToAll('health',-20);logEvent('Cuerdas sin revisar — incidente menor al cruzar','bad')}},
-      ],
+      title:'Día 3 — Campo 2',altitude:'6,500 m',weather:'warn',weatherLabel:'🌬 Viento en aumento',
+      scenario:'El sherpa principal informa que las cuerdas fijas de la sección más peligrosa del ascenso no han sido revisadas en 2 semanas.',
+      dilemma:'Revisar las cuerdas y perder 6 horas, o confiar en que están bien y continuar.',
+      tensions:[{role:'LÍDER',text:'Nunca se puede asumir que las cuerdas están bien. Es protocolo básico.'},{role:'CIENTÍFICO',text:'Matemáticamente el riesgo es bajo. Las cuerdas de expedición duran semanas.'},{role:'SPONSOR',text:'6 horas son 6 horas. Cada decisión conservadora nos acerca a perder la ventana.'}],
+      outcomes:[{label:'Revisar las cuerdas fijas',type:'good',text:'Encuentran 1 sección dañada. Salud equipo +10.',effect:()=>{applyToAll('health',10);logEvent('Cuerdas revisadas — sección dañada encontrada y reparada','good')}},{label:'Continuar sin revisar',type:'bad',text:'Ahorran tiempo pero salud −20 al cruzar.',effect:()=>{applyToAll('health',-20);logEvent('Cuerdas sin revisar — incidente menor al cruzar','bad')}}],
+      markerX:290,markerY:28,markerLabel:'C2 6,500m'
+    },
+    {
+      title:'Día 3 — Campo 2',altitude:'6,500 m',weather:'good',weatherLabel:'☀ Ventana inesperada',
+      scenario:'El meteorólogo de base comunica que hay una ventana climática excepcional abriendo 12 horas antes de lo previsto. Aprovecharla requiere salir esta noche sin preparación completa.',
+      dilemma:'¿Salen esta noche con preparación parcial para aprovechar la ventana, o se preparan bien y salen al amanecer con más riesgo climático?',
+      tensions:[{role:'CIENTÍFICO',text:'Las estadísticas de accidentes muestran que las salidas nocturnas no planificadas son el factor de riesgo #1.'},{role:'FOTÓGRAFO',text:'La luz del amanecer desde la cumbre sería la toma perfecta. Necesito salir de noche.'},{role:'LÍDER',text:'Una ventana excepcional puede no volver en este viaje. Hay que evaluar riesgo vs. oportunidad.'}],
+      outcomes:[{label:'Salida nocturna — aprovechar ventana',type:'bad',text:'Ventana perfecta. Salud −12 por preparación incompleta.',effect:()=>{applyToAll('health',-12);logEvent('Salida nocturna — ventana aprovechada con riesgos','bad')}},{label:'Salida al amanecer — preparación completa',type:'good',text:'Equipo preparado. Ventana 60% abierta.',effect:()=>{applyToAll('health',5);logEvent('Salida al amanecer — equipo descansado y preparado','good')}}],
+      markerX:290,markerY:28,markerLabel:'C2 6,500m'
+    },
+    {
+      title:'Día 3 — Campo 2',altitude:'6,500 m',weather:'bad',weatherLabel:'🌬 Viento peligroso',
+      scenario:'Durante la noche, el Líder escucha una discusión grave entre el Fotógrafo y el Científico. El Fotógrafo acusa al Científico de sabotear deliberadamente el ritmo de la expedición para obtener más datos.',
+      dilemma:'¿El Líder interviene directamente y confronta a ambos esta noche, o espera a la mañana cuando el ánimo esté más calmado?',
+      tensions:[{role:'MÉDICO',text:'Un conflicto no resuelto entre miembros del equipo en zona de altitud puede ser mortal. Intervenir ya.'},{role:'LÍDER',text:'Intervenir esta noche puede escalar el conflicto. La fatiga distorsiona las percepciones.'},{role:'SPONSOR',text:'Si este equipo se rompe aquí, el proyecto entero fracasa. Necesito una resolución hoy.'}],
+      outcomes:[{label:'Mediación inmediata esta noche',type:'good',text:'Conflicto resuelto. Moral equipo +10.',effect:()=>{applyToAll('morale',10);logEvent('Conflicto mediado — equipo alineado para cumbre','good')}},{label:'Esperar a la mañana',type:'bad',text:'Noche tensa. Moral −15 Fotógrafo y Científico.',effect:()=>{applyOne('photo','morale',-15);applyOne('sci','morale',-15);logEvent('Conflicto sin resolver — tensión persiste en equipo','bad')}}],
       markerX:290,markerY:28,markerLabel:'C2 6,500m'
     },
   ],
-  // DAY 4 — Campo 3 (7,162m)
+  // ══ DAY 4 — Campo 3 (7,162m) ══ 5 scenarios
   [
     {
-      title:'Día 4 — Campo 3',altitude:'7,162 m',
-      weather:'bad',weatherLabel:'🌬 Viento fuerte — zona de muerte',
-      scenario:'Zona de muerte funcional. El cuerpo no se recupera aquí. El oxígeno suplementario es limitado: solo hay para 3 personas en cumbre.',
-      dilemma:'¿Quiénes de los 5 suben a cumbre? El Sponsor insiste en ir. El Médico dice que su lugar es en C3 gestionando el descenso.',
-      tensions:[
-        {role:'SPONSOR',text:'El contrato especifica presencia en cumbre. No negocio esto.'},
-        {role:'MÉDICO',text:'Mi rol médico es más valioso aquí coordinando el descenso seguro que en cumbre.'},
-        {role:'LÍDER',text:'Tengo que elegir quién sube. Alguien se va a sentir traicionado.'},
-      ],
-      outcomes:[
-        {label:'Subgrupo técnico sube (Líder, Fotógrafo, Científico)',type:'good',text:'Sponsor −20 moral. Decisión óptima.',effect:()=>{applyOne('spon','morale',-20);logEvent('Subgrupo técnico designado para cumbre','good')}},
-        {label:'Todos intentan la cumbre',type:'bad',text:'O₂ insuficiente. Salud −25 todos.',effect:()=>{applyToAll('health',-25);logEvent('Todos suben — oxígeno crítico en ruta','bad')}},
-      ],
+      title:'Día 4 — Campo 3',altitude:'7,162 m',weather:'bad',weatherLabel:'🌬 Viento fuerte — zona de muerte',
+      scenario:'Zona de muerte funcional. El cuerpo no se recupera aquí. Oxígeno suplementario limitado: solo hay para 3 personas en cumbre.',
+      dilemma:'¿Quiénes de los 5 suben a cumbre? El Sponsor insiste en ir. El Médico dice que su lugar es en C3.',
+      tensions:[{role:'SPONSOR',text:'El contrato especifica presencia en cumbre. No negocio esto.'},{role:'MÉDICO',text:'Mi rol médico es más valioso aquí coordinando el descenso seguro que en cumbre.'},{role:'LÍDER',text:'Tengo que elegir quién sube. Alguien se va a sentir traicionado.'}],
+      outcomes:[{label:'Subgrupo técnico sube (Líder, Fotógrafo, Científico)',type:'good',text:'Sponsor −20 moral. Decisión óptima.',effect:()=>{applyOne('spon','morale',-20);logEvent('Subgrupo técnico designado para cumbre','good')}},{label:'Todos intentan la cumbre',type:'bad',text:'O₂ insuficiente. Salud −25 todos.',effect:()=>{applyToAll('health',-25);logEvent('Todos suben — oxígeno crítico en ruta','bad')}}],
       markerX:420,markerY:16,markerLabel:'C3 7,162m'
     },
     {
-      title:'Día 4 — Campo 3',altitude:'7,162 m',
-      weather:'bad',weatherLabel:'❄ Temperatura −35°C',
-      scenario:'A las 2am, el Médico detecta que el Fotógrafo tiene los dedos de los pies con principios de congelación. Si no baja ahora, puede perder los dedos. Si baja, no hay fotos de cumbre.',
-      dilemma:'¿El Fotógrafo baja para tratamiento o continúa a cumbre con el riesgo de congelación severa?',
-      tensions:[
-        {role:'FOTÓGRAFO',text:'He esperado 3 años para esto. Puedo aguantar el dolor. Subiré.'},
-        {role:'MÉDICO',text:'Congelación en zona de muerte es amputación garantizada. No es una opción médica válida.'},
-        {role:'LÍDER',text:'Es su cuerpo y su decisión. Pero yo soy responsable de este equipo.'},
-      ],
-      outcomes:[
-        {label:'Fotógrafo baja a tratamiento',type:'good',text:'Salva los dedos. Sin fotos de cumbre. Moral −15.',effect:()=>{applyOne('photo','morale',-15);applyOne('photo','health',20);logEvent('Fotógrafo desciende — congelación tratada a tiempo','good')}},
-        {label:'Fotógrafo continúa a cumbre',type:'bad',text:'Fotos logradas. Salud −30 Fotógrafo.',effect:()=>{applyOne('photo','health',-30);logEvent('Fotógrafo continúa — daño por congelación severo','bad')}},
-      ],
+      title:'Día 4 — Campo 3',altitude:'7,162 m',weather:'bad',weatherLabel:'❄ Temperatura −35°C',
+      scenario:'El Médico detecta que el Fotógrafo tiene principios de congelación en los dedos de los pies. Si no baja ahora, puede perder los dedos. Si baja, no hay fotos de cumbre.',
+      dilemma:'¿El Fotógrafo baja para tratamiento o continúa a cumbre con riesgo de congelación severa?',
+      tensions:[{role:'FOTÓGRAFO',text:'He esperado 3 años para esto. Puedo aguantar el dolor. Subiré.'},{role:'MÉDICO',text:'Congelación en zona de muerte es amputación garantizada. No es una opción médica válida.'},{role:'LÍDER',text:'Es su cuerpo y su decisión. Pero yo soy responsable de este equipo.'}],
+      outcomes:[{label:'Fotógrafo baja a tratamiento',type:'good',text:'Salva los dedos. Sin fotos de cumbre. Moral −15.',effect:()=>{applyOne('photo','morale',-15);applyOne('photo','health',20);logEvent('Fotógrafo desciende — congelación tratada a tiempo','good')}},{label:'Fotógrafo continúa a cumbre',type:'bad',text:'Fotos logradas. Salud −30 Fotógrafo.',effect:()=>{applyOne('photo','health',-30);logEvent('Fotógrafo continúa — daño por congelación severo','bad')}}],
       markerX:420,markerY:16,markerLabel:'C3 7,162m'
     },
     {
-      title:'Día 4 — Campo 3',altitude:'7,162 m',
-      weather:'warn',weatherLabel:'🌬 Rachas peligrosas',
-      scenario:'Llega información de que la ventana climática se cierra en 18 horas en lugar de 36. El plan original era salir a las 11pm. Ahora deben salir en 4 horas o abortar.',
-      dilemma:'Salir en 4 horas con el equipo no totalmente descansado, o abortar el intento y buscar otra ventana en 72 horas.',
-      tensions:[
-        {role:'LÍDER',text:'En 4 horas nadie va a estar al 100%. Pero la siguiente ventana puede no llegar.'},
-        {role:'MÉDICO',text:'Salir fatigados es el escenario en que ocurren la mayoría de los accidentes en cumbre.'},
-        {role:'CIENTÍFICO',text:'Estadísticamente, las ventanas de 72h en esta época del año tienen 40% de probabilidad de apertura.'},
-      ],
-      outcomes:[
-        {label:'Salida inmediata en 4 horas',type:'bad',text:'Intentan cumbre. Salud −15 equipo.',effect:()=>{applyToAll('health',-15);logEvent('Salida adelantada — equipo sin descanso completo','bad')}},
-        {label:'Abortar y esperar próxima ventana',type:'good',text:'Equipo descansa. Moral −10. Sponsor furioso.',effect:()=>{applyToAll('health',15);applyToAll('morale',-10);applyOne('spon','morale',-20);logEvent('Intento abortado — espera de nueva ventana','good')}},
-      ],
+      title:'Día 4 — Campo 3',altitude:'7,162 m',weather:'warn',weatherLabel:'🌬 Rachas peligrosas',
+      scenario:'La ventana climática se cierra en 18 horas en lugar de 36. El plan era salir a las 11pm. Ahora deben salir en 4 horas o abortar.',
+      dilemma:'Salir en 4 horas con el equipo no completamente descansado, o abortar el intento y buscar otra ventana en 72 horas.',
+      tensions:[{role:'LÍDER',text:'En 4 horas nadie va a estar al 100%. Pero la siguiente ventana puede no llegar.'},{role:'MÉDICO',text:'Salir fatigados es el escenario donde ocurren la mayoría de los accidentes en cumbre.'},{role:'CIENTÍFICO',text:'Estadísticamente, las ventanas de 72h en esta época tienen 40% de probabilidad de apertura.'}],
+      outcomes:[{label:'Salida inmediata en 4 horas',type:'bad',text:'Intentan cumbre. Salud −15 equipo.',effect:()=>{applyToAll('health',-15);logEvent('Salida adelantada — equipo sin descanso completo','bad')}},{label:'Abortar y esperar próxima ventana',type:'good',text:'Equipo descansa. Moral −10. Sponsor furioso.',effect:()=>{applyToAll('health',15);applyToAll('morale',-10);applyOne('spon','morale',-20);logEvent('Intento abortado — espera de nueva ventana','good')}}],
+      markerX:420,markerY:16,markerLabel:'C3 7,162m'
+    },
+    {
+      title:'Día 4 — Campo 3',altitude:'7,162 m',weather:'bad',weatherLabel:'❄ Noche de tormenta',
+      scenario:'Durante la noche en C3, un miembro del equipo de otro expedición llega al campamento desorientado y con hipotermia severa. Es extranjero y está solo.',
+      dilemma:'¿El equipo dedica sus recursos médicos y energía a estabilizar al extranjero, sabiendo que eso puede comprometer su propio intento de cumbre mañana?',
+      tensions:[{role:'MÉDICO',text:'Este hombre muere sin intervención inmediata. No hay otra opción ética.'},{role:'SPONSOR',text:'Nuestros recursos médicos son para nuestro equipo. No somos una ONG.'},{role:'LÍDER',text:'Lo que hagamos aquí define quiénes somos como equipo, no solo como alpinistas.'}],
+      outcomes:[{label:'Estabilizar al extranjero — asumir el costo',type:'bad',text:'Extranjero sobrevive. Recursos médicos −30. Salud equipo −10.',effect:()=>{applyToAll('health',-10);logEvent('Extranjero estabilizado — recursos médicos comprometidos','bad')}},{label:'Alertar por radio y no intervenir directamente',type:'good',text:'Equipo preserva recursos. Moral −15 por decisión.',effect:()=>{applyToAll('morale',-15);logEvent('Rescate delegado — equipo preserva capacidad para cumbre','good')}}],
+      markerX:420,markerY:16,markerLabel:'C3 7,162m'
+    },
+    {
+      title:'Día 4 — Campo 3',altitude:'7,162 m',weather:'warn',weatherLabel:'⛅ Condiciones inestables',
+      scenario:'El Científico revela que falsificó parte de sus datos de altitud media para justificar continuar el ascenso cuando debería haber bajado. El Médico lo descubre revisando los registros.',
+      dilemma:'¿El equipo confronta al Científico y decide si puede seguir en la expedición, o silencia el incidente para no fracturar al equipo a 7,000m?',
+      tensions:[{role:'MÉDICO',text:'La integridad científica no es negociable. Si mintió sobre sus datos, ¿en qué más mintió?'},{role:'CIENTÍFICO',text:'Cometí un error de juicio. Pero estoy bien físicamente y el equipo me necesita.'},{role:'LÍDER',text:'Estamos a 7,000 metros. Perder un miembro aquí puede ser más peligroso que el error mismo.'}],
+      outcomes:[{label:'Confrontar y evaluar si el Científico continúa',type:'good',text:'Integridad preservada. Científico moral −25.',effect:()=>{applyOne('sci','morale',-25);logEvent('Incidente de integridad resuelto — transparencia restablecida','good')}},{label:'Silenciar el incidente y continuar',type:'bad',text:'Tensión latente. Moral equipo −10.',effect:()=>{applyToAll('morale',-10);logEvent('Incidente silenciado — tensión no resuelta persiste','bad')}}],
       markerX:420,markerY:16,markerLabel:'C3 7,162m'
     },
   ],
-  // DAY 5 — Cumbre (8,849m)
+  // ══ DAY 5 — Cumbre (8,849m) ══ 5 scenarios
   [
     {
-      title:'Día 5 — Intento de cumbre',altitude:'8,849 m',
-      weather:'bad',weatherLabel:'❄ Tormenta en 4 horas',
+      title:'Día 5 — Intento de cumbre',altitude:'8,849 m',weather:'bad',weatherLabel:'❄ Tormenta en 4 horas',
       scenario:'A 200 metros de la cima. La tormenta llega antes de lo previsto. Ventana real: 40 minutos para cumbre y regreso al punto seguro.',
       dilemma:'20 minutos más para la foto perfecta vs. descenso inmediato para sobrevivir.',
-      tensions:[
-        {role:'FOTÓGRAFO',text:'Estamos a 200 metros. No me pidan que me rinda ahora.'},
-        {role:'LÍDER',text:'Si esperamos 20 minutos, el descenso con tormenta activa nos mata.'},
-        {role:'CIENTÍFICO',text:'Mis datos están completos. Puedo bajar. ¿Están todos listos?'},
-      ],
-      outcomes:[
-        {label:'Descenso inmediato',type:'good',text:'Equipo salvo. Fotógrafo moral −30.',effect:()=>{applyToAll('health',5);applyOne('photo','morale',-30);logEvent('Descenso inmediato — equipo salvo bajo tormenta','good')}},
-        {label:'20 minutos más en cumbre',type:'bad',text:'Foto lograda. Salud −30 todos.',effect:()=>{applyToAll('health',-30);logEvent('Permanencia en cumbre — atrapados por la tormenta','bad')}},
-      ],
+      tensions:[{role:'FOTÓGRAFO',text:'Estamos a 200 metros. No me pidan que me rinda ahora.'},{role:'LÍDER',text:'Si esperamos 20 minutos, el descenso con tormenta activa nos mata.'},{role:'CIENTÍFICO',text:'Mis datos están completos. Puedo bajar. ¿Están todos listos?'}],
+      outcomes:[{label:'Descenso inmediato',type:'good',text:'Equipo salvo. Fotógrafo moral −30.',effect:()=>{applyToAll('health',5);applyOne('photo','morale',-30);logEvent('Descenso inmediato — equipo salvo bajo tormenta','good')}},{label:'20 minutos más en cumbre',type:'bad',text:'Foto lograda. Salud −30 todos.',effect:()=>{applyToAll('health',-30);logEvent('Permanencia en cumbre — atrapados por la tormenta','bad')}}],
       markerX:560,markerY:6,markerLabel:'Cumbre 8,849m'
     },
     {
-      title:'Día 5 — Intento de cumbre',altitude:'8,849 m',
-      weather:'warn',weatherLabel:'🌬 Viento fuerte pero estable',
-      scenario:'A 50 metros de la cima, el Científico se desploma. Síntomas de edema pulmonar. Puede morir si no baja en los próximos 30 minutos. Dejarlo solo para terminar el ascenso o abortar la cumbre.',
+      title:'Día 5 — Intento de cumbre',altitude:'8,849 m',weather:'warn',weatherLabel:'🌬 Viento fuerte pero estable',
+      scenario:'A 50 metros de la cima, el Científico se desploma. Síntomas de edema pulmonar. Puede morir si no baja en los próximos 30 minutos.',
       dilemma:'¿El equipo aborta la cumbre para salvar al Científico, o parte del equipo sube mientras otros lo bajan?',
-      tensions:[
-        {role:'MÉDICO',text:'Edema pulmonar en altitud es 90% fatal sin descenso inmediato. No hay debate.'},
-        {role:'LÍDER',text:'Si dividimos el equipo en descenso de tormenta, podemos perder más de uno.'},
-        {role:'SPONSOR',text:'50 metros. Alguien puede llegar a la cima en 15 minutos y bajar.'},
-      ],
-      outcomes:[
-        {label:'Todo el equipo baja con el Científico',type:'good',text:'Científico sobrevive. Sin cumbre. Moral −20.',effect:()=>{applyOne('sci','health',25);applyToAll('morale',-20);logEvent('Equipo baja unido — Científico estabilizado','good')}},
-        {label:'Dividir equipo: unos suben, otros bajan',type:'bad',text:'Llegan a cumbre. Científico salud −30.',effect:()=>{applyOne('sci','health',-30);logEvent('Equipo dividido en zona de muerte — riesgo crítico','bad')}},
-      ],
+      tensions:[{role:'MÉDICO',text:'Edema pulmonar en altitud es 90% fatal sin descenso inmediato. No hay debate.'},{role:'LÍDER',text:'Si dividimos el equipo en descenso con tormenta, podemos perder más de uno.'},{role:'SPONSOR',text:'50 metros. Alguien puede llegar a la cima en 15 minutos y bajar.'}],
+      outcomes:[{label:'Todo el equipo baja con el Científico',type:'good',text:'Científico sobrevive. Sin cumbre. Moral −20.',effect:()=>{applyOne('sci','health',25);applyToAll('morale',-20);logEvent('Equipo baja unido — Científico estabilizado','good')}},{label:'Dividir equipo: unos suben, otros bajan',type:'bad',text:'Llegan a cumbre. Científico salud −30.',effect:()=>{applyOne('sci','health',-30);logEvent('Equipo dividido en zona de muerte — riesgo crítico','bad')}}],
       markerX:560,markerY:6,markerLabel:'Cumbre 8,849m'
     },
     {
-      title:'Día 5 — Intento de cumbre',altitude:'8,849 m',
-      weather:'good',weatherLabel:'☀ Ventana perfecta',
-      scenario:'El equipo llega a la cima. Momento de gloria. Pero el sistema de radio falla y no pueden comunicarse con el campo base para coordinar el descenso. Deben decidir la ruta de bajada solos.',
+      title:'Día 5 — Intento de cumbre',altitude:'8,849 m',weather:'good',weatherLabel:'☀ Ventana perfecta',
+      scenario:'El equipo llega a la cima. Momento de gloria. Pero el sistema de radio falla y no pueden comunicarse con el campo base para coordinar el descenso.',
       dilemma:'¿Tomar la ruta conocida más larga o la ruta directa más corta y técnicamente difícil sin comunicación de apoyo?',
-      tensions:[
-        {role:'LÍDER',text:'Sin radio, si algo sale mal en la ruta directa, no hay rescate posible.'},
-        {role:'CIENTÍFICO',text:'La ruta directa tiene 40% menos exposición al viento. Matemáticamente más segura si eres técnico.'},
-        {role:'FOTÓGRAFO',text:'Ya tenemos las fotos. Quiero bajar lo antes posible. Ruta directa.'},
-      ],
-      outcomes:[
-        {label:'Ruta conocida más larga',type:'good',text:'Descenso seguro. Llegan tarde pero sanos.',effect:()=>{applyToAll('health',5);logEvent('Ruta conocida — descenso lento pero controlado','good')}},
-        {label:'Ruta directa técnica',type:'bad',text:'Más rápido pero salud −20 equipo.',effect:()=>{applyToAll('health',-20);logEvent('Ruta directa — terreno técnico sin apoyo','bad')}},
-      ],
+      tensions:[{role:'LÍDER',text:'Sin radio, si algo sale mal en la ruta directa, no hay rescate posible.'},{role:'CIENTÍFICO',text:'La ruta directa tiene 40% menos exposición al viento. Matemáticamente más segura si eres técnico.'},{role:'FOTÓGRAFO',text:'Ya tenemos las fotos. Quiero bajar lo antes posible. Ruta directa.'}],
+      outcomes:[{label:'Ruta conocida más larga',type:'good',text:'Descenso seguro. Llegan tarde pero sanos.',effect:()=>{applyToAll('health',5);logEvent('Ruta conocida — descenso lento pero controlado','good')}},{label:'Ruta directa técnica',type:'bad',text:'Más rápido pero salud −20 equipo.',effect:()=>{applyToAll('health',-20);logEvent('Ruta directa — terreno técnico sin apoyo','bad')}}],
+      markerX:560,markerY:6,markerLabel:'Cumbre 8,849m'
+    },
+    {
+      title:'Día 5 — Intento de cumbre',altitude:'8,849 m',weather:'bad',weatherLabel:'❄ Viento cortante −45°C',
+      scenario:'En la cumbre, el Sponsor sufre un ataque de euforia extrema (efecto conocido del HACE inicial). Insiste en quedarse más tiempo del seguro para llamadas mediáticas en vivo.',
+      dilemma:'¿El equipo espera al Sponsor o lo fuerza a bajar en contra de su voluntad?',
+      tensions:[{role:'SPONSOR',text:'Llevo 3 años financiando esto. Tengo derecho a mis 10 minutos en la cima.'},{role:'MÉDICO',text:'La euforia que muestra es un síntoma neurológico de hipoxia severa. No puede tomar decisiones racionales.'},{role:'LÍDER',text:'Forzarlo a bajar contra su voluntad es una decisión de liderazgo que puede tener consecuencias legales.'}],
+      outcomes:[{label:'Forzar el descenso inmediato del Sponsor',type:'good',text:'Sponsor salvo. Moral Sponsor −30. Equipo sano.',effect:()=>{applyOne('spon','morale',-30);applyToAll('health',5);logEvent('Sponsor evacuado contra su voluntad — HACE evitado','good')}},{label:'Esperar los 10 minutos del Sponsor',type:'bad',text:'Fotos en vivo logradas. Salud −20 todos.',effect:()=>{applyToAll('health',-20);logEvent('Espera en cumbre — exposición peligrosa por HACE del Sponsor','bad')}}],
+      markerX:560,markerY:6,markerLabel:'Cumbre 8,849m'
+    },
+    {
+      title:'Día 5 — Intento de cumbre',altitude:'8,849 m',weather:'warn',weatherLabel:'⛅ Visibilidad parcial',
+      scenario:'A 100 metros de la cima, el equipo encuentra a un alpinista desconocido abandonado y semiconsciente. Fue dejado por su expedición. Tiene aproximadamente 2 horas de vida sin ayuda.',
+      dilemma:'¿El equipo abandona la cumbre para coordinarse en el rescate, sabiendo que probablemente no puedan volver?',
+      tensions:[{role:'MÉDICO',text:'Este hombre fue abandonado por los suyos. No podemos hacer lo mismo.'},{role:'FOTÓGRAFO',text:'Llevamos 5 días para llegar hasta aquí. Estamos a 100 metros. Esto no es justo.'},{role:'LÍDER',text:'Salvar una vida siempre supera una cumbre. Pero la decisión debe ser del equipo, no solo mía.'}],
+      outcomes:[{label:'Abandonar cumbre — coordinar rescate completo',type:'good',text:'Alpinista salvado. Sin cumbre. Moral equipo +20.',effect:()=>{applyToAll('morale',20);logEvent('Alpinista rescatado — equipo elige vida sobre cumbre','good')}},{label:'Llamar rescate por radio y continuar a cima',type:'bad',text:'Cumbre lograda. Moral −15 por decisión.',effect:()=>{applyToAll('morale',-15);applyToAll('health',-5);logEvent('Llamada de rescate realizada — equipo continúa a cumbre','bad')}}],
       markerX:560,markerY:6,markerLabel:'Cumbre 8,849m'
     },
   ],
-  // DAY 6 — Descenso
+  // ══ DAY 6 — Descenso ══ 5 scenarios
   [
     {
-      title:'Día 6 — Descenso',altitude:'5,364 m',
-      weather:'good',weatherLabel:'☀ Despejado',
+      title:'Día 6 — Descenso',altitude:'5,364 m',weather:'good',weatherLabel:'☀ Despejado',
       scenario:'Un miembro no puede caminar sin asistencia. El helicóptero de rescate puede llegar en 6 horas. Esperar significa otro día en altitud para todos.',
       dilemma:'¿Esperar el rescate juntos o iniciar descenso forzado?',
-      tensions:[
-        {role:'MÉDICO',text:'Moverlo sin evaluación médica completa puede causar daño espinal. Deben esperar.'},
-        {role:'LÍDER',text:'Separarnos en descenso va contra todos los protocolos de montaña.'},
-        {role:'SPONSOR',text:'Rueda de prensa mañana. Esto se resuelve hoy o el contrato queda en pausa.'},
-      ],
-      outcomes:[
-        {label:'Esperar el rescate juntos',type:'good',text:'Salud +10, moral +10.',effect:()=>{applyToAll('health',10);applyToAll('morale',10);logEvent('Rescate coordinado — equipo completo evacuado','good')}},
-        {label:'Descenso forzado inmediato',type:'bad',text:'Salud −20 todos.',effect:()=>{applyToAll('health',-20);logEvent('Descenso forzado — riesgo adicional en miembro herido','bad')}},
-      ],
+      tensions:[{role:'MÉDICO',text:'Moverlo sin evaluación médica completa puede causar daño espinal. Deben esperar.'},{role:'LÍDER',text:'Separarnos en descenso va contra todos los protocolos de montaña.'},{role:'SPONSOR',text:'Rueda de prensa mañana. Esto se resuelve hoy o el contrato queda en pausa.'}],
+      outcomes:[{label:'Esperar el rescate juntos',type:'good',text:'Salud +10, moral +10.',effect:()=>{applyToAll('health',10);applyToAll('morale',10);logEvent('Rescate coordinado — equipo completo evacuado','good')}},{label:'Descenso forzado inmediato',type:'bad',text:'Salud −20 todos.',effect:()=>{applyToAll('health',-20);logEvent('Descenso forzado — riesgo adicional en miembro herido','bad')}}],
       markerX:80,markerY:86,markerLabel:'Descenso'
     },
     {
-      title:'Día 6 — Descenso',altitude:'5,800 m',
-      weather:'warn',weatherLabel:'⛅ Visibilidad reducida',
-      scenario:'A mitad del descenso, el equipo descubre que el campo 2 fue destruido por una avalancha menor. Los suministros de emergencia están enterrados. Deben improvisar o pedir rescate.',
+      title:'Día 6 — Descenso',altitude:'5,800 m',weather:'warn',weatherLabel:'⛅ Visibilidad reducida',
+      scenario:'A mitad del descenso, el equipo descubre que el campo 2 fue destruido por una avalancha menor. Los suministros de emergencia están enterrados.',
       dilemma:'¿Continuar el descenso sin suministros hasta el campo base, o pedir rescate y esperar en altitud?',
-      tensions:[
-        {role:'MÉDICO',text:'Sin suministros médicos de emergencia, cualquier incidente menor puede ser fatal.'},
-        {role:'LÍDER',text:'Pedir rescate en esta condición es exponernos al frío otras 4 horas mínimo.'},
-        {role:'CIENTÍFICO',text:'Tengo datos de temperatura y viento. Podemos calcular el riesgo del descenso.'},
-      ],
-      outcomes:[
-        {label:'Continuar descenso hacia base',type:'bad',text:'Llegan exhaustos. Salud −15 todos.',effect:()=>{applyToAll('health',-15);logEvent('Descenso sin suministros — equipo al límite','bad')}},
-        {label:'Solicitar rescate y esperar',type:'good',text:'Rescatados. Moral −5 pero salud estable.',effect:()=>{applyToAll('morale',-5);logEvent('Rescate solicitado — equipo evacuado con seguridad','good')}},
-      ],
+      tensions:[{role:'MÉDICO',text:'Sin suministros médicos de emergencia, cualquier incidente menor puede ser fatal.'},{role:'LÍDER',text:'Pedir rescate en esta condición nos expone al frío otras 4 horas mínimo.'},{role:'CIENTÍFICO',text:'Tengo datos de temperatura y viento. Podemos calcular el riesgo del descenso.'}],
+      outcomes:[{label:'Continuar descenso hacia base',type:'bad',text:'Llegan exhaustos. Salud −15 todos.',effect:()=>{applyToAll('health',-15);logEvent('Descenso sin suministros — equipo al límite','bad')}},{label:'Solicitar rescate y esperar',type:'good',text:'Rescatados. Moral −5 pero salud estable.',effect:()=>{applyToAll('morale',-5);logEvent('Rescate solicitado — equipo evacuado con seguridad','good')}}],
       markerX:80,markerY:86,markerLabel:'C2 destruido'
     },
     {
-      title:'Día 6 — Descenso',altitude:'6,200 m',
-      weather:'bad',weatherLabel:'🌬 Tormenta repentina',
-      scenario:'Una tormenta repentina sorprende al equipo en campo abierto durante el descenso. Hay una cueva a 200m pero implica desviarse del camino marcado. Sin refugio, la exposición al viento puede ser fatal.',
+      title:'Día 6 — Descenso',altitude:'6,200 m',weather:'bad',weatherLabel:'🌬 Tormenta repentina',
+      scenario:'Una tormenta repentina sorprende al equipo en campo abierto. Hay una cueva a 200m pero implica desviarse del camino marcado.',
       dilemma:'¿Buscar refugio en la cueva o intentar llegar al campo base a través de la tormenta?',
-      tensions:[
-        {role:'MÉDICO',text:'La hipotermia en este viento ocurre en menos de 45 minutos. La cueva es la única opción segura.'},
-        {role:'LÍDER',text:'Desviarse del camino marcado en una tormenta es cómo los equipos se pierden.'},
-        {role:'FOTÓGRAFO',text:'Tengo el equipo más caro de la expedición y no puedo perderlo en la tormenta.'},
-      ],
-      outcomes:[
-        {label:'Refugiarse en la cueva',type:'good',text:'Seguros. Esperan 3h. Moral −5.',effect:()=>{applyToAll('health',10);applyToAll('morale',-5);logEvent('Refugio en cueva — equipo protegido de la tormenta','good')}},
-        {label:'Continuar hacia el campo base',type:'bad',text:'Salud −25 todos por exposición.',effect:()=>{applyToAll('health',-25);logEvent('Exposición a tormenta — hipotermia en todo el equipo','bad')}},
-      ],
+      tensions:[{role:'MÉDICO',text:'La hipotermia en este viento ocurre en menos de 45 minutos. La cueva es la única opción segura.'},{role:'LÍDER',text:'Desviarse del camino marcado en una tormenta es cómo los equipos se pierden.'},{role:'FOTÓGRAFO',text:'Tengo el equipo más caro de la expedición y no puedo perderlo en la tormenta.'}],
+      outcomes:[{label:'Refugiarse en la cueva',type:'good',text:'Seguros. Esperan 3h. Moral −5.',effect:()=>{applyToAll('health',10);applyToAll('morale',-5);logEvent('Refugio en cueva — equipo protegido de la tormenta','good')}},{label:'Continuar hacia el campo base',type:'bad',text:'Salud −25 todos por exposición.',effect:()=>{applyToAll('health',-25);logEvent('Exposición a tormenta — hipotermia en todo el equipo','bad')}}],
       markerX:80,markerY:86,markerLabel:'Tormenta C2→Base'
+    },
+    {
+      title:'Día 6 — Descenso',altitude:'5,600 m',weather:'good',weatherLabel:'☀ Tarde despejada',
+      scenario:'Ya en zona segura, el equipo recibe una oferta de los medios: entrevista en vivo ahora mismo a cambio de $50,000 adicionales para el Sponsor. Pero el equipo está exhausto y emocionalmente frágil.',
+      dilemma:'¿El equipo acepta la entrevista en vivo inmediatamente o pide 24 horas para recuperarse primero?',
+      tensions:[{role:'SPONSOR',text:'$50,000 no se rechazan. Esta es exactamente la visibilidad que justifica la expedición.'},{role:'MÉDICO',text:'El equipo necesita hidratación, alimentación y descanso antes de hablar en público.'},{role:'LÍDER',text:'Lo que digamos en ese estado puede dañar la imagen del equipo y de cada uno.'}],
+      outcomes:[{label:'Aceptar entrevista ahora',type:'bad',text:'$50K ganados. Moral −10 por agotamiento expuesto.',effect:()=>{applyToAll('morale',-10);applyOne('spon','morale',15);logEvent('Entrevista en vivo — equipo expuesto en estado vulnerable','bad')}},{label:'Pedir 24 horas de recuperación',type:'good',text:'Entrevista óptima. Moral equipo +10.',effect:()=>{applyToAll('morale',10);logEvent('Recuperación prioritaria — equipo en óptimas condiciones para medios','good')}}],
+      markerX:80,markerY:86,markerLabel:'Zona segura'
+    },
+    {
+      title:'Día 6 — Descenso',altitude:'5,900 m',weather:'warn',weatherLabel:'⛅ Nubes bajas',
+      scenario:'Durante el descenso, el Científico descubre que sus datos más valiosos fueron corrompidos por una falla del equipo en la zona de muerte. 3 años de planificación perdidos en un segundo.',
+      dilemma:'¿El Líder detiene el descenso para que el Científico intente recuperar los datos manualmente en campo, o el equipo continúa y deja los datos perdidos?',
+      tensions:[{role:'CIENTÍFICO',text:'Esos datos son irreemplazables. Necesito 2 horas aquí para intentar la recuperación.'},{role:'MÉDICO',text:'2 horas adicionales en esta altitud con el nivel de agotamiento actual es un riesgo médico real.'},{role:'LÍDER',text:'Ya tomamos todos nuestros riesgos en la subida. El descenso es sagrado.'}],
+      outcomes:[{label:'Parar 2h para recuperar datos',type:'bad',text:'Datos parcialmente recuperados. Salud −12 equipo.',effect:()=>{applyToAll('health',-12);applyOne('sci','morale',20);logEvent('Recuperación de datos — pausa arriesgada en descenso','bad')}},{label:'Continuar descenso — datos perdidos',type:'good',text:'Descenso seguro. Científico moral −25.',effect:()=>{applyOne('sci','morale',-25);applyToAll('health',5);logEvent('Datos abandonados — equipo desciende con seguridad','good')}}],
+      markerX:80,markerY:86,markerLabel:'C2 en descenso'
     },
   ],
 ];
+
 
 // Pick one scenario per day randomly at game start
 let DAYS = [];
