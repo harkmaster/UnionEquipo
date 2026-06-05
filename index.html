@@ -514,9 +514,21 @@ window.G_golddesert=()=>survivalGame({title:'Gold of the Desert Kings',intro:'Ex
 
 window.G_peak=window.G_desert; // Similar survival mechanic
 // ── DILEMMA TEMPLATE ──
+// ── DILEMMA GAME — upgraded with scenario pools ──
 function dilemmaGame(cfg){
+  // If cfg has scenarioPool, pick randomly each game
+  const scenarios = cfg.scenarioPool
+    ? (()=>{
+        const pool = cfg.scenarioPool;
+        const picked = [];
+        const needed = cfg.scenarioCount || 3;
+        const shuffled = [...pool].sort(()=>Math.random()-.5);
+        return shuffled.slice(0, needed);
+      })()
+    : cfg.scenarios;
+
   let step=0,score=0,choices=[];
-  function render(){step===0?rIntro():step<=cfg.scenarios.length?rScenario(step-1):rEnd();}
+  function render(){step===0?rIntro():step<=scenarios.length?rScenario(step-1):rEnd();}
   function rIntro(){
     gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>${cfg.title}</h2><p>${cfg.intro}</p></div>
     <div class="gal">${cfg.context}</div>
@@ -525,22 +537,29 @@ function dilemmaGame(cfg){
     window.dN=()=>{step++;render();};
   }
   function rScenario(i){
-    const s=cfg.scenarios[i];
+    const s=scenarios[i];
     gc2().innerHTML=`<div class="gwr">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
-      <div class="glb">Escenario ${i+1}/${cfg.scenarios.length}</div>
-      <div class="pb2" style="width:200px;margin-bottom:0"><div class="pf" style="width:${Math.round(i/cfg.scenarios.length*100)}%"></div></div>
+      <div class="glb">Escenario ${i+1}/${scenarios.length}</div>
+      <div class="pb2" style="width:200px;margin-bottom:0"><div class="pf" style="width:${Math.round(i/scenarios.length*100)}%"></div></div>
     </div>
     <div class="gh" style="text-align:left;margin-bottom:1rem"><h2 style="font-size:1.4rem">${s.title}</h2></div>
     <div class="gal gw2">${s.sit}</div>
     ${s.ten?`<div class="dbox"><div class="dlb">Tensión</div><div style="font-size:14px">${s.ten}</div></div>`:''}
     <div class="glb" style="margin-bottom:10px">¿Qué decide el equipo?</div>
     ${s.choices.map((c,ci)=>`<button class="chb" onclick="dC(${i},${ci})">${c.l}<br><span style="font-size:12px;color:var(--tf)">${c.h}</span></button>`).join('')}`;
-    window.dC=(si,ci)=>{const c=cfg.scenarios[si].choices[ci];score+=(c.pts||0);choices.push({scenario:cfg.scenarios[si].title,choice:c.l,fb:c.fb,good:c.good});step++;render();};
+    window.dC=(si,ci)=>{const c=scenarios[si].choices[ci];score+=(c.pts||0);choices.push({scenario:scenarios[si].title,choice:c.l,fb:c.fb,good:c.good});step++;render();};
   }
   function rEnd(){
-    const mx=cfg.scenarios.reduce((a,s)=>a+Math.max(...s.choices.map(c=>c.pts||0)),0);
+    const mx=scenarios.reduce((a,s)=>a+Math.max(...s.choices.map(c=>c.pts||0)),0);
     const pct=mx>0?Math.round(score/mx*100):50;
+    // Dynamic debrief based on score
+    const dynamicDebrf = [];
+    if(pct>=70) dynamicDebrf.push('El equipo tomó decisiones excelentes. ¿Qué patrón de pensamiento lo hizo posible?');
+    else if(pct<40) dynamicDebrf.push('El equipo tuvo dificultades. ¿En qué escenario específico se perdió el rumbo?');
+    else dynamicDebrf.push('Resultado mixto. ¿Qué decisión cambiarían si pudieran volver atrás?');
+    const allDebrf = [...dynamicDebrf, ...(cfg.debrf||[])].slice(0,5);
+
     gc2().innerHTML=`<div class="gwr"><div class="gh"><h2>Simulación completada</h2></div>
     <div class="sgrid">
       <div class="sb"><div class="sbn" style="color:${pct>=70?'#00A651':pct>=40?'#C06000':'#B8003A'}">${score}</div><div class="sbl">Puntos</div></div>
@@ -553,15 +572,17 @@ function dilemmaGame(cfg){
       <div style="font-size:13px;font-weight:500;color:${c.good?'var(--cs)':'var(--ca)'}">${c.choice}</div>
       <div style="font-size:12px;color:var(--tm);margin-top:3px">${c.fb}</div>
     </div>`).join('')}</div>`;
-    debrf(gc2(),cfg.debrf);
+    debrf(gc2(),allDebrf);
   }
   render();
 }
 
-window.G_samurai=()=>dilemmaGame({title:'The Samurai Game',intro:'Japón feudal, siglo XVI. Tu clan debe sobrevivir. Cada decisión define el honor y el destino.',
-  context:'Sos el Daimyo (señor feudal). Liderazgo, ética y estrategia definen el clan.',
+window.G_samurai=()=>dilemmaGame({title:'The Samurai Game',
+  intro:'Japón feudal, siglo XVI. Tu clan debe sobrevivir. Cada decisión define el honor y el destino.',
+  context:'Sos el Daimyo. Se eligen 3 dilemas al azar de entre 7 posibles. Cada partida es diferente.',
   roles:[{e:'⚔️',name:'Daimyo',goal:'Proteger el honor del clan',color:'var(--cs)'},{e:'🏹',name:'Samurái senior',goal:'Ejecutar órdenes con precisión',color:'var(--cst)'},{e:'📜',name:'Consejero',goal:'Asesorar con sabiduría',color:'var(--cn)'},{e:'🌸',name:'Diplomático',goal:'Evitar conflictos innecesarios',color:'var(--cc)'}],
-  scenarios:[
+  scenarioCount:3,
+  scenarioPool:[
     {title:'El enemigo ofrece rendición',sit:'El clan rival envía mensajeros ofreciendo rendición incondicional si cesas el ataque.',ten:'La victoria total puede destruir al rival... y crear enemigos futuros.',choices:[
       {l:'Acepta la rendición con términos honorables',h:'Ganas territorio y respeto',good:true,pts:3,fb:'Sabia decisión. La rendición honorable construye alianzas duraderas.'},
       {l:'Rechaza — victoria total o nada',h:'Demuestras fuerza pero creás enemigos',good:false,pts:1,fb:'La victoria pírrica debilitó al clan. Los enemigos de hoy son la amenaza de mañana.'},
@@ -570,19 +591,38 @@ window.G_samurai=()=>dilemmaGame({title:'The Samurai Game',intro:'Japón feudal,
       {l:'Juicio formal con testigos',h:'Lento pero justo',good:true,pts:3,fb:'La justicia visible fortalece la confianza del clan.'},
       {l:'Ejecución inmediata',h:'Rápido pero puede ser injusto',good:false,pts:1,fb:'La dureza sin proceso crea miedo, no lealtad.'},
       {l:'Exilio — preservás su honor',h:'Balance entre justicia y compasión',good:true,pts:2,fb:'El exilio balanceó justicia y compasión. Muestra madurez de liderazgo.'}]},
-    {title:'El guerrero indeciso',sit:'Tu mejor guerrero duda antes de cada batalla. Es brillante pero la indecisión puede costar vidas.',ten:'El talento sin decisión es peligroso. ¿Cómo lo gestionás?',choices:[
+    {title:'El guerrero indeciso',sit:'Tu mejor guerrero duda antes de cada batalla. Es brillante pero la indecisión puede costar vidas.',ten:'El talento sin decisión es peligroso.',choices:[
       {l:'Asignalo a planificación — fuera del campo de batalla',h:'Aprovechás su talento sin el riesgo',good:true,pts:3,fb:'Reubicar el talento es sabiduría. Sus mapas salvaron más vidas que su espada.'},
       {l:'Entrenamiento adicional',h:'Inversión con retorno incierto',good:true,pts:2,fb:'La inversión en desarrollo fue correcta. La decisión mejoró gradualmente.'},
-      {l:'Lo reemplazás',h:'Perdés su talento estratégico',good:false,pts:0,fb:'Perder al mejor estratega por un problema tratable fue un error costoso.'}]}],
-  debrf:['¿En qué decisión hubo más debate?','¿Cómo se maneja la indecisión en tu equipo de trabajo?','¿Cuándo es preferible la justicia rápida vs. el proceso formal?']});
+      {l:'Lo reemplazás',h:'Perdés su talento estratégico',good:false,pts:0,fb:'Perder al mejor estratega por un problema tratable fue un error costoso.'}]},
+    {title:'Escasez de recursos antes del invierno',sit:'Las reservas de arroz alcanzan para el clan o para el ejército, no para ambos. El invierno llega en dos semanas.',ten:'¿Proteger a la familia primero o mantener la capacidad defensiva?',choices:[
+      {l:'Divide equitativamente — todos reciben menos',h:'Nadie queda sin nada',good:true,pts:2,fb:'La equidad mantuvo la moral. Todos sufrieron juntos, lo cual une al clan.'},
+      {l:'Prioriza al ejército — la protección es primordial',h:'El clan queda vulnerable al hambre',good:false,pts:1,fb:'La decisión fue tácticamente lógica pero el clan perdió confianza en su Daimyo.'},
+      {l:'Negocia con clanes vecinos — busca préstamos de grano',h:'Requiere humildad y crea deuda',good:true,pts:3,fb:'Buscar ayuda externa fue creativo y humilde. Las alianzas salvan vidas.'}]},
+    {title:'El espía capturado',sit:'Capturan a un espía enemigo. Tiene información vital sobre el próximo ataque. El tiempo apremia.',ten:'La información puede salvar vidas. Los métodos para obtenerla pueden destruir el honor del clan.',choices:[
+      {l:'Ofrece su libertad a cambio de información — trato honrado',h:'Honor preservado, información posible',good:true,pts:3,fb:'Un trato honrado fue cumplido por el espía. La información salvó 200 vidas.'},
+      {l:'Tortura para obtener información rápida',h:'Rápido pero deshonroso',good:false,pts:0,fb:'La tortura produjo información falsa. El clan cayó en una trampa.'},
+      {l:'Encerrarlo y observar — puede revelar cómplices',h:'Paciencia estratégica',good:true,pts:2,fb:'La paciencia reveló a dos cómplices dentro del clan. Más valioso que la información táctica.'}]},
+    {title:'El clan aliado pide ayuda',sit:'Un clan aliado está siendo atacado. Si les enviás samuráis, debilitás tu propia defensa por 30 días.',ten:'La lealtad tiene un costo concreto hoy. Abandonarlos tiene un costo abstracto mañana.',choices:[
+      {l:'Enviás la mitad de tus samuráis — compromiso parcial',h:'Ayuda sin comprometer la defensa total',good:true,pts:2,fb:'El compromiso parcial fue honrado y reconocido. La alianza se fortaleció.'},
+      {l:'No enviás nadie — la defensa propia es prioritaria',h:'Racional a corto plazo, traición a largo',good:false,pts:1,fb:'El clan aliado sobrevivió sin vos. Pero la alianza terminó. Quedaste solo.'},
+      {l:'Enviás todos tus samuráis — lealtad total',h:'Heroico pero arriesgado',good:true,pts:3,fb:'Tu lealtad total fue recordada. El clan aliado te defendió cuando fuiste atacado 2 años después.'}]},
+    {title:'La oferta de paz del shogun',sit:'El shogun ofrece paz permanente a cambio de ceder el 30% del territorio del clan.',ten:'La paz tiene un precio concreto. La guerra tiene un precio incierto pero potencialmente mayor.',choices:[
+      {l:'Acepta la oferta — la paz vale el territorio',h:'Cedes tierra pero ganas estabilidad',good:true,pts:2,fb:'La paz permitió 20 años de prosperidad. El territorio cedido fue recuperado por la siguiente generación.'},
+      {l:'Rechaza — ningún centímetro del territorio ancestral',h:'Honor preservado, guerra posible',good:false,pts:1,fb:'La guerra que siguió destruyó el 60% del clan. El honor no alimenta a los muertos.'},
+      {l:'Negocia — acepta el 15% y pide condiciones adicionales',h:'Compromiso estratégico',good:true,pts:3,fb:'La negociación redujo el costo a la mitad. El shogun respetó al Daimyo que no cedió completamente.'}]},
+  ],
+  debrf:['¿En qué decisión hubo más debate?','¿Cómo manejan la indecisión y la traición en su equipo de trabajo?','¿Cuándo es preferible la justicia rápida vs. el proceso formal?','¿Qué dilema los sorprendió más?']});
 
-window.G_chanakya=()=>dilemmaGame({title:"Chanakya's Niti",intro:'India, 300 a.C. Sos asesor del rey Chandragupta. El fin justifica los medios si el fin es el bienestar del reino.',
-  context:'Cada decisión involucra alianzas, información y poder. El liderazgo pragmático requiere ver más allá de las apariencias.',
-  scenarios:[
+window.G_chanakya=()=>dilemmaGame({title:"Chanakya's Niti",
+  intro:'India, 300 a.C. Sos asesor del rey Chandragupta. El fin justifica los medios si el fin es el bienestar del reino.',
+  context:'Se eligen 3 dilemas al azar de entre 6. El liderazgo pragmático requiere ver más allá de las apariencias.',
+  scenarioCount:3,
+  scenarioPool:[
     {title:'El aliado dudoso',sit:'Un reino vecino ofrece alianza militar pero sus motivos son cuestionables. Necesitás su ejército para el próximo mes.',choices:[
       {l:'Acepta con cláusulas de salida',h:'Pragmático y protegido',good:true,pts:3,fb:'Las alianzas con salvaguardas son la base del Arthashastra.'},
       {l:'Rechazá — no confíes en aliados de conveniencia',h:'Pureza moral pero debilidad militar',good:false,pts:1,fb:'La pureza sin pragmatismo es un lujo que un reino no puede permitirse.'},
-      {l:'Aceptá y preparate para si traicionan',h:'Doble estrategia',good:true,pts:2,fb:'Planificar para ambos escenarios es lo que enseña el Arthashastra.'}]},
+      {l:'Aceptá y preparate para si traicionan',h:'Doble estrategia',good:true,pts:2,fb:'Planificar para ambos escenarios es exactamente lo que enseña el Arthashastra.'}]},
     {title:'Información privilegiada',sit:'Un espía te revela que un ministro corrupto planea un golpe de estado. Las pruebas son indirectas.',choices:[
       {l:'Actuá antes del golpe aunque las pruebas sean débiles',h:'Preventivo pero arriesgado',good:false,pts:1,fb:'Actuar sin pruebas claras daña la legitimidad del rey.'},
       {l:'Conseguí más pruebas antes de actuar',h:'Seguro pero con riesgo de que ocurra el golpe',good:true,pts:2,fb:'La paciencia táctica es una virtud en el Arthashastra.'},
@@ -590,60 +630,119 @@ window.G_chanakya=()=>dilemmaGame({title:"Chanakya's Niti",intro:'India, 300 a.C
     {title:'La sucesión del reino',sit:'El rey está enfermo. Hay dos sucesores: el legítimo (débil) y el capaz (sin derecho al trono).',choices:[
       {l:'Apoyá al legítimo y asesóralo',h:'Tradición con mentoría',good:true,pts:2,fb:'La estabilidad de la sucesión legítima evita guerras civiles.'},
       {l:'Diseñá un sistema donde el capaz asesora al legítimo',h:'Ingeniería política',good:true,pts:3,fb:'La ingeniería institucional que captura lo mejor de ambos es la solución del Arthashastra.'},
-      {l:'Apoyá al capaz',h:'Rompe tradición pero gana capacidad',good:false,pts:1,fb:'Romper la sucesión legítima siembra inestabilidad generacional.'}]}],
-  debrf:['¿Cuándo el fin justifica los medios en tu contexto laboral?','¿Cómo manejan la información privilegiada en su equipo?','¿Qué diferencia hay entre pragmatismo y falta de ética?']});
+      {l:'Apoyá al capaz',h:'Rompe la tradición pero gana capacidad',good:false,pts:1,fb:'Romper la sucesión legítima siembra inestabilidad generacional.'}]},
+    {title:'El gobernador corrupto',sit:'El gobernador de la provincia más rica es corrupto pero es el más efectivo recaudando impuestos.',ten:'Removerlo colapsa los ingresos. Dejarlo en su puesto normaliza la corrupción.',choices:[
+      {l:'Removelo y reemplazalo con alguien honesto pero menos eficiente',h:'Integridad sobre eficiencia',good:true,pts:2,fb:'La integridad a largo plazo supera la eficiencia corrupta. El nuevo gobernador tardó 2 años en igualar la recaudación.'},
+      {l:'Dejalo en su puesto pero instalá un auditor que lo controle',h:'Control sin ruptura',good:true,pts:3,fb:'El control dual fue la solución más inteligente. La corrupción cayó un 70% sin perder eficiencia.'},
+      {l:'Ignorar la corrupción mientras los impuestos lleguen',h:'Pragmatismo sin límites',good:false,pts:0,fb:'La tolerancia normalizada destruyó la cultura de integridad en toda la administración.'}]},
+    {title:'La sequía y la distribución de reservas',sit:'Hay sequía. Las reservas alcanzarán para 6 meses. La cosecha está a 8 meses. Alguien no va a comer.',ten:'¿Quién recibe los recursos escasos cuando no alcanzan para todos?',choices:[
+      {l:'Distribución igualitaria — todos comen menos',h:'Equidad, nadie muere de hambre',good:true,pts:2,fb:'La distribución igualitaria mantuvo la cohesión social. Nadie murió pero todos sufrieron.'},
+      {l:'Priorizar a los que producen comida — campesinos y agricultores',h:'Inversión en la producción futura',good:true,pts:3,fb:'Priorizar a los productores aceleró la recuperación. Una decisión dolorosa pero inteligente.'},
+      {l:'Priorizar al ejército — la seguridad primero',h:'Defensa sobre todo',good:false,pts:1,fb:'El hambre civil generó revueltas que el ejército tuvo que reprimir. El costo fue mayor que la amenaza exterior.'}]},
+    {title:'El embajador extranjero con demandas',sit:'Un reino poderoso envía un embajador con demandas comerciales que benefician a ellos pero dañan a los artesanos locales.',ten:'Rechazar puede provocar represalias comerciales. Aceptar destruye la industria local.',choices:[
+      {l:'Rechazar públicamente y prepararse para represalias',h:'Independencia con costo',good:false,pts:1,fb:'Las represalias comerciales costaron el 20% de los ingresos durante 3 años.'},
+      {l:'Negociar condiciones intermedias con plazo de transición',h:'Diplomacia con gradualidad',good:true,pts:3,fb:'El plazo de transición permitió a los artesanos adaptarse. La economía local sobrevivió.'},
+      {l:'Aceptar y compensar a los artesanos con subsidios del estado',h:'Costo distribuido',good:true,pts:2,fb:'Los subsidios amortiguaron el impacto. Costoso pero efectivo a corto plazo.'}]},
+  ],
+  debrf:['¿Cuándo el fin justifica los medios en tu contexto laboral?','¿Cómo manejan la información privilegiada en su equipo?','¿Qué diferencia hay entre pragmatismo y falta de ética?','¿Cuál fue el dilema más difícil y por qué?']});
 
-window.G_friday=()=>dilemmaGame({title:'Friday Night at the ER',intro:'Son las 9pm del viernes. Cuatro departamentos del hospital compiten por los mismos recursos: camas, enfermeras, médicos y equipos.',
-  context:'Los recursos son compartidos. Optimizar tu departamento puede colapsar a otro. El objetivo es que el HOSPITAL funcione.',
+window.G_friday=()=>dilemmaGame({title:'Friday Night at the ER',
+  intro:'Son las 9pm del viernes. Cuatro departamentos del hospital compiten por los mismos recursos.',
+  context:'Se presentan 3 crisis al azar de entre 6. El objetivo no es que tu departamento rinda bien — es que el HOSPITAL funcione.',
   roles:[{e:'🚨',name:'Urgencias',goal:'Tratar 30 pacientes esta noche',color:'var(--ca)'},{e:'🏥',name:'Cirugía',goal:'Completar 4 cirugías programadas',color:'var(--cs)'},{e:'🧪',name:'Laboratorio',goal:'Procesar 50 muestras urgentes',color:'var(--cst)'},{e:'🛏️',name:'Hospitalización',goal:'Mantener camas disponibles',color:'var(--cn)'}],
-  scenarios:[
-    {title:'Crisis de 11pm',sit:'Llegan 5 pacientes de accidente masivo. Urgencias necesita 3 camas de Hospitalización, 1 médico de Cirugía y laboratorio urgente.',ten:'Hospitalización tenía esas camas para cirugías de mañana.',choices:[
+  scenarioCount:3,
+  scenarioPool:[
+    {title:'Crisis de 11pm — accidente masivo',sit:'Llegan 5 pacientes de accidente masivo. Urgencias necesita 3 camas de Hospitalización, 1 médico de Cirugía y laboratorio urgente.',ten:'Hospitalización tenía esas camas para cirugías de mañana.',choices:[
       {l:'Urgencias toma los recursos — emergencia primero',h:'Soluciona ahora, crea problema mañana',good:false,pts:1,fb:'La solución inmediata creó caos en las cirugías de mañana. No se evaluó el impacto sistémico.'},
-      {l:'Reunión express de 5 minutos entre jefes',h:'Coordinación antes de actuar',good:true,pts:3,fb:'5 minutos de coordinación ahorraron 2 horas de caos.'},
-      {l:'Cada departamento decide independientemente',h:'Velocidad pero descoordinación',good:false,pts:0,fb:'La descoordinación resultó en duplicación y omisiones.'}]},
-    {title:'El equipo de MRI',sit:'El único MRI está siendo usado por Cirugía para una cirugía no urgente. Urgencias lo necesita urgentemente para un posible ACV.',ten:'Interrumpir la cirugía es riesgoso. Esperar puede costar la vida del paciente.',choices:[
-      {l:'Urgencias interrumpe el MRI — ACV es urgencia mayor',h:'Correcto médicamente',good:true,pts:2,fb:'La prioridad médica fue correcta.'},
-      {l:'Hospital vecino tiene MRI disponible — trasladar',h:'Preserva recursos internos',good:true,pts:3,fb:'La solución creativa preservó ambas operaciones.'},
-      {l:'Esperan 30 minutos a que Cirugía termine',h:'Riesgo alto',good:false,pts:0,fb:'30 minutos en un ACV agudo puede ser la diferencia entre vida y muerte.'}]},
-    {title:'Las enfermeras del turno de noche',sit:'Solo hay 8 enfermeras para 4 departamentos. Cada departamento necesita al menos 3.',choices:[
-      {l:'Distribución igualitaria: 2 por departamento',h:'Nadie queda bien servido',good:false,pts:1,fb:'La distribución igualitaria ignoró la demanda variable. Urgencias colapsó.'},
+      {l:'Reunión express de 5 minutos entre jefes de área',h:'Coordinación antes de actuar',good:true,pts:3,fb:'5 minutos de coordinación ahorraron 2 horas de caos. La solución sistémica fue mejor.'},
+      {l:'Cada departamento decide independientemente',h:'Velocidad pero descoordinación',good:false,pts:0,fb:'La descoordinación resultó en duplicación y omisiones. Tres departamentos pidieron el mismo médico.'}]},
+    {title:'El único MRI',sit:'El único MRI está siendo usado por Cirugía para una cirugía no urgente. Urgencias lo necesita para un posible ACV.',ten:'Interrumpir la cirugía es riesgoso. Esperar puede costar la vida del paciente.',choices:[
+      {l:'Urgencias interrumpe el MRI — ACV es urgencia mayor',h:'Médicamente correcto',good:true,pts:2,fb:'La prioridad médica fue correcta. El protocolo de interrupción debe existir previamente.'},
+      {l:'Hospital vecino tiene MRI disponible — trasladar al paciente',h:'Solución creativa sin conflicto interno',good:true,pts:3,fb:'La solución creativa preservó ambas operaciones. La red hospitalaria es un recurso subutilizado.'},
+      {l:'Esperan 30 minutos a que Cirugía termine',h:'Riesgo alto para el paciente de Urgencias',good:false,pts:0,fb:'30 minutos en un ACV agudo puede ser la diferencia entre vida, daño o muerte.'}]},
+    {title:'Las enfermeras del turno de noche',sit:'Solo hay 8 enfermeras para 4 departamentos. Cada uno necesita al menos 3.',choices:[
+      {l:'Distribución igualitaria: 2 por departamento',h:'Nadie queda bien servido',good:false,pts:1,fb:'La distribución igualitaria ignoró la demanda variable por departamento. Urgencias colapsó.'},
       {l:'Distribución por carga actual: Urgencias 4, Cirugía 2, Lab 1, Hosp 1',h:'Basada en demanda real',good:true,pts:3,fb:'La asignación dinámica basada en carga real es la práctica óptima.'},
-      {l:'Cada departamento negocia directamente con la jefa',h:'Más lento pero considera cada caso',good:true,pts:2,fb:'La negociación directa fue más lenta pero consideró información que la jefa no tenía.'}]}],
-  debrf:['¿Cuándo optimizaron su departamento a costa del sistema?','¿Qué información faltaba para tomar mejores decisiones?','¿Cómo aplica esto a los "viernes por la noche" en su organización?']});
+      {l:'Cada departamento negocia directamente con la jefa',h:'Más lento pero considera cada caso',good:true,pts:2,fb:'La negociación directa fue más lenta pero consideró información que la jefa no tenía.'}]},
+    {title:'El médico de guardia exhausto',sit:'El único cirujano disponible lleva 22 horas de guardia. Hay una cirugía de emergencia que no puede esperar.',ten:'Operar exhausto es peligroso. No operar también lo es.',choices:[
+      {l:'El cirujano opera — es el único disponible',h:'Riesgo médico alto por fatiga',good:false,pts:1,fb:'El cirujano cometió un error de suturas por fatiga. La cirugía fue exitosa pero con complicaciones evitables.'},
+      {l:'Buscar cirujano de otro hospital — 45 minutos de espera',h:'Tiempo perdido, manos frescas',good:true,pts:3,fb:'El cirujano externo llegó a tiempo. El paciente toleró la espera y la cirugía fue perfecta.'},
+      {l:'El cirujano opera con un residente de apoyo adicional',h:'Apoyo para compensar la fatiga',good:true,pts:2,fb:'El equipo ampliado compensó la fatiga. La cirugía tomó 30 minutos más pero fue segura.'}]},
+    {title:'La heladera de medicamentos',sit:'La heladera de medicamentos críticos de Urgencias falló. Los medicamentos son de todos los departamentos.',ten:'Si no se actúa en 2 horas, se pierden medicamentos por $200,000.',choices:[
+      {l:'Urgencias toma todos los medicamentos críticos para sus pacientes',h:'Protege a sus pacientes pero daña a otros',good:false,pts:0,fb:'Los pacientes de otros departamentos sufrieron por falta de medicamentos. La solución unilateral fue un desastre.'},
+      {l:'Protocolo de emergencia compartido — cada departamento retira lo suyo en orden de urgencia',h:'Coordinado y justo',good:true,pts:3,fb:'El protocolo coordinado minimizó pérdidas. Solo se perdió el 5% de los medicamentos.'},
+      {l:'Llamar a la farmacia de guardia para reubicar todo en su heladera',h:'Solución externa limpia',good:true,pts:2,fb:'La farmacia resolvió el problema en 90 minutos. Costo: 1 hora de medicamentos en temperatura ambiente.'}]},
+    {title:'El paciente sin identificación',sit:'Llega un paciente inconsciente sin identificación. Necesita cirugía urgente pero no hay consentimiento.',ten:'Operar sin consentimiento es un riesgo legal. No operar es un riesgo mortal.',choices:[
+      {l:'Operar de inmediato — la vida primero',h:'Correcto médicamente, riesgo legal',good:true,pts:3,fb:'La ley ampara la intervención de emergencia sin consentimiento. Correcto médica y legalmente.'},
+      {l:'Esperar 30 minutos intentando identificar al paciente',h:'Diligencia legal, riesgo médico',good:false,pts:0,fb:'El paciente entró en paro durante la espera. La demora fue evitable y potencialmente fatal.'},
+      {l:'Operar y documentar detalladamente el proceso de decisión',h:'Cobertura legal con acción médica',good:true,pts:2,fb:'La documentación detallada fue la defensa legal perfecta. Operaron correctamente y con cobertura.'}]},
+  ],
+  debrf:['¿Cuándo optimizaron su departamento a costa del sistema?','¿Qué información faltaba para tomar mejores decisiones?','¿Qué crisis del hospital encontraron más parecida a su trabajo diario?','¿Cómo aplica el pensamiento sistémico en su organización?']});
 
-window.G_simultrain=()=>dilemmaGame({title:'SimulTrain — Proyecto de Software',intro:'Proyecto de software de 12 semanas, 4 personas. Eventos inesperados amenazan el timeline.',
+window.G_simultrain=()=>dilemmaGame({title:'SimulTrain — Proyecto de Software',
+  intro:'Gestionás un proyecto de software de 12 semanas con 4 personas. 3 crisis al azar de entre 6 posibles.',
   context:'Capacidad: 80 semanas-persona. Requerimiento: 70. El margen es engañoso cuando empiezan los eventos.',
-  scenarios:[
-    {title:'Sprint 1: El cliente quiere más',sit:'El cliente agrega 15% de funcionalidad nueva. Sin presupuesto adicional. El equipo ya está al 100%.',choices:[
+  scenarioCount:3,
+  scenarioPool:[
+    {title:'El cliente quiere más funcionalidad',sit:'El cliente agrega 15% de funcionalidad nueva. Sin presupuesto adicional. El equipo ya está al 100%.',choices:[
       {l:'Absorber con horas extra',h:'Rápido pero desgasta al equipo',good:false,pts:1,fb:'Las horas extra generaron bugs que costaron el doble de tiempo.'},
       {l:'Renegociar alcance o plazo con evidencia',h:'Difícil pero correcto',good:true,pts:3,fb:'La renegociación transparente fue valorada por el cliente.'},
       {l:'Reducir calidad para absorber el alcance',h:'Entrega a tiempo con deuda técnica',good:false,pts:0,fb:'Los bugs en producción costaron 3× el tiempo de renegociación.'}]},
-    {title:'Sprint 4: Renuncia inesperada',sit:'El líder técnico renuncia. Lleva el 40% del conocimiento crítico del proyecto.',choices:[
+    {title:'Renuncia del líder técnico',sit:'El líder técnico renuncia. Lleva el 40% del conocimiento crítico del proyecto.',choices:[
       {l:'Contratar freelance urgente',h:'Costoso y lento en contextualizarse',good:false,pts:1,fb:'El freelance tardó 2 semanas en entender el proyecto.'},
       {l:'Sesión de transferencia de conocimiento antes de que se vaya',h:'Una semana que vale oro',good:true,pts:3,fb:'La documentación generada fue el activo más valioso del proyecto.'},
       {l:'Distribuir el trabajo en el equipo actual',h:'Riesgo de sobrecarga',good:true,pts:2,fb:'El equipo absorbió la carga con tensión pero sin colapsar.'}]},
-    {title:'Sprint 9: Bug en producción',sit:'Bug crítico afecta 30% de usuarios. Quedan 3 semanas de desarrollo.',choices:[
+    {title:'Bug crítico en producción',sit:'Bug crítico afecta el 30% de los usuarios en producción. Quedan 3 semanas de desarrollo.',choices:[
       {l:'Todos al bug — paralizar el desarrollo',h:'Excesivo para el tamaño del problema',good:false,pts:1,fb:'Paralizar el equipo fue innecesario. El bug requería 2 personas, no 4.'},
-      {l:'2 al bug, 2 continúan el desarrollo',h:'Balance óptimo',good:true,pts:3,fb:'La segmentación fue perfecta. Bug resuelto en 2 días sin perder ritmo.'},
-      {l:'Pedirle al cliente que espere',h:'Prioriza el código sobre la relación',good:false,pts:0,fb:'El cliente canceló el contrato.'}]}],
-  debrf:['¿Cuándo la planificación inicial resultó insuficiente?','¿Cómo manejaron la incertidumbre?','¿Cuándo el equipo debería decirle no al cliente?']});
+      {l:'2 personas al bug, 2 continúan el desarrollo',h:'Balance óptimo',good:true,pts:3,fb:'La segmentación fue perfecta. Bug resuelto en 2 días sin perder ritmo.'},
+      {l:'Pedirle al cliente que espere',h:'Prioriza el código sobre la relación',good:false,pts:0,fb:'El cliente canceló el contrato.'}]},
+    {title:'Conflicto de estimaciones',sit:'El desarrollador más senior dice que una funcionalidad clave tarda 3 semanas. El PM dice que el cliente espera 1 semana.',ten:'Prometer menos de lo posible destruye la credibilidad. Prometer más destruye al equipo.',choices:[
+      {l:'Negociar con el cliente: 2 semanas con funcionalidad reducida',h:'Compromiso realista',good:true,pts:3,fb:'El cliente aceptó el compromiso. La funcionalidad reducida satisfizo el 80% de su necesidad.'},
+      {l:'Comprometerse con 1 semana y trabajar horas extra',h:'Riesgo de colapso del equipo',good:false,pts:0,fb:'El equipo trabajó 80 horas semanales. La entrega fue a tiempo pero llena de bugs. El desarrollador senior renunció.'},
+      {l:'Mantener las 3 semanas y explicar el razonamiento técnico',h:'Honestidad técnica',good:true,pts:2,fb:'El cliente inicialmente se molestó pero luego reconoció la transparencia. La relación se fortaleció.'}]},
+    {title:'Cambio de tecnología a mitad del proyecto',sit:'El cliente pide migrar a una tecnología diferente a la acordada. Afirma que lo mencionó en las reuniones iniciales.',ten:'Cambiar tecnología a la mitad reinicia el proyecto en la práctica.',choices:[
+      {l:'Rechazar el cambio — no estaba en el contrato',h:'Correcto contractualmente, tenso relacionalmente',good:true,pts:2,fb:'El contrato respaldó la posición del equipo. El cliente aceptó aunque no le gustó.'},
+      {l:'Aceptar el cambio con un nuevo contrato y timeline',h:'Flexibilidad con protección',good:true,pts:3,fb:'El nuevo contrato protegió al equipo y el cliente valoró la disposición a adaptarse.'},
+      {l:'Hacer el cambio sin modificar el contrato — para mantener la relación',h:'Generosidad sin límites',good:false,pts:0,fb:'El equipo trabajó el doble sin compensación. Tres personas renunciaron al finalizar.'}]},
+    {title:'El stakeholder silencioso',sit:'A mitad del proyecto aparece un stakeholder de alto rango que nadie conocía. Invalida decisiones de diseño ya implementadas.',ten:'Retroceder costoso. Seguir adelante con resistencia también.',choices:[
+      {l:'Organizar una reunión de alineación con todos los stakeholders identificados',h:'Sistémico — previene que vuelva a pasar',good:true,pts:3,fb:'La sesión reveló 2 stakeholders más. El mapa de poder quedó claro para todo el proyecto.'},
+      {l:'Negociar directamente con el stakeholder las decisiones de diseño',h:'Rápido pero sin cambio sistémico',good:true,pts:2,fb:'El stakeholder quedó satisfecho. El riesgo de que vuelva a pasar sigue latente.'},
+      {l:'Ignorar sus comentarios — el PM tiene la autoridad',h:'Protege el proyecto, crea enemigo político',good:false,pts:0,fb:'El stakeholder bloqueó la aprobación final del proyecto durante 3 semanas.'}]},
+  ],
+  debrf:['¿Cuándo la planificación inicial resultó insuficiente?','¿Cómo manejaron la incertidumbre con información incompleta?','¿Cuándo el equipo debería decirle no al cliente?','¿Cuál de los escenarios se parece más a su realidad laboral?']});
 
-window.G_labyrinth=()=>dilemmaGame({title:'Labyrinth',intro:'El Líder ve el mapa completo pero NO puede moverse. El equipo puede moverse pero NO ve el mapa.',
-  context:'La microgestión paraliza. La delegación libera. ¿Cuál es el estilo de liderazgo de tu equipo?',
-  scenarios:[
-    {title:'Primer cruce del laberinto',sit:'El equipo está en la entrada. El Líder puede ver la ruta pero debe comunicarla solo con palabras.',choices:[
-      {l:'El Líder da instrucción por instrucción detallada',h:'Control total, lentitud máxima',good:false,pts:1,fb:'La microgestión verbal ralentizó al equipo. Cada movimiento dependía del Líder.'},
-      {l:'El Líder explica el mapa completo primero, luego el equipo se mueve',h:'Contexto antes de acción',good:true,pts:3,fb:'Dar el contexto completo antes de actuar permitió al equipo tomar decisiones autónomas.'},
-      {l:'El equipo decide sus propios movimientos y pregunta al Líder cuando duda',h:'Delegación con soporte',good:true,pts:2,fb:'La delegación con soporte de respaldo fue efectiva.'}]},
-    {title:'Callejón sin salida',sit:'El equipo llegó a un callejón sin salida. El Líder ve la salida pero el equipo se frustró.',ten:'La frustración del equipo eleva el tono. El Líder está tentado de tomar el control.',choices:[
-      {l:'El Líder asume el control total y dirige cada paso',h:'Resuelve la crisis pero destruye la confianza',good:false,pts:1,fb:'Asumir el control bajo presión enseña al equipo que el Líder no confía en ellos.'},
+window.G_labyrinth=()=>dilemmaGame({title:'Labyrinth — Liderazgo y Delegación',
+  intro:'El Líder ve el mapa completo pero NO puede moverse. El equipo puede moverse pero NO ve el mapa. 3 situaciones al azar de entre 6.',
+  context:'La microgestión paraliza. La delegación libera. ¿Cuál es el estilo real de liderazgo del equipo?',
+  scenarioCount:3,
+  scenarioPool:[
+    {title:'Inicio del laberinto',sit:'El equipo está en la entrada. El Líder puede ver la ruta completa pero debe comunicarla solo con palabras.',choices:[
+      {l:'El Líder da instrucción por instrucción — paso a paso',h:'Control total, lentitud máxima',good:false,pts:1,fb:'La microgestión verbal ralentizó al equipo. Cada movimiento dependía del Líder.'},
+      {l:'El Líder explica el mapa completo primero, luego el equipo se mueve autónomamente',h:'Contexto antes de acción',good:true,pts:3,fb:'Dar el contexto completo permitió al equipo tomar decisiones autónomas.'},
+      {l:'El equipo explora y pregunta al Líder solo cuando tiene dudas',h:'Delegación con soporte',good:true,pts:2,fb:'La delegación con soporte de respaldo fue efectiva y desarrolló la autonomía del equipo.'}]},
+    {title:'Callejón sin salida',sit:'El equipo llegó a un callejón sin salida. El Líder ve la salida pero el equipo se frustró y el tono sube.',ten:'La frustración eleva el tono. El Líder está tentado de tomar el control total.',choices:[
+      {l:'El Líder asume el control total y dirige cada paso',h:'Resuelve la crisis pero destruye la confianza',good:false,pts:1,fb:'Asumir el control bajo presión enseña al equipo que el Líder no confía en ellos bajo presión.'},
       {l:'El Líder hace preguntas en vez de dar respuestas',h:'Socrático — más lento pero más poderoso',good:true,pts:3,fb:'Las preguntas guiadas generaron aprendizaje real. El equipo resolvió el callejón sin instrucciones directas.'},
-      {l:'El Líder da una pista pero deja que el equipo decida',h:'Balance justo',good:true,pts:2,fb:'La pista fue suficiente. El equipo encontró la salida con el mínimo de apoyo.'}]},
-    {title:'Línea final',sit:'A 3 movimientos de la salida. El equipo puede completarlo solo pero el Líder ve un atajo.',choices:[
-      {l:'El Líder señala el atajo y lo aprovechan',h:'Eficiente pero elimina el logro del equipo',good:false,pts:1,fb:'El equipo completó el laberinto pero el logro fue del Líder, no de ellos.'},
-      {l:'El Líder se queda callado — el equipo termina solo',h:'El logro es del equipo',good:true,pts:3,fb:'El equipo completó el laberinto sin ayuda final. La celebración fue genuina.'},
-      {l:'El Líder pregunta si quieren la pista',h:'Les da la elección',good:true,pts:2,fb:'Dar la opción de recibir o no la pista respetó la autonomía del equipo.'}]}],
-  debrf:['¿En qué momento el Líder intervino más de lo necesario?','¿Cuándo el equipo pidió instrucciones vs. tomó iniciativa?','¿En qué situaciones de trabajo real se microgestiona?','¿Qué condiciones permiten delegar con confianza?']});
+      {l:'El Líder da una sola pista y deja que el equipo decida',h:'Mínima intervención',good:true,pts:2,fb:'La pista mínima fue suficiente. El equipo encontró la salida con el mínimo de apoyo necesario.'}]},
+    {title:'Línea final',sit:'A 3 movimientos de la salida. El equipo puede completarlo solo pero el Líder ve un atajo que ahorra tiempo.',choices:[
+      {l:'El Líder señala el atajo — eficiencia primero',h:'Eficiente pero elimina el logro del equipo',good:false,pts:1,fb:'El equipo completó el laberinto pero el logro fue del Líder, no de ellos. La satisfacción fue menor.'},
+      {l:'El Líder se queda callado — el equipo termina solo',h:'El logro pertenece al equipo',good:true,pts:3,fb:'El equipo completó el laberinto sin ayuda final. La celebración fue genuina y el aprendizaje, completo.'},
+      {l:'El Líder pregunta si quieren la pista o prefieren resolverlo solos',h:'Respeta la autonomía del equipo',good:true,pts:2,fb:'Dar la opción de recibir o no la pista respetó la autonomía. El equipo eligió resolverlo solo.'}]},
+    {title:'El miembro que no escucha',sit:'Uno del equipo ignora las instrucciones del Líder y toma atajos que llevan a zonas incorrectas del laberinto.',ten:'Corregirlo públicamente puede humillarlo. Ignorarlo puede costar el juego.',choices:[
+      {l:'El Líder lo corrige públicamente con firmeza',h:'Claro pero puede dañar la dinámica',good:false,pts:1,fb:'La corrección pública generó defensividad. El miembro se cerró y dejó de participar.'},
+      {l:'El Líder lo llama aparte en privado antes de continuar',h:'Más lento pero más respetuoso',good:true,pts:3,fb:'La conversación privada reveló que el miembro tenía una interpretación diferente de las instrucciones. El error era del Líder.'},
+      {l:'El Líder ajusta las instrucciones sin señalar al miembro',h:'Sistémico sin confrontación',good:true,pts:2,fb:'Ajustar las instrucciones sin señalar resolvió el problema sin costo relacional.'}]},
+    {title:'El equipo en desacuerdo entre sí',sit:'El equipo llegó a una bifurcación. Dos miembros quieren ir a la izquierda, uno quiere ir a la derecha. El Líder sabe que la derecha es correcta pero el equipo no lo sabe.',ten:'Intervenir rompe el aprendizaje. No intervenir puede costar tiempo valioso.',choices:[
+      {l:'El Líder dice directamente cuál camino tomar',h:'Eficiente pero elimina el proceso de decisión',good:false,pts:1,fb:'El equipo llegó al destino pero no aprendió a manejar el desacuerdo. El conflicto reaparecerá.'},
+      {l:'El Líder pregunta: ¿qué información los llevaría a elegir un camino?',h:'Socrático — guía sin revelar',good:true,pts:3,fb:'La pregunta llevó al equipo a pedir una pista específica. El Líder la dio. El equipo tomó la decisión correcta sintiéndola propia.'},
+      {l:'El Líder dice: puedo confirmar que uno de los dos es incorrecto — decidan',h:'Pista mínima',good:true,pts:2,fb:'La pista mínima desbloqueó el proceso de decisión sin resolverlo por ellos.'}]},
+    {title:'El tiempo se acaba',sit:'Quedan 5 minutos. El equipo aún tiene 8 movimientos por hacer. El Líder sabe un atajo que reduce el recorrido a 3 movimientos.',ten:'Dar el atajo garantiza llegar. No darlo puede resultar en no terminar pero en más aprendizaje.',choices:[
+      {l:'El Líder da el atajo — terminar es el objetivo',h:'Resultados sobre proceso',good:false,pts:1,fb:'El equipo llegó a tiempo. Pero la próxima vez que enfrenten presión de tiempo, buscarán al Líder para que resuelva.'},
+      {l:'El Líder avisa que el tiempo es crítico y le da al equipo 1 minuto para proponer soluciones',h:'Urgencia delegada',good:true,pts:3,fb:'El equipo propuso un atajo diferente pero igualmente válido. La capacidad de actuar bajo presión quedó internalizada.'},
+      {l:'El Líder acelera las instrucciones sin revelar el atajo',h:'Más directivo pero preserva el proceso',good:true,pts:2,fb:'Las instrucciones aceleradas llevaron al equipo a 1 movimiento de la salida. No terminaron pero casi.'}]},
+  ],
+  debrf:['¿En qué momento el Líder intervino más de lo necesario?','¿Cuándo el equipo pidió instrucciones vs. tomó iniciativa propia?','¿En qué situaciones de trabajo real se microgestiona sin necesidad?','¿Qué condiciones concretas permitirían delegar con más confianza?']});
+
 // ── BUSINESS STRATEGY TEMPLATE ──
 function bizGame(cfg){
   let period=0,R={cash:100,share:25,brand:50},choices=[];
@@ -1337,7 +1436,7 @@ window.G_everest = function() {
   }
   
   // Inject HTML
-  container.innerHTML = '<!-- INTRO -->\n<div class="screen active" id="screen-intro">\n  <div class="intro-inner">\n    <div class="brand">Simulación · Liderazgo · Trabajo en equipo</div>\n    <div class="intro-title">🏔 <span>Everest</span></div>\n    <p class="intro-sub">Tu equipo tiene 6 días para llegar a la cima. Cada decisión afecta la salud, el clima y las metas individuales. El éxito requiere comunicación, liderazgo real y saber cuándo retirarse.</p>\n    <div class="roles-grid">\n      <div class="role-chip r0"><span class="emoji">🧗</span><span class="rname">Líder</span><div class="rgoal">Llegar a la cima sin importar el costo</div></div>\n      <div class="role-chip r1"><span class="emoji">🏥</span><span class="rname">Médico</span><div class="rgoal">Que todos regresen con vida</div></div>\n      <div class="role-chip r2"><span class="emoji">📸</span><span class="rname">Fotógrafo</span><div class="rgoal">Foto en la cima o el proyecto fracasa</div></div>\n      <div class="role-chip r3"><span class="emoji">🔬</span><span class="rname">Científico</span><div class="rgoal">Recolectar datos en campo 5 y 6</div></div>\n      <div class="role-chip r4"><span class="emoji">💰</span><span class="rname">Sponsor</span><div class="rgoal">ROI y visibilidad mediática, o retira fondos</div></div>\n    </div>\n    <button class="btn-start" onclick="startGame()">Iniciar simulación →</button>\n  </div>\n</div>\n\n<!-- GAME -->\n<div class="screen" id="screen-game">\n  <div class="topbar">\n    <button onclick=\"goMenu()\" style=\"flex-shrink:0;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:8px;padding:6px 12px;font-size:13px;font-weight:500;cursor:pointer;color:#FFFFFF;display:inline-flex;align-items:center;gap:6px;\"><svg width=\"10\" height=\"10\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" style=\"display:inline-block;vertical-align:middle\"><path d=\"M10 3L5 8L10 13\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg> Men\u00fa</button> <span class="topbar-title">🏔 Everest — Simulación de Liderazgo</span>\n    <div class="day-indicator" id="day-dots"></div>\n    <span class="clock" id="clock">60:00</span>\n  </div>\n  <div class="game-body">\n    <div class="panel-left">\n      <div class="panel-label">Estado del equipo</div>\n      <div id="team-cards"></div>\n    </div>\n    <div class="panel-center">\n      <svg class="mountain-svg" viewBox="0 0 700 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">\n        <polygon points="0,90 200,18 350,4 500,28 700,90" fill="rgba(26,107,60,0.08)" stroke="rgba(26,107,60,0.25)" stroke-width="1.5"/>\n        <circle id="team-marker" cx="50" cy="86" r="7" fill="#00A651"/>\n        <text id="marker-label" x="50" y="73" font-family="DM Sans" font-size="9" fill="#00A651" text-anchor="middle" font-weight="600">Base</text>\n      </svg>\n      <div class="day-content" id="day-content"></div>\n    </div>\n    <div class="panel-right">\n      <div class="status-block">\n        <div class="panel-label">Recursos</div>\n        <div id="resources-display"></div>\n      </div>\n      <div class="status-block">\n        <div class="panel-label">Registro de eventos</div>\n        <div class="event-log" id="event-log"></div>\n      </div>\n      <div>\n        <div class="panel-label">Herramientas del facilitador</div>\n        <div class="facilitator-tools">\n          <button class="fac-btn warn-btn" onclick="triggerEvent(\'storm\')">⛈ Activar tormenta repentina</button>\n          <button class="fac-btn danger-btn" onclick="triggerEvent(\'injury\')">🩹 Lesión en miembro del equipo</button>\n          <button class="fac-btn warn-btn" onclick="triggerEvent(\'oxygen\')">💨 Falla de oxígeno</button>\n          <button class="fac-btn" onclick="triggerEvent(\'rescue\')">🚁 Oferta de rescate disponible</button>\n          <button class="fac-btn danger-btn" onclick="triggerEvent(\'death_zone\')">☠️ Alerta zona de muerte</button>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<!-- FINAL -->\n<div class="screen" id="screen-final">\n  <div class="final-inner">\n    <div class="final-title" id="final-title">Simulación completa</div>\n    <p class="final-sub" id="final-sub"></p>\n    <div class="final-scores" id="final-scores"></div>\n    <div class="debrief-box">\n      <h3>Preguntas de debriefing</h3>\n      <ul class="debrief-list">\n        <li>¿En qué momentos el equipo priorizó metas individuales sobre la supervivencia del grupo?</li>\n        <li>¿Quién ejerció liderazgo real? ¿Coincidió con el rol asignado de "Líder"?</li>\n        <li>¿Cuándo fue necesario tomar una decisión impopular? ¿Cómo reaccionó el equipo?</li>\n        <li>¿Qué información ignoraron que luego resultó crítica?</li>\n        <li>¿Cómo manejaron el conflicto entre la misión (cima) y la responsabilidad (regresar seguros)?</li>\n        <li>¿Qué cambiarían en la forma de comunicar y decidir en su trabajo diario?</li>\n      </ul>\n    </div>\n    <button class="btn-restart" onclick="restartGame()">↺ Reiniciar simulación</button>\n  </div>\n</div>\n\n<!-- MODAL -->\n<div class="modal-overlay" id="modal">\n  <div class="modal">\n    <h3 id="modal-title">Evento inesperado</h3>\n    <p id="modal-body"></p>\n    <button class="modal-btn" onclick="closeModal()">El equipo decide →</button>\n  </div>\n</div>';
+  container.innerHTML = '<!-- INTRO -->\n<div class="screen active" id="screen-intro">\n  <div class="intro-inner">\n    <div class="brand">Simulación · Liderazgo · Trabajo en equipo</div>\n    <div class="intro-title">🏔 <span>Everest</span></div>\n    <p class="intro-sub">Tu equipo tiene 6 días para llegar a la cima. Cada decisión afecta la salud, el clima y las metas individuales. El éxito requiere comunicación, liderazgo real y saber cuándo retirarse.</p>\n    <div class="roles-grid">\n      <div class="role-chip r0"><span class="emoji">🧗</span><span class="rname">Líder</span><div class="rgoal">Llegar a la cima sin importar el costo</div></div>\n      <div class="role-chip r1"><span class="emoji">🏥</span><span class="rname">Médico</span><div class="rgoal">Que todos regresen con vida</div></div>\n      <div class="role-chip r2"><span class="emoji">📸</span><span class="rname">Fotógrafo</span><div class="rgoal">Foto en la cima o el proyecto fracasa</div></div>\n      <div class="role-chip r3"><span class="emoji">🔬</span><span class="rname">Científico</span><div class="rgoal">Recolectar datos en campo 5 y 6</div></div>\n      <div class="role-chip r4"><span class="emoji">💰</span><span class="rname">Sponsor</span><div class="rgoal">ROI y visibilidad mediática, o retira fondos</div></div>\n    </div>\n    <button class="btn-start" onclick="startGame()">Iniciar simulación →</button>\n  </div>\n</div>\n\n<!-- GAME -->\n<div class="screen" id="screen-game">\n  <div class="topbar">\n    <button onclick=\"goMenu()\" style=\"flex-shrink:0;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:8px;padding:6px 12px;font-size:13px;font-weight:500;cursor:pointer;color:#FFFFFF;display:inline-flex;align-items:center;gap:6px;\"><svg width=\"10\" height=\"10\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" style=\"display:inline-block;vertical-align:middle\"><path d=\"M10 3L5 8L10 13\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg> Men\u00fa</button> <span class="topbar-title">🏔 Everest — Simulación de Liderazgo</span>\n    <div class="day-indicator" id="day-dots"></div>\n    <span class="clock" id="clock">60:00</span>\n  </div>\n  <div class="game-body">\n    <div class="panel-left">\n      <div class="panel-label">Estado del equipo</div>\n      <div id="team-cards"></div>\n    </div>\n    <div class="panel-center">\n      <svg class="mountain-svg" viewBox="0 0 700 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">\n        <polygon points="0,90 200,18 350,4 500,28 700,90" fill="rgba(26,107,60,0.08)" stroke="rgba(26,107,60,0.25)" stroke-width="1.5"/>\n        <circle id="team-marker" cx="50" cy="86" r="7" fill="#00A651"/>\n        <text id="marker-label" x="50" y="73" font-family="DM Sans" font-size="9" fill="#00A651" text-anchor="middle" font-weight="600">Base</text>\n      </svg>\n      <div class="day-content" id="day-content"></div>\n    </div>\n    <div class="panel-right">\n      <div class="status-block">\n        <div class="panel-label">Recursos</div>\n        <div id="resources-display"></div>\n      </div>\n      <div class="status-block">\n        <div class="panel-label">Registro de eventos</div>\n        <div class="event-log" id="event-log"></div>\n      </div>\n      <div>\n        <div class="panel-label">Herramientas del facilitador</div>\n        <div class="facilitator-tools">\n          <button class="fac-btn warn-btn" onclick="triggerEvent(\'storm\')">⛈ Activar tormenta repentina</button>\n          <button class="fac-btn danger-btn" onclick="triggerEvent(\'injury\')">🩹 Lesión en miembro del equipo</button>\n          <button class="fac-btn warn-btn" onclick="triggerEvent(\'oxygen\')">💨 Falla de oxígeno</button>\n          <button class="fac-btn" onclick="triggerEvent(\'rescue\')">🚁 Oferta de rescate disponible</button>\n          <button class="fac-btn danger-btn" onclick="triggerEvent(\'death_zone\')">☠️ Alerta zona de muerte</button>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<!-- FINAL -->\n<div class="screen" id="screen-final">\n  <div class="final-inner">\n    <div class="final-title" id="final-title">Simulación completa</div>\n    <p class="final-sub" id="final-sub"></p>\n    <div class="final-scores" id="final-scores"></div>\n    <div class="debrief-box">\n      <h3>Preguntas de debriefing</h3>\n      <ul class=\"debrief-list\" id=\"debrief-list\"></ul>\n    </div>\n    <button class="btn-restart" onclick="restartGame()">↺ Reiniciar simulación</button>\n  </div>\n</div>\n\n<!-- MODAL -->\n<div class="modal-overlay" id="modal">\n  <div class="modal">\n    <h3 id="modal-title">Evento inesperado</h3>\n    <p id="modal-body"></p>\n    <button class="modal-btn" onclick="closeModal()">El equipo decide →</button>\n  </div>\n</div>';
   
   // Run Everest JS — expose functions to window so onclick handlers work
   (function() {
@@ -1762,6 +1861,65 @@ function endGame(){
       ${m.dead?'':`<div style="font-size:11px;color:#666;line-height:1.4">${moralLabel}</div>`}
     </div>`;
   }).join('');
+  // ── DYNAMIC DEBRIEF ──
+  const lowestMorale = TEAM.reduce((a,m) => m.morale < a.morale ? m : a, TEAM[0]);
+  const lowestHealth = [...TEAM].filter(m=>!m.dead).reduce((a,m) => m.health < a.health ? m : a, alive[0]||TEAM[0]);
+  const sponsorLowMorale = TEAM.find(m=>m.id==='spon')?.morale < 40;
+  const anyDead = dead.length > 0;
+  const allDead = dead.length === TEAM.length;
+  const missionSuccess = ok;
+
+  const questions = [];
+
+  // Always: liderazgo
+  questions.push('¿Quién ejerció liderazgo real durante la expedición? ¿Coincidió con el rol asignado de &ldquo;Líder&rdquo;?');
+
+  // Deaths → responsabilidad
+  if(allDead){
+    questions.push('Todos los miembros fallecieron. ¿En qué decisión específica se perdió el control de la situación?');
+    questions.push('¿Hubo un momento en que el equipo debió haber dicho &ldquo;no seguimos&rdquo;? ¿Por qué no lo dijo nadie?');
+  } else if(anyDead){
+    const names = dead.map(m=>m.name).join(' y ');
+    questions.push(`${names} no regresó${dead.length>1?'n':''} con vida. ¿Qué decisión puntual lo provocó? ¿Podría haberse evitado?`);
+    questions.push('¿Cuándo el equipo priorizó la misión (cima) sobre la seguridad individual? ¿Fue la decisión correcta?');
+  } else {
+    questions.push('¿En qué momentos el equipo estuvo tentado a priorizar la cima por encima de la seguridad? ¿Cómo lo gestionaron?');
+  }
+
+  // Morale issues
+  if(lowestMorale.morale < 30){
+    questions.push(`La moral de ${lowestMorale.name} (${lowestMorale.role}) llegó a ${lowestMorale.morale}%. ¿En qué momentos el equipo ignoró sus objetivos? ¿Qué consecuencias tuvo eso?`);
+  } else if(avgM < 50){
+    questions.push('La moral general del equipo fue baja. ¿Qué decisiones generaron más desgaste emocional? ¿Cómo se podría haber distribuido mejor la carga?');
+  }
+
+  // Sponsor tension
+  if(sponsorLowMorale){
+    questions.push('El Sponsor terminó con moral muy baja. ¿Cuándo los objetivos financieros y los objetivos humanos entraron en conflicto directo? ¿Cómo lo manejan en su trabajo real?');
+  }
+
+  // Health issues in survivors
+  if(!allDead && lowestHealth && lowestHealth.health < 35){
+    questions.push(`${lowestHealth.name} (${lowestHealth.role}) llegó al final con ${lowestHealth.health}% de salud. ¿Hubo señales de advertencia que el equipo ignoró? ¿Por qué?`);
+  }
+
+  // Success vs failure framing
+  if(missionSuccess){
+    questions.push('La expedición fue exitosa. ¿Qué decisión fue la más difícil de tomar y cuál resultó ser la más importante en retrospectiva?');
+    questions.push('¿Qué patrón de toma de decisiones del equipo funcionó bien aquí y podrían replicar en su trabajo diario?');
+  } else if(!allDead){
+    questions.push('La expedición no terminó como se planeó. ¿En qué momento se pudo haber cambiado el rumbo? ¿Quién tenía esa información?');
+  }
+
+  // Conflict & communication (always relevant)
+  questions.push('¿Cómo manejaron las decisiones impopulares? ¿Quién las tomó y cómo reaccionó el equipo?');
+  questions.push('¿Qué cambiarían en la forma de comunicar y decidir en su trabajo diario a partir de esta experiencia?');
+
+  // Render debrief list (max 7 questions)
+  const finalQuestions = questions.slice(0, 7);
+  const dl = document.getElementById('debrief-list');
+  if(dl) dl.innerHTML = finalQuestions.map(q => `<li>${q}</li>`).join('');
+
   showScreen('final');
 }
 function triggerEvent(key){
