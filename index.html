@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>MUNDIAL '26 · Hub</title>
+<meta name="theme-color" content="#04060d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mundial '26">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Chakra+Petch:wght@500;600;700&family=Figtree:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#04060d;--bg2:#080b16;--glass:rgba(255,255,255,.045);--glass2:rgba(255,255,255,.07);
+  --hair:rgba(255,255,255,.10);--hair2:rgba(255,255,255,.16);
+  --txt:#eaf0ff;--mut:#aeb8d8;--dim:#8b97bf;
+  --cyan:#22e0ff;--violet:#8b5cff;--lime:#c6ff3a;--mag:#ff3b81;--gold:#ffce4d;--green:#27e08a;--red:#ff5c5c;
+  --holo:linear-gradient(120deg,#22e0ff,#8b5cff 45%,#ff3b81);--r:22px;--r2:16px;--safe-b:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:'Figtree',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.45;min-height:100vh;overflow-x:hidden;padding-bottom:calc(86px + var(--safe-b))}
+.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.aurora b{position:absolute;border-radius:50%;filter:blur(70px);opacity:.4;animation:drift 22s ease-in-out infinite}
+.aurora b:nth-child(1){width:60vw;height:60vw;background:#1b6cff;left:-15vw;top:-20vw}
+.aurora b:nth-child(2){width:55vw;height:55vw;background:#8b5cff;right:-15vw;top:-10vw;animation-delay:-7s}
+.aurora b:nth-child(3){width:50vw;height:50vw;background:#15d6a0;left:10vw;bottom:-25vw;animation-delay:-13s;opacity:.26}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(6vw,4vw) scale(1.1)}66%{transform:translate(-5vw,3vw) scale(.95)}}
+body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{position:relative;z-index:2;max-width:1080px;margin:0 auto;padding:0 16px}
+.topbar{position:sticky;top:0;z-index:30;padding:calc(env(safe-area-inset-top,0px) + 10px) 16px 10px;display:flex;align-items:center;gap:12px;backdrop-filter:blur(20px);background:linear-gradient(180deg,rgba(4,6,13,.85),rgba(4,6,13,.4))}
+.logo{font-family:'Orbitron';font-weight:900;font-size:19px;letter-spacing:1px;line-height:1}
+.logo span{background:var(--holo);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.logo small{display:block;font-family:'Space Mono';font-size:8px;letter-spacing:3px;color:var(--mut);font-weight:400;margin-top:2px}
+.island{margin-left:auto;display:flex;align-items:center;gap:9px;background:#000;border:1px solid var(--hair);border-radius:40px;padding:7px 14px;box-shadow:0 0 0 1px rgba(255,255,255,.03),0 8px 30px rgba(0,0,0,.5)}
+.island .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.4}}
+.island .cdt{font-family:'Orbitron';font-weight:700;font-size:13px}.island .cdt b{color:var(--cyan)}
+.island .cl{font-size:8px;color:var(--dim);font-family:'Space Mono';letter-spacing:1px;text-transform:uppercase}
+.view{display:none;animation:fade .45s cubic-bezier(.2,.8,.2,1) both;padding-bottom:30px}.view.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{font-family:'Space Mono';font-size:11px;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;margin:26px 0 6px;display:flex;align-items:center;gap:9px}
+.kick::before{content:"";width:20px;height:2px;background:var(--holo)}
+h2.sec{font-family:'Chakra Petch';font-weight:700;font-size:clamp(24px,5.5vw,38px);letter-spacing:.5px;line-height:1.02}
+.sub{color:var(--mut);font-size:13.5px;max-width:640px;margin:6px 0 16px}
+.card{background:var(--glass);border:1px solid var(--hair);border-radius:var(--r);padding:16px;backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 12px 40px rgba(0,0,0,.25)}
+.mono{font-family:'Space Mono'}
+.btn{font-family:'Figtree';font-weight:700;font-size:14px;border:none;cursor:pointer;border-radius:14px;padding:13px 18px;color:#04060d;background:var(--holo);box-shadow:0 8px 26px rgba(34,224,255,.25);transition:transform .12s,box-shadow .2s;display:inline-flex;align-items:center;gap:8px;justify-content:center}
+.btn:active{transform:scale(.97)}.btn:disabled{opacity:.5}
+.btn.lime{background:linear-gradient(120deg,#c6ff3a,#27e08a)}
+.btn.ghost{background:transparent;color:var(--cyan);border:1px solid var(--hair2);box-shadow:none}
+.btn.ghost:active{background:var(--glass2)}.btn.block{width:100%}
+.tag{font-family:'Space Mono';font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;padding:3px 7px;border-radius:7px;border:1px solid var(--hair);color:var(--mut)}
+.flag{font-size:1.08em}.scrollx{overflow-x:auto;scrollbar-width:thin}
+svg.ic{width:1em;height:1em;display:inline-block;vertical-align:-.13em}
+input,select{font-family:'Figtree';font-size:14px;color:var(--txt);background:rgba(255,255,255,.05);border:1px solid var(--hair2);border-radius:12px;padding:12px 13px;width:100%;font-weight:500}
+input:focus,select:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(34,224,255,.15)}
+select{cursor:pointer}
+select option,select optgroup{background:#0c1020;color:#eaf0ff}
+.tickerwrap{overflow:hidden;white-space:nowrap;border-radius:10px;-webkit-mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.ticker{display:inline-block;white-space:nowrap;will-change:transform;animation:tick 32s linear infinite}
+.tickerwrap:hover .ticker,.tickerwrap:active .ticker{animation-play-state:paused}
+.ticker a{display:inline-flex;align-items:center;gap:7px;margin-right:20px;color:var(--txt);font-size:13px;font-weight:700;text-decoration:none}
+.ticker .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);display:inline-block;flex:none}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ticker{animation:none;white-space:normal}}
+.lbl{font-family:'Space Mono';font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut);margin-bottom:5px;display:block}
+.seg{display:inline-flex;background:rgba(255,255,255,.06);border:1px solid var(--hair);border-radius:13px;padding:3px;gap:2px;margin-bottom:16px;backdrop-filter:blur(8px);max-width:100%;overflow-x:auto;scrollbar-width:none}
+.seg::-webkit-scrollbar{display:none}
+.seg button{flex:0 0 auto;border:none;background:none;color:var(--mut);font-family:'Figtree';font-weight:600;font-size:13px;padding:9px 16px;border-radius:10px;cursor:pointer;white-space:nowrap;transition:.2s}
+.seg button.on{background:var(--glass2);color:var(--txt);box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.subview{display:none;animation:fade .35s both}.subview.on{display:block}
+.tog{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--mut)}
+.tog input{display:none}
+.tog .sw{width:46px;height:28px;border-radius:20px;background:rgba(255,255,255,.12);position:relative;transition:.25s;flex:0 0 auto}
+.tog .sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.25s;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+.tog input:checked + .sw{background:linear-gradient(120deg,#22e0ff,#27e08a)}.tog input:checked + .sw::after{transform:translateX(18px)}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:8px 10px calc(8px + var(--safe-b));background:rgba(8,11,22,.72);backdrop-filter:blur(24px) saturate(160%);border-top:1px solid var(--hair)}
+.tabbar .in{max-width:560px;margin:0 auto;display:flex;justify-content:space-around;gap:2px}
+.tabbar button{background:none;border:none;color:var(--dim);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;font-family:'Figtree';font-weight:600;font-size:10px;padding:6px 8px;flex:1;transition:color .2s;position:relative}
+.tabbar button .ic{font-size:23px;transition:transform .2s}
+.tabbar button.on{color:var(--cyan)}
+.tabbar button.on .ic{transform:translateY(-1px);filter:drop-shadow(0 0 8px rgba(34,224,255,.6))}
+.tabbar button.on::before{content:"";position:absolute;top:-8px;width:26px;height:3px;border-radius:3px;background:var(--holo)}
+.hero{margin-top:18px;border-radius:26px;padding:30px 24px;position:relative;overflow:hidden;border:1px solid var(--hair);background:linear-gradient(135deg,rgba(34,224,255,.12),rgba(139,92,255,.12) 50%,rgba(255,59,129,.10));backdrop-filter:blur(8px)}
+.hero h1{font-family:'Chakra Petch';font-weight:700;font-size:clamp(30px,7.5vw,60px);line-height:.98;letter-spacing:.5px}
+.hero h1 em{font-style:normal;background:var(--holo);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:var(--txt);opacity:.85;max-width:520px;margin-top:12px;font-size:14px}
+.statrow{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:22px}
+.statrow .s{background:rgba(0,0,0,.3);border:1px solid var(--hair);border-radius:16px;padding:13px 10px;text-align:center}
+.statrow .n{font-family:'Orbitron';font-weight:900;font-size:24px;background:var(--holo);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.statrow .l{font-size:10px;color:var(--mut);margin-top:3px}
+@media(max-width:560px){.statrow{grid-template-columns:repeat(2,1fr)}}
+.cont .row{display:grid;grid-template-columns:26px 1fr 54px;align-items:center;gap:10px;margin-bottom:11px}
+.cont .rk{font-family:'Orbitron';font-weight:700;font-size:14px;color:var(--dim);text-align:center}
+.cont .nm{font-weight:700;font-size:13.5px}
+.cont .bar{height:8px;border-radius:5px;background:rgba(255,255,255,.07);overflow:hidden;margin-top:5px}
+.cont .bar i{display:block;height:100%;background:var(--holo);border-radius:5px}
+.cont .pct{font-family:'Orbitron';font-weight:700;font-size:13px;color:var(--cyan);text-align:right}
+/* next-match banner */
+.nextm{margin-top:16px;border:1px solid var(--hair);border-radius:20px;padding:15px 17px;background:linear-gradient(120deg,rgba(34,224,255,.10),rgba(139,92,255,.08));position:relative;overflow:hidden}
+.nextm .top{display:flex;align-items:center;gap:8px;font-family:'Space Mono';font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan)}
+.nextm .mt{font-family:'Chakra Petch';font-weight:700;font-size:18px;margin-top:7px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.nextm .cdbig{font-family:'Orbitron';font-weight:900;font-size:22px;color:var(--lime);margin-top:6px}
+.nextm .ло{font-size:11.5px;color:var(--mut);margin-top:3px}
+.nextm .acts{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.lvpill{display:inline-flex;align-items:center;gap:6px;background:var(--red);color:#fff;font-family:'Space Mono';font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 9px;border-radius:20px}
+.lvpill .d{width:7px;height:7px;border-radius:50%;background:#fff;animation:pulse 1s infinite}
+.match{display:grid;grid-template-columns:48px 1fr auto;gap:10px;align-items:center;background:var(--glass);border:1px solid var(--hair);border-radius:16px;padding:11px 12px;margin-bottom:8px;transition:.15s;backdrop-filter:blur(8px)}
+.match.fav{border-color:rgba(198,255,58,.45);background:linear-gradient(90deg,rgba(198,255,58,.07),var(--glass))}
+.match.live{border-color:rgba(255,92,92,.5)}
+.match .t{font-family:'Orbitron';font-weight:700;font-size:13px;color:var(--cyan);text-align:center;line-height:1.15}
+.match .t small{display:block;font-family:'Figtree';font-size:9px;color:var(--dim);font-weight:600}
+.match .side{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;padding:1px 0}
+.match .side .pos{margin-left:auto;font-family:'Space Mono';font-size:10px;color:var(--dim)}
+.match .side .gl{margin-left:auto;font-family:'Orbitron';font-weight:900;font-size:16px;color:var(--lime)}
+.match .meta{font-size:10.5px;color:var(--dim);margin-top:3px}
+.match .act{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.pill{border:1px solid var(--hair2);background:rgba(255,255,255,.04);color:var(--txt);border-radius:10px;padding:6px 10px;font-size:11px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:.15s}
+.pill:active{transform:scale(.95)}.pill.cy{color:var(--cyan);border-color:rgba(34,224,255,.4)}
+.pill.lm{color:var(--lime);border-color:rgba(198,255,58,.4)}.pill.rd{color:var(--red);border-color:rgba(255,92,92,.45)}
+.daygrp{margin-bottom:16px}
+.dayh{font-family:'Space Mono';font-size:11px;letter-spacing:2px;color:var(--violet);text-transform:uppercase;padding:6px 2px;border-bottom:1px dashed var(--hair);margin-bottom:9px;display:flex;justify-content:space-between}
+.gwrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.gcard{padding:0;overflow:hidden}
+.gcard .gh{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;border-bottom:1px solid var(--hair);background:linear-gradient(90deg,rgba(34,224,255,.08),transparent)}
+.gcard .gn{font-family:'Chakra Petch';font-weight:700;font-size:18px}
+.trow{display:grid;grid-template-columns:16px 1fr 30px 34px;gap:8px;align-items:center;padding:8px 15px;font-size:13px;border-bottom:1px solid rgba(255,255,255,.05)}
+.trow:last-child{border-bottom:none}
+.trow .rank{font-family:'Orbitron';font-size:11px;color:var(--dim);text-align:center}
+.trow .tn{font-weight:600;display:flex;align-items:center;gap:7px}
+.trow .pi{font-family:'Orbitron';font-weight:700;font-size:13px;color:var(--cyan);text-align:right}
+.trow .pp{font-family:'Space Mono';font-size:11px;color:var(--mut);text-align:right}
+.trow.q1{background:rgba(34,224,255,.07)}.trow.q2{background:rgba(198,255,58,.05)}
+.qd{width:6px;height:6px;border-radius:50%;display:inline-block}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.pcard{padding:14px;position:relative;overflow:hidden}
+.pcard .pf{font-size:26px}.pcard .pn{font-weight:800;font-size:14.5px;margin-top:4px}.pcard .pt{font-size:11.5px;color:var(--mut)}
+.pcard .imp{height:5px;border-radius:3px;background:rgba(255,255,255,.08);margin-top:8px;overflow:hidden}
+.pcard .imp i{display:block;height:100%;background:linear-gradient(90deg,var(--mag),var(--gold))}
+.pcard .tg{position:absolute;top:11px;right:11px}
+.wdl{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:14px 0}
+.wdl .w{background:rgba(255,255,255,.04);border:1px solid var(--hair);border-radius:16px;padding:14px 8px;text-align:center;position:relative;overflow:hidden}
+.wdl .lab{font-size:10.5px;color:var(--mut)}.wdl .big{font-family:'Orbitron';font-weight:900;font-size:28px;margin:5px 0;line-height:1}
+.wdl .od{font-family:'Space Mono';font-size:10px;color:var(--dim)}
+.wdl .home .big{color:var(--cyan)}.wdl .draw .big{color:var(--gold)}.wdl .away .big{color:var(--mag)}
+.wdl .fill{position:absolute;left:0;bottom:0;width:100%;opacity:.1}
+.metr{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.metr .m{background:rgba(255,255,255,.04);border:1px solid var(--hair);border-radius:13px;padding:11px 12px}
+.metr .mv{font-family:'Orbitron';font-weight:700;font-size:16px;color:var(--lime)}.metr .ml{font-size:10px;color:var(--mut)}
+.scores{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.scores .sc{font-family:'Space Mono';font-size:12px;background:rgba(255,255,255,.04);border:1px solid var(--hair2);border-radius:9px;padding:7px 10px}
+.scores .sc b{color:var(--lime)}.scores .sc span{color:var(--dim);font-size:10px}
+.valbox{margin-top:14px;background:rgba(255,255,255,.04);border:1px solid var(--hair);border-radius:16px;padding:14px}
+.valbox h4{font-family:'Space Mono';font-size:12px;letter-spacing:1px;color:var(--cyan);text-transform:uppercase;margin-bottom:4px}
+.vin{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.vres{font-family:'Space Mono';font-size:12.5px}.vres .pos{color:var(--lime)}.vres .neg{color:var(--mag)}
+.stm{display:flex;align-items:center;gap:12px;padding:13px;border:1px solid var(--hair);border-radius:15px;background:rgba(255,255,255,.04);margin-bottom:8px;text-decoration:none;color:inherit;transition:.15s}
+.stm:active{transform:scale(.99);border-color:var(--cyan)}
+.stm .si{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:var(--holo);color:#04060d;flex:0 0 auto;font-weight:800}
+.stm .sn{font-weight:800;font-size:14.5px;display:flex;align-items:center;gap:8px}
+.stm .sd{font-size:11.5px;color:var(--mut)}
+.stm .free{font-family:'Space Mono';font-size:8.5px;letter-spacing:1px;color:#04060d;background:var(--lime);padding:2px 6px;border-radius:5px;font-weight:700}
+.stm .paid{background:transparent;color:var(--gold);border:1px solid var(--gold)}
+.stm .chev{margin-left:auto;color:var(--dim)}
+.simtbl{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
+.simtbl th{font-family:'Space Mono';font-size:9.5px;letter-spacing:1px;color:var(--mut);text-transform:uppercase;text-align:right;padding:10px 8px;border-bottom:1px solid var(--hair2);position:sticky;top:0;background:var(--bg2)}
+.simtbl th:first-child,.simtbl td:first-child{text-align:left}
+.simtbl td{padding:9px 8px;border-bottom:1px solid rgba(255,255,255,.05);text-align:right;font-family:'Space Mono';font-size:12px}
+.simtbl td.nm{font-family:'Figtree';font-weight:700;font-size:13.5px}.simtbl .ch{color:var(--lime);font-weight:700}
+.barcell{position:relative}.barcell i{position:absolute;left:0;top:50%;transform:translateY(-50%);height:62%;background:rgba(34,224,255,.18);border-radius:3px}.barcell span{position:relative}
+.simbar{height:6px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;flex:1;min-width:120px;display:none}
+.simbar i{display:block;height:100%;width:0;background:var(--holo)}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.qcard .gh{font-family:'Chakra Petch';font-weight:700;font-size:16px;padding:11px 14px;border-bottom:1px solid var(--hair)}
+.qcard .body{padding:11px 14px}.qcard select{margin:4px 0 9px}
+.qchip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.05);border:1px solid var(--hair2);border-radius:9px;padding:6px 10px;font-size:12.5px;font-weight:600;margin:3px}
+.qchip.win{border-color:var(--lime);color:var(--lime)}
+.predm{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;background:var(--glass);border:1px solid var(--hair);border-radius:14px;padding:11px 13px;margin-bottom:8px}
+.predm .tn{font-weight:700;font-size:13.5px;display:flex;align-items:center;gap:7px}
+.predm .sc-in{display:flex;align-items:center;gap:6px}
+.predm .sc-in input{width:46px;text-align:center;padding:8px 4px;font-family:'Orbitron';font-weight:700}
+.predm .pts{font-family:'Orbitron';font-weight:700;font-size:13px;color:var(--lime);min-width:42px;text-align:right}
+.predm .res{font-family:'Space Mono';font-size:11px;color:var(--dim)}
+.lb{display:flex;align-items:center;gap:13px;padding:13px;border:1px solid var(--hair);border-radius:15px;background:var(--glass);margin-bottom:8px}
+.lb .pos{font-family:'Orbitron';font-weight:900;font-size:20px;width:32px;text-align:center;background:var(--holo);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lb .av{width:40px;height:40px;border-radius:50%;background:var(--holo);display:grid;place-items:center;font-weight:800;color:#04060d;font-size:16px;flex:0 0 auto}
+.lb .who{font-weight:800;font-size:14.5px}.lb .det{font-size:11px;color:var(--mut)}
+.lb .sc{margin-left:auto;font-family:'Orbitron';font-weight:700;font-size:18px;color:var(--lime)}
+.lb.me{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(34,224,255,.3)}
+.authcard{max-width:420px;margin:10px auto}.authcard input{margin-bottom:11px}
+.linkbtn{background:none;border:none;color:var(--cyan);font-family:'Figtree';font-weight:600;font-size:13px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.recovery{background:rgba(198,255,58,.08);border:1px solid rgba(198,255,58,.4);border-radius:14px;padding:14px;margin-top:12px}
+.recovery .code{font-family:'Orbitron';font-weight:900;font-size:24px;letter-spacing:3px;color:var(--lime);text-align:center;margin:8px 0;user-select:all}
+.favpick{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.favbtn{background:var(--glass);border:1px solid var(--hair2);border-radius:13px;padding:11px 12px;cursor:pointer;display:flex;align-items:center;gap:9px;font-weight:600;font-size:13.5px;color:var(--txt);transition:.15s}
+.favbtn.sel{border-color:var(--lime);background:rgba(198,255,58,.1);color:var(--lime)}
+.favbtn .ck{margin-left:auto;font-family:'Space Mono';font-size:12px}
+.tvgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.tvc{display:block;text-decoration:none;color:inherit;padding:14px;transition:.15s}
+.tvc:active{border-color:var(--cyan);transform:scale(.99)}
+.tvc .tt{font-weight:800;font-size:14.5px;display:flex;align-items:center;gap:7px}.tvc .td{font-size:12px;color:var(--mut);margin-top:5px}
+.sheetbg{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:.3s}
+.sheetbg.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:61;max-height:90vh;overflow-y:auto;background:linear-gradient(180deg,#0c1020,#070a14);border:1px solid var(--hair);border-bottom:none;border-radius:28px 28px 0 0;padding:10px 18px calc(28px + var(--safe-b));transform:translateY(110%);transition:transform .38s cubic-bezier(.2,.9,.25,1);box-shadow:0 -20px 60px rgba(0,0,0,.6)}
+.sheet.on{transform:translateY(0)}
+.sheet .grab{width:40px;height:5px;border-radius:3px;background:var(--hair2);margin:6px auto 14px}
+.sheet h3{font-family:'Chakra Petch';font-weight:700;font-size:20px;margin-bottom:3px}
+.sheet .close{position:absolute;top:14px;right:16px;width:32px;height:32px;border-radius:50%;background:var(--glass2);border:1px solid var(--hair);color:var(--txt);cursor:pointer;font-size:16px;display:grid;place-items:center}
+.note{font-size:11px;color:var(--dim);line-height:1.55;margin-top:10px}
+.disc{font-size:11px;color:var(--dim);background:rgba(255,59,129,.06);border:1px solid rgba(255,59,129,.25);border-radius:12px;padding:11px 13px;margin-top:12px;line-height:1.5}
+/* live timeline */
+.livehead{display:flex;align-items:center;justify-content:center;gap:14px;margin:8px 0 4px}
+.livehead .sd{text-align:center}.livehead .fl{font-size:30px}.livehead .nn{font-size:11px;color:var(--mut);font-weight:700;margin-top:2px}
+.livehead .sco{font-family:'Orbitron';font-weight:900;font-size:40px;letter-spacing:2px}
+.livestatus{text-align:center;margin-bottom:14px}
+.tl{position:relative;padding-left:18px}
+.tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:var(--hair2)}
+.tlrow{position:relative;padding:7px 0 7px 6px;font-size:13px;display:flex;gap:10px;align-items:flex-start}
+.tlrow::before{content:"";position:absolute;left:-16px;top:11px;width:9px;height:9px;border-radius:50%;background:var(--dim);border:2px solid var(--bg2)}
+.tlrow.goal::before{background:var(--lime);box-shadow:0 0 10px var(--lime)}
+.tlrow.yellow::before{background:var(--gold)}
+.tlrow .mn{font-family:'Orbitron';font-weight:700;font-size:12px;color:var(--cyan);min-width:34px}
+.tlrow.goal .tx b{color:var(--lime)}
+footer{text-align:center;color:var(--dim);font-size:11.5px;margin:40px 0 10px;line-height:1.8}
+footer .made{font-family:'Chakra Petch';font-weight:700;font-size:14px;background:var(--holo);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.empty{text-align:center;color:var(--dim);padding:30px 10px;font-size:13px}
+#toast{position:fixed;left:50%;bottom:calc(100px + var(--safe-b));transform:translateX(-50%) translateY(130px);z-index:99;background:rgba(12,16,32,.95);border:1px solid var(--cyan);color:var(--txt);font-weight:700;padding:12px 18px;border-radius:14px;font-size:13.5px;backdrop-filter:blur(10px);box-shadow:0 0 30px rgba(34,224,255,.3);max-width:90vw;text-align:center}
+#toast.show{transform:translateX(-50%) translateY(0);transition:transform .35s cubic-bezier(.2,1.3,.4,1)}
+</style>
+</head>
+<body>
+<div class="aurora"><b></b><b></b><b></b></div>
+
+<div class="topbar">
+  <div class="logo">MUNDIAL <span>'26</span><small>HUB · USA·MEX·CAN</small></div>
+  <div class="island"><span class="dot"></span><div><div class="cdt"><b id="cdD">--</b>d <b id="cdH">--</b>h <b id="cdM">--</b>m</div><div class="cl">Pitazo inicial</div></div></div>
+</div>
+
+<div class="wrap">
+<!-- INICIO -->
+<section class="view on" id="v-inicio">
+  <div class="hero">
+    <h1>EL MUNDIAL<br>QUE SE <em>CALCULA</em>.</h1>
+    <p>104 partidos. 48 selecciones. Predicciones que se recalculan con cada resultado, simulador del torneo, quiniela con amigos, avisos antes de cada partido y minuto a minuto en vivo.</p>
+    <div class="statrow"><div class="s"><div class="n">48</div><div class="l">Selecciones</div></div><div class="s"><div class="n">104</div><div class="l">Partidos</div></div><div class="s"><div class="n">16</div><div class="l">Sedes</div></div><div class="s"><div class="n">39</div><div class="l">Días</div></div></div>
+  </div>
+  <div id="nextWrap"></div>
+  <div class="kick">Favoritos del modelo</div>
+  <h2 class="sec">¿QUIÉN LEVANTA LA COPA?</h2>
+  <p class="sub">Se actualiza con cada resultado. Para el cálculo completo corré el <b>Simulador</b>.</p>
+  <div class="card cont" id="contenders"></div>
+  <div class="kick">Pitazo inicial · hora Costa Rica</div>
+  <h2 class="sec">PRIMEROS DÍAS</h2>
+  <div id="opener"></div>
+  <div class="kick">Cobertura</div>
+  <h2 class="sec">NOTICIAS</h2>
+  <p class="sub">El streaming gratis está en cada partido (botón <b>Ver</b>). Acá, fuentes de noticias.</p>
+  <div class="tvgrid" id="newsList"></div>
+</section>
+
+<!-- PARTIDOS -->
+<section class="view" id="v-partidos">
+  <div class="kick">Datos en vivo del torneo</div>
+  <h2 class="sec">PARTIDOS</h2>
+  <div class="seg" id="segPart"><button class="on" data-s="cal">Calendario</button><button data-s="grp">Grupos</button><button data-s="ply">Estrellas</button></div>
+  <div class="subview on" id="sv-cal">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px">
+      <select id="fGroup" style="width:auto"><option value="">Todos los grupos</option></select>
+      <select id="fTeam" style="width:auto"><option value="">Todas las selecciones</option></select>
+      <label class="tog"><input type="checkbox" id="fFav"><span class="sw"></span>Solo favoritos</label>
+    </div>
+    <div class="card" style="margin-bottom:14px;padding:12px;overflow:hidden">
+      <div class="kick" style="margin:2px 0 10px">Noticias y goleo · en movimiento</div>
+      <div class="tickerwrap"><div class="ticker" id="newsTicker"></div></div>
+      <div id="scoresBox" style="margin-top:12px"></div>
+      <div id="goleoBox" style="margin-top:12px"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+        <a class="btn" href="https://www.google.com/search?q=mundial+2026+goleadores" target="_blank" rel="noopener">⚽ Goleadores (FIFA)</a>
+        <a class="btn ghost" href="https://www.google.com/search?q=mundial+2026+resultados+en+vivo" target="_blank" rel="noopener">Marcadores en vivo</a>
+        <a class="btn ghost" href="https://www.fifa.com/es/tournaments/mens/worldcup/canadamexicousa2026" target="_blank" rel="noopener">FIFA</a>
+      </div>
+      <p class="note" style="margin:10px 0 0">Goleadores y marcadores en tiempo real abren en la fuente oficial (la app no rastrea goleadores individuales).</p>
+    </div>
+    <div id="calConfirmed"></div><div id="calMatchdays"></div>
+    <p class="note">Tocá <b>Ver</b> (varias señales gratis), <b>Min</b> (minuto a minuto) o <b>Analizar</b> (predicción). Horarios oficiales en FIFA.com.</p>
+  </div>
+  <div class="subview" id="sv-grp">
+    <p class="sub"><span style="color:var(--cyan)">●</span> 1.º <span style="color:var(--lime)">●</span> 2.º clasifican · 8 mejores 3.os también. <b>Pts</b> reales · <b>xPts</b> del modelo.</p>
+    <div class="gwrap" id="groups"></div>
+  </div>
+  <div class="subview" id="sv-ply">
+    <select id="plGroup" style="width:auto;margin-bottom:14px"><option value="">Todos los grupos</option></select>
+    <div class="pgrid" id="players"></div>
+  </div>
+</section>
+
+<!-- JUGAR -->
+<section class="view" id="v-quiniela">
+  <div class="kick">Jugá y competí</div>
+  <h2 class="sec">QUINIELA & AMIGOS</h2>
+  <div class="seg" id="segQ"><button class="on" data-s="quini">Mi Quiniela</button><button data-s="preds">Predicciones</button><button data-s="amigos">Amigos & Tabla</button></div>
+  <div class="subview on" id="sv-quini">
+    <div id="quiniGate"></div>
+    <div id="quiniBody" style="display:none">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px"><button class="btn ghost" id="qAuto">⚡ Rellenar con el modelo</button><button class="btn ghost" id="qShare">📋 Copiar</button><button class="btn ghost" id="qClear">✕ Limpiar</button></div>
+      <div class="qgrid" id="quiniela"></div><div class="card" id="qSummary" style="margin-top:16px"></div>
+    </div>
+  </div>
+  <div class="subview" id="sv-preds">
+    <div id="predsGate"></div>
+    <div id="predsBody" style="display:none">
+      <p class="sub">Predecí el marcador. <b>Exacto = 3 pts</b>, resultado acertado = 1 pt. Se cuenta al cargarse el resultado oficial.</p>
+      <select id="prGroup" style="width:auto;margin-bottom:14px"></select><div id="predsList"></div>
+    </div>
+  </div>
+  <div class="subview" id="sv-amigos">
+    <div id="amigosGate"></div>
+    <div id="amigosBody" style="display:none">
+      <div id="backendNote"></div>
+      <div class="kick" style="margin-top:0">Tabla de posiciones</div>
+      <div class="seg" id="segBoard"><button class="on" data-m="amigos">Mis amigos</button><button data-m="global">Global</button></div>
+      <div id="leaderboard"></div>
+      <button class="btn ghost" id="boardRefresh" style="margin-top:8px">↻ Actualizar</button>
+      <div class="kick">Jugadores · agregalos como amigos</div>
+      <input id="dirSearch" placeholder="Buscar usuario…" style="margin-bottom:10px">
+      <div id="directory"></div>
+      <div class="card" style="margin-top:14px"><span class="lbl">¿No aparece? Agregalo por usuario o correo</span>
+        <div style="display:flex;gap:8px"><input id="friendInput" placeholder="usuario de tu amigo"><button class="btn" id="friendAdd">＋</button></div></div>
+      <div class="card" style="margin-top:14px"><span class="lbl">Registrar resultado oficial (comunitario)</span>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:end"><div style="flex:1;min-width:160px"><select id="resMatch"></select></div>
+          <input id="resH" type="number" style="width:58px;text-align:center" placeholder="0"><input id="resA" type="number" style="width:58px;text-align:center" placeholder="0"><button class="btn lime" id="resSave">Guardar</button></div>
+        <div class="note">Al guardar, se actualizan tablas, predicciones y puntos de todos.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ANALISIS -->
+<section class="view" id="v-simulador">
+  <div class="kick">Monte Carlo · in-browser</div>
+  <h2 class="sec">SIMULADOR</h2>
+  <p class="sub">Simula el Mundial completo miles de veces. Las cifras incorporan la forma según los resultados ya cargados.</p>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+    <select id="simN" style="width:auto"><option value="2000">2.000 sims</option><option value="5000" selected>5.000 sims</option><option value="10000">10.000 sims</option></select>
+    <button class="btn" id="simRun">▶ Simular torneo</button><div class="simbar" id="simBar"><i></i></div><span class="mono" id="simStat" style="font-size:11px;color:var(--mut)"></span>
+  </div>
+  <div class="card" style="padding:8px"><div class="scrollx"><table class="simtbl" id="simTbl"><tbody><tr><td class="empty">Pulsá «Simular torneo».</td></tr></tbody></table></div></div>
+  <p class="note">Bracket con siembra simplificada por rendimiento. Cifras estimadas por el modelo, no oficiales.</p>
+</section>
+
+<!-- PERFIL -->
+<section class="view" id="v-perfil">
+  <div class="kick">Tu cuenta</div>
+  <h2 class="sec">PERFIL</h2>
+  <div id="authArea"></div>
+  <div id="profileArea" style="display:none">
+    <div class="card" style="margin-bottom:14px"><span class="lbl">Avisos</span>
+      <div style="font-size:13px;color:var(--mut);margin-bottom:10px">Aviso ~10 min antes y al arrancar (sonido + vibración + aviso visual), en tu hora local. Para que lleguen aunque cierres la app, abrí la página en tu navegador o agregala a la pantalla de inicio y permití notificaciones.</div>
+      <button class="btn block" id="notifBtn">🔔 Activar avisos de partidos</button></div>
+    <div class="kick">Tus selecciones · hasta 5</div>
+    <p class="sub">(<span id="favCount">0</span>/5) Se resaltan en el calendario.</p>
+    <div class="favpick" id="favPick"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="made">Creado por Agustín Villalobos</div>
+  Grupos y sedes según sorteo FIFA (5 dic 2025) + repechajes (mar 2026). Predicciones por modelo Poisson/Monte Carlo propio.<br>
+  Login casual con contraseñas cifradas (SHA-256 + salt). Aun así, no reutilices una contraseña importante.
+  <div style="margin:22px 0 6px;font-size:12px;color:var(--dim)">Donar es <b>voluntario</b>: no hace falta para usar la app ni para guardar tus marcadores.</div>
+  <div style="margin:0 0 4px">
+    <form action="https://www.paypal.com/donate" method="post" target="_top" style="display:inline-block">
+      <input type="hidden" name="business" value="EHEVM8ZDC4KPN" />
+      <input type="hidden" name="no_recurring" value="1" />
+      <input type="hidden" name="currency_code" value="USD" />
+      <button class="btn" type="submit" name="submit" style="display:inline-flex;align-items:center;gap:8px">💙 Donar con PayPal</button>
+    </form>
+  </div>
+</footer>
+</div>
+
+<div class="tabbar"><div class="in" id="tabbar"></div></div>
+<div class="sheetbg" id="sheetbg"></div>
+<div class="sheet" id="sheet"><div class="grab"></div><button class="close" id="sheetClose">✕</button><div id="sheetContent"></div></div>
+<div id="toast"></div>
+
+<script>
+"use strict";
+/* =================== BACKEND COMPARTIDO (opcional) ===================
+   GitHub Pages no comparte datos entre dispositivos por sí solo.
+   Para que TODOS vean la misma lista de jugadores y la misma tabla,
+   activá Firestore (gratis), una sola vez:
+     1) console.firebase.google.com  ->  Agregar proyecto
+     2) Compilacion > Firestore Database > Crear > modo de prueba
+     3) Config del proyecto > Tus apps > Web </>  -> copiá firebaseConfig
+     4) Pegá los valores aquí abajo y volvé a subir el archivo.
+   Si lo dejás vacío, el app funciona pero en modo un-dispositivo.
+====================================================================== */
+const FIREBASE_CONFIG={apiKey:"AIzaSyAwRe2ajTDTKdylWhVbXOL37qoEQDwEwHk",authDomain:"mundial26-e781a.firebaseapp.com",projectId:"mundial26-e781a",storageBucket:"mundial26-e781a.firebasestorage.app",messagingSenderId:"96088596587",appId:"1:96088596587:web:809886f3cb6d0ea78f112e"};
+const FS_COL="mundial26";let FS=null;
+const SHARED_FILE="datos.txt"; // archivo compartido en el mismo hosting (los sitios estáticos solo pueden LEERLO)
+function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement("script");s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
+async function initBackend(){if(!(FIREBASE_CONFIG&&FIREBASE_CONFIG.apiKey))return;
+ try{if(!window.firebase){const a="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js",b="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js";
+   await Promise.race([loadScript(a).then(()=>loadScript(b)),new Promise((_,rej)=>setTimeout(()=>rej(0),9000))]);}
+  if(!window.firebase)return;if(!firebase.apps.length)firebase.initializeApp(FIREBASE_CONFIG);FS=firebase.firestore();}catch(e){FS=null;}}
+/* ===== ICONS ===== */
+const IC={
+ home:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5"/><path d="M9.5 21v-6h5v6"/></svg>',
+ cal:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>',
+ trophy:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/><path d="M12 13v4M9 21h6M10 17h4"/></svg>',
+ chart:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4M4 20h16"/><rect x="7" y="11" width="3" height="6" rx="1"/><rect x="12" y="7" width="3" height="10" rx="1"/><rect x="17" y="13" width="3" height="4" rx="1"/></svg>',
+ person:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/></svg>',
+ tv:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M10 9.5l4 2.5-4 2.5z" fill="currentColor" stroke="none"/></svg>',
+ spark:'<svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 5.2L19 9l-5.4 1.8L12 16l-1.6-5.2L5 9l5.4-1.8z"/><path d="M18 14l.8 2.4L21 17l-2.2.8L18 20l-.8-2.2L15 17l2.2-.6z"/></svg>',
+ live:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/><path d="M6.5 6.5a8 8 0 0 0 0 11M17.5 6.5a8 8 0 0 1 0 11"/></svg>',
+ chev:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>'
+};
+
+/* ===== STORAGE ===== */
+const HAS_WS=typeof window!=="undefined"&&window.storage&&typeof window.storage.get==="function";
+function sk(k){return k.replace(/[^A-Za-z0-9:_-]/g,"_");}
+function withTimeout(p,ms){return Promise.race([Promise.resolve(p).then(v=>({v})),new Promise(r=>setTimeout(()=>r(null),ms))]);}
+const DB={async get(k,sh=true){const key=sk(k);
+  if(FS){try{const w=await withTimeout(FS.collection(FS_COL).doc(key).get(),6000);if(w&&w.v&&w.v.exists)return JSON.parse(w.v.data().v);}catch(e){}}
+  if(HAS_WS){try{const r=await window.storage.get(key,sh);if(r&&r.value!=null)return JSON.parse(r.value);}catch(e){}}
+  try{const v=localStorage.getItem("m26:"+key);return v?JSON.parse(v):null;}catch(e){return null;}},
+ async set(k,v,sh=true){const key=sk(k);const s=JSON.stringify(v);
+  if(FS){try{await withTimeout(FS.collection(FS_COL).doc(key).set({v:s}),6000);}catch(e){}}
+  if(HAS_WS){try{await window.storage.set(key,s,sh);}catch(e){}}
+  try{localStorage.setItem("m26:"+key,s);}catch(e){}}};
+const local={get(k){try{return localStorage.getItem("m26L:"+k);}catch(e){return null;}},set(k,v){try{localStorage.setItem("m26L:"+k,v);}catch(e){}},del(k){try{localStorage.removeItem("m26L:"+k);}catch(e){}}};
+
+/* ===== CRYPTO ===== */
+function rndHex(n){const a=new Uint8Array(n);if(crypto.getRandomValues)crypto.getRandomValues(a);else for(let i=0;i<n;i++)a[i]=Math.random()*256;return[...a].map(b=>b.toString(16).padStart(2,"0")).join("");}
+function rndCode(){const c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";let s="";for(let i=0;i<8;i++)s+=c[Math.floor(Math.random()*c.length)];return s.slice(0,4)+"-"+s.slice(4);}
+async function hashPw(salt,pw){try{const buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(salt+"::"+pw));return[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join("");}catch(e){let h=0,s=salt+"::"+pw;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return"f"+h.toString(16);}}
+function _toB64(bytes){let s="";const C=0x8000;for(let i=0;i<bytes.length;i+=C)s+=String.fromCharCode.apply(null,bytes.subarray(i,i+C));return btoa(s);}
+function _fromB64(b){const bin=atob(b);const a=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)a[i]=bin.charCodeAt(i);return a;}
+async function _deriveKey(pass,salt){const km=await crypto.subtle.importKey("raw",new TextEncoder().encode(pass),"PBKDF2",false,["deriveKey"]);return crypto.subtle.deriveKey({name:"PBKDF2",salt,iterations:60000,hash:"SHA-256"},km,{name:"AES-GCM",length:256},false,["encrypt","decrypt"]);}
+async function encryptStr(pass,plain){const salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12));const key=await _deriveKey(pass,salt);const ct=new Uint8Array(await crypto.subtle.encrypt({name:"AES-GCM",iv},key,new TextEncoder().encode(plain)));const out=new Uint8Array(28+ct.length);out.set(salt,0);out.set(iv,16);out.set(ct,28);return "M26#"+_toB64(out);}
+async function decryptStr(pass,blob){const raw=_fromB64(blob.trim().replace(/^M26#/,""));const salt=raw.slice(0,16),iv=raw.slice(16,28),ct=raw.slice(28);const key=await _deriveKey(pass,salt);return new TextDecoder().decode(await crypto.subtle.decrypt({name:"AES-GCM",iv},key,ct));}
+function downloadText(name,text){const blob=new Blob([text],{type:"text/plain"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),3000);}
+
+/* ===== DATA ===== */
+const GROUPS={
+ A:[["México","🇲🇽",79,1],["Sudáfrica","🇿🇦",68],["Corea del Sur","🇰🇷",74],["Chequia","🇨🇿",73]],
+ B:[["Canadá","🇨🇦",75,1],["Suiza","🇨🇭",78],["Catar","🇶🇦",67],["Bosnia y H.","🇧🇦",70]],
+ C:[["Brasil","🇧🇷",90],["Marruecos","🇲🇦",81],["Haití","🇭🇹",62],["Escocia","🏴󠁧󠁢󠁳󠁣󠁴󠁿",71]],
+ D:[["Estados Unidos","🇺🇸",77,1],["Paraguay","🇵🇾",72],["Australia","🇦🇺",71],["Turquía","🇹🇷",76]],
+ E:[["Alemania","🇩🇪",86],["Curazao","🇨🇼",60],["Costa de Marfil","🇨🇮",74],["Ecuador","🇪🇨",77]],
+ F:[["Países Bajos","🇳🇱",85],["Japón","🇯🇵",76],["Túnez","🇹🇳",70],["Suecia","🇸🇪",73]],
+ G:[["Bélgica","🇧🇪",83],["Egipto","🇪🇬",72],["Irán","🇮🇷",72],["Nueva Zelanda","🇳🇿",64]],
+ H:[["España","🇪🇸",91],["Uruguay","🇺🇾",80],["Arabia Saudí","🇸🇦",67],["Cabo Verde","🇨🇻",64]],
+ I:[["Francia","🇫🇷",90],["Senegal","🇸🇳",78],["Noruega","🇳🇴",79],["Irak","🇮🇶",64]],
+ J:[["Argentina","🇦🇷",92],["Austria","🇦🇹",75],["Argelia","🇩🇿",73],["Jordania","🇯🇴",64]],
+ K:[["Portugal","🇵🇹",86],["Colombia","🇨🇴",80],["Uzbekistán","🇺🇿",67],["R.D. Congo","🇨🇩",69]],
+ L:[["Inglaterra","🏴󠁧󠁢󠁥󠁮󠁧󠁿",88],["Croacia","🇭🇷",80],["Ghana","🇬🇭",71],["Panamá","🇵🇦",66]]
+};
+const STARS={"México":"Santiago Giménez","Sudáfrica":"Percy Tau","Corea del Sur":"Son Heung-min","Chequia":"Patrik Schick","Canadá":"Alphonso Davies","Suiza":"Granit Xhaka","Catar":"Akram Afif","Bosnia y H.":"Edin Džeko","Brasil":"Vinícius Júnior","Marruecos":"Achraf Hakimi","Haití":"Frantzdy Pierrot","Escocia":"Scott McTominay","Estados Unidos":"Christian Pulisic","Paraguay":"Miguel Almirón","Australia":"Mathew Ryan","Turquía":"Arda Güler","Alemania":"Jamal Musiala","Curazao":"Leandro Bacuna","Costa de Marfil":"Sébastien Haller","Ecuador":"Moisés Caicedo","Países Bajos":"Virgil van Dijk","Japón":"Takefusa Kubo","Túnez":"Hannibal Mejbri","Suecia":"Alexander Isak","Bélgica":"Kevin De Bruyne","Egipto":"Mohamed Salah","Irán":"Mehdi Taremi","Nueva Zelanda":"Chris Wood","España":"Lamine Yamal","Uruguay":"Federico Valverde","Arabia Saudí":"Salem Al-Dawsari","Cabo Verde":"Ryan Mendes","Francia":"Kylian Mbappé","Senegal":"Sadio Mané","Noruega":"Erling Haaland","Irak":"Aymen Hussein","Argentina":"Lionel Messi","Austria":"Marcel Sabitzer","Argelia":"Riyad Mahrez","Jordania":"Mousa Al-Tamari","Portugal":"Cristiano Ronaldo","Colombia":"Luis Díaz","Uzbekistán":"Eldor Shomurodov","R.D. Congo":"Cédric Bakambu","Inglaterra":"Jude Bellingham","Croacia":"Luka Modrić","Ghana":"Mohammed Kudus","Panamá":"Adalberto Carrasquilla"};
+const TEAMS={},TEAMLIST=[];
+for(const g in GROUPS)GROUPS[g].forEach((t,i)=>{const o={name:t[0],flag:t[1],power:t[2],host:t[3]===1,group:g,pos:i};TEAMS[t[0]]=o;TEAMLIST.push(o);});
+TEAMLIST.sort((a,b)=>b.power-a.power);
+
+const CONFIRMED=[
+ {d:"Jue 11 jun",date:"2026-06-11",m:[{t:"13:00",a:"México",b:"Sudáfrica",g:"A",v:"Estadio Ciudad de México",op:1},{t:"20:00",a:"Corea del Sur",b:"Chequia",g:"A",v:"Estadio Akron, Guadalajara"}]},
+ {d:"Vie 12 jun",date:"2026-06-12",m:[{t:"13:00",a:"Canadá",b:"Bosnia y H.",g:"B",v:"BMO Field, Toronto"},{t:"19:00",a:"Estados Unidos",b:"Paraguay",g:"D",v:"SoFi Stadium, Los Ángeles"}]},
+ {d:"Sáb 13 jun",date:"2026-06-13",m:[{t:"13:00",a:"Catar",b:"Suiza",g:"B",v:"Levi's Stadium, San Francisco"},{t:"16:00",a:"Brasil",b:"Marruecos",g:"C",v:"MetLife Stadium, Nueva York/NJ"},{t:"19:00",a:"Haití",b:"Escocia",g:"C",v:"Gillette Stadium, Boston"}]},
+ {d:"Dom 14 jun",date:"2026-06-14",m:[{t:"22:00",a:"Australia",b:"Turquía",g:"D",v:"BC Place, Vancouver"}]}
+];
+const confirmedSet=new Set();
+const LIVEMATCHES=[];
+CONFIRMED.forEach(day=>day.m.forEach(x=>{const key=x.g+"|"+[x.a,x.b].sort().join("~");confirmedSet.add(key);
+ x.key=key;x.kick=new Date(day.date+"T"+x.t+":00-06:00");x.day=day.d;LIVEMATCHES.push(x);}));
+
+const STREAMS=[
+ {n:"ViX",i:"V",d:"TelevisaUnivision · gratis con registro",u:"https://www.vix.com/es-es/live",free:1,geo:"LatAm · EE.UU."},
+ {n:"FIFA+",i:"⚽",d:"Oficial · resúmenes y highlights gratis",u:"https://www.plus.fifa.com",free:1,geo:"Global"},
+ {n:"RTVE Play",i:"R",d:"TV pública España · gratis",u:"https://www.rtve.es/play/",free:1,geo:"España"},
+ {n:"Telemundo Deportes",i:"T",d:"En español · señal abierta",u:"https://www.telemundodeportes.com/en-vivo",free:1,geo:"EE.UU."},
+ {n:"Gol Caracol",i:"G",d:"Caracol TV · gratis",u:"https://www.golcaracol.com/en-vivo",free:1,geo:"Colombia"},
+ {n:"Canela TV",i:"C",d:"Streaming gratis en español",u:"https://www.canela.tv",free:1,geo:"LatAm · EE.UU."},
+ {n:"Teletica / TDMAX",i:"7",d:"Señal abierta",u:"https://www.tdmax.com",free:1,geo:"Costa Rica"},
+ {n:"TUDN",i:"U",d:"En vivo según operador",u:"https://www.tudn.com/en-vivo",free:0,geo:"México · EE.UU."}
+];
+const NEWS=[
+ {n:"FIFA.com",d:"Calendario oficial, horarios y resultados.",u:"https://www.fifa.com/es/tournaments/mens/worldcup/canadamexicousa2026"},
+ {n:"ESPN Deportes",d:"Noticias, análisis y minuto a minuto.",u:"https://www.espn.com.mx/futbol/mundial/"},
+ {n:"TUDN",d:"Cobertura en español y estadísticas.",u:"https://www.tudn.com/mundial-2026"},
+ {n:"Infobae Mundial",d:"Fixture, grupos y agenda.",u:"https://www.infobae.com/mundial-2026/"},
+ {n:"Diario AS",d:"Crónicas, alineaciones y previas.",u:"https://us.as.com/"},
+ {n:"Marca",d:"Noticias del Mundial desde España.",u:"https://www.marca.com/futbol/mundial.html"}
+];
+
+/* ===== RESULTS + FORM ===== */
+let RESULTS={},FORM={};
+function recomputeForm(){FORM={};for(const k in RESULTS){const r=RESULTS[k];const am=ALLMATCHES.find(x=>x.key===k);if(!am)continue;
+ const[h,a]=r.split("-").map(Number);const da=Math.max(-4,Math.min(4,(h-a)*0.9)),db=Math.max(-4,Math.min(4,(a-h)*0.9));
+ FORM[am.a]=(FORM[am.a]||0)+da;FORM[am.b]=(FORM[am.b]||0)+db;}
+ for(const n in FORM)FORM[n]=Math.max(-6,Math.min(6,FORM[n]));}
+function eff(t){return t.power+(FORM[t.name]||0);}
+
+/* ===== MODEL ===== */
+function lambdas(A,B){const ha=A.host?2.5:0,hb=B.host?2.5:0;const d=((eff(A)+ha)-(eff(B)+hb))/10;let la=1.32*Math.exp(0.34*d),lb=1.32*Math.exp(-0.34*d);la=Math.min(4.6,Math.max(.22,la));lb=Math.min(4.6,Math.max(.22,lb));return[la,lb];}
+function pois(k,l){let p=Math.exp(-l);for(let i=1;i<=k;i++)p*=l/i;return p;}
+function matrix(A,B){const[la,lb]=lambdas(A,B);const M=8;let pW=0,pD=0,pL=0,pOv=0,pBTTS=0,best={p:0,s:"0-0"};
+ for(let i=0;i<=M;i++)for(let j=0;j<=M;j++){const p=pois(i,la)*pois(j,lb);if(i>j)pW+=p;else if(i===j)pD+=p;else pL+=p;if(i+j>2.5)pOv+=p;if(i>0&&j>0)pBTTS+=p;if(p>best.p)best={p,s:i+"-"+j};}
+ const sc=[];for(let i=0;i<=5;i++)for(let j=0;j<=5;j++)sc.push({s:i+"-"+j,p:pois(i,la)*pois(j,lb)});sc.sort((a,b)=>b.p-a.p);
+ return{pW,pD,pL,la,lb,pOv,pBTTS,best,sc:sc.slice(0,4)};}
+function fairOdds(p){return p<=0?99:1/p;}
+function sampPois(l,rng){const R=rng||Math.random;let L=Math.exp(-l),k=0,p=1;do{k++;p*=R();}while(p>L);return k-1;}
+function simMatch(A,B){const[la,lb]=lambdas(A,B);return[sampPois(la),sampPois(lb)];}
+function simKO(A,B){let[x,y]=simMatch(A,B);if(x===y){const[la,lb]=lambdas(A,B);return Math.random()<la/(la+lb)?A:B;}return x>y?A:B;}
+
+/* ===== ALL MATCHES ===== */
+const MD_PAT=[[[0,1],[2,3]],[[0,2],[3,1]],[[3,0],[1,2]]];const MD_WIN=["11–16 jun","17–22 jun","23–27 jun"];
+const ALLMATCHES=[];
+for(const g in GROUPS){const ts=GROUPS[g].map(t=>t[0]);MD_PAT.forEach((pairs,md)=>pairs.forEach(([i,j])=>{
+ const a=ts[i],b=ts[j],key=g+"|"+[a,b].sort().join("~");ALLMATCHES.push({a,b,g,md,key,confirmed:confirmedSet.has(key)});}));}
+
+/* ===== COUNTDOWN + LIVE TICK + NOTIFS ===== */
+const KICKOFF=new Date("2026-06-11T13:00:00-06:00");
+const firedSoon=new Set(),firedStart=new Set();
+let ALERTS=false,actx=null;
+function beep(){try{if(!actx)return;const o=actx.createOscillator(),g=actx.createGain();o.connect(g);g.connect(actx.destination);o.type="sine";o.frequency.value=880;g.gain.setValueAtTime(.0001,actx.currentTime);g.gain.exponentialRampToValueAtTime(.3,actx.currentTime+.02);g.gain.exponentialRampToValueAtTime(.0001,actx.currentTime+.4);o.start();o.stop(actx.currentTime+.42);}catch(e){}}
+function buzz(){try{if(navigator.vibrate)navigator.vibrate([200,100,200]);}catch(e){}}
+function fmtLocal(d){try{return d.toLocaleString([], {weekday:'short',hour:'2-digit',minute:'2-digit'});}catch(e){return d.toISOString();}}
+function liveState(kick){const now=Date.now(),k=kick.getTime();const e=(now-k)/60000;
+ if(e<0)return{s:'pre',secs:Math.round((k-now)/1000)};
+ if(e<=45)return{s:'live',min:Math.max(1,Math.ceil(e)),lbl:Math.max(1,Math.ceil(e))+"'",dmin:Math.ceil(e)};
+ if(e<=60)return{s:'live',min:45,lbl:"ENT",dmin:45,ht:1};
+ if(e<=105){const m=Math.min(90,45+Math.ceil(e-60));return{s:'live',min:m,lbl:m+"'",dmin:m};}
+ return{s:'post',lbl:"FINAL",dmin:90};}
+function notify(title,body){try{if(window.Notification&&Notification.permission==="granted")new Notification(title,{body});}catch(e){}}
+function tick(){const diff=KICKOFF-new Date();const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+ if(diff>0){set("cdD",Math.floor(diff/864e5));set("cdH",Math.floor(diff%864e5/36e5));set("cdM",Math.floor(diff%36e5/6e4));}else{set("cdD","0");set("cdH","0");set("cdM","0");}
+ LIVEMATCHES.forEach(x=>{const secs=(x.kick.getTime()-Date.now())/1000;
+  if(secs>0&&secs<=600&&!firedSoon.has(x.key)){firedSoon.add(x.key);const mins=Math.round(secs/60);toast("⏱ "+x.a+" vs "+x.b+" en ~"+mins+" min");if(ALERTS){notify("⏱ "+x.a+" vs "+x.b,"Empieza en ~"+mins+" min ("+fmtLocal(x.kick)+")");beep();buzz();}}
+  if(secs<=0&&secs>-40&&!firedStart.has(x.key)){firedStart.add(x.key);toast("🟢 ¡Arrancó "+x.a+" vs "+x.b+"!");if(ALERTS){notify("🟢 ¡Arrancó!",x.a+" vs "+x.b);beep();buzz();}}});
+ renderNext();}
+setInterval(tick,1000);
+
+function renderNext(){const el=document.getElementById("nextWrap");if(!el)return;
+ const now=Date.now();let live=LIVEMATCHES.filter(x=>{const e=(now-x.kick.getTime())/60000;return e>=0&&e<=105;});
+ let up=LIVEMATCHES.filter(x=>x.kick.getTime()>now).sort((a,b)=>a.kick-b.kick);
+ let x,state;
+ if(live.length){x=live[0];state=liveState(x.kick);}else if(up.length){x=up[0];state={s:'pre',secs:Math.round((x.kick-now)/1000)};}else{el.innerHTML="";return;}
+ let inner;
+ if(state.s==='pre'){const s=state.secs;const d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60),ss=s%60;
+  inner=`<div class="top">${IC.cal} Próximo partido</div>
+   <div class="mt"><span class="flag">${TEAMS[x.a].flag}</span>${x.a} <span style="color:var(--dim)">vs</span> ${x.b}<span class="flag">${TEAMS[x.b].flag}</span></div>
+   <div class="cdbig">${d>0?d+"d ":""}${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(ss).padStart(2,"0")}</div>
+   <div style="font-size:11.5px;color:var(--mut);margin-top:3px">${x.v} · Tu hora: ${fmtLocal(x.kick)}</div>
+   <div class="acts"><button class="btn ghost" onclick="openStreams('${x.a}','${x.b}')">${IC.tv} Dónde ver</button><button class="btn ghost" id="nextNotif">🔔 Avisarme</button></div>`;
+ }else{const fed=getFeed(x.a,x.b,x.key);let ga=0,gb=0;fed.events.forEach(ev=>{if(ev.min<=state.dmin&&ev.type==='goal'){ev.team==='a'?ga++:gb++;}});
+  inner=`<div class="top"><span class="lvpill"><span class="d"></span>EN VIVO ${state.lbl}</span></div>
+   <div class="mt"><span class="flag">${TEAMS[x.a].flag}</span>${x.a} <b style="color:var(--lime);font-family:'Orbitron'">${ga} - ${gb}</b> ${x.b}<span class="flag">${TEAMS[x.b].flag}</span></div>
+   <div style="font-size:11.5px;color:var(--mut);margin-top:5px">${x.v}</div>
+   <div class="acts"><button class="btn" onclick="openLive('${x.a}','${x.b}')">${IC.live} Minuto a minuto</button><button class="btn ghost" onclick="openStreams('${x.a}','${x.b}')">${IC.tv} Ver</button></div>`;}
+ el.innerHTML=`<div class="nextm">${inner}</div>`;
+ const nb=document.getElementById("nextNotif");if(nb)nb.onclick=enableNotifs;}
+
+async function enableAlerts(){
+ ALERTS=true;
+ let os=false;
+ try{let topLevel=true;try{topLevel=(window.top===window.self);}catch(e){topLevel=false;}
+  if(window.Notification&&topLevel){if(Notification.permission==="granted")os=true;else if(Notification.permission==="default"){const p=Notification.requestPermission();const res=(p&&p.then)?await p:p;os=(res==="granted");}}}catch(e){}
+ try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();if(actx.state==="suspended")actx.resume();}catch(e){}
+ buzz();
+ document.querySelectorAll("#notifBtn,#nextNotif").forEach(b=>{b.textContent="🔔 Avisos activados";});
+ toast(os?"Avisos activados 🔔 (también con la app cerrada)":"Avisos activados en la app 🔔 (sonido + vibración)");
+}
+const enableNotifs=enableAlerts;
+
+/* ===== TABS ===== */
+const TABS=[["inicio","Inicio","spark"],["partidos","Partidos","cal"],["quiniela","Jugar","trophy"],["simulador","Análisis","chart"],["perfil","Perfil","person"]];
+const tabbar=document.getElementById("tabbar");
+TABS.forEach(([id,lbl,icon],i)=>{const b=document.createElement("button");if(i===0)b.classList.add("on");b.innerHTML=`${IC[icon]}<span>${lbl}</span>`;
+ b.onclick=()=>{document.querySelectorAll(".tabbar button").forEach(x=>x.classList.remove("on"));b.classList.add("on");document.querySelectorAll(".view").forEach(v=>v.classList.remove("on"));document.getElementById("v-"+id).classList.add("on");window.scrollTo({top:0,behavior:"smooth"});};
+ tabbar.appendChild(b);});
+function goTab(id){const i=TABS.findIndex(t=>t[0]===id);if(i>=0)document.querySelectorAll(".tabbar button")[i].click();}
+window.goTab=goTab;
+function wireSeg(segId,prefix){const seg=document.getElementById(segId);seg.querySelectorAll("button").forEach(b=>{b.onclick=()=>{seg.querySelectorAll("button").forEach(x=>x.classList.remove("on"));b.classList.add("on");seg.parentElement.querySelectorAll(".subview").forEach(v=>v.classList.remove("on"));document.getElementById(prefix+b.dataset.s).classList.add("on");};});}
+wireSeg("segPart","sv-");wireSeg("segQ","sv-");
+
+/* ===== SHEET ===== */
+const sheet=document.getElementById("sheet"),sheetbg=document.getElementById("sheetbg"),sheetC=document.getElementById("sheetContent");
+let liveTimer=null;
+function openSheet(html){sheetC.innerHTML=html;sheetbg.classList.add("on");sheet.classList.add("on");}
+function closeSheet(){sheetbg.classList.remove("on");sheet.classList.remove("on");if(liveTimer){clearInterval(liveTimer);liveTimer=null;}}
+document.getElementById("sheetClose").onclick=closeSheet;sheetbg.onclick=closeSheet;
+
+/* ===== AUTH ===== */
+let USER=null;
+function avatar(n){return(n||"?").slice(0,2).toUpperCase();}
+function normId(s){return(s||"").trim().toLowerCase();}
+function validId(s){return /^[a-z0-9_]{3,24}$/.test(s)||/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);}
+async function seedMaster(){const id="harkmaster@gmail.com";const base={username:id,display:"Master (Agustín)",salt:"m26x9k2",hash:"bc6b948cc1f84ce790c2aa664c3683a1757a84faf9857483b81726e231dc52c1",recovery:"MAST-2026",friends:[],created:0};
+ try{
+  if(FS){
+   let snap=null;try{snap=await withTimeout(FS.collection(FS_COL).doc(sk("user:"+id)).get(),6000);}catch(e){snap=null;}
+   if(!snap)return;            // lectura no concluyente: NO tocar (no borrar amigos)
+   if(snap.exists){try{const rec=JSON.parse(snap.data().v);await DB.set("user:"+id,rec);}catch(e){}await indexUser(id);return;}
+   await DB.set("user:"+id,base);await indexUser(id);return;  // confirmado ausente: recién crear
+  }
+  const lh=await DB.get("user:"+id);if(!lh)await DB.set("user:"+id,base);await indexUser(id);
+ }catch(e){}}
+async function loadSession(){const u=local.get("session");if(!u)return null;const rec=await DB.get("user:"+u);if(rec)USER={username:rec.username,display:rec.display,friends:rec.friends||[]};return USER;}
+async function doSignup(id,display,pw){id=normId(id);if(!validId(id))return{err:"Usuario inválido (usá correo o 3-24 letras/números)"};if(pw.length<4)return{err:"Contraseña muy corta"};if(await DB.get("user:"+id))return{err:"Ese usuario ya existe"};
+ const salt=rndHex(8),hash=await hashPw(salt,pw),recovery=rndCode();const rec={username:id,display:(display||"").trim()||id.split("@")[0],salt,hash,recovery,friends:[],created:Date.now()};
+ await DB.set("user:"+id,rec);indexUser(id);local.set("session",id);USER={username:id,display:rec.display,friends:[]};return{ok:1,recovery};}
+async function doLogin(id,pw){id=normId(id);const recs=[];const r=await DB.get("user:"+id);if(r)recs.push(r);
+ try{const lv=localStorage.getItem("m26:"+sk("user:"+id));if(lv){const lr=JSON.parse(lv);if(!r||lr.hash!==r.hash||lr.salt!==r.salt)recs.push(lr);}}catch(e){}
+ if(!recs.length)return{err:"Usuario no encontrado"};
+ for(const rec of recs){const h=await hashPw(rec.salt,pw);if(h===rec.hash){local.set("session",id);indexUser(id);USER={username:id,display:rec.display,friends:rec.friends||[]};DB.set("user:"+id,rec);return{ok:1};}}
+ return{err:"Contraseña incorrecta"};}
+async function doRecover(id,code,np){id=normId(id);const rec=await DB.get("user:"+id);if(!rec)return{err:"Usuario no encontrado"};if((code||"").trim().toUpperCase()!==rec.recovery)return{err:"Código incorrecto"};if(np.length<4)return{err:"Contraseña muy corta"};rec.salt=rndHex(8);rec.hash=await hashPw(rec.salt,np);await DB.set("user:"+id,rec);return{ok:1};}
+function logout(){local.del("session");USER=null;renderAuth();renderProfileGates();toast("Sesión cerrada");}
+window.logout=logout;
+
+let authMode="login";
+function setAuth(m){authMode=m;renderAuth();}window.setAuth=setAuth;
+function renderAuth(){const a=document.getElementById("authArea"),p=document.getElementById("profileArea");
+ if(USER){a.style.display="none";a.innerHTML=`<div class="card" style="display:flex;align-items:center;gap:14px;margin-bottom:6px">
+   <div style="width:52px;height:52px;border-radius:50%;background:var(--holo);display:grid;place-items:center;font-weight:800;color:#04060d;font-size:20px">${avatar(USER.display)}</div>
+   <div><div style="font-weight:800;font-size:17px">${USER.display}</div><div style="font-size:12px;color:var(--mut)">${(USER.friends||[]).length} amigos</div></div>
+   <button class="btn ghost" style="margin-left:auto" onclick="logout()">Salir</button></div>`;
+  p.style.display="block";renderFavs();return;}
+ p.style.display="none";a.style.display="block";
+ if(authMode==="login"){a.innerHTML=`<div class="card authcard"><h3>Iniciar sesión</h3>
+   <input id="liU" placeholder="Usuario o correo" style="margin-top:12px"><input id="liP" type="password" placeholder="Contraseña">
+   <button class="btn block" id="liGo">Entrar</button>
+   <div style="display:flex;justify-content:space-between;margin-top:12px"><button class="linkbtn" onclick="setAuth('signup')">Crear cuenta</button><button class="linkbtn" onclick="setAuth('recover')">Olvidé mi contraseña</button></div>
+   <div class="disc">Sin servidor de correo, la recuperación es por <b>código</b> que se te da al registrarte. Contraseñas guardadas cifradas (SHA-256+salt); aun así no reutilices una importante.</div></div>`;
+  const _liGo=async()=>{if(window._authBusy||USER)return;window._authBusy=true;try{const u=document.getElementById("liU").value,p=document.getElementById("liP").value;const r=await doLogin(u,p);if(r&&r.err)return toast(r.err);toast("¡Hola "+(USER?USER.display:"")+"!");renderAuth();renderProfileGates();}catch(e){toast("No se pudo entrar, reintentá");}finally{window._authBusy=false;}};
+  document.getElementById("liGo").onclick=_liGo;
+  ["liU","liP"].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener("keydown",ev=>{if(ev.key==="Enter"){ev.preventDefault();_liGo();}});});
+ }else if(authMode==="signup"){a.innerHTML=`<div class="card authcard"><h3>Crear cuenta</h3>
+   <input id="suU" placeholder="Usuario o correo" style="margin-top:12px"><input id="suD" placeholder="Nombre visible"><input id="suP" type="password" placeholder="Contraseña">
+   <button class="btn block lime" id="suGo">Registrarme</button>
+   <div style="margin-top:12px"><button class="linkbtn" onclick="setAuth('login')">Ya tengo cuenta</button></div></div>`;
+  const _suGo=async()=>{try{const r=await doSignup(document.getElementById("suU").value,document.getElementById("suD").value,document.getElementById("suP").value);if(r&&r.err)return toast(r.err);
+   document.querySelector(".authcard").insertAdjacentHTML("beforeend",`<div class="recovery">🔑 <b>Tu código de recuperación</b><div class="code">${r.recovery}</div><div style="font-size:11.5px;color:var(--mut)">Guardalo. Es la ÚNICA forma de recuperar tu cuenta.</div><button class="btn block" style="margin-top:10px" onclick="navigator.clipboard&&navigator.clipboard.writeText('${r.recovery}');toast('Código copiado')">Copiar y continuar</button></div>`);
+   setTimeout(()=>{renderAuth();renderProfileGates();},1200);toast("¡Cuenta creada!");setDirty(true);}catch(e){toast("No se pudo registrar, reintentá");}};
+  document.getElementById("suGo").onclick=_suGo;
+  ["suU","suD","suP"].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener("keydown",ev=>{if(ev.key==="Enter"){ev.preventDefault();_suGo();}});});
+ }else{a.innerHTML=`<div class="card authcard"><h3>Recuperar contraseña</h3>
+   <input id="rcU" placeholder="Usuario o correo" style="margin-top:12px"><input id="rcC" placeholder="Código (XXXX-XXXX)"><input id="rcP" type="password" placeholder="Nueva contraseña">
+   <button class="btn block" id="rcGo">Restablecer</button><div style="margin-top:12px"><button class="linkbtn" onclick="setAuth('login')">Volver</button></div></div>`;
+  const _rcGo=async()=>{try{const r=await doRecover(document.getElementById("rcU").value,document.getElementById("rcC").value,document.getElementById("rcP").value);if(r&&r.err)return toast(r.err);toast("Contraseña actualizada");setAuth("login");}catch(e){toast("No se pudo, reintentá");}};
+  document.getElementById("rcGo").onclick=_rcGo;
+  ["rcU","rcC","rcP"].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener("keydown",ev=>{if(ev.key==="Enter"){ev.preventDefault();_rcGo();}});});}}
+
+function renderProfileGates(){[["quiniGate","quiniBody"],["predsGate","predsBody"],["amigosGate","amigosBody"]].forEach(([gate,body])=>{
+ const G=document.getElementById(gate),B=document.getElementById(body);
+ if(USER){G.innerHTML="";B.style.display="block";}else{B.style.display="none";G.innerHTML=`<div class="card" style="text-align:center;padding:26px"><div style="font-size:30px;margin-bottom:8px">🔒</div><div style="font-weight:800;font-size:16px">Iniciá sesión para jugar</div><div style="color:var(--mut);font-size:13px;margin:8px 0 14px">Guardá tu quiniela, hacé predicciones y competí con amigos.</div><button class="btn" onclick="goTab('perfil')">Ir a Perfil</button></div>`;}});
+ if(USER){loadQuini().then(renderQuiniela);loadPreds().then(renderPreds);renderAmigos();getFavs().then(f=>{FAVS=f||[];renderFavs();renderCalendar();renderOpener();});}}
+
+/* ===== FAVORITES ===== */
+let FAVS=[];
+async function getFavs(){if(!USER)return JSON.parse(local.get("favs")||"[]");return await DB.get("favs:"+USER.username)||[];}
+async function setFavsStore(f){if(!USER){local.set("favs",JSON.stringify(f));return;}await DB.set("favs:"+USER.username,f);}
+async function toggleFav(name){if(FAVS.includes(name))FAVS=FAVS.filter(x=>x!==name);else{if(FAVS.length>=5){toast("Máximo 5 favoritos");return;}FAVS.push(name);}renderFavs();renderCalendar();renderOpener();setFavsStore(FAVS);}
+function renderFavs(){const pick=document.getElementById("favPick");if(!pick)return;const fc=document.getElementById("favCount");if(fc)fc.textContent=FAVS.length;
+ pick.innerHTML="";TEAMLIST.slice().sort((a,b)=>a.name.localeCompare(b.name)).forEach(t=>{const b=document.createElement("button");b.className="favbtn"+(FAVS.includes(t.name)?" sel":"");b.innerHTML=`<span class="flag">${t.flag}</span>${t.name}<span class="ck">${FAVS.includes(t.name)?"✓":"+"}</span>`;b.onclick=()=>toggleFav(t.name);pick.appendChild(b);});}
+
+/* ===== INICIO ===== */
+function renderContenders(){const top=TEAMLIST.slice(0,10);const sc=top.map(t=>({t,v:Math.pow(eff(t),6)}));const sum=sc.reduce((a,b)=>a+b.v,0);sc.forEach(s=>s.p=s.v/sum*100);sc.sort((a,b)=>b.p-a.p);
+ document.getElementById("contenders").innerHTML=sc.map((s,i)=>`<div class="row"><div class="rk">${i+1}</div><div><div class="nm"><span class="flag">${s.t.flag}</span> ${s.t.name}</div><div class="bar"><i style="width:${(s.p/sc[0].p*100).toFixed(0)}%"></i></div></div><div class="pct">${s.p.toFixed(1)}%</div></div>`).join("");}
+function renderOpener(){let h="";CONFIRMED.forEach(day=>{h+=`<div class="daygrp"><div class="dayh"><span>📅 ${day.d}</span><span>hora CR</span></div>`;day.m.forEach(x=>h+=matchRow(x,true));h+="</div>";});document.getElementById("opener").innerHTML=h;}
+function matchRow(x,venue){const A=TEAMS[x.a],B=TEAMS[x.b];const m=matrix(A,B);const fav=FAVS.includes(x.a)||FAVS.includes(x.b);
+ const key=x.key||(x.g+"|"+[x.a,x.b].sort().join("~"));const res=RESULTS[key];
+ let live=null;const lm=LIVEMATCHES.find(z=>z.key===key);if(lm)live=liveState(lm.kick);
+ let scoreSide="";
+ if(res){const[gh,ga]=res.split("-");scoreSide=`<span class="gl">${gh}</span>`;var scoreSide2=`<span class="gl">${ga}</span>`;}
+ else{scoreSide=`<span class="pos">${(m.pW*100).toFixed(0)}%</span>`;var scoreSide2=`<span class="pos">${(m.pL*100).toFixed(0)}%</span>`;}
+ const isLive=live&&live.s==='live';
+ const timeCell=isLive?`<span class="lvpill" style="font-size:8px;padding:2px 6px"><span class="d"></span>${live.lbl}</span>`:(x.t||"·")+(x.t?'<small>CR</small>':'');
+ return `<div class="match${fav?' fav':''}${isLive?' live':''}">
+  <div class="t">${timeCell}</div>
+  <div><div class="side"><span class="flag">${A.flag}</span>${x.a}${scoreSide}</div>
+   <div class="side"><span class="flag">${B.flag}</span>${x.b}${scoreSide2}</div>
+   <div class="meta">${x.op?'⭐ INAUGURACIÓN · ':''}Grupo ${x.g}${venue&&x.v?' · '+x.v:''}</div></div>
+  <div class="act">
+   <button class="pill lm" onclick="openStreams('${x.a}','${x.b}')">${IC.tv} Ver</button>
+   <button class="pill rd" onclick="openLive('${x.a}','${x.b}')">${IC.live} Min</button>
+   <button class="pill cy" onclick="openPredictor('${x.a}','${x.b}')">${IC.chart} Analizar</button>
+  </div></div>`;}
+
+/* ===== CALENDAR ===== */
+function renderCalendar(){const fg=document.getElementById("fGroup").value,ft=document.getElementById("fTeam").value,ff=document.getElementById("fFav").checked;
+ let ch="";CONFIRMED.forEach(day=>{const ms=day.m.filter(x=>(!fg||x.g===fg)&&(!ft||x.a===ft||x.b===ft)&&(!ff||FAVS.includes(x.a)||FAVS.includes(x.b)));
+  if(ms.length){ch+=`<div class="daygrp"><div class="dayh"><span>📅 ${day.d}</span><span>hora CR</span></div>`;ms.forEach(x=>ch+=matchRow(x,true));ch+="</div>";}});
+ document.getElementById("calConfirmed").innerHTML=ch?'<div class="kick" style="margin-top:4px">Confirmados</div>'+ch:"";
+ let h="";for(let m=0;m<3;m++){const ms=ALLMATCHES.filter(x=>x.md===m&&!x.confirmed&&(!fg||x.g===fg)&&(!ft||x.a===ft||x.b===ft)&&(!ff||FAVS.includes(x.a)||FAVS.includes(x.b)));
+  if(!ms.length)continue;h+=`<div class="daygrp"><div class="dayh"><span>Jornada ${m+1}</span><span>${MD_WIN[m]}</span></div>`;ms.sort((a,b)=>a.g.localeCompare(b.g));ms.forEach(x=>h+=matchRow({a:x.a,b:x.b,g:x.g,key:x.key,t:""},false));h+="</div>";}
+ document.getElementById("calMatchdays").innerHTML=h||(ch?"":'<div class="empty">Sin partidos para este filtro.</div>');}
+
+/* ===== STREAMS ===== */
+function openStreams(a,b){const fb={n:`Buscar "${a} vs ${b}"`,i:"🔎",d:"Encuentra cualquier señal en vivo",u:"https://www.google.com/search?q="+encodeURIComponent("ver "+a+" vs "+b+" en vivo gratis español"),free:1,geo:"Fallback"};
+ const list=[...STREAMS,fb];
+ openSheet(`<h3>${IC.tv} Ver gratis</h3><div style="color:var(--mut);font-size:13px;margin-bottom:14px"><span class="flag">${TEAMS[a].flag}</span> <b>${a}</b> vs <b>${b}</b> <span class="flag">${TEAMS[b].flag}</span></div>
+  ${list.map(s=>`<a class="stm" href="${s.u}" target="_blank" rel="noopener"><div class="si">${s.i}</div><div><div class="sn">${s.n} <span class="free ${s.free?'':'paid'}">${s.free?'GRATIS':'PAGO'}</span></div><div class="sd">${s.d} · ${s.geo}</div></div><div class="chev">${IC.chev}</div></a>`).join("")}
+  <p class="note">Varias opciones por si una no carga en tu región. Algunas señales son por país (probá otra o el buscador). Solo plataformas oficiales y legales.</p>`);}
+window.openStreams=openStreams;
+
+/* ===== PREDICTOR ===== */
+function openPredictor(a,b){const A=TEAMS[a],B=TEAMS[b],m=matrix(A,B);const fa=FORM[a]||0,fb=FORM[b]||0;
+ openSheet(`<h3>${IC.chart} Predicción</h3>
+  <div style="text-align:center;font-family:'Chakra Petch';font-weight:700;font-size:19px;margin:6px 0"><span class="flag">${A.flag}</span> ${A.name} <span style="color:var(--dim);font-size:13px">vs</span> ${B.name} <span class="flag">${B.flag}</span></div>
+  ${(fa||fb)?`<div style="text-align:center;font-size:11px;color:var(--mut);margin-bottom:4px">Ajustado por forma: ${a} ${fa>=0?'+':''}${fa.toFixed(1)} · ${b} ${fb>=0?'+':''}${fb.toFixed(1)}</div>`:''}
+  <div class="wdl">
+   <div class="w home"><div class="fill" style="background:var(--cyan);height:${(m.pW*100).toFixed(0)}%"></div><div class="lab">Gana ${A.name.split(" ")[0]}</div><div class="big">${(m.pW*100).toFixed(0)}%</div><div class="od">cuota ${fairOdds(m.pW).toFixed(2)}</div></div>
+   <div class="w draw"><div class="fill" style="background:var(--gold);height:${(m.pD*100).toFixed(0)}%"></div><div class="lab">Empate</div><div class="big">${(m.pD*100).toFixed(0)}%</div><div class="od">cuota ${fairOdds(m.pD).toFixed(2)}</div></div>
+   <div class="w away"><div class="fill" style="background:var(--mag);height:${(m.pL*100).toFixed(0)}%"></div><div class="lab">Gana ${B.name.split(" ")[0]}</div><div class="big">${(m.pL*100).toFixed(0)}%</div><div class="od">cuota ${fairOdds(m.pL).toFixed(2)}</div></div></div>
+  <div class="metr"><div class="m"><div class="mv">${m.la.toFixed(2)} – ${m.lb.toFixed(2)}</div><div class="ml">Goles esperados (xG)</div></div><div class="m"><div class="mv">${(m.pOv*100).toFixed(0)}%</div><div class="ml">Over 2.5</div></div><div class="m"><div class="mv">${(m.pBTTS*100).toFixed(0)}%</div><div class="ml">Ambos marcan</div></div><div class="m"><div class="mv">${m.best.s}</div><div class="ml">Marcador probable</div></div></div>
+  <div style="margin-top:12px"><span class="lbl">Marcadores más probables</span><div class="scores">${m.sc.map(s=>`<div class="sc"><b>${s.s}</b> <span>${(s.p*100).toFixed(1)}%</span></div>`).join("")}</div></div>
+  <div class="valbox"><h4>Detector de valor</h4><div style="font-size:12px;color:var(--mut)">Ingresá la cuota de tu casa. Si supera la justa, hay valor.</div>
+   <div class="vin"><div><span class="lbl">Cuota 1</span><input type="number" step="0.01" id="vH" placeholder="${fairOdds(m.pW).toFixed(2)}"></div><div><span class="lbl">Cuota X</span><input type="number" step="0.01" id="vD" placeholder="${fairOdds(m.pD).toFixed(2)}"></div><div><span class="lbl">Cuota 2</span><input type="number" step="0.01" id="vA" placeholder="${fairOdds(m.pL).toFixed(2)}"></div></div>
+   <div class="vres" id="vRes">Cuota justa · 1: ${fairOdds(m.pW).toFixed(2)}  X: ${fairOdds(m.pD).toFixed(2)}  2: ${fairOdds(m.pL).toFixed(2)}</div></div>
+  <div class="disc">⚠️ Estimaciones de un modelo con fines analíticos y de entretenimiento. No garantizan resultados. Apostá con responsabilidad y solo si es legal donde estás.</div>`);
+ ["vH","vD","vA"].forEach(id=>{const e=document.getElementById(id);if(e)e.addEventListener("input",()=>{const f=[["1",vH.value,m.pW],["X",vD.value,m.pD],["2",vA.value,m.pL]];let out=[];f.forEach(([l,v,p])=>{if(v&&+v>0){const ev=(+v*p-1)*100;out.push(`<span class="${ev>0?'pos':'neg'}">${l}: ${ev>0?'+':''}${ev.toFixed(1)}% EV ${ev>0?'✓ VALOR':''}</span>`);}});document.getElementById("vRes").innerHTML=out.length?out.join("  ·  "):`Cuota justa · 1: ${fairOdds(m.pW).toFixed(2)}  X: ${fairOdds(m.pD).toFixed(2)}  2: ${fairOdds(m.pL).toFixed(2)}`;});});}
+window.openPredictor=openPredictor;
+
+/* ===== MINUTO A MINUTO (simulado, determinista) ===== */
+function hashStr(s){let h=1779033703^s.length;for(let i=0;i<s.length;i++){h=Math.imul(h^s.charCodeAt(i),3432918353);h=h<<13|h>>>19;}return h>>>0;}
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+const FEEDCACHE={};
+function getFeed(a,b,key,fga,fgb){const forced=(fga!=null&&fgb!=null);const ck=key+(forced?(":"+fga+"-"+fgb):"");if(FEEDCACHE[ck])return FEEDCACHE[ck];const rng=mulberry32(hashStr(ck));const A=TEAMS[a],B=TEAMS[b];const[la,lb]=lambdas(A,B);
+ const ga=forced?fga:Math.min(5,sampPois(la,rng)),gb=forced?fgb:Math.min(5,sampPois(lb,rng));const ev=[];
+ const mins=new Set();function rmin(){let m;do{m=2+Math.floor(rng()*88);}while(mins.has(m));mins.add(m);return m;}
+ for(let i=0;i<ga;i++){const m=rmin();ev.push({min:m,type:'goal',team:'a',tx:`⚽ <b>¡GOL de ${a}!</b> ${rng()<.55?STARS[a]:'remate dentro del área'}.`});}
+ for(let i=0;i<gb;i++){const m=rmin();ev.push({min:m,type:'goal',team:'b',tx:`⚽ <b>¡GOL de ${b}!</b> ${rng()<.55?STARS[b]:'definición cruzada'}.`});}
+ const chances=2+Math.floor(rng()*4);for(let i=0;i<chances;i++){const m=rmin();const tm=rng()<la/(la+lb)?a:b;ev.push({min:m,type:'chance',tx:`Ocasión clara de ${tm}, el arquero responde.`});}
+ const cards=Math.floor(rng()*3);for(let i=0;i<cards;i++){const m=rmin();const tm=rng()<.5?a:b;ev.push({min:m,type:'yellow',tx:`🟨 Amarilla para ${tm}.`});}
+ ev.push({min:0,type:'ki',tx:'🟢 Rueda el balón.'});ev.push({min:45,type:'ht',tx:'⏸ Entretiempo.'});ev.push({min:90,type:'ft',tx:'🏁 Final del partido.'});
+ ev.sort((x,y)=>x.min-y.min||(x.type==='ki'?-1:1));const feed={ga,gb,events:ev};FEEDCACHE[key]=feed;return feed;}
+function openLive(a,b){const key=a&&b?(()=>{const am=ALLMATCHES.find(x=>(x.a===a&&x.b===b)||(x.a===b&&x.b===a));return am?am.key:(GROUPS, a+"~"+b);})():"";
+ const lm=LIVEMATCHES.find(x=>x.key===key);renderLive(a,b,key,lm);
+ if(liveTimer)clearInterval(liveTimer);if(lm){liveTimer=setInterval(()=>renderLive(a,b,key,lm),5000);}}
+window.openLive=openLive;
+function renderLive(a,b,key,lm){const off=RESULTS[key];let rga=null,rgb=null;if(off){const p=String(off).split("-").map(s=>parseInt(s,10));if(p.length===2&&!isNaN(p[0])&&!isNaN(p[1])){rga=p[0];rgb=p[1];}}const hasOfficial=(rga!=null);const feed=getFeed(a,b,key,rga,rgb);let st=lm?liveState(lm.kick):{s:'preview',dmin:90};
+ let dmin=st.s==='pre'?-1:(st.dmin!==undefined?st.dmin:90);if(st.s==='preview')dmin=90;
+ const liveNoData=(!hasOfficial&&st.s==='live');let ga=0,gb=0,scoreTxt;if(hasOfficial){ga=rga;gb=rgb;scoreTxt=ga+" - "+gb;}else if(liveNoData){scoreTxt="–&nbsp;&nbsp;–";}else{feed.events.forEach(e=>{if(e.type==='goal'&&e.min<=dmin){e.team==='a'?ga++:gb++;}});scoreTxt=ga+" - "+gb;}
+ let status;if(hasOfficial)status=`<span class="lvpill" style="background:var(--green);color:#04060d">FINAL · OFICIAL</span>`;else if(st.s==='pre'){const s=st.secs,h=Math.floor(s/3600),m=Math.floor(s%3600/60);status=`<span class="lvpill" style="background:var(--cyan);color:#04060d">EMPIEZA EN ${h>0?h+'h ':''}${m}m</span>`;}
+ else if(st.s==='post')status=`<span class="lvpill" style="background:var(--dim)">FINAL</span>`;
+ else if(st.s==='live')status=`<span class="lvpill"><span class="d"></span>EN VIVO ${st.lbl}</span>`;
+ else status=`<span class="lvpill" style="background:var(--violet)">SIMULACIÓN</span>`;
+ const evMax=hasOfficial?90:dmin;const shown=dmin<0?[]:feed.events.filter(e=>e.min<=evMax);shown.reverse();
+ const realLink=lm?`<a class="btn ghost block" style="margin-top:6px" href="https://www.fifa.com/es/tournaments/mens/worldcup/canadamexicousa2026" target="_blank" rel="noopener">Ver el oficial en FIFA.com</a>`:"";
+ openSheet(`<h3>${IC.live} Minuto a minuto</h3>
+  <div class="livestatus" style="margin-bottom:6px">${status}${lm?` · ${fmtLocal(lm.kick)}`:''}</div>
+  <div class="livehead"><div class="sd"><div class="fl">${TEAMS[a].flag}</div><div class="nn">${a}</div></div>
+   <div class="sco">${scoreTxt}</div><div class="sd"><div class="fl">${TEAMS[b].flag}</div><div class="nn">${b}</div></div></div>
+  ${liveNoData?'<div class="empty">El marcador en vivo real no está disponible acá (la app no tiene un feed oficial). Miralo en FIFA.com o tu transmisión; cuando el partido tenga su marcador cargado en «Resultados», se mostrará el oficial.</div>':(dmin<0?'<div class="empty">El relato arranca cuando empiece el partido.</div>':`<div class="tl">${shown.map(e=>`<div class="tlrow ${e.type}"><span class="mn">${e.type==='ki'?"0'":e.type==='ht'?"45'":e.type==='ft'?"90'":e.min+"'"}</span><span class="tx">${e.tx}</span></div>`).join("")}</div>`)}
+  ${realLink}
+  <div class="disc">${hasOfficial?'🟢 Marcador <b>oficial</b> (comunitario). La narración es una recreación del modelo, no el minuto a minuto real.':'🤖 <b>Simulación</b> del modelo, no es el dato en vivo oficial. Para el marcador y el relato reales, abrí FIFA.com o tu transmisión.'}</div>`);}
+
+/* ===== GROUPS (tabla en vivo) ===== */
+function groupX(g){const ts=GROUPS[g].map(t=>TEAMS[t[0]]);const st=ts.map(t=>({t,pj:0,pts:0,gd:0,gf:0,xp:0}));const idx={};ts.forEach((t,i)=>idx[t.name]=i);
+ for(let i=0;i<4;i++)for(let j=0;j<4;j++){if(i===j)continue;const m=matrix(ts[i],ts[j]);st[i].xp+=m.pW*3+m.pD;}st.forEach(s=>s.xp/=2);
+ ALLMATCHES.filter(x=>x.g===g).forEach(x=>{const r=RESULTS[x.key];if(!r)return;const[h,a]=r.split("-").map(Number);const ia=idx[x.a],ib=idx[x.b];st[ia].pj++;st[ib].pj++;st[ia].gf+=h;st[ib].gf+=a;st[ia].gd+=h-a;st[ib].gd+=a-h;if(h>a)st[ia].pts+=3;else if(a>h)st[ib].pts+=3;else{st[ia].pts++;st[ib].pts++;}});
+ st.sort((x,y)=>y.pts-x.pts||y.gd-x.gd||y.gf-x.gf||y.xp-x.xp);return st;}
+function renderGroups(){let h="";for(const g in GROUPS){const rows=groupX(g);const played=rows.reduce((a,b)=>a+b.pj,0)>0;
+ h+=`<div class="card gcard"><div class="gh"><div class="gn">Grupo ${g}</div><div class="tag">${played?'EN JUEGO':'xPts'}</div></div>`;
+ rows.forEach((r,i)=>{const cls=i===0?"q1":i===1?"q2":"";const dot=i===0?'<span class="qd" style="background:var(--cyan)"></span>':i===1?'<span class="qd" style="background:var(--lime)"></span>':i===2?'<span class="qd" style="background:var(--gold);opacity:.6"></span>':"";
+  h+=`<div class="trow ${cls}"><div class="rank">${i+1}</div><div class="tn"><span class="flag">${r.t.flag}</span>${r.t.name} ${dot}</div><div class="pi">${r.pts}</div><div class="pp">${r.xp.toFixed(1)}</div></div>`;});
+ h+=`<div style="padding:7px 15px;font-size:9px;color:var(--dim);font-family:'Space Mono';display:flex;justify-content:space-between"><span>EQUIPO</span><span>PTS · xPTS</span></div></div>`;}
+ document.getElementById("groups").innerHTML=h;}
+
+/* ===== PLAYERS ===== */
+function renderPlayers(){const fg=document.getElementById("plGroup").value;const maxP=Math.max(...TEAMLIST.map(t=>t.power));
+ document.getElementById("players").innerHTML=TEAMLIST.slice().sort((a,b)=>b.power-a.power).filter(t=>!fg||t.group===fg).map(t=>{const imp=Math.round(60+t.power/maxP*40);return `<div class="card pcard"><span class="tag tg">G${t.group}</span><div class="pf">${t.flag}</div><div class="pn">${STARS[t.name]||"—"}</div><div class="pt">${t.name}</div><div style="font-size:9.5px;color:var(--dim);font-family:'Space Mono';margin-top:4px">Impacto ${imp}</div><div class="imp"><i style="width:${imp}%"></i></div></div>`;}).join("");}
+
+/* ===== SIMULATOR ===== */
+function simulateOnce(){const adv={};const qual=[],thirds=[];
+ for(const g in GROUPS){const ts=GROUPS[g].map(t=>TEAMS[t[0]]);const tab=ts.map(t=>({t,pts:0,gd:0,gf:0}));
+  for(let i=0;i<4;i++)for(let j=i+1;j<4;j++){const[x,y]=simMatch(ts[i],ts[j]);tab[i].gf+=x;tab[j].gf+=y;tab[i].gd+=x-y;tab[j].gd+=y-x;if(x>y)tab[i].pts+=3;else if(y>x)tab[j].pts+=3;else{tab[i].pts++;tab[j].pts++;}}
+  tab.sort((a,b)=>b.pts-a.pts||b.gd-a.gd||b.gf-a.gf||Math.random()-.5);qual.push(tab[0].t,tab[1].t);thirds.push({t:tab[2].t,pts:tab[2].pts,gd:tab[2].gd,gf:tab[2].gf});}
+ thirds.sort((a,b)=>b.pts-a.pts||b.gd-a.gd||b.gf-a.gf||Math.random()-.5);for(let i=0;i<8;i++)qual.push(thirds[i].t);
+ for(const g in GROUPS)GROUPS[g].forEach(t=>adv[t[0]]="grupos");qual.forEach(t=>adv[t.name]="r32");
+ let teams=qual.slice().sort((a,b)=>eff(b)-eff(a));const R=["r16","cuartos","semis","final","campeón"];let rd=0;
+ while(teams.length>1){const nx=[];for(let i=0;i<teams.length;i+=2)nx.push(simKO(teams[i],teams[i+1]));teams=nx;rd++;teams.forEach(t=>adv[t.name]=R[rd-1]||"campeón");}return adv;}
+function runSim(){const N=+document.getElementById("simN").value;const bar=document.getElementById("simBar");bar.style.display="block";const stat=document.getElementById("simStat"),btn=document.getElementById("simRun");btn.disabled=true;btn.textContent="Simulando…";
+ const tally={};TEAMLIST.forEach(t=>tally[t.name]={r32:0,cuartos:0,semis:0,final:0,champ:0});const ord=["r32","r16","cuartos","semis","final","campeón"];let done=0;
+ (function chunk(){const end=Math.min(done+500,N);for(;done<end;done++){const adv=simulateOnce();for(const nm in adv){const idx=ord.indexOf(adv[nm]);if(idx>=0){tally[nm].r32++;if(idx>=2)tally[nm].cuartos++;if(idx>=3)tally[nm].semis++;if(idx>=4)tally[nm].final++;if(idx>=5)tally[nm].champ++;}}}
+  bar.querySelector("i").style.width=(done/N*100)+"%";stat.textContent=done+" / "+N;if(done<N)setTimeout(chunk,0);else{showSim(tally,N);btn.disabled=false;btn.textContent="▶ Simular de nuevo";setTimeout(()=>bar.style.display="none",600);}})();}
+function showSim(tally,N){const rows=TEAMLIST.map(t=>({t,...tally[t.name]})).sort((a,b)=>b.champ-a.champ||b.final-a.final);const maxC=Math.max(1,...rows.map(r=>r.champ));const pc=v=>v/N*100;
+ document.getElementById("simTbl").innerHTML=`<thead><tr><th>Selección</th><th>Avanza</th><th>Cuartos</th><th>Semis</th><th>Final</th><th>🏆</th></tr></thead><tbody>`+rows.map(r=>`<tr><td class="nm"><span class="flag">${r.t.flag}</span> ${r.t.name}</td><td>${pc(r.r32).toFixed(0)}%</td><td>${pc(r.cuartos).toFixed(0)}%</td><td>${pc(r.semis).toFixed(1)}%</td><td>${pc(r.final).toFixed(1)}%</td><td class="barcell"><i style="width:${(r.champ/maxC*100).toFixed(0)}%"></i><span class="ch">${pc(r.champ).toFixed(1)}%</span></td></tr>`).join("")+"</tbody>";}
+document.getElementById("simRun").onclick=runSim;
+
+/* ===== QUINIELA ===== */
+let QUINI={};
+async function loadQuini(){QUINI=USER?(await DB.get("quini:"+USER.username)||{}):JSON.parse(local.get("quini")||"{}");}
+async function saveQuini(){if(USER){await DB.set("quini:"+USER.username,QUINI);setDirty(true);}else local.set("quini",JSON.stringify(QUINI));}
+function renderQuiniela(){const el=document.getElementById("quiniela");if(!el)return;el.innerHTML="";
+ for(const g in GROUPS){const ts=GROUPS[g].map(t=>t[0]);const opt=sel=>ts.map(t=>`<option value="${t}" ${sel===t?"selected":""}>${TEAMS[t].flag} ${t}</option>`).join("");
+  el.insertAdjacentHTML("beforeend",`<div class="card qcard"><div class="gh">Grupo ${g}</div><div class="body"><span class="lbl">1.º lugar</span><select data-g="${g}" data-p="0"><option value="">—</option>${opt(QUINI[g]&&QUINI[g][0])}</select><span class="lbl">2.º lugar</span><select data-g="${g}" data-p="1"><option value="">—</option>${opt(QUINI[g]&&QUINI[g][1])}</select></div></div>`);}
+ el.insertAdjacentHTML("beforeend",`<div class="card qcard"><div class="gh" style="color:var(--lime)">🏆 Campeón</div><div class="body"><span class="lbl">Tu campeón</span><select id="qChamp"><option value="">—</option>${TEAMLIST.slice().sort((a,b)=>a.name.localeCompare(b.name)).map(t=>`<option value="${t.name}" ${QUINI.champ===t.name?"selected":""}>${t.flag} ${t.name}</option>`).join("")}</select></div></div>`);
+ el.querySelectorAll("select[data-g]").forEach(s=>s.onchange=()=>{const g=s.dataset.g,p=+s.dataset.p;QUINI[g]=QUINI[g]||[];QUINI[g][p]=s.value;saveQuini();renderQSum();});
+ document.getElementById("qChamp").onchange=e=>{QUINI.champ=e.target.value;saveQuini();renderQSum();};renderQSum();}
+function renderQSum(){const el=document.getElementById("qSummary");if(!el)return;const q=[];for(const g in GROUPS){if(QUINI[g]&&QUINI[g][0])q.push(QUINI[g][0]);if(QUINI[g]&&QUINI[g][1])q.push(QUINI[g][1]);}
+ let h='<div class="kick" style="margin-top:0">Tus clasificados</div>';h+=q.length?q.map(t=>`<span class="qchip"><span class="flag">${TEAMS[t].flag}</span>${t}</span>`).join(""):'<div style="color:var(--mut);font-size:13px">Empezá a elegir o usá «Rellenar con el modelo».</div>';
+ if(QUINI.champ)h+=`<div style="margin-top:12px"><span class="qchip win">🏆 <span class="flag">${TEAMS[QUINI.champ].flag}</span>${QUINI.champ}</span></div>`;el.innerHTML=h;}
+document.getElementById("qAuto").onclick=()=>{for(const g in GROUPS){const r=groupX(g);QUINI[g]=[r[0].t.name,r[1].t.name];}QUINI.champ=TEAMLIST[0].name;saveQuini();renderQuiniela();toast("Rellenado con el modelo");};
+document.getElementById("qClear").onclick=()=>{QUINI={};saveQuini();renderQuiniela();toast("Quiniela limpia");};
+document.getElementById("qShare").onclick=()=>{let t="🏆 MI QUINIELA · MUNDIAL 2026\n\n";for(const g in GROUPS)if(QUINI[g]&&(QUINI[g][0]||QUINI[g][1]))t+=`Grupo ${g}: 1° ${QUINI[g][0]||"?"} / 2° ${QUINI[g][1]||"?"}\n`;if(QUINI.champ)t+=`\n👑 Campeón: ${QUINI.champ}`;try{navigator.clipboard.writeText(t);toast("Quiniela copiada");}catch(e){toast("No se pudo copiar");}};
+
+/* ===== PREDICCIONES ===== */
+let PREDS={};
+async function loadPreds(){PREDS=USER?(await DB.get("preds:"+USER.username)||{}):{};}
+async function savePreds(){if(USER){await DB.set("preds:"+USER.username,PREDS);setDirty(true);}}
+function scoreOf(pred,res){if(!pred||!res)return null;const[ph,pa]=pred.split("-").map(Number),[rh,ra]=res.split("-").map(Number);if(ph===rh&&pa===ra)return 3;const so=x=>x>0?1:x<0?-1:0;return so(ph-pa)===so(rh-ra)?1:0;}
+function predLocked(key){if(RESULTS[key])return true;const lm=LIVEMATCHES.find(z=>z.key===key);return !!(lm&&Date.now()>=lm.kick.getTime());}
+function renderPreds(){const sel=document.getElementById("prGroup");if(!sel)return;if(!sel.options.length){sel.innerHTML=Object.keys(GROUPS).map(g=>`<option value="${g}">Grupo ${g}</option>`).join("");sel.onchange=renderPreds;}
+ const g=sel.value||"A";const ms=ALLMATCHES.filter(x=>x.g===g).sort((a,b)=>a.md-b.md);
+ document.getElementById("predsList").innerHTML=ms.map(x=>{const pred=PREDS[x.key]||"";const[ph,pa]=pred?pred.split("-"):["",""];const res=RESULTS[x.key];const pts=scoreOf(pred,res);const lk=predLocked(x.key);
+  return `<div class="predm"><div><div class="tn"><span class="flag">${TEAMS[x.a].flag}</span>${x.a} <span style="color:var(--dim);font-size:11px">vs</span> ${x.b}<span class="flag">${TEAMS[x.b].flag}</span></div><div class="res">J${x.md+1}${lk?' · 🔒 cerrada':''}${res?' · oficial '+res:''}</div></div><div style="display:flex;align-items:center;gap:10px"><div class="sc-in"><input type="number" min="0" value="${ph}" data-k="${x.key}" data-s="h" placeholder="0" ${lk?'disabled':''}><span>-</span><input type="number" min="0" value="${pa}" data-k="${x.key}" data-s="a" placeholder="0" ${lk?'disabled':''}></div><div class="pts">${pts===null?'':(pts+'p')}</div></div></div>`;}).join("");
+ document.querySelectorAll("#predsList input").forEach(inp=>inp.onchange=()=>{const k=inp.dataset.k;if(predLocked(k)){toast("Partido cerrado: ya no se puede cambiar");renderPreds();return;}const hs=document.querySelector(`#predsList input[data-k="${k}"][data-s="h"]`).value;const as=document.querySelector(`#predsList input[data-k="${k}"][data-s="a"]`).value;if(hs!==""&&as!==""){PREDS[k]=(+hs)+"-"+(+as);}else delete PREDS[k];savePreds();});}
+
+/* ===== AMIGOS ===== */
+let boardMode="amigos";
+function backendMode(){return FS?"fs":(HAS_WS?"ws":"local");}
+function wtt(p,ms){return Promise.race([Promise.resolve(p),new Promise((_,rej)=>setTimeout(()=>rej(new Error("timeout")),ms))]);}
+let CLOUD={state:"checking",err:null};
+async function cloudCheck(){
+ if(!FS){CLOUD={state:"off",err:"Firebase no inicializó (config o red)"};return CLOUD;}
+ CLOUD={state:"checking",err:null};
+ try{const ref=FS.collection(FS_COL).doc("_probe");await wtt(ref.set({v:JSON.stringify({t:Date.now()})}),8000);const d=await wtt(ref.get(),8000);CLOUD={state:(d&&d.exists)?"ok":"fail",err:(d&&d.exists)?null:"sin lectura"};}
+ catch(e){CLOUD={state:"fail",err:(e&&(e.code||e.message))||"error"};}
+ return CLOUD;}
+function cloudMsg(){
+ if(CLOUD.state==="checking")return `<div class="note" style="margin-top:0">Comprobando la base de datos…</div>`;
+ if(CLOUD.state==="ok")return `<div class="note" style="margin-top:0;color:var(--green)">☁️ Conectado: tus datos se guardan en la nube y se ven en cualquier dispositivo. <button class="linkbtn" onclick="recheckCloud()">revisar</button></div>`;
+ let hint=CLOUD.state==="off"?"Firebase no cargó: revisá FIREBASE_CONFIG y tu conexión.":(/(permission|insufficient|denied|PERMISSION)/i.test(CLOUD.err||"")?"Firestore rechaza la escritura: abrí Firestore → Reglas y publicá lectura/escritura abiertas.":"No se pudo conectar a la base ("+(CLOUD.err||"error")+").");
+ return `<div class="disc" style="margin-top:0">⛔ <b>No se está guardando en la nube</b> — por eso al cambiar de navegador o borrar caché se pierde. ${hint} <button class="linkbtn" onclick="recheckCloud()">probar de nuevo</button></div>`;}
+function renderBackendNote(){const el=document.getElementById("backendNote");if(!el)return;el.innerHTML=cloudMsg();}
+async function recheckCloud(){renderBackendNote();await cloudCheck();renderBackendNote();}
+window.recheckCloud=recheckCloud;
+async function indexUser(id){if(FS){try{const w=await withTimeout(FS.collection(FS_COL).doc("users__index").set({ids:firebase.firestore.FieldValue.arrayUnion(id)},{merge:true}),6000);if(w)return;}catch(e){}}
+ const idx=await DB.get("users:index")||[];if(!idx.includes(id)){idx.push(id);await DB.set("users:index",idx);}}
+async function allUserIds(){if(FS){try{const d=await FS.collection(FS_COL).doc("users__index").get();return d.exists?[...new Set(d.data().ids||[])]:[];}catch(e){}}
+ return[...new Set(await DB.get("users:index")||[])];}
+async function scoreUser(u){const preds=await DB.get("preds:"+u)||{};let pts=0,hits=0,exact=0,made=0;for(const k in preds){made++;const s=scoreOf(preds[k],RESULTS[k]);if(s!==null){if(s>0)hits++;if(s===3)exact++;pts+=s;}}return{pts,hits,exact,made};}
+async function buildBoard(ids){const uniq=[...new Set(ids)];const board=[];for(const u of uniq){const rec=await DB.get("user:"+u);if(!rec)continue;const sc=await scoreUser(u);board.push({u,display:rec.display,pts:sc.pts,hits:sc.hits,exact:sc.exact,made:sc.made});}board.sort((a,b)=>b.pts-a.pts||b.exact-a.exact||b.made-a.made);return board;}
+async function addFriend(id){id=normId(id);if(!USER||!id)return;if(id===USER.username)return toast("Ese sos vos 😅");const rec=await DB.get("user:"+id);if(!rec)return toast("Usuario no encontrado");const me=await DB.get("user:"+USER.username);me.friends=me.friends||[];if(me.friends.includes(id))return toast("Ya es tu amigo");me.friends.push(id);await DB.set("user:"+USER.username,me);USER.friends=me.friends;const fi=document.getElementById("friendInput");if(fi)fi.value="";toast("Agregaste a "+rec.display);renderAmigos();renderAuth();}
+window.addFriend=addFriend;
+async function renderDirectory(filter){const dir=document.getElementById("directory");if(!dir||!USER)return;
+ const ids=(await allUserIds()).filter(id=>id!==USER.username);const rows=[];
+ for(const id of ids){const rec=await DB.get("user:"+id);if(!rec)continue;const sc=await scoreUser(id);rows.push({id,display:rec.display,pts:sc.pts});}
+ rows.sort((a,b)=>b.pts-a.pts||a.display.localeCompare(b.display));
+ const f=(filter||"").trim().toLowerCase();const shown=rows.filter(r=>!f||r.display.toLowerCase().includes(f)||r.id.toLowerCase().includes(f));
+ dir.innerHTML=shown.length?shown.map(r=>{const isF=(USER.friends||[]).includes(r.id);
+  return `<div class="lb"><div class="av">${avatar(r.display)}</div><div><div class="who">${r.display}</div><div class="det">${r.pts} pts</div></div><button class="pill ${isF?'lm':'cy'}" style="margin-left:auto" onclick="addFriend('${r.id.replace(/'/g,"")}')" ${isF?'disabled':''}>${isF?'Amigo ✓':'＋ Agregar'}</button></div>`;}).join(""):'<div class="empty">No hay otros usuarios todavía. Invitá a tus amigos a registrarse.</div>';}
+let _endReminded=new Set();
+function matchToRecord(){const now=Date.now();let best=null,bestRank=-1;LIVEMATCHES.forEach(x=>{if(RESULTS[x.key])return;const e=(now-x.kick.getTime())/60000;if(e<0||e>360)return;const finished=e>=110;const rank=(finished?1e6:0)+(1000-e);if(rank>bestRank){bestRank=rank;best=x.key;}});return best;}
+function matchJustEnded(){const now=Date.now();let best=null,bestE=1e9;LIVEMATCHES.forEach(x=>{if(RESULTS[x.key])return;const e=(now-x.kick.getTime())/60000;if(e>=110&&e<=360&&e<bestE){bestE=e;best=x;}});return best;}
+async function renderAmigos(){if(!USER)return;renderBackendNote();const _skf=document.getElementById("shareKey");if(_skf&&!_skf.value)_skf.value=local.get("gkey")||"";
+ const rsel=document.getElementById("resMatch");if(rsel&&!rsel.options.length)rsel.innerHTML=ALLMATCHES.map(x=>`<option value="${x.key}">${x.a} vs ${x.b} (G${x.g})</option>`).join("");
+ const _lk=matchToRecord();if(rsel&&_lk){const _rh=document.getElementById("resH"),_ra=document.getElementById("resA");if((!_rh||_rh.value==="")&&(!_ra||_ra.value===""))rsel.value=_lk;}
+ const _ended=matchJustEnded();if(_ended&&!_endReminded.has(_ended.key)){_endReminded.add(_ended.key);toast("⏰ Terminó "+_ended.a+" vs "+_ended.b+" · registrá el marcador oficial");}
+ const ids=boardMode==="global"?await allUserIds():[USER.username,...(USER.friends||[])];
+ const board=await buildBoard(ids);
+ document.getElementById("leaderboard").innerHTML=board.length?board.map((b,i)=>`<div class="lb ${b.u===USER.username?'me':''}"><div class="pos">${i+1}</div><div class="av">${avatar(b.display)}</div><div><div class="who">${b.display}${b.u===USER.username?' (vos)':''}</div><div class="det">${b.exact} exactos · ${b.hits} aciertos · ${b.made} preds</div></div><div class="sc">${b.pts}</div></div>`).join(""):'<div class="empty">Sin datos todavía. Hagan predicciones para llenar la tabla.</div>';
+ const ds=document.getElementById("dirSearch");await renderDirectory(ds?ds.value:"");}
+const _bR=document.getElementById("boardRefresh");if(_bR)_bR.onclick=renderAmigos;
+async function exportData(){const pass=(document.getElementById("shareKey").value||"").trim();if(pass.length<3)return toast("Poné una clave de grupo (3+ letras)");
+ local.set("gkey",pass);const ids=await allUserIds();const players=[];
+ for(const id of ids){const rec=await DB.get("user:"+id);const preds=await DB.get("preds:"+id)||{};players.push({id,display:rec?rec.display:id,preds});}
+ const enc=await encryptStr(pass,JSON.stringify({v:1,results:RESULTS,players}));
+ downloadText("datos.txt",enc);toast("Consolidado exportado como datos.txt 🔐 — subilo al sitio");}
+let DIRTY=false;
+function setDirty(v){DIRTY=v;const b=document.getElementById("sendBtn");if(b)b.textContent=v?"📧 Enviar al anfitrión •":"📧 Enviar al anfitrión";}
+async function sendToHost(){if(!USER)return toast("Iniciá sesión primero");const pass=(document.getElementById("shareKey").value||"").trim();if(pass.length<3)return toast("Poné la clave del grupo (3+)");
+ local.set("gkey",pass);const host=(document.getElementById("hostEmail").value||"").trim();if(host)local.set("hostmail",host);
+ const payload={v:1,players:[{id:USER.username,display:USER.display,preds:await DB.get("preds:"+USER.username)||{}}]};
+ const enc=await encryptStr(pass,JSON.stringify(payload));const fname="mi_"+USER.username.replace(/[^a-z0-9]/gi,"")+".txt";
+ downloadText(fname,enc);setDirty(false);
+ if(host){const subject=encodeURIComponent("Mundial26 · datos de "+USER.display);
+  const body=encodeURIComponent("Te paso mis datos para el datos.txt.\n\nAdjunto el archivo "+fname+" (recién se descargó en mi dispositivo). Si preferís, copiá/pegá este contenido:\n\n"+enc);
+  location.href="mailto:"+encodeURIComponent(host)+"?subject="+subject+"&body="+body;}
+ else toast("Se descargó "+fname+" — adjuntáselo al anfitrión");}
+async function mergePayload(data){if(!data||!data.players)return 0;let n=0;
+ for(const p of data.players){if(USER&&p.id===USER.username)continue;const ex=await DB.get("user:"+p.id);
+  if(!ex)await DB.set("user:"+p.id,{username:p.id,display:p.display||p.id,friends:[]});else if(!ex.display){ex.display=p.display||p.id;await DB.set("user:"+p.id,ex);}
+  if(p.preds)await DB.set("preds:"+p.id,p.preds);await indexUser(p.id);n++;}
+ if(data.results){RESULTS=Object.assign({},RESULTS,data.results);await DB.set("results:official",RESULTS);recomputeForm();}
+ return n;}
+async function importFiles(files){const pass=(document.getElementById("shareKey").value||"").trim();let total=0,bad=0;
+ for(const f of files){try{const text=(await f.text()).trim();const data=JSON.parse(text.startsWith("M26#")?await decryptStr(pass,text):text);total+=await mergePayload(data);}catch(e){bad++;}}
+ refreshAll();toast("Importados "+total+" jugadores"+(bad?(" · "+bad+" con error"):" ✓"));}
+async function syncFromHosted(manual){try{const r=await fetch(SHARED_FILE+"?t="+Date.now(),{cache:"no-store"});if(!r.ok){if(manual)toast("No encontré "+SHARED_FILE+" en el sitio");return;}
+  const text=(await r.text()).trim();if(!text||text[0]==="<"){if(manual)toast("Aún no hay datos válidos en "+SHARED_FILE);return;}
+  let data;if(text.startsWith("M26#")){const f=document.getElementById("shareKey");const pass=((f&&f.value.trim())||local.get("gkey")||"");if(!pass){if(manual)toast("Escribí la clave del grupo y volvé a sincronizar");return;}data=JSON.parse(await decryptStr(pass,text));}else data=JSON.parse(text);
+  const n=await mergePayload(data);refreshAll();if(manual)toast("Sincronizado ✓ ("+n+" jugadores)");}
+ catch(e){if(manual)toast("No se pudo sincronizar (¿clave o formato?)");}}
+document.getElementById("friendAdd").onclick=()=>addFriend(document.getElementById("friendInput").value);
+const _segBoard=document.getElementById("segBoard");if(_segBoard)_segBoard.querySelectorAll("button").forEach(b=>b.onclick=()=>{_segBoard.querySelectorAll("button").forEach(x=>x.classList.remove("on"));b.classList.add("on");boardMode=b.dataset.m;renderAmigos();});
+const _dirS=document.getElementById("dirSearch");if(_dirS)_dirS.oninput=()=>renderDirectory(_dirS.value);
+const _exp=document.getElementById("exportBtn");if(_exp)_exp.onclick=exportData;
+const _imp=document.getElementById("importBtn");if(_imp)_imp.onclick=()=>document.getElementById("importFile").click();
+const _impF=document.getElementById("importFile");if(_impF)_impF.onchange=e=>{if(e.target.files&&e.target.files.length)importFiles(e.target.files);e.target.value="";};
+const _send=document.getElementById("sendBtn");if(_send)_send.onclick=sendToHost;
+const _sync=document.getElementById("syncBtn");if(_sync)_sync.onclick=()=>syncFromHosted(true);
+const _skw=document.getElementById("shareKey");if(_skw)_skw.onchange=()=>local.set("gkey",_skw.value);
+const _hm=document.getElementById("hostEmail");if(_hm){_hm.value=local.get("hostmail")||"";_hm.onchange=()=>local.set("hostmail",_hm.value);}
+document.getElementById("resSave").onclick=async()=>{const k=document.getElementById("resMatch").value,h=document.getElementById("resH").value,a=document.getElementById("resA").value;if(h===""||a==="")return toast("Ingresá el marcador");RESULTS[k]=(+h)+"-"+(+a);await DB.set("results:official",RESULTS);recomputeForm();refreshAll();toast("Resultado guardado · todo actualizado");};
+
+/* ===== NEWS / FILTERS / TOAST ===== */
+function renderNews(){document.getElementById("newsList").innerHTML=NEWS.map(x=>`<a class="tvc card" href="${x.u}" target="_blank" rel="noopener"><div class="tt">${x.n} <span style="color:var(--cyan)">${IC.chev}</span></div><div class="td">${x.d}</div></a>`).join("");}
+function fillFilters(){const gs=document.getElementById("fGroup"),ts=document.getElementById("fTeam"),pg=document.getElementById("plGroup");Object.keys(GROUPS).forEach(g=>{gs.insertAdjacentHTML("beforeend",`<option value="${g}">Grupo ${g}</option>`);pg.insertAdjacentHTML("beforeend",`<option value="${g}">Grupo ${g}</option>`);});TEAMLIST.slice().sort((a,b)=>a.name.localeCompare(b.name)).forEach(t=>ts.insertAdjacentHTML("beforeend",`<option value="${t.name}">${t.flag} ${t.name}</option>`));gs.onchange=renderCalendar;ts.onchange=renderCalendar;document.getElementById("fFav").onchange=renderCalendar;pg.onchange=renderPlayers;}
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),2300);}
+window.toast=toast;
+function refreshAll(){FEEDCACHE&&Object.keys(FEEDCACHE).forEach(k=>delete FEEDCACHE[k]);renderContenders();renderGroups();renderCalendar();renderOpener();if(USER){renderPreds();renderAmigos();}}
+
+/* ===== NOTIF BTN ===== */
+const nb=document.getElementById("notifBtn");if(nb)nb.onclick=enableNotifs;
+
+/* ===== INIT ===== */
+function escHtml(s){return String(s||"").replace(/<[^>]+>/g,"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+async function fetchLocalJSON(name){try{const r=await fetch(name+"?t="+Date.now(),{cache:"no-store"});if(!r.ok)return null;return await r.json();}catch(e){return null;}}
+async function renderTicker(){const el=document.getElementById("newsTicker");if(!el)return;
+ const build=arr=>{const one=arr.map(x=>`<a href="${x.u||'#'}" target="_blank" rel="noopener"><span class="dot"></span>${escHtml(x.t).slice(0,95)}</a>`).join("");return one+one;};
+ el.innerHTML=build([{t:"⚽ Goleadores del Mundial 2026",u:"https://www.google.com/search?q=mundial+2026+goleadores"}].concat(NEWS.map(x=>({t:x.n,u:x.u}))));
+ const local=await fetchLocalJSON("noticias.json");
+ if(local&&local.length){el.innerHTML=build(local.map(x=>({t:x.title||x.t,u:x.link||x.u})));return;}
+ try{const rss="https://news.google.com/rss/search?q="+encodeURIComponent("Mundial 2026")+"&hl=es-419&gl=CR&ceid=CR:es";
+  const r=await fetch("https://api.rss2json.com/v1/api.json?count=18&rss_url="+encodeURIComponent(rss));const j=await r.json();
+  if(j&&j.status==="ok"&&j.items&&j.items.length){el.innerHTML=build(j.items.slice(0,18).map(it=>({t:it.title,u:it.link})));}
+ }catch(e){}}
+async function renderGoleo(){const el=document.getElementById("goleoBox");if(!el)return;const d=await fetchLocalJSON("goleadores.json");if(!d||!d.length){el.innerHTML="";return;}
+ const rows=d.slice(0,8).map((p,i)=>`<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span style="width:18px;color:var(--dim);font-weight:800">${i+1}</span><span style="flex:1;font-weight:700">${escHtml(p.player)}</span><span style="color:var(--mut);font-size:12px">${escHtml(p.team||"")}</span><span style="font-weight:800;color:var(--cyan)">${(+p.goals||0)}</span></div>`).join("");
+ el.innerHTML=`<div class="kick" style="margin:2px 0 6px">⚽ Goleadores</div>${rows}`;}
+async function renderLiveScores(){const el=document.getElementById("scoresBox");if(!el)return;const d=await fetchLocalJSON("marcadores.json");if(!d||!d.length){el.innerHTML="";return;}
+ const rows=d.slice(0,12).map(m=>{const live=(m.status==="LIVE"||m.status==="live");const st=live?`<span style="color:var(--green);font-weight:800">● ${escHtml(m.min||"EN VIVO")}</span>`:`<span style="color:var(--mut);font-size:11px">${escHtml(m.status||"")}</span>`;return `<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span style="flex:1;font-weight:700">${escHtml(m.home)} <b style="color:var(--cyan)">${m.hs}</b> - <b style="color:var(--cyan)">${m.as}</b> ${escHtml(m.away)}</span>${st}</div>`;}).join("");
+ el.innerHTML=`<div class="kick" style="margin:2px 0 6px">Marcadores</div>${rows}`;}
+(async function init(){
+ // 1) Render inmediato (no depende de datos ni de internet)
+ fillFilters();renderNews();renderPlayers();
+ renderContenders();renderGroups();renderOpener();renderCalendar();renderNext();renderAuth();
+ tick();
+ // 2) Backend + datos, con tope de tiempo y sin tumbar la UI
+ try{await initBackend();}catch(e){}
+ cloudCheck().then(()=>renderBackendNote());
+ try{await seedMaster();}catch(e){}
+ try{await loadSession();}catch(e){}
+ try{RESULTS=await DB.get("results:official")||{};}catch(e){}
+ recomputeForm();
+ try{FAVS=await getFavs();}catch(e){}
+ try{await loadQuini();await loadPreds();}catch(e){}
+ // 3) Re-render ya con los datos cargados
+ renderContenders();renderGroups();renderOpener();renderCalendar();renderNext();
+ if(USER)renderAuth();renderProfileGates();
+ renderTicker();renderGoleo();renderLiveScores();
+ if(USER){renderQuiniela();renderPreds();renderAmigos();}
+})();
+</script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>
+</body>
+</html>
